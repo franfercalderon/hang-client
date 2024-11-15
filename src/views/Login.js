@@ -42,7 +42,7 @@ export default function Login () {
                 {/* <img src="./images/logo.svg" alt="Hang"/> */}
             </div>
             <div className="section-container">
-                {/* <BtnSecondary displayText={'Log In'}/> */}
+                <BtnSecondary displayText={'Log In'}/>
                 <form>
                     <div className="phone-number-container">
                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
