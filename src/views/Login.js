@@ -27,8 +27,9 @@ export default function Login () {
         e.preventDefault()
         try {
             await confirmObject.confirm( otp )
+            console.log('ok');
         } catch (error) {
-            
+            console.log(error);
         }
 
     }
@@ -72,7 +73,7 @@ export default function Login () {
 
 
                 </form>
-                <input type="text" value={ otp } onChange={ setOtp }/>
+                <input type="text" value={ otp } onChange={ (e) => setOtp(e.target.value) }/>
 
                 <BtnPrimary displayText={'Confirm Code'} action={sendOtp} submit={ false }/>
                 
