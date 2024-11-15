@@ -18,6 +18,7 @@ export default function Login () {
     const setUpRecaptcha = ( number ) => {
         const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
         recaptchaVerifier.render()
+        return signInWithPhoneNumber( auth, number, recaptchaVerifier)
     }
 
     const sendOtp = async ( e ) => {
