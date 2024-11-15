@@ -1,7 +1,7 @@
-export default function BtnPrimary ({ action, displayText, enabled }) {
+export default function BtnPrimary ({ action, displayText, enabled, submit }) {
     return(
-        <div className='btn-primary btn' onClick={ action }>
+        <button className='btn-primary btn' onClick={ action } type={ submit ? 'submit' : ''}>
             { displayText }
-        </div>
+        </button>
     )
 }
