@@ -12,6 +12,8 @@ export default function Login () {
     const [ phoneNumber, setPhoneNumber ] = useState('')
     const [ otp, setOtp ] = useState('')
     const [ verificationId, setVerificationId ] = useState('')
+    const [ confirmObject, setConfirmObject ] = useState('')
+
 
     const auth = getAuth( app )
 
@@ -21,12 +23,22 @@ export default function Login () {
         return signInWithPhoneNumber( auth, number, recaptchaVerifier)
     }
 
+    const checkOtp = async ( e ) => {
+        e.preventDefault()
+        try {
+            await confirmObject.confirm( otp )
+        } catch (error) {
+            
+        }
+
+    }
+
     const sendOtp = async ( e ) => {
         e.preventDefault()
         if( phoneNumber !== "" && phoneNumber !== undefined ){
             try {
                 const res = await setUpRecaptcha( phoneNumber )
-                console.log(res);
+                setConfirmObject(res);
                 
             } catch (error) {
                 
@@ -58,7 +70,11 @@ export default function Login () {
                     <div id="recaptcha-container"></div>
                     <BtnPrimary displayText={'Send Code'} action={sendOtp} submit={ true }/>
 
+
                 </form>
+                <input type="text" value={ otp } onChange={ setOtp }/>
+
+                <BtnPrimary displayText={'Confirm Code'} action={sendOtp} submit={ false }/>
                 
             </div>
 
