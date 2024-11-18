@@ -73,9 +73,9 @@ export default function Login () {
 
 
                 </form>
-                <input type="text" value={ otp } onChange={ (e) => setOtp(e.target.value) }/>
+                <input type="text" value={ otp } onChange={ ( e ) => setOtp( e.target.value ) }/>
 
-                <BtnPrimary displayText={'Confirm Code'} action={sendOtp} submit={ false }/>
+                <BtnPrimary displayText={'Confirm Code'} action={ ( e ) => checkOtp( e ) } submit={ false }/>
                 
             </div>
 
