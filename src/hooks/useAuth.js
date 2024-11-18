@@ -12,6 +12,7 @@ function useAuth () {
     const auth = getAuth( app )
 
     const setUpRecaptcha = ( phoneNumber ) => {
+        console.log('bueno 0');
         const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
         recaptchaVerifier.render()
         return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
