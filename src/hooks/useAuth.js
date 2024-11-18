@@ -24,7 +24,7 @@ function useAuth () {
                 return res 
             }
         } )
-        // recaptchaVerifier.render()
+        recaptchaVerifier.render()
         // return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
 
