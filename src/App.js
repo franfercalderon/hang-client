@@ -3,13 +3,13 @@ import Login from './views/Login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Feed from './views/Feed';
 import Welcome from './views/Welcome';
-import { AuthProvider } from './context/AuthContext';
+import { AppProvider } from './context/AppContext';
 
 function App() {
   return (  
     <>
       <BrowserRouter>
-        <AuthProvider>
+        <AppProvider>
           <Routes>
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
@@ -21,7 +21,7 @@ function App() {
                 } 
               />
           </Routes>
-        </AuthProvider>
+        </AppProvider>
       </BrowserRouter>
     </>
   );
