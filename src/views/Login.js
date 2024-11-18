@@ -55,6 +55,7 @@ export default function Login () {
                             onChange={ setPhoneNumber }
                         />
                     </div>
+                    <div id="recaptcha-container"></div>
                     <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
                 </form>
             </div>
