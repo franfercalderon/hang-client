@@ -4,6 +4,9 @@ import BtnSecondary from "../components/BtnSecondary/BtnSecondary";
 import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth } from 'firebase/auth'
 import app from '../fb'
 import PhoneInput from 'react-phone-number-input'
+import useAuth from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import Divider from "../components/Divider/Divider";
 
 
 export default function Login () {
@@ -11,74 +14,54 @@ export default function Login () {
     //STATE
     const [ phoneNumber, setPhoneNumber ] = useState('')
     const [ otp, setOtp ] = useState('')
-    const [ verificationId, setVerificationId ] = useState('')
-    const [ confirmObject, setConfirmObject ] = useState('')
+    const [ showOtp, setShowOtp ] = useState( false )
+    // const [ confirmObject, setConfirmObject ] = useState('')
 
+    //ROUTER
+    const navigate = useNavigate()
 
-    const auth = getAuth( app )
+    //HOOKS
+    const { checkOtp, sendOtp } = useAuth()
 
-    const setUpRecaptcha = ( number ) => {
-        const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
-        recaptchaVerifier.render()
-        return signInWithPhoneNumber( auth, number, recaptchaVerifier)
-    }
-
-    const checkOtp = async ( e ) => {
+    //FUNCTIONS
+    const handleSendOtp = async ( e ) => {
         e.preventDefault()
         try {
-            const res = await confirmObject.confirm( otp )
-            console.log( res );
-        } catch (error) {
-            console.log(error);
-        }
-
-    }
-
-    const sendOtp = async ( e ) => {
-        e.preventDefault()
-        if( phoneNumber !== "" && phoneNumber !== undefined ){
-            try {
-                const res = await setUpRecaptcha( phoneNumber )
-                setConfirmObject(res);
-                 
-            } catch (error) {
-                
+            if( phoneNumber !== "" && phoneNumber !== undefined ){
+                await sendOtp( phoneNumber )
             }
+            
+        } catch (error) {
+            
         }
-
     }
 
-    
       
     return(
-        <div className="view-container">
-            <div className="section-container">
-                {/* <img src="./images/logo.svg" alt="Hang"/> */}
+        <div className="view-container onboarding">
+            <div className="section-container topbar-title">
+                Welcome Back
             </div>
             <div className="section-container">
-                <BtnSecondary displayText={'Log In'}/>
                 <form>
+                    <label>Phone Number</label>
                     <div className="phone-number-container">
                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
                         <p className="us-char">+1</p>
                         <PhoneInput
                             defaultCountry="US"
                             placeholder="( 555 )  555 - 5555"
-                            value={phoneNumber}
-                            onChange={setPhoneNumber}
+                            value={ phoneNumber }
+                            onChange={ setPhoneNumber }
                         />
                     </div>
-                    <div id="recaptcha-container"></div>
-                    <BtnPrimary displayText={'Send Code'} action={sendOtp} submit={ true }/>
-
-
+                    <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
                 </form>
-                <input type="text" value={ otp } onChange={ ( e ) => setOtp( e.target.value ) }/>
-
-                <BtnPrimary displayText={'Confirm Code'} action={ ( e ) => checkOtp( e ) } submit={ false }/>
-                
             </div>
-
+            <div className="section-container bottom-container">
+                <Divider/>
+                <BtnSecondary displayText={'Sign Up'} action={ () => navigate('/singup') }/>
+            </div>
         </div>
     )
 }
