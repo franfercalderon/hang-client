@@ -41,23 +41,23 @@ const AuthProvider = ({ children }) => {
 
 
     //EFFECTS
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
-            if ( user ) {
-                try {
-                    const token = await user.getIdToken();
-                    setAuthToken( token );
-                } catch (error) {
-                    console.error( "Error getting ID token:", error );
-                }
-            } else {
-                setAuthToken( '' );
-                navigate('/login');
-            }
-        });
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
+    //         if ( user ) {
+    //             try {
+    //                 const token = await user.getIdToken();
+    //                 setAuthToken( token );
+    //             } catch (error) {
+    //                 console.error( "Error getting ID token:", error );
+    //             }
+    //         } else {
+    //             setAuthToken( '' );
+    //             navigate('/login');
+    //         }
+    //     });
     
-        return () => unsubscribe();
-    }, [ auth, navigate ]);
+    //     return () => unsubscribe();
+    // }, [ auth, navigate ]);
 
     useEffect(() => {
         if( authToken && authToken !== '' && populateUser ){
@@ -67,6 +67,7 @@ const AuthProvider = ({ children }) => {
 
     return(
         <Provider value={{
+            authToken,
             globalUser
         }}>
             { children }

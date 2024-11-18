@@ -4,9 +4,9 @@ import { AuthContext } from '../../context/AuthContext'
 
 export default function ProtectedRoute({ children }) {
 
-    //CONTEXT
+    // //CONTEXT
     const { authToken } = useContext( AuthContext )
-    
+
     if ( !authToken || authToken === "" ) {
 
         return <Navigate to="/login" replace />
