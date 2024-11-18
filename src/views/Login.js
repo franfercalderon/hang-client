@@ -40,7 +40,17 @@ export default function Login () {
     }
 
     const handleCheckOtp = async ( e ) => {
-
+        e.preventDefault()
+        try {
+            if( phoneNumber !== "" && phoneNumber !== undefined ){
+                await checkOtp( otp )
+                setShowOtp( true )
+                console.log('cambia la view');
+            }
+            
+        } catch (error) {
+            
+        }
     }
 
     return(
@@ -63,14 +73,14 @@ export default function Login () {
                                     onChange={ setPhoneNumber }
                                 />
                             </div>
-                            <div id="recaptcha-container"></div>
+                            <div id="recaptcha-container" className="captcha-container"></div>
                             <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
                         </>
                         :
                         <>
                             <label>Enter Code</label>
                             <OTPInput otp={ otp } setOtp={ setOtp } />
-                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleSendOtp( e ) }/>
+                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleCheckOtp( e ) }/>
                         </>
                     }
                 </form>
