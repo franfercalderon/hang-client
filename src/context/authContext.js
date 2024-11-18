@@ -69,7 +69,7 @@ const AuthProvider = ({ children }) => {
         <Provider value={{
             globalUser
         }}>
-
+            { children }
         </Provider>
     )
 }
