@@ -68,7 +68,6 @@ const AuthProvider = ({ children }) => {
     return(
         <Provider value={{
             authToken,
-            globalUser
         }}>
             { children }
         </Provider>
