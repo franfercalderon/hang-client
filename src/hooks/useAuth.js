@@ -12,20 +12,9 @@ function useAuth () {
     const auth = getAuth( app )
 
     const setUpRecaptcha = ( phoneNumber ) => {
-        // const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
-        // recaptchaVerifier.render()
-        // return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
-        console.log('entra');
-        const recaptchaVerifier = new RecaptchaVerifier( auth, 'send-otp-btn', {
-            'size': 'invisible',
-            'callback': ( res ) => {
-                
-                console.log('ok nakey');
-                return res 
-            }
-        } )
+        const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
         recaptchaVerifier.render()
-        // return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
+        return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
 
     const checkOtp = async ( otp ) => {
@@ -41,6 +30,7 @@ function useAuth () {
         try {
             const res = await setUpRecaptcha( phoneNumber )
             setConfirmObject( res );
+            console.log(res);
              
         } catch ( error ) {
             
