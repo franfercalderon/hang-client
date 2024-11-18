@@ -26,8 +26,8 @@ export default function Login () {
     const checkOtp = async ( e ) => {
         e.preventDefault()
         try {
-            await confirmObject.confirm( otp )
-            console.log('ok');
+            const res = await confirmObject.confirm( otp )
+            console.log( res );
         } catch (error) {
             console.log(error);
         }
@@ -40,7 +40,7 @@ export default function Login () {
             try {
                 const res = await setUpRecaptcha( phoneNumber )
                 setConfirmObject(res);
-                
+                 
             } catch (error) {
                 
             }
@@ -62,7 +62,7 @@ export default function Login () {
                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
                         <p className="us-char">+1</p>
                         <PhoneInput
-                            defaultCountry="US"
+                            defaultCountry="AR"
                             placeholder="( 555 )  555 - 5555"
                             value={phoneNumber}
                             onChange={setPhoneNumber}
