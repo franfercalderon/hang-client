@@ -31,6 +31,7 @@ function useAuth () {
         try {
             const res = await setUpRecaptcha( phoneNumber )
             setConfirmObject( res );
+            
             console.log(res);
              
         } catch ( error ) {
