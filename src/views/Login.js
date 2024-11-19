@@ -49,21 +49,6 @@ export default function Login () {
     }
 
 
-
-    // const handleCheckOtp = async ( e ) => {
-    //     e.preventDefault()
-    //     try {
-    //         if( phoneNumber !== "" && phoneNumber !== undefined ){
-    //             await checkOtp( otp )
-    //             setShowOtp( true )
-    //             console.log('cambia la view');
-    //         }
-            
-    //     } catch (error) {
-            
-    //     }
-    // }
-
     return(
         <div className="view-container onboarding">
             <div className="section-container topbar-title">

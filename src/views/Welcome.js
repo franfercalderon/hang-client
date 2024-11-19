@@ -1,5 +1,4 @@
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
-import BtnSecondary from "../components/BtnSecondary/BtnSecondary";
 import { useNavigate } from "react-router-dom";
 
 
@@ -15,7 +14,6 @@ export default function Welcome () {
             </div>
             <div className="section-container btn-container">
                 <BtnPrimary displayText={'Log In'} action={ () => navigate('/login') } submit={ false }/>
-                <BtnSecondary displayText={'Sign Up'} action={ () => navigate('/singup') } submit={ false }/>
             </div>
         </div>
     )

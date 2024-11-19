@@ -58,6 +58,7 @@ function useAuth () {
 
             
         } catch ( error ) {
+            console.log('cae aaca');
             return error
         }
     }
