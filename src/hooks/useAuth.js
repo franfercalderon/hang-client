@@ -1,4 +1,4 @@
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth } from 'firebase/auth'
+import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth, validatePassword } from 'firebase/auth'
 import app from "../fb"
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -25,13 +25,9 @@ function useAuth () {
 
     const checkOtp = async ( otp ) => {
         try {
-            console.log(confirmObject);
-            console.log(otp);
-            const formattedOtp = otp.join('')
-            console.log(formattedOtp);
             const res = await confirmObject.confirm( formattedOtp )
-            console.log( res );
-        } catch (error) {
+            return res
+        } catch ( error ) {
             console.log(error);
         }
     }
@@ -43,7 +39,9 @@ function useAuth () {
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
+            console.log(res);
             const newUser = res._tokenResponse.isNewUser
+            console.log(newUser);
             console.log('vanavega');
             navigate( newUser ? '/onboarding' : '/' )
             
