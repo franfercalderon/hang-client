@@ -45,11 +45,7 @@ const AppProvider = ({ children }) => {
     //EFFECTS
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
-
             setTokenLoading( true )
-            console.log('renders onauth');
-            console.log(user);
-
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
@@ -61,7 +57,6 @@ const AppProvider = ({ children }) => {
             } else {
                 setAuthToken( '' );
                 setTokenLoading( false )
-                // navigate('/welcome');
             }
         });
     

@@ -36,6 +36,7 @@ export default function Login () {
             await userLogin( otp )
         } catch  ( error ) {
             setDisplayError( error.message )
+            setOtp(Array(6).fill( "" ))
         }
     }
 

@@ -50,9 +50,13 @@ function useAuth () {
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
+            console.log(res.user);
             const newUser = res._tokenResponse.isNewUser
             navigate( newUser ? '/onboarding' : '/' )
             setPopulateUser( newUser ? false : true )
+            if( newUser ){
+                //CREATE PROFILE
+            }
             
         } catch ( error ) {
             throw new Error ( error )
