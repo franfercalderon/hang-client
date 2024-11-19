@@ -47,6 +47,8 @@ const AppProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
 
             setTokenLoading( true )
+            console.log('renders onauth');
+            console.log(user);
 
             if ( user ) {
                 try {

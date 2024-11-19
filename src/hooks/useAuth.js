@@ -74,12 +74,19 @@ function useAuth () {
         }
     }
 
+    const signOutUser = async () => {
+        console.log('about to sign out');
+
+        await signOut( auth )
+        console.log('signed out');
+    }
+
 
     return {
         sendOtp,
         userLogin,
         handleOnboarding,
-        signOut
+        signOutUser
         // setOtp
 
     }
