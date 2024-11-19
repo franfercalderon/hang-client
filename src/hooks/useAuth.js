@@ -22,7 +22,9 @@ function useAuth () {
         try {
             console.log(confirmObject);
             console.log(otp);
-            const res = await confirmObject.confirm( otp )
+            const formattedOtp = parseInt( otp.join(''), 10 )
+            console.log(formattedOtp);
+            const res = await confirmObject.confirm( formattedOtp )
             console.log( res );
         } catch (error) {
             console.log(error);
