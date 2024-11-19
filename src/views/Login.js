@@ -55,7 +55,7 @@ export default function Login () {
     return(
         <div className="view-container onboarding">
             <div className="section-container topbar-title">
-                Welcome Back
+                Welcome
             </div>
             <div className="section-container">
                 <form>
@@ -73,18 +73,22 @@ export default function Login () {
                                 />
                             </div>
                             <div id="recaptcha-container" className="captcha-container"></div>
-                            {
+                            {/* {
                                 displayError !== "" &&
                                 
                                 <InlineAlert text={ displayError }/>
-                            }
+                            } */}
                             <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
                         </>
                         :
                         <>
                             <label>Enter Code</label>
                             <OTPInput otp={ otp } setOtp={ setOtp } />
-                            
+                            {
+                                displayError !== "" &&
+                                
+                                <InlineAlert text={ displayError }/>
+                            }
                             <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
                         </>
                     }
