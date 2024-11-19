@@ -32,7 +32,7 @@ function useAuth () {
             setConfirmObject( res );
              
         } catch ( error ) {
-            return error
+            throw new Error ( error.message )
         }
     }
 
@@ -41,25 +41,21 @@ function useAuth () {
             const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
-            return error
+            throw new Error ( error.message )
         }
     }
 
     const userLogin = async ( otp ) => {
-        console.log('shega');
 
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
-            console.log(res);
             const newUser = res._tokenResponse.isNewUser
             navigate( newUser ? '/onboarding' : '/' )
             setPopulateUser( newUser ? false : true )
-
             
         } catch ( error ) {
-            console.log('cae aaca');
-            return error
+            throw new Error ( error.message )
         }
     }
 
@@ -71,15 +67,16 @@ function useAuth () {
 
             setPopulateUser( true )
         } catch ( error ) {
-            return error
+            throw new Error ( error.message )
         }
     }
 
     const signOutUser = async () => {
-        console.log('about to sign out');
-
-        await signOut( auth )
-        console.log('signed out');
+        try {
+            await signOut( auth )
+        } catch ( error ) {
+            throw new Error ( error.message )
+        }
     }
 
 
