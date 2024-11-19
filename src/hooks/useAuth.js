@@ -32,7 +32,7 @@ function useAuth () {
             setConfirmObject( res );
              
         } catch ( error ) {
-            throw new Error ( error.message )
+            throw new Error ( error )
         }
     }
 
@@ -41,7 +41,7 @@ function useAuth () {
             const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
-            throw new Error ( error.message )
+            throw new Error ( error )
         }
     }
 
@@ -55,7 +55,7 @@ function useAuth () {
             setPopulateUser( newUser ? false : true )
             
         } catch ( error ) {
-            throw new Error ( error.message )
+            throw new Error ( error )
         }
     }
 
@@ -67,7 +67,7 @@ function useAuth () {
 
             setPopulateUser( true )
         } catch ( error ) {
-            throw new Error ( error.message )
+            throw new Error ( error )
         }
     }
 
@@ -75,7 +75,7 @@ function useAuth () {
         try {
             await signOut( auth )
         } catch ( error ) {
-            throw new Error ( error.message )
+            throw new Error ( error )
         }
     }
 

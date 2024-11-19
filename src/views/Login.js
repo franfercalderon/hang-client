@@ -46,7 +46,8 @@ export default function Login () {
             await userLogin( otp )
         } catch  ( error ) {
             console.log(error);
-            setDisplayError( error )
+            console.log(error.message);
+            setDisplayError( error.message )
         }
     }
 
