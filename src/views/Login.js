@@ -44,6 +44,7 @@ export default function Login () {
         try {
             await userLogin( otp )
         } catch  ( error ) {
+            console.log('por aca');
             <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
         }
     }
