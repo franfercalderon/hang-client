@@ -59,7 +59,7 @@ const AppProvider = ({ children }) => {
             } else {
                 setAuthToken( '' );
                 setTokenLoading( false )
-                navigate('/welcome');
+                // navigate('/welcome');
             }
         });
     

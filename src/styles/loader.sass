@@ -1,0 +1,45 @@
+.loader-main-container
+    position: absolute
+    top: 0
+    right: 0
+    height: 100%
+    width: 99%
+    padding-right: 2%
+    z-index: 10
+    display: flex
+    justify-content: center
+    align-items: center
+ 
+.loader 
+  width: 50px
+  aspect-ratio: 1
+  border-radius: 50%
+  border: 7px solid 
+  border-color: $hangblue #0000
+  animation: l1 1s infinite
+
+@keyframes l1 
+    0%
+        transform: rotate(0deg)
+    100%
+        transform: rotate(360deg)
+
+// .inline-loader
+//     height: 1.2rem
+//     width: 100px
+//     background: linear-gradient(45deg, #525352, $marketgreen)
+//     background-size: 400% 100%
+//     animation: gradientAnimation 1s ease-in-out infinite
+//     border-radius: 5px
+
+// .light .inline-loader
+//     background: linear-gradient(45deg, #ffffff, $marketgreen )
+//     background-size: 400% 100%
+//     animation: gradientAnimation 1s ease-in-out infinite
+
+// @keyframes gradientAnimation 
+//   0% 
+//     background-position: 0% 30%
+  
+//   100% 
+//     background-position: 100% 30%

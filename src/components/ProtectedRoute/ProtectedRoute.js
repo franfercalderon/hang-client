@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from '../../context/AppContext'
+import Loader from "../Loader/Loader";
 
 export default function ProtectedRoute({ children }) {
 
@@ -9,7 +10,7 @@ export default function ProtectedRoute({ children }) {
 
     if( tokenLoading ){
         return(
-            <p>Loading Baia</p>
+            <Loader/>
         )
     }
 
