@@ -46,6 +46,9 @@ export default function Login () {
             await userLogin( otp )
         } catch  ( error ) {
             console.log('por aca');
+            return (
+                <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
+            )
             // Swal
             // .fire({
             //     title: 'asa',
@@ -62,7 +65,6 @@ export default function Login () {
             //         denyButton: 'deny-btn btn order1',
             //     }
             // })
-            <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
         }
     }
 
