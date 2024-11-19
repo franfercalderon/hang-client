@@ -38,7 +38,8 @@ function useAuth () {
 
     const handleLogin = async ( e, otp ) => {
         e.preventDefault()
-        
+        console.log('shega');
+
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
