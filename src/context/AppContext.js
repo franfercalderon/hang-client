@@ -44,6 +44,7 @@ const AppProvider = ({ children }) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
             console.log('entra');
+            console.log(user);
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
