@@ -5,12 +5,17 @@ import { AppContext } from '../../context/AppContext'
 export default function ProtectedRoute({ children }) {
 
     //CONTEXT
-    const { authToken } = useContext( AppContext )
+    const { authToken, tokenLoading } = useContext( AppContext )
+
+    if( tokenLoading ){
+        return(
+            <p>Loading Baia</p>
+        )
+    }
 
     if ( !authToken || authToken === "" ) {
-        console.log('KAKA');
 
-        // return <Navigate to="/welcome"  />
+        return <Navigate to="/welcome"  />
     }
     
     return children

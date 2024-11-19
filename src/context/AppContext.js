@@ -11,7 +11,9 @@ const AppProvider = ({ children }) => {
     //AUTH STATE
     const [ globalUser, setGlobalUser ] = useState( null )
     const [ authToken, setAuthToken ] = useState( '' )
+    const [ tokenLoading, setTokenLoading ] = useState( true  )
     const [ populateUser, setPopulateUser ] = useState( false )
+    
 
     //FIREBASE
     const auth = getAuth( app )
@@ -43,17 +45,19 @@ const AppProvider = ({ children }) => {
     //EFFECTS
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
-            console.log('entra');
-            console.log(user);
+            setTokenLoading( true )
+
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
                     setAuthToken( token );
+                    setTokenLoading( false )
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
                 }
             } else {
                 setAuthToken( '' );
+                setTokenLoading( false )
                 navigate('/welcome');
             }
         });
