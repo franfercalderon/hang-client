@@ -63,14 +63,17 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if( authToken && authToken !== '' && populateUser ){
-
+            //GET USER FROM DB
+            //SET GLOBAL USER
+            
         }
     }, [ authToken, populateUser ] )
 
     return(
         <Provider value={{
             authToken,
-            globalUser
+            globalUser,
+            setPopulateUser
         }}>
             { children }
         </Provider>

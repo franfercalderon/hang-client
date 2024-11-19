@@ -1,12 +1,16 @@
 import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth, validatePassword } from 'firebase/auth'
 import app from "../fb"
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext'
 
 function useAuth () {
 
     //STATE
     const [ confirmObject, setConfirmObject ] = useState('')
+
+    //CONTEXT
+    const { setPopulateUser } = useContext( AppContext )
 
     //FIREBASE
     const auth = getAuth( app )
@@ -17,37 +21,9 @@ function useAuth () {
 
     //FUNCTIONS
     const setUpRecaptcha = ( phoneNumber ) => {
-        console.log('bueno 0');
         const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
         recaptchaVerifier.render()
         return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
-    }
-
-    const checkOtp = async ( otp ) => {
-        try {
-            const res = await confirmObject.confirm( otp )
-            return res
-        } catch ( error ) {
-            console.log(error);
-        }
-    }
-
-    const handleLogin = async ( e, otp ) => {
-        e.preventDefault()
-        console.log('shega');
-
-        try {
-            const formattedOtp = otp.join('')
-            const res = await checkOtp( formattedOtp )
-            console.log(res);
-            const newUser = res._tokenResponse.isNewUser
-            console.log(newUser);
-            console.log('vanavega');
-            navigate( newUser ? '/onboarding' : '/' )
-            
-        } catch ( error ) {
-            
-        }
     }
 
     const sendOtp = async ( phoneNumber ) => {
@@ -60,10 +36,50 @@ function useAuth () {
         }
     }
 
+    const checkOtp = async ( otp ) => {
+        try {
+            const res = await confirmObject.confirm( otp )
+            return res
+        } catch ( error ) {
+            return error
+        }
+    }
+
+    const userLogin = async ( e, otp ) => {
+        e.preventDefault()
+        console.log('shega');
+
+        try {
+            const formattedOtp = otp.join('')
+            const res = await checkOtp( formattedOtp )
+            console.log(res);
+            const newUser = res._tokenResponse.isNewUser
+            navigate( newUser ? '/onboarding' : '/' )
+            setPopulateUser( newUser ? false : true )
+
+            
+        } catch ( error ) {
+            return error
+        }
+    }
+
+    const handleOnboarding = async () => {
+        try {
+            //COMPLETE ONBOARDING WITH USER DATA
+
+            //CREATE USER IN DB
+
+            setPopulateUser( true )
+        } catch ( error ) {
+            return error
+        }
+    }
+
+
     return {
         sendOtp,
-        handleLogin
-        // setPhoneNumber,
+        userLogin,
+        handleOnboarding,
         // setOtp
 
     }

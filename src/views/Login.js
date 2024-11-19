@@ -8,6 +8,7 @@ import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Divider from "../components/Divider/Divider";
 import OTPInput from "../components/OtpContainer/OtpContainer";
+import Alert from "../components/Alert/Alert";
 
 
 export default function Login () {
@@ -22,7 +23,7 @@ export default function Login () {
     const navigate = useNavigate()
 
     //HOOKS
-    const { handleLogin, sendOtp } = useAuth()
+    const { userLogin, sendOtp } = useAuth()
 
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
@@ -33,10 +34,21 @@ export default function Login () {
                 setShowOtp( true )
             }
             
-        } catch (error) {
-            
+        } catch ( error ) {
+
         }
     }
+
+    const handleLogin = async ( e ) => {
+        e.preventDefault()
+        try {
+            await userLogin( otp )
+        } catch  ( error ) {
+            <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
+        }
+    }
+
+
 
     // const handleCheckOtp = async ( e ) => {
     //     e.preventDefault()
