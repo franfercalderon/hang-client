@@ -8,6 +8,7 @@ export default function ProtectedRoute({ children }) {
     const { authToken } = useContext( AppContext )
 
     if ( !authToken || authToken === "" ) {
+        console.log(authToken);
 
         return <Navigate to="/welcome" replace />
     }
