@@ -25,7 +25,7 @@ function useAuth () {
 
     const checkOtp = async ( otp ) => {
         try {
-            const res = await confirmObject.confirm( formattedOtp )
+            const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
             console.log(error);
