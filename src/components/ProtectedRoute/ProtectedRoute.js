@@ -8,8 +8,9 @@ export default function ProtectedRoute({ children }) {
     const { authToken } = useContext( AppContext )
 
     if ( !authToken || authToken === "" ) {
+        console.log('KAKA');
 
-        return <Navigate to="/welcome" replace />
+        // return <Navigate to="/welcome"  />
     }
     
     return children
