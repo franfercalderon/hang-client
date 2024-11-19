@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import Divider from "../components/Divider/Divider";
 import OTPInput from "../components/OtpContainer/OtpContainer";
 import Alert from "../components/Alert/Alert";
+import Swal from "sweetalert2";
 
 
 export default function Login () {
@@ -45,7 +46,23 @@ export default function Login () {
             await userLogin( otp )
         } catch  ( error ) {
             console.log('por aca');
-            <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
+            Swal
+            .fire({
+                title: 'asa',
+                text: 'text',
+                icon: 'icon',
+                confirmButtonText: 'confirmBtn',
+                showDenyButton: false,
+                denyButtonText: 'denyBtn',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            // <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
         }
     }
 
