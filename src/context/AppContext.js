@@ -10,7 +10,7 @@ const AppProvider = ({ children }) => {
 
     //AUTH STATE
     const [ globalUser, setGlobalUser ] = useState( null )
-    const [ authToken, setAuthToken ] = useState( '' )
+    const [ authToken, setAuthToken ] = useState( "" )
     const [ tokenLoading, setTokenLoading ] = useState( true  )
     const [ populateUser, setPopulateUser ] = useState( false )
     
@@ -45,6 +45,7 @@ const AppProvider = ({ children }) => {
     //EFFECTS
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
+
             setTokenLoading( true )
 
             if ( user ) {
@@ -77,7 +78,8 @@ const AppProvider = ({ children }) => {
         <Provider value={{
             authToken,
             globalUser,
-            setPopulateUser
+            setPopulateUser,
+            tokenLoading
         }}>
             { children }
         </Provider>
