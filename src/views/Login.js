@@ -1,14 +1,8 @@
 import { useState } from "react";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
-import BtnSecondary from "../components/BtnSecondary/BtnSecondary";
-// import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth } from 'firebase/auth'
-// import app from '../fb'
 import PhoneInput from 'react-phone-number-input'
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
-import Divider from "../components/Divider/Divider";
 import OTPInput from "../components/OtpContainer/OtpContainer";
-import Swal from "sweetalert2";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 
 
@@ -19,9 +13,6 @@ export default function Login () {
     const [ otp, setOtp ] = useState(Array(6).fill( "" ))
     const [ showOtp, setShowOtp ] = useState( false )
     const [ displayError, setDisplayError ] = useState('')
-
-    //ROUTER
-    const navigate = useNavigate()
 
     //HOOKS
     const { userLogin, sendOtp } = useAuth()
@@ -34,9 +25,8 @@ export default function Login () {
                 await sendOtp( phoneNumber )
                 setShowOtp( true )
             }
-            
         } catch ( error ) {
-
+            setDisplayError( error.message )
         }
     }
 
@@ -45,58 +35,55 @@ export default function Login () {
         try {
             await userLogin( otp )
         } catch  ( error ) {
-            console.log(error);
-            console.log(error.message);
             setDisplayError( error.message )
         }
     }
-
 
     return(
         <div className="view-container onboarding">
             <div className="section-container topbar-title">
                 Welcome
             </div>
-            <div className="section-container">
-                <form>
-                    { !showOtp ?
-                        <>
-                            <label>Phone Number</label>
-                            <div className="phone-number-container">
-                                <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
-                                <p className="us-char">+1</p>
-                                <PhoneInput
-                                    defaultCountry="US"
-                                    placeholder="( 555 )  555 - 5555"
-                                    value={ phoneNumber }
-                                    onChange={ setPhoneNumber }
-                                />
-                            </div>
-                            <div id="recaptcha-container" className="captcha-container"></div>
-                            {/* {
-                                displayError !== "" &&
-                                
-                                <InlineAlert text={ displayError }/>
-                            } */}
-                            <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
-                        </>
-                        :
-                        <>
-                            <label>Enter Code</label>
-                            <OTPInput otp={ otp } setOtp={ setOtp } />
-                            {
-                                displayError !== "" &&
-                                
-                                <InlineAlert text={ displayError }/>
-                            }
-                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
-                        </>
-                    }
-                </form>
-            </div>
-            <div className="section-container bottom-container">
-                <Divider/>
-                <BtnSecondary displayText={'Sign Up'} action={ () => navigate('/singup') }/>
+            <div className="view-body">
+                <div className="section-container">
+                    <form>
+                        { !showOtp ?
+                            <>
+                                <label>Phone Number</label>
+                                <div className="phone-number-container">
+                                    <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
+                                    <p className="us-char">+1</p>
+                                    <PhoneInput
+                                        defaultCountry="US"
+                                        placeholder="( 555 )  555 - 5555"
+                                        value={ phoneNumber }
+                                        onChange={ setPhoneNumber }
+                                    />
+                                </div>
+                                <div className="captcha-container">
+                                    <div id="recaptcha-container" ></div>
+                                </div>
+                                {
+                                    displayError !== "" &&
+                                    
+                                    <InlineAlert text={ displayError }/>
+                                }
+                                <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
+                            </>
+                            :
+                            <>
+                                <label>Enter Code</label>
+                                <OTPInput otp={ otp } setOtp={ setOtp } />
+                                {
+                                    displayError !== "" &&
+                                    
+                                    <InlineAlert text={ displayError }/>
+                                }
+                                <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
+                            </>
+                        }
+                    </form>
+                </div>
             </div>
         </div>
     )

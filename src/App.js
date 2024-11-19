@@ -15,7 +15,6 @@ function App() {
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
-              {/* <Route exact path='/' element={ <Feed/> }/> */}
               <Route exact path='/'element={
                   <ProtectedRoute >
                     <Feed/>
