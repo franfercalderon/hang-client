@@ -4,11 +4,10 @@ import { AppContext } from '../../context/AppContext'
 
 export default function ProtectedRoute({ children }) {
 
-    // //CONTEXT
+    //CONTEXT
     const { authToken } = useContext( AppContext )
 
     if ( !authToken || authToken === "" ) {
-        console.log(authToken);
 
         return <Navigate to="/welcome" replace />
     }

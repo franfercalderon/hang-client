@@ -43,18 +43,17 @@ const AppProvider = ({ children }) => {
     //EFFECTS
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
+            console.log('entra');
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
-                    console.log('token to be set');
                     setAuthToken( token );
-                    console.log('token set');
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
                 }
             } else {
                 setAuthToken( '' );
-                navigate('/login');
+                // navigate('/welcome');
             }
         });
     
@@ -65,7 +64,7 @@ const AppProvider = ({ children }) => {
         if( authToken && authToken !== '' && populateUser ){
             //GET USER FROM DB
             //SET GLOBAL USER
-            
+
         }
     }, [ authToken, populateUser ] )
 
