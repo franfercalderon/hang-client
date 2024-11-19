@@ -36,7 +36,9 @@ function useAuth () {
         }
     }
 
-    const handleLogin = async ( otp ) => {
+    const handleLogin = async ( e, otp ) => {
+        e.preventDefault()
+        
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
@@ -60,8 +62,8 @@ function useAuth () {
     }
 
     return {
-        checkOtp,
         sendOtp,
+        handleLogin
         // setPhoneNumber,
         // setOtp
 

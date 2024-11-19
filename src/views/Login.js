@@ -1,8 +1,8 @@
 import { useState } from "react";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import BtnSecondary from "../components/BtnSecondary/BtnSecondary";
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth } from 'firebase/auth'
-import app from '../fb'
+// import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth } from 'firebase/auth'
+// import app from '../fb'
 import PhoneInput from 'react-phone-number-input'
 import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ export default function Login () {
     const navigate = useNavigate()
 
     //HOOKS
-    const { checkOtp, sendOtp } = useAuth()
+    const { handleLogin, sendOtp } = useAuth()
 
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
@@ -31,7 +31,6 @@ export default function Login () {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
                 await sendOtp( phoneNumber )
                 setShowOtp( true )
-                console.log('cambia la view');
             }
             
         } catch (error) {
@@ -39,19 +38,19 @@ export default function Login () {
         }
     }
 
-    const handleCheckOtp = async ( e ) => {
-        e.preventDefault()
-        try {
-            if( phoneNumber !== "" && phoneNumber !== undefined ){
-                await checkOtp( otp )
-                setShowOtp( true )
-                console.log('cambia la view');
-            }
+    // const handleCheckOtp = async ( e ) => {
+    //     e.preventDefault()
+    //     try {
+    //         if( phoneNumber !== "" && phoneNumber !== undefined ){
+    //             await checkOtp( otp )
+    //             setShowOtp( true )
+    //             console.log('cambia la view');
+    //         }
             
-        } catch (error) {
+    //     } catch (error) {
             
-        }
-    }
+    //     }
+    // }
 
     return(
         <div className="view-container onboarding">
@@ -80,7 +79,7 @@ export default function Login () {
                         <>
                             <label>Enter Code</label>
                             <OTPInput otp={ otp } setOtp={ setOtp } />
-                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleCheckOtp( e ) }/>
+                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e ) }/>
                         </>
                     }
                 </form>

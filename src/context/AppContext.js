@@ -20,23 +20,23 @@ const AppProvider = ({ children }) => {
     const navigate = useNavigate()
 
     //FUNCTIONS
-    const userLogin = async () => {
+    // const userLogin = async () => {
 
-        try{
-            // await signInWithEmailAndPassword(auth, data.email, data.password)
+    //     try{
+    //         // await signInWithEmailAndPassword(auth, data.email, data.password)
 
-        } catch ( error ){
-            throw error
-        }
-    }
+    //     } catch ( error ){
+    //         throw error
+    //     }
+    // }
 
-    const createUserInDb = async () => {
-        try {
+    // const createUserInDb = async () => {
+    //     try {
             
-        } catch ( error ) {
-            throw error
-        }
-    }
+    //     } catch ( error ) {
+    //         throw error
+    //     }
+    // }
 
 
 
