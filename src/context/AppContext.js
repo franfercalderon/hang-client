@@ -46,7 +46,9 @@ const AppProvider = ({ children }) => {
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
+                    console.log('token to be set');
                     setAuthToken( token );
+                    console.log('token set');
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
                 }
