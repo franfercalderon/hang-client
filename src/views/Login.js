@@ -45,26 +45,21 @@ export default function Login () {
         try {
             await userLogin( otp )
         } catch  ( error ) {
-            console.log('por aca');
-            return (
-                <Alert title={'Error'} text={ error.message } icon={'error'} confirmBtn={'Ok'} showDenyBtn={ false } />
-            )
-            // Swal
-            // .fire({
-            //     title: 'asa',
-            //     text: 'text',
-            //     icon: 'icon',
-            //     confirmButtonText: 'confirmBtn',
-            //     showDenyButton: false,
-            //     denyButtonText: 'denyBtn',
-            //     buttonsStyling: false,
-            //     customClass: {
-            //         popup: 'hang-alert-container',
-            //         icon: 'alert-icon',
-            //         confirmButton: 'confirm-btn btn order2',
-            //         denyButton: 'deny-btn btn order1',
-            //     }
-            // })
+            Swal.fire({
+                title: 'Error',
+                text: error,
+                icon: 'error',
+                confirmButtonText: 'Ok',
+                showDenyButton: false,
+                denyButtonText: '',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
         }
     }
 
