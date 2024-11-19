@@ -54,7 +54,7 @@ const AppProvider = ({ children }) => {
                 }
             } else {
                 setAuthToken( '' );
-                // navigate('/welcome');
+                navigate('/welcome');
             }
         });
     

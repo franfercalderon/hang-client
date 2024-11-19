@@ -13,6 +13,7 @@ function App() {
           <Routes>
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
+              <Route exact path='/' element={ <Feed/> }/>
               {/* <Route exact path='/onboarding' element={ <Welcome/> }/> */}
               <Route exact path='/'element={
                   <ProtectedRoute >
