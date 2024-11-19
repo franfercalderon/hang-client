@@ -45,8 +45,7 @@ function useAuth () {
         }
     }
 
-    const userLogin = async ( e, otp ) => {
-        e.preventDefault()
+    const userLogin = async ( otp ) => {
         console.log('shega');
 
         try {

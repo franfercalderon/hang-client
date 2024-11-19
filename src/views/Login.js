@@ -39,7 +39,7 @@ export default function Login () {
         }
     }
 
-    const handleLogin = async ( e ) => {
+    const handleLogin = async ( e, otp ) => {
         e.preventDefault()
         try {
             await userLogin( otp )
