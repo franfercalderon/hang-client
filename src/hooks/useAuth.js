@@ -1,4 +1,4 @@
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth, validatePassword } from 'firebase/auth'
+import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth, validatePassword, signOut } from 'firebase/auth'
 import app from "../fb"
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -79,6 +79,7 @@ function useAuth () {
         sendOtp,
         userLogin,
         handleOnboarding,
+        signOut
         // setOtp
 
     }

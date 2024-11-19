@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Feed from './views/Feed';
 import Welcome from './views/Welcome';
 import { AppProvider } from './context/AppContext';
+import Onboarding from './views/Onboarding';
 
 function App() {
   return (  
@@ -13,8 +14,8 @@ function App() {
           <Routes>
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
+              <Route exact path='/onboarding' element={ <Onboarding/> }/>
               {/* <Route exact path='/' element={ <Feed/> }/> */}
-              {/* <Route exact path='/onboarding' element={ <Welcome/> }/> */}
               <Route exact path='/'element={
                   <ProtectedRoute >
                     <Feed/>
