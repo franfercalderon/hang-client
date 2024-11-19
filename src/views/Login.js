@@ -79,7 +79,7 @@ export default function Login () {
                         <>
                             <label>Enter Code</label>
                             <OTPInput otp={ otp } setOtp={ setOtp } />
-                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e ) }/>
+                            <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
                         </>
                     }
                 </form>
