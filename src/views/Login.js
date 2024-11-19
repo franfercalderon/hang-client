@@ -8,8 +8,8 @@ import useAuth from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import Divider from "../components/Divider/Divider";
 import OTPInput from "../components/OtpContainer/OtpContainer";
-import Alert from "../components/Alert/Alert";
 import Swal from "sweetalert2";
+import InlineAlert from "../components/InlineAlert/InlineAlert";
 
 
 export default function Login () {
@@ -18,7 +18,7 @@ export default function Login () {
     const [ phoneNumber, setPhoneNumber ] = useState('')
     const [ otp, setOtp ] = useState(Array(6).fill( "" ))
     const [ showOtp, setShowOtp ] = useState( false )
-    // const [ confirmObject, setConfirmObject ] = useState('')
+    const [ displayError, setDisplayError ] = useState('')
 
     //ROUTER
     const navigate = useNavigate()
@@ -45,21 +45,7 @@ export default function Login () {
         try {
             await userLogin( otp )
         } catch  ( error ) {
-            Swal.fire({
-                title: 'Error',
-                text: error,
-                icon: 'error',
-                confirmButtonText: 'Ok',
-                showDenyButton: false,
-                denyButtonText: '',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'hang-alert-container',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
+            setDisplayError( error )
         }
     }
 
@@ -85,12 +71,18 @@ export default function Login () {
                                 />
                             </div>
                             <div id="recaptcha-container" className="captcha-container"></div>
+                            {
+                                displayError !== "" &&
+                                
+                                <InlineAlert text={ displayError }/>
+                            }
                             <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
                         </>
                         :
                         <>
                             <label>Enter Code</label>
                             <OTPInput otp={ otp } setOtp={ setOtp } />
+                            
                             <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
                         </>
                     }
