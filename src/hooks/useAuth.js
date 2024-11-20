@@ -22,10 +22,15 @@ function useAuth () {
 
     //FUNCTIONS
     const setUpRecaptcha = ( phoneNumber ) => {
-        const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
-        console.log(recaptchaVerifier);
-        recaptchaVerifier.render()
-        return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
+        try {
+            const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
+            console.log(recaptchaVerifier);
+            recaptchaVerifier.render()
+            return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const sendOtp = async ( phoneNumber ) => {
