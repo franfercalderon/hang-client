@@ -53,13 +53,13 @@ export default function Login () {
         }
     }
     useEffect(() => {
-        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
             size: 'invisible',
             callback: ( response ) => {
             console.log('reCAPTCHA solved:', response )
             }
-        }, auth )
-    }, [])
+        })
+    }, [ auth ])
 
     return(
         <div className="view-container onboarding">
