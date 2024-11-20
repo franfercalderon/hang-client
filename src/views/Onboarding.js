@@ -21,7 +21,12 @@ export default function Onboarding () {
     //FUNCTIONS
     const handleNewUser = async ( data ) => {
         try {
-            await createUser( data )
+            const user = {
+                ...data,
+                phoneNumber: authUser.phoneNumber,
+                id: authUser.uid
+            }
+            await createUser( user )
             
         } catch ( error ) {
             Swal.fire({
@@ -41,11 +46,11 @@ export default function Onboarding () {
     }
 
     //EFFECTS
-    useEffect(() => {
-        if( authUser ){
-            console.log( authUser );
-        }
-    }, [ authUser ])
+    // useEffect(() => {
+    //     if( authUser ){
+    //         console.log( authUser );
+    //     }
+    // }, [ authUser ])
 
     return(
         <>

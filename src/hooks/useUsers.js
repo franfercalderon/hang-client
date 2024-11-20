@@ -6,19 +6,17 @@ function useUsers () {
         try{
             //CREATES USER OBJECT WITH FORM INFORMATION.
             const user = {
-                // id: userId,
-                name: userData.name,
-                lastname: userData.lastname,
+                ...userData,
                 email: userData.email.toLowerCase(),
             }
-            console.log(process.env.REACT_APP_API_URL);
+            console.log(user);
 
             //CREATES USER IN DB   
             await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            })     
+            })   
 
         } catch ( error ) {
             throw error
