@@ -9,7 +9,7 @@ export default function Onboarding () {
     const [ userData, setUserData ] = useState( {
         name: 'Peter',
         lastname: 'Kollergan',
-        email: 'peter@kollergan.com'
+        email: 'peter@KOLLErgan.com'
     } )
 
     //CONTEXT

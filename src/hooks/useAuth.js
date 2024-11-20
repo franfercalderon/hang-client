@@ -1,4 +1,4 @@
-import { RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, getAuth, validatePassword, signOut } from 'firebase/auth'
+import { RecaptchaVerifier, signInWithPhoneNumber, getAuth, signOut } from 'firebase/auth'
 import app from "../fb"
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +8,6 @@ function useAuth () {
 
     //STATE
     const [ confirmObject, setConfirmObject ] = useState('')
-    const [ userId, setUserId ] = useState('')
 
     //CONTEXT
     const { setPopulateUser } = useContext( AppContext )
@@ -19,24 +18,16 @@ function useAuth () {
     //ROUTER
     const navigate = useNavigate()
 
-
     //FUNCTIONS
     const setUpRecaptcha = ( phoneNumber ) => {
-        try {
-            const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
-            console.log(recaptchaVerifier);
-            recaptchaVerifier.render()
-            return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
-            
-        } catch (error) {
-            console.log(error);
-        }
+        const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
+        recaptchaVerifier.render()
+        return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
 
     const sendOtp = async ( phoneNumber ) => {
         try {
             const res = await setUpRecaptcha( phoneNumber )
-            console.log(res);
             setConfirmObject( res );
              
         } catch ( error ) {
@@ -59,12 +50,8 @@ function useAuth () {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
             const newUser = res._tokenResponse.isNewUser
-            const userId = res.user.uid
             navigate( newUser ? '/onboarding' : '/' )
             setPopulateUser( newUser ? false : true )
-            if( newUser ){
-                //CREATE PROFILE IMPORT CREATEUSER FROM
-            }
             
         } catch ( error ) {
             throw new Error ( error )
