@@ -51,7 +51,7 @@ export default function Onboarding () {
         <>
             <p>INBOARDINGS</p>
             <button onClick={() => handleNewUser( userData )}>
-
+                CREATE
             </button>
         </>
 
