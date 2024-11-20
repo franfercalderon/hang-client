@@ -19,17 +19,20 @@ function useAuth () {
     const navigate = useNavigate()
 
     //RECAPTCHA VERIFIER
-    let recaptchaVerifier
+    // let recaptchaVerifier
 
     //FUNCTIONS
     const setUpRecaptcha = async ( phoneNumber ) => {
 
-        if( recaptchaVerifier ){
-            recaptchaVerifier.clear()
-        }
-        recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
-        await recaptchaVerifier.render()
-        return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
+        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
+
+
+        // if( recaptchaVerifier ){
+        //     recaptchaVerifier.clear()
+        // }
+        // recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
+        // await recaptchaVerifier.render()
+        // return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
 
     const sendOtp = async ( phoneNumber ) => {
