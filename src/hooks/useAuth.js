@@ -23,6 +23,7 @@ function useAuth () {
     //FUNCTIONS
     const setUpRecaptcha = ( phoneNumber ) => {
         const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
+        console.log(recaptchaVerifier);
         recaptchaVerifier.render()
         return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
@@ -30,6 +31,7 @@ function useAuth () {
     const sendOtp = async ( phoneNumber ) => {
         try {
             const res = await setUpRecaptcha( phoneNumber )
+            console.log(res);
             setConfirmObject( res );
              
         } catch ( error ) {
