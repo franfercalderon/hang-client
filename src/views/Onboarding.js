@@ -4,6 +4,7 @@ import Swal from "sweetalert2"
 import useUsers from "../hooks/useUsers"
 import MainInput from "../components/MainInput/MainInput"
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary"
+import OnboardingForm from "../components/OnboardingForm/OnboardingForm"
 
 export default function Onboarding () {
 
@@ -13,8 +14,9 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ enableSubmit, setEnableSubmit ] = useState( false )
 
+    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    
     //CONTEXT
     const { authUser } = useContext( AppContext )
 
@@ -31,6 +33,7 @@ export default function Onboarding () {
                 id: authUser.uid
             }
             await createUser( user )
+            setOnboardingStage( 2 )
             
         } catch ( error ) {
             Swal.fire({
@@ -59,12 +62,7 @@ export default function Onboarding () {
 
     //EFFECTS
     useEffect(() => {
-        if( authUser?.phoneNumber && authUser?.uid && userData.email !== '' && userData.name !== '' && userData.lastname !== '' ){
-            setEnableSubmit( true )
-        } else {
-            setEnableSubmit( false )
-        }
-    }, [ authUser, userData ])
+    }, [  ])
 
     return(
         <div className="view-container onboarding">
@@ -73,12 +71,14 @@ export default function Onboarding () {
             </div>
             <div className="view-body">
                 <div className="section-container">
-                    <form>
-                        <MainInput name={ 'name' } value={ userData.name } handleChange={ handleChange } label={'First Name'}/>
-                        <MainInput name={ 'lastname' } value={ userData.lastname } handleChange={ handleChange } label={'Lastname'}/>
-                        <MainInput name={ 'email' } value={ userData.email } handleChange={ handleChange } label={'Email'}/>
-                        <BtnPrimary action={ ( e ) => handleNewUser( e ) } displayText={ 'Continue' } submit={ true } enabled={ enableSubmit }/>
-                    </form>
+                    {
+                        onboardingStage === 1 &&
+                        <OnboardingForm handleNewUser={ handleNewUser } userData={ userData } handleChange={ handleChange } />
+                    }
+                    {
+                        onboardingStage === 2 &&
+                        <p>2</p>
+                    }
                 </div>
             </div>
         </div>
