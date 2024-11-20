@@ -100,7 +100,6 @@ function useAuth () {
         userLogin,
         handleOnboarding,
         signOutUser,
-        RecaptchaVerifier,
         auth
         // setOtp
 

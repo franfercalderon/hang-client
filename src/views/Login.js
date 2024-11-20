@@ -5,7 +5,8 @@ import useAuth from "../hooks/useAuth";
 import OTPInput from "../components/OtpContainer/OtpContainer";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
-import { RecaptchaVerifier, auth } from "../hooks/useAuth"
+import { RecaptchaVerifier } from 'firebase/auth'
+import { auth } from "../hooks/useAuth"
 
 
 export default function Login () {
