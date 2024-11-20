@@ -69,7 +69,7 @@ export default function Login () {
                                     
                                     <InlineAlert text={ displayError }/>
                                 }
-                                <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn'/>
+                                <BtnPrimary displayText={'Continue'} action={ ( e ) => handleSendOtp( e ) } id='send-otp-btn' enabled={ phoneNumber !== "" ? true : false }/>
                             </>
                             :
                             <>
@@ -80,7 +80,7 @@ export default function Login () {
                                     
                                     <InlineAlert text={ displayError }/>
                                 }
-                                <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) }/>
+                                <BtnPrimary displayText={'Log In'} action={ ( e ) => handleLogin( e, otp ) } enabled={ otp.length === 6 ? true : false }/>
                             </>
                         }
                     </form>

@@ -13,7 +13,7 @@ export default function Welcome () {
                 <img src="./images/logo.svg" alt="Hang"/>
             </div>
             <div className="section-container btn-container">
-                <BtnPrimary displayText={'Log In'} action={ () => navigate('/login') } submit={ false }/>
+                <BtnPrimary displayText={'Log In'} action={ () => navigate('/login') } submit={ false } enabled={ true }/>
             </div>
         </div>
     )
