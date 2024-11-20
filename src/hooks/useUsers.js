@@ -11,6 +11,7 @@ function useUsers () {
                 lastname: userData.lastname,
                 email: userData.email.toLowerCase(),
             }
+            console.log(process.env.REACT_APP_API_URL);
 
             //CREATES USER IN DB   
             await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
