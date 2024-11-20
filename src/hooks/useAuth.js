@@ -22,23 +22,28 @@ function useAuth () {
     // let recaptchaVerifier
 
     //FUNCTIONS
-    const setUpRecaptcha = async ( phoneNumber ) => {
+    // const setUpRecaptcha = async ( phoneNumber ) => {
 
-        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
+    //     window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
 
 
-        // if( recaptchaVerifier ){
-        //     recaptchaVerifier.clear()
-        // }
-        // recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
-        // await recaptchaVerifier.render()
-        // return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
-    }
+    //     // if( recaptchaVerifier ){
+    //     //     recaptchaVerifier.clear()
+    //     // }
+    //     // recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
+    //     // await recaptchaVerifier.render()
+    //     return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
+    // }
 
-    const sendOtp = async ( phoneNumber ) => {
+    const sendOtp = async ( phoneNumber, appVerifier ) => {
         try {
-            const res = await setUpRecaptcha( phoneNumber )
-            setConfirmObject( res );
+            // const res = await setUpRecaptcha( phoneNumber )
+            // setConfirmObject( res );
+            // const appVerifier = window.recaptchaVerifier
+            const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+            console.log(res);
+            setConfirmObject( res )
+            
              
         } catch ( error ) {
             throw new Error ( error )
@@ -54,9 +59,10 @@ function useAuth () {
         }
     }
 
-    const userLogin = async ( otp ) => {
+    const userLogin = async ( otp, phoneNumber ) => {
 
         try {
+            // const res = await signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
             const newUser = res._tokenResponse.isNewUser
@@ -93,7 +99,9 @@ function useAuth () {
         sendOtp,
         userLogin,
         handleOnboarding,
-        signOutUser
+        signOutUser,
+        RecaptchaVerifier,
+        auth
         // setOtp
 
     }

@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import OTPInput from "../components/OtpContainer/OtpContainer";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
+import { RecaptchaVerifier, auth } from "../hooks/useAuth"
 
 
 export default function Login () {
@@ -19,13 +20,16 @@ export default function Login () {
     //HOOKS
     const { userLogin, sendOtp } = useAuth()
 
+    //AUTH
+    const appVerifier = window.recaptchaVerifier
+
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
         e.preventDefault()
         setIsLoading( true )
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
-                await sendOtp( phoneNumber )
+                await sendOtp( phoneNumber, appVerifier )
                 setIsLoading( false )
                 setShowOtp( true )
             }
@@ -47,8 +51,13 @@ export default function Login () {
         }
     }
     useEffect(() => {
-        console.log(otp.length);   
-    }, [otp])
+        window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+            size: 'invisible',
+            callback: ( response ) => {
+            console.log('reCAPTCHA solved:', response )
+            }
+        }, auth )
+    }, [])
 
     return(
         <div className="view-container onboarding">
