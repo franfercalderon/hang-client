@@ -4,7 +4,7 @@ import axios from "axios"
 function useUsers () {
     const createUser = async ( userData ) => {
         try{
-            //CREATES USER OBJECT WITH FORM INFORMATION
+            //CREATES USER OBJECT WITH FORM INFORMATION.
             const user = {
                 // id: userId,
                 name: userData.name,
