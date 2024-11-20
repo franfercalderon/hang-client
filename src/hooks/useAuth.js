@@ -37,6 +37,8 @@ function useAuth () {
 
     const sendOtp = async ( phoneNumber, appVerifier ) => {
         try {
+            console.log(phoneNumber);
+            console.log(appVerifier);
             // const res = await setUpRecaptcha( phoneNumber )
             // setConfirmObject( res );
             // const appVerifier = window.recaptchaVerifier

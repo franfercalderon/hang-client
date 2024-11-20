@@ -53,13 +53,16 @@ export default function Login () {
         }
     }
     useEffect(() => {
-        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
-            size: 'normal',
-            callback: ( response ) => {
-            console.log('reCAPTCHA solved:', response )
-            }
-        })
-    }, [ auth ])
+
+        if (!window.recaptchaVerifier) {
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+                size: 'normal', // Visible reCAPTCHA
+                callback: (response) => {
+                    console.log('reCAPTCHA solved:', response);
+                }
+            });
+        }
+    }, [auth])
 
     return(
         <div className="view-container onboarding">
