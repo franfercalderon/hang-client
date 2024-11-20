@@ -5,8 +5,8 @@ import useAuth from "../hooks/useAuth";
 import OTPInput from "../components/OtpContainer/OtpContainer";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
-import { RecaptchaVerifier } from 'firebase/auth'
-import { auth } from "../hooks/useAuth"
+import { RecaptchaVerifier, getAuth } from 'firebase/auth'
+import app from "../fb";
 
 
 export default function Login () {
@@ -22,6 +22,7 @@ export default function Login () {
     const { userLogin, sendOtp } = useAuth()
 
     //AUTH
+    const auth = getAuth( app )
     const appVerifier = window.recaptchaVerifier
 
     //FUNCTIONS

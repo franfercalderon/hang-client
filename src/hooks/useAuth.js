@@ -100,8 +100,6 @@ function useAuth () {
         userLogin,
         handleOnboarding,
         signOutUser,
-        auth
-        // setOtp
 
     }
 
