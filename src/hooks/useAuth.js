@@ -18,9 +18,16 @@ function useAuth () {
     //ROUTER
     const navigate = useNavigate()
 
+    //RECAPTCHA VERIFIER
+    let recaptchaVerifier
+
     //FUNCTIONS
     const setUpRecaptcha = ( phoneNumber ) => {
-        const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
+
+        if( recaptchaVerifier ){
+            recaptchaVerifier.clear()
+        }
+        recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
         recaptchaVerifier.render()
         return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
