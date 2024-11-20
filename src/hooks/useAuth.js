@@ -8,6 +8,7 @@ function useAuth () {
 
     //STATE
     const [ confirmObject, setConfirmObject ] = useState('')
+    const [ userId, setUserId ] = useState('')
 
     //CONTEXT
     const { setPopulateUser } = useContext( AppContext )
@@ -50,12 +51,12 @@ function useAuth () {
         try {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
-            console.log(res.user);
             const newUser = res._tokenResponse.isNewUser
+            const userId = res.user.uid
             navigate( newUser ? '/onboarding' : '/' )
             setPopulateUser( newUser ? false : true )
             if( newUser ){
-                //CREATE PROFILE
+                //CREATE PROFILE IMPORT CREATEUSER FROM
             }
             
         } catch ( error ) {

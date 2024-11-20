@@ -13,7 +13,8 @@ const AppProvider = ({ children }) => {
     const [ authToken, setAuthToken ] = useState( "" )
     const [ tokenLoading, setTokenLoading ] = useState( true  )
     const [ populateUser, setPopulateUser ] = useState( false )
-    
+    const [ authUser, setAuthUser ] = useState( null )
+
 
     //FIREBASE
     const auth = getAuth( app )
@@ -50,6 +51,7 @@ const AppProvider = ({ children }) => {
                 try {
                     const token = await user.getIdToken();
                     setAuthToken( token );
+                    setAuthUser( user )
                     setTokenLoading( false )
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
@@ -76,7 +78,9 @@ const AppProvider = ({ children }) => {
             authToken,
             globalUser,
             setPopulateUser,
-            tokenLoading
+            tokenLoading,
+            authUser,
+            setGlobalUser
         }}>
             { children }
         </Provider>
