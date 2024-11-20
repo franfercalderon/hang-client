@@ -22,13 +22,13 @@ function useAuth () {
     let recaptchaVerifier
 
     //FUNCTIONS
-    const setUpRecaptcha = ( phoneNumber ) => {
+    const setUpRecaptcha = async ( phoneNumber ) => {
 
         if( recaptchaVerifier ){
             recaptchaVerifier.clear()
         }
         recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
-        recaptchaVerifier.render()
+        await recaptchaVerifier.render()
         return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     }
 
