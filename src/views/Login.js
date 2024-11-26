@@ -17,7 +17,7 @@ export default function Login () {
     const [ showOtp, setShowOtp ] = useState( false )
     const [ displayError, setDisplayError ] = useState('')
     const [ isLoading, setIsLoading ] = useState( false )
-    const [ captchaToken, setCaptchaToken ] = useState( null )
+    // const [ captchaToken, setCaptchaToken ] = useState( null )
 
     //HOOKS
     const { userLogin, sendOtp } = useAuth()
@@ -40,8 +40,10 @@ export default function Login () {
                 // const appVerifier = await window.recaptchaVerifier
                 // await sendOtp( phoneNumber, appVerifier )
                 // console.log(appVerifier);
-                setUpRecaptcha()
-                const appVerifier = await window.recaptchaVerifier
+                // setUpRecaptcha()
+                const appVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
+                // const result = 
+                // const appVerifier = await window.recaptchaVerifier
                 // const confirmationResult = await
                 // console.log(captchaToken);
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
@@ -52,10 +54,11 @@ export default function Login () {
         } catch ( error ) {
             setIsLoading( false )
             setDisplayError( error.message )
-            if ( window.recaptchaVerifier ) {
-                console.log('errorazo');
-                window.recaptchaVerifier.clear()
-            }
+            console.log(error);
+            // if ( window.recaptchaVerifier ) {
+            //     console.log('errorazo');
+            //     window.recaptchaVerifier.clear()
+            // }
           
         }
     }
@@ -72,21 +75,21 @@ export default function Login () {
         }
     }
 
-    const setUpRecaptcha = useCallback( () => {
-        if( !window.recaptchaVerifier ){
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
-            // const res = await window.recaptchaVerifier.verify()
-            // setCaptchaToken(res);
+    // const setUpRecaptcha = useCallback( () => {
+    //     if( !window.recaptchaVerifier ){
+    //         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+    //         // const res = await window.recaptchaVerifier.verify()
+    //         // setCaptchaToken(res);
 
-        }
+    //     }
 
 
-        // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
-        //     size: 'invisible',
+    //     // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
+    //     //     size: 'invisible',
 
-        // })
-        // window.recaptchaVerifier.verify()
-    }, [ auth ])
+    //     // })
+    //     // window.recaptchaVerifier.verify()
+    // }, [ auth ])
 
     // useEffect(() => {
     //     setUpRecaptcha()
