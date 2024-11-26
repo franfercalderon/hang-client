@@ -36,12 +36,15 @@ export default function Login () {
         e.preventDefault()
         setIsLoading( true )
         try {
-            if( phoneNumber !== "" && phoneNumber !== undefined && captchaToken ){
+            if( phoneNumber !== "" && phoneNumber !== undefined ){
                 // const appVerifier = await window.recaptchaVerifier
                 // await sendOtp( phoneNumber, appVerifier )
                 // console.log(appVerifier);
-                console.log(captchaToken);
-                const res = await signInWithPhoneNumber( auth, phoneNumber, captchaToken )
+                setUpRecaptcha()
+                const appVerifier = window.recaptchaVerifier
+                // const confirmationResult = await
+                // console.log(captchaToken);
+                const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
                 console.log(res);
                 setIsLoading( false )
                 setShowOtp( true )
@@ -49,6 +52,11 @@ export default function Login () {
         } catch ( error ) {
             setIsLoading( false )
             setDisplayError( error.message )
+            if ( window.recaptchaVerifier ) {
+                console.log('errorazo');
+                window.recaptchaVerifier.clear()
+            }
+          
         }
     }
 
@@ -64,11 +72,14 @@ export default function Login () {
         }
     }
 
-    const setUpRecaptcha = useCallback( async () => {
+    const setUpRecaptcha = useCallback( () => {
+        if( !window.recaptchaVerifier ){
+            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+            // const res = await window.recaptchaVerifier.verify()
+            // setCaptchaToken(res);
 
-        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
-        const res = await window.recaptchaVerifier.verify()
-        setCaptchaToken(res);
+        }
+
 
         // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
         //     size: 'invisible',
@@ -77,9 +88,9 @@ export default function Login () {
         // window.recaptchaVerifier.verify()
     }, [ auth ])
 
-    useEffect(() => {
-        setUpRecaptcha()
-    }, [ setUpRecaptcha ])
+    // useEffect(() => {
+    //     setUpRecaptcha()
+    // }, [ setUpRecaptcha ])
     // useEffect(() => {
 
     //     if (!window.recaptchaVerifier) {
