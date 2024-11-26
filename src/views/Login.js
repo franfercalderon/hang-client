@@ -40,6 +40,7 @@ export default function Login () {
                 // const appVerifier = await window.recaptchaVerifier
                 // await sendOtp( phoneNumber, appVerifier )
                 // console.log(appVerifier);
+                console.log(captchaToken);
                 const res = await signInWithPhoneNumber( auth, phoneNumber, captchaToken )
                 console.log(res);
                 setIsLoading( false )
