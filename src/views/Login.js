@@ -34,7 +34,7 @@ export default function Login () {
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
         e.preventDefault()
-        setIsLoading( true )
+        // setIsLoading( true )
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
                 // const appVerifier = await window.recaptchaVerifier
