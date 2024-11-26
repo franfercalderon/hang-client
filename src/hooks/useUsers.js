@@ -20,7 +20,7 @@ function useUsers () {
                     'Content-Type': 'application/json',
                 }
             })  
-            setFirebaseUserId( userId )
+            setFirebaseUserId( userId.data )
 
         } catch ( error ) {
             throw error
