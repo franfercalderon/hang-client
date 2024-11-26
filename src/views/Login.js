@@ -17,6 +17,7 @@ export default function Login () {
     const [ showOtp, setShowOtp ] = useState( false )
     const [ displayError, setDisplayError ] = useState('')
     const [ isLoading, setIsLoading ] = useState( false )
+    const [ captchaToken, setCaptchaToken ] = useState( null )
 
     //HOOKS
     const { userLogin, sendOtp } = useAuth()
@@ -35,12 +36,12 @@ export default function Login () {
         e.preventDefault()
         setIsLoading( true )
         try {
-            if( phoneNumber !== "" && phoneNumber !== undefined ){
+            if( phoneNumber !== "" && phoneNumber !== undefined && captchaToken ){
                 // const appVerifier = await window.recaptchaVerifier
                 // await sendOtp( phoneNumber, appVerifier )
                 // console.log(appVerifier);
-                // const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
-                // console.log(res);
+                const res = await signInWithPhoneNumber( auth, phoneNumber, captchaToken )
+                console.log(res);
                 setIsLoading( false )
                 setShowOtp( true )
             }
@@ -63,15 +64,15 @@ export default function Login () {
     }
 
     const setUpRecaptcha = useCallback( async () => {
-        console.log('setea');
+
         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+        const res = await window.recaptchaVerifier.verify()
+        setCaptchaToken(res);
 
         // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
         //     size: 'invisible',
 
         // })
-        const res = await window.recaptchaVerifier.verify()
-        console.log(res);
         // window.recaptchaVerifier.verify()
     }, [ auth ])
 
