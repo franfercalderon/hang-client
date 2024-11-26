@@ -24,6 +24,7 @@ export default function Login () {
     //AUTH
     const auth = getAuth( app )
     const appVerifier = window.recaptchaVerifier
+    console.log(appVerifier);
     // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
 
     // const appVerifier = window.recaptchaVerifier
@@ -73,7 +74,7 @@ export default function Login () {
     }, [ auth ])
 
     useEffect(() => {
-        setUpRecaptcha()
+        // setUpRecaptcha()
     }, [ setUpRecaptcha ])
     // useEffect(() => {
 
