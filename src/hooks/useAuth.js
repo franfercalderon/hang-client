@@ -67,6 +67,7 @@ function useAuth () {
             // const res = await signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
+            console.log(res);
             const newUser = res._tokenResponse.isNewUser
             navigate( newUser ? '/onboarding' : '/' )
             setPopulateUser( newUser ? false : true )

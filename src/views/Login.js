@@ -48,11 +48,11 @@ export default function Login () {
                 // console.log(captchaToken);
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
                 console.log(res);
-                setIsLoading( false )
+                // setIsLoading( false )
                 setShowOtp( true )
             }
         } catch ( error ) {
-            setIsLoading( false )
+            // setIsLoading( false )
             setDisplayError( error.message )
             console.log(error);
             // if ( window.recaptchaVerifier ) {
