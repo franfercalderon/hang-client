@@ -1,8 +1,9 @@
-import { RecaptchaVerifier, signInWithPhoneNumber, getAuth, signOut } from 'firebase/auth'
+import {  getAuth, signOut } from 'firebase/auth'
 import app from "../fb"
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'
+import useUsers from './useUsers'
 
 function useAuth () {
 
@@ -12,52 +13,21 @@ function useAuth () {
     //CONTEXT
     const { setPopulateUser } = useContext( AppContext )
 
+    //HOOKS 
+    const { createUser } = useUsers()
+
     //FIREBASE
     const auth = getAuth( app )
 
     //ROUTER
     const navigate = useNavigate()
 
-    //RECAPTCHA VERIFIER
-    // let recaptchaVerifier
-
     //FUNCTIONS
-    // const setUpRecaptcha = async ( phoneNumber ) => {
-
-    //     window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
-
-
-    //     // if( recaptchaVerifier ){
-    //     //     recaptchaVerifier.clear()
-    //     // }
-    //     // recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
-    //     // await recaptchaVerifier.render()
-    //     return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
-    // }
-
-    // const sendOtp = async ( phoneNumber, appVerifier ) => {
-    //     try {
-    //         console.log(phoneNumber);
-    //         console.log(appVerifier);
-    //         // const res = await setUpRecaptcha( phoneNumber )
-    //         // setConfirmObject( res );
-    //         // const appVerifier = window.recaptchaVerifier
-    //         const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
-    //         console.log(res);
-    //         setConfirmObject( res )
-            
-             
-    //     } catch ( error ) {
-    //         throw new Error ( error )
-    //     }
-    // }
-
     const checkOtp = async ( otp ) => {
         try {
             const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
-            // console.log(error);
             throw new Error ( error )
         }
     }
@@ -65,18 +35,20 @@ function useAuth () {
     const userLogin = async ( otp ) => {
 
         try {
-            // console.log(otp);
-            // const res = await signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
             const formattedOtp = otp.join('')
-            // console.log(formattedOtp);
             const res = await checkOtp( formattedOtp )
-            console.log(res);
             const newUser = res._tokenResponse.isNewUser
-            navigate( newUser ? '/onboarding' : '/' )
-            setPopulateUser( newUser ? false : true )
+            if( newUser ){
+                await createUser( res )
+                navigate('/onboarding')
+                // setPopulateUser( false )
+
+            } else {
+                navigate( '/' )
+                setPopulateUser( true )
+            }
             
         } catch ( error ) {
-            // console.log(error);
             throw new Error ( error )
         }
     }

@@ -2,14 +2,12 @@ import axios from "axios"
 
 
 function useUsers () {
-    const createUser = async ( userData ) => {
+    const createUser = async ( data ) => {
         try{
-            //CREATES USER OBJECT WITH FORM INFORMATION.
             const user = {
-                ...userData,
-                email: userData.email.toLowerCase(),
+                createdAt: data.user.metadata.createdAt,
+                phoneNumber: data.user.phoneNumber,
             }
-            console.log(user);
 
             //CREATES USER IN DB   
             await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
