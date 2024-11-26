@@ -2,7 +2,7 @@ import { createContext, useState , useEffect, useCallback } from "react"
 import { onAuthStateChanged, getAuth, signOut } from 'firebase/auth'
 import app from "../fb"
 import { useNavigate } from "react-router-dom"
-import axios from 'axios'
+// import axios from 'axios'
 const AppContext = createContext('')
 const { Provider } = AppContext
 
@@ -14,6 +14,7 @@ const AppProvider = ({ children }) => {
     const [ tokenLoading, setTokenLoading ] = useState( true  )
     const [ populateUser, setPopulateUser ] = useState( false )
     const [ authUser, setAuthUser ] = useState( null )
+    const [ firebaseUserId, setFirebaseUserId ] = useState('')
 
 
     //FIREBASE
@@ -80,7 +81,9 @@ const AppProvider = ({ children }) => {
             setPopulateUser,
             tokenLoading,
             authUser,
-            setGlobalUser
+            setGlobalUser,
+            firebaseUserId, 
+            setFirebaseUserId
         }}>
             { children }
         </Provider>

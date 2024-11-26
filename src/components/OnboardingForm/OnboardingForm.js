@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import MainInput from "../MainInput/MainInput";
 
-export default function OnboardingForm({ handleNewUser, userData, handleChange }){
+export default function OnboardingForm({ updateUserInfo, userData, handleChange }){
 
     //STATE
     const [ enableSubmit, setEnableSubmit ] = useState( false )
@@ -21,7 +21,7 @@ export default function OnboardingForm({ handleNewUser, userData, handleChange }
             <MainInput name={ 'name' } value={ userData.name } handleChange={ handleChange } label={'First Name'}/>
             <MainInput name={ 'lastname' } value={ userData.lastname } handleChange={ handleChange } label={'Lastname'}/>
             <MainInput name={ 'email' } value={ userData.email } handleChange={ handleChange } label={'Email'}/>
-            <BtnPrimary action={ ( e ) => handleNewUser( e ) } displayText={ 'Continue' } submit={ true } enabled={ enableSubmit }/>
+            <BtnPrimary action={ ( e ) => updateUserInfo( e ) } displayText={ 'Continue' } submit={ true } enabled={ enableSubmit }/>
         </form>
     )
 }

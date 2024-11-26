@@ -1,7 +1,12 @@
 import axios from "axios"
-
+import { useContext } from "react"
+import { AppContext } from "../context/AppContext"
 
 function useUsers () {
+    //CONTEXT
+    const { firebaseUserId, setFirebaseUserId, authToken } = useContext( AppContext )
+
+    //FUNCTIONS
     const createUser = async ( data ) => {
         try{
             const user = {
@@ -10,28 +15,37 @@ function useUsers () {
             }
 
             //CREATES USER IN DB   
-            await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
+            const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
-            })   
+            })  
+            setFirebaseUserId( userId )
 
         } catch ( error ) {
             throw error
         } 
     }
 
-    const getUser = async ( userId, authToken ) => {
+    const updateUserById = async ( data ) => {
         try {
+            if( firebaseUserId ){
+                await axios.patch(`${process.env.REACT_APP_API_URL}/users/${ firebaseUserId }`, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ authToken }`
+                    }
+                })  
+            }
             
         } catch ( error ) {
-            
+            throw error
         }
     }
 
     return {
         createUser,
-        getUser,
+        updateUserById,
 
     }
 

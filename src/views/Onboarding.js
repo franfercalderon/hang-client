@@ -18,22 +18,17 @@ export default function Onboarding () {
     const [ onboardingStage, setOnboardingStage ] = useState( 1 )
     
     //CONTEXT
-    const { authUser } = useContext( AppContext )
+    // const { authUser } = useContext( AppContext )
 
     //HOOKS
-    const { createUser } = useUsers()
+    const { updateUserById } = useUsers()
 
     //FUNCTIONS
-    const handleNewUser = async ( e ) => {
+    const updateUserInfo = async ( e ) => {
         e.preventDefault()
         try {
-            const user = {
-                ...userData,
-                phoneNumber: authUser.phoneNumber,
-                id: authUser.uid
-            }
-            await createUser( user )
-            setOnboardingStage( 2 )
+            await updateUserById( userData )
+            setOnboardingStage( onboardingStage + 1 )
             
         } catch ( error ) {
             Swal.fire({
@@ -61,8 +56,8 @@ export default function Onboarding () {
     }
 
     //EFFECTS
-    useEffect(() => {
-    }, [  ])
+    // useEffect(() => {
+    // }, [  ])
 
     return(
         <div className="view-container onboarding">
@@ -73,7 +68,7 @@ export default function Onboarding () {
                 <div className="section-container">
                     {
                         onboardingStage === 1 &&
-                        <OnboardingForm handleNewUser={ handleNewUser } userData={ userData } handleChange={ handleChange } />
+                        <OnboardingForm updateUserInfo={ updateUserInfo } userData={ userData } handleChange={ handleChange } />
                     }
                     {
                         onboardingStage === 2 &&
