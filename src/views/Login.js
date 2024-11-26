@@ -17,10 +17,11 @@ export default function Login () {
     const [ showOtp, setShowOtp ] = useState( false )
     const [ displayError, setDisplayError ] = useState('')
     const [ isLoading, setIsLoading ] = useState( false )
+    // const [ confirmObject, setConfirmObject ] = useState('')
     // const [ captchaToken, setCaptchaToken ] = useState( null )
 
     //HOOKS
-    const { userLogin, sendOtp } = useAuth()
+    const { userLogin, setConfirmObject } = useAuth()
 
     //AUTH
     const auth = getAuth( app )
@@ -48,7 +49,7 @@ export default function Login () {
                 // console.log(captchaToken);
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
                 // res.onConfirmation()
-                console.log(res);
+                setConfirmObject(res);
                 // setIsLoading( false )
                 setShowOtp( true )
             }

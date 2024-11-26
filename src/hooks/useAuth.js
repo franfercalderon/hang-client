@@ -57,7 +57,7 @@ function useAuth () {
             const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
-            console.log(error);
+            // console.log(error);
             throw new Error ( error )
         }
     }
@@ -65,10 +65,10 @@ function useAuth () {
     const userLogin = async ( otp ) => {
 
         try {
-            console.log(otp);
+            // console.log(otp);
             // const res = await signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
             const formattedOtp = otp.join('')
-            console.log(formattedOtp);
+            // console.log(formattedOtp);
             const res = await checkOtp( formattedOtp )
             console.log(res);
             const newUser = res._tokenResponse.isNewUser
@@ -76,7 +76,7 @@ function useAuth () {
             setPopulateUser( newUser ? false : true )
             
         } catch ( error ) {
-            console.log(error);
+            // console.log(error);
             throw new Error ( error )
         }
     }
@@ -107,6 +107,7 @@ function useAuth () {
         userLogin,
         handleOnboarding,
         signOutUser,
+        setConfirmObject
 
     }
 
