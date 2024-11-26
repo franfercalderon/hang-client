@@ -47,6 +47,7 @@ export default function Login () {
                 // const confirmationResult = await
                 // console.log(captchaToken);
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+                // res.onConfirmation()
                 console.log(res);
                 // setIsLoading( false )
                 setShowOtp( true )

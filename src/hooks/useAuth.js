@@ -64,6 +64,7 @@ function useAuth () {
     const userLogin = async ( otp, phoneNumber ) => {
 
         try {
+            console.log(otp);
             // const res = await signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
