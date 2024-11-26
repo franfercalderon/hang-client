@@ -5,7 +5,7 @@ import useAuth from "../hooks/useAuth";
 import OTPInput from "../components/OtpContainer/OtpContainer";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
-import { RecaptchaVerifier, getAuth } from 'firebase/auth'
+import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth'
 import app from "../fb";
 
 
@@ -23,7 +23,11 @@ export default function Login () {
 
     //AUTH
     const auth = getAuth( app )
+    const appVerifier = window.recaptchaVerifier
+    // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
+
     // const appVerifier = window.recaptchaVerifier
+
 
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
@@ -31,7 +35,7 @@ export default function Login () {
         setIsLoading( true )
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
-                const appVerifier = await window.recaptchaVerifier
+                // const appVerifier = await window.recaptchaVerifier
                 await sendOtp( phoneNumber, appVerifier )
                 setIsLoading( false )
                 setShowOtp( true )
@@ -55,11 +59,14 @@ export default function Login () {
     }
 
     const setUpRecaptcha = useCallback( async () => {
-        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
-            size: 'invisible',
+        console.log('setea');
+        window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
 
-        })
-        window.recaptchaVerifier.verify()
+        // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
+        //     size: 'invisible',
+
+        // })
+        // window.recaptchaVerifier.verify()
     }, [ auth ])
 
     useEffect(() => {
