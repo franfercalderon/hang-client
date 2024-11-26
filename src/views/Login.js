@@ -23,8 +23,8 @@ export default function Login () {
 
     //AUTH
     const auth = getAuth( app )
-    const appVerifier = window.recaptchaVerifier
-    console.log(appVerifier);
+    // const appVerifier = window.recaptchaVerifier
+    // console.log(appVerifier);
     // window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} );
 
     // const appVerifier = window.recaptchaVerifier
@@ -38,9 +38,9 @@ export default function Login () {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
                 // const appVerifier = await window.recaptchaVerifier
                 // await sendOtp( phoneNumber, appVerifier )
-                console.log(appVerifier);
-                const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
-                console.log(res);
+                // console.log(appVerifier);
+                // const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+                // console.log(res);
                 setIsLoading( false )
                 setShowOtp( true )
             }
@@ -70,11 +70,13 @@ export default function Login () {
         //     size: 'invisible',
 
         // })
+        const res = await window.recaptchaVerifier.verify()
+        console.log(res);
         // window.recaptchaVerifier.verify()
     }, [ auth ])
 
     useEffect(() => {
-        // setUpRecaptcha()
+        setUpRecaptcha()
     }, [ setUpRecaptcha ])
     // useEffect(() => {
 
