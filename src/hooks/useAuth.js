@@ -35,22 +35,22 @@ function useAuth () {
     //     return signInWithPhoneNumber( auth, phoneNumber, recaptchaVerifier )
     // }
 
-    const sendOtp = async ( phoneNumber, appVerifier ) => {
-        try {
-            console.log(phoneNumber);
-            console.log(appVerifier);
-            // const res = await setUpRecaptcha( phoneNumber )
-            // setConfirmObject( res );
-            // const appVerifier = window.recaptchaVerifier
-            const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
-            console.log(res);
-            setConfirmObject( res )
+    // const sendOtp = async ( phoneNumber, appVerifier ) => {
+    //     try {
+    //         console.log(phoneNumber);
+    //         console.log(appVerifier);
+    //         // const res = await setUpRecaptcha( phoneNumber )
+    //         // setConfirmObject( res );
+    //         // const appVerifier = window.recaptchaVerifier
+    //         const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+    //         console.log(res);
+    //         setConfirmObject( res )
             
              
-        } catch ( error ) {
-            throw new Error ( error )
-        }
-    }
+    //     } catch ( error ) {
+    //         throw new Error ( error )
+    //     }
+    // }
 
     const checkOtp = async ( otp ) => {
         try {
@@ -98,7 +98,7 @@ function useAuth () {
 
 
     return {
-        sendOtp,
+        // sendOtp,
         userLogin,
         handleOnboarding,
         signOutUser,

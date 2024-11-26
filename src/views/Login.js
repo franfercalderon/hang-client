@@ -36,7 +36,9 @@ export default function Login () {
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
                 // const appVerifier = await window.recaptchaVerifier
-                await sendOtp( phoneNumber, appVerifier )
+                // await sendOtp( phoneNumber, appVerifier )
+                const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+                console.log(res);
                 setIsLoading( false )
                 setShowOtp( true )
             }
