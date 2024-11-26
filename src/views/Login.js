@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import PhoneInput from 'react-phone-number-input'
 import useAuth from "../hooks/useAuth";
@@ -23,7 +23,7 @@ export default function Login () {
 
     //AUTH
     const auth = getAuth( app )
-    const appVerifier = window.recaptchaVerifier
+    // const appVerifier = window.recaptchaVerifier
 
     //FUNCTIONS
     const handleSendOtp = async ( e ) => {
@@ -31,6 +31,7 @@ export default function Login () {
         setIsLoading( true )
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
+                const appVerifier = await window.recaptchaVerifier
                 await sendOtp( phoneNumber, appVerifier )
                 setIsLoading( false )
                 setShowOtp( true )
@@ -52,17 +53,29 @@ export default function Login () {
             setOtp(Array(6).fill( "" ))
         }
     }
-    useEffect(() => {
 
-        if (!window.recaptchaVerifier) {
-            window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-                size: 'normal', // Visible reCAPTCHA
-                callback: (response) => {
-                    console.log('reCAPTCHA solved:', response);
-                }
-            });
-        }
-    }, [auth])
+    const setUpRecaptcha = useCallback( async () => {
+        window.recaptchaVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
+            size: 'invisible',
+
+        })
+        window.recaptchaVerifier.verify()
+    }, [ auth ])
+
+    useEffect(() => {
+        setUpRecaptcha()
+    }, [ setUpRecaptcha ])
+    // useEffect(() => {
+
+    //     if (!window.recaptchaVerifier) {
+    //         window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+    //             size: 'normal', // Visible reCAPTCHA
+    //             callback: (response) => {
+    //                 console.log('reCAPTCHA solved:', response);
+    //             }
+    //         });
+    //     }
+    // }, [auth])
 
     return(
         <div className="view-container onboarding">
