@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import { storage, ref, uploadBytes, getDownloadURL } from "../fb"
+import { v4 } from "uuid"
 
 function useUsers () {
     //CONTEXT
@@ -28,8 +30,6 @@ function useUsers () {
     }
 
     const updateUserById = async ( data ) => {
-        console.log(data);
-        console.log(firebaseUserId);
         try {
             if( firebaseUserId ){
                 await axios.patch(`${process.env.REACT_APP_API_URL}/users/${ firebaseUserId }`, data, {
@@ -45,10 +45,26 @@ function useUsers () {
         }
     }
 
+    const uploadProfilePhoto = async ( imageUpload ) => {
+        try {
+            const imageRef = ref( storage, `images/profilePictures/${ imageUpload.name + v4() }`)
+            const res = await uploadBytes( imageRef, imageUpload )
+            console.log(res);
+            const imageURL = await getDownloadURL( imageRef )
+            const data = {
+                profilePhoto: imageURL
+            }
+            await updateUserById( data )
+            
+        } catch ( error ) {
+            throw error
+        }
+    }
+
     return {
         createUser,
         updateUserById,
-
+        uploadProfilePhoto
     }
 
 }

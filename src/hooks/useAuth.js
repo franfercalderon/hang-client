@@ -1,5 +1,5 @@
 import {  getAuth, signOut } from 'firebase/auth'
-import app from "../fb"
+import { app } from "../fb"
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../context/AppContext'

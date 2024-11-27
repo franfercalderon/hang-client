@@ -1,6 +1,6 @@
 import { createContext, useState , useEffect, useCallback } from "react"
 import { onAuthStateChanged, getAuth, signOut } from 'firebase/auth'
-import app from "../fb"
+import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 // import axios from 'axios'
 const AppContext = createContext('')

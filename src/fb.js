@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 
 //Web app's Firebase configuration
 const firebaseConfig = {
@@ -11,5 +12,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-export default app
+const app = initializeApp( firebaseConfig )
+const storage = getStorage( app )
+
+export { app, storage, ref, uploadBytes, getDownloadURL }

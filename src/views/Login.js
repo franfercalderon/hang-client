@@ -6,7 +6,7 @@ import OTPInput from "../components/OtpContainer/OtpContainer";
 import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth'
-import app from "../fb";
+import { app } from "../fb";
 
 
 export default function Login () {

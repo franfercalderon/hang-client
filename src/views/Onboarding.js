@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react"
-import { AppContext } from "../context/AppContext"
+// import { AppContext } from "../context/AppContext"
 import Swal from "sweetalert2"
 import useUsers from "../hooks/useUsers"
-import MainInput from "../components/MainInput/MainInput"
-import BtnPrimary from "../components/BtnPrimary/BtnPrimary"
+// import MainInput from "../components/MainInput/MainInput"
+// import BtnPrimary from "../components/BtnPrimary/BtnPrimary"
 import OnboardingForm from "../components/OnboardingForm/OnboardingForm"
+import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
+import BtnSecondary from "../components/BtnSecondary/BtnSecondary"
 
 export default function Onboarding () {
 
@@ -15,7 +17,7 @@ export default function Onboarding () {
         email: ''
     })
 
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 2 )
     
     //CONTEXT
     // const { authUser } = useContext( AppContext )
@@ -28,7 +30,7 @@ export default function Onboarding () {
         e.preventDefault()
         try {
             await updateUserById( userData )
-            setOnboardingStage( onboardingStage + 1 )
+            handleOnboardingStage()
             
         } catch ( error ) {
             Swal.fire({
@@ -47,6 +49,10 @@ export default function Onboarding () {
         }
     }
 
+    const handleOnboardingStage = () => {
+        setOnboardingStage( onboardingStage < 4 ? onboardingStage + 1 : 1 )
+    }
+
     const handleChange = ( e ) => {
         const { name, value } = e.target
         setUserData(( prevData ) => ({
@@ -55,9 +61,6 @@ export default function Onboarding () {
         }))
     }
 
-    //EFFECTS
-    // useEffect(() => {
-    // }, [  ])
 
     return(
         <div className="view-container onboarding">
@@ -72,9 +75,22 @@ export default function Onboarding () {
                     }
                     {
                         onboardingStage === 2 &&
-                        <p>2</p>
+                        <OnboardingPhoto handleOnboardingStage={ handleOnboardingStage } />
+                    }
+                    {
+                        onboardingStage === 3 &&
+                        //FOTOS
+                        <p>3 - CALENDAR</p>
+                    }
+                    {
+                        onboardingStage === 4 &&
+                        //FOTOS
+                        <p>4 - INVITE LINK</p>
                     }
                 </div>
+            {/* <div className="bottom-container">
+                <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
+            </div> */}
             </div>
         </div>
 
