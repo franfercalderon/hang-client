@@ -11,8 +11,8 @@ function useUsers () {
     //FUNCTIONS
     const createUser = async ( data ) => {
         try{
-            console.log(data.user);
             const user = {
+                id: data.user.uid,
                 createdAt: data.user.metadata.createdAt,
                 phoneNumber: data.user.phoneNumber,
             }
