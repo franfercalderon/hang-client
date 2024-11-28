@@ -3,6 +3,7 @@ $darkwhite: #f9f9f9
 $hangblue: #00A3E1
 $darkgray: #333333
 $alertred: #f6230c68
+$bordergray: #bebebe
 
 
 //VARIABLES
@@ -104,7 +105,7 @@ $alertred: #f6230c68
     background-color: $alertred
 
 .round-div
-    border-radius: 8px
+    border-radius: 1rem
 
 .onboarding-input-container
     position: relative
@@ -147,6 +148,36 @@ $alertred: #f6230c68
     margin: 1rem 0
     margin-top: 3rem
     border-radius: 500px
+
+.rounded
+    border-radius: 5px
+
+.btn.cta
+    padding: 0.8rem
+    border: none
+    background-color: $hangblue
+    color: white
+    font-weight: 500
+
+select:focus
+    border: none
+    outline: none
+
+select:active
+    border: none
+    outline: none
+
+.btn.cta.disabled
+    opacity: 0.5
+
+.close-btn
+    font-size: 1.4rem
+    cursor: pointer
+    position: absolute
+
+.div-shadow
+    box-shadow: 1px 0px 43px 4px rgba(0,0,0,0.1)
+
 
 
 

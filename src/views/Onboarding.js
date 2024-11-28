@@ -7,6 +7,7 @@ import useUsers from "../hooks/useUsers"
 import OnboardingForm from "../components/OnboardingForm/OnboardingForm"
 import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
 import BtnSecondary from "../components/BtnSecondary/BtnSecondary"
+import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalendar"
 
 export default function Onboarding () {
 
@@ -17,7 +18,7 @@ export default function Onboarding () {
         email: ''
     })
 
-    const [ onboardingStage, setOnboardingStage ] = useState( 2 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
     
     //CONTEXT
     // const { authUser } = useContext( AppContext )
@@ -68,7 +69,7 @@ export default function Onboarding () {
                 Create Your Account
             </div>
             <div className="view-body">
-                <div className="section-container">
+                <div className="section-container full-height">
                     {
                         onboardingStage === 1 &&
                         <OnboardingForm updateUserInfo={ updateUserInfo } userData={ userData } handleChange={ handleChange } />
@@ -79,12 +80,11 @@ export default function Onboarding () {
                     }
                     {
                         onboardingStage === 3 &&
-                        //FOTOS
-                        <p>3 - CALENDAR</p>
+                        <OnboardingCalendar handleOnboardingStage={ handleOnboardingStage }/>
                     }
                     {
                         onboardingStage === 4 &&
-                        //FOTOS
+                        //LINK
                         <p>4 - INVITE LINK</p>
                     }
                 </div>

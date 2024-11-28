@@ -3,6 +3,8 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary"
 import BtnSecondary from "../BtnSecondary/BtnSecondary"
 import Swal from "sweetalert2"
 import useUsers from "../../hooks/useUsers"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faXmark } from "@fortawesome/free-solid-svg-icons"
 
 export default function OnboardingPhoto({ handleOnboardingStage }){
 
@@ -46,6 +48,11 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
         }
     }
 
+    const resetPhoto = () => {
+        setUserImg( '' )
+        setSelectedFile( null )
+    }
+
     //EFFECTS
     useEffect(() => {
         if ( selectedFile ){
@@ -57,6 +64,12 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
     return(
         <>
             <div className="profile-img-container" >
+                {
+                    userImg &&
+                    <div className="onboarding-img-close-div" onClick={ resetPhoto }>
+                        <FontAwesomeIcon icon={ faXmark } />
+                    </div>
+                }
                 <img src={ userImg !== "" ? userImg : '/images/defaultProfile.jpg' } alt="profile"/>
             </div>
             {
