@@ -49,8 +49,7 @@ function useUsers () {
     const uploadProfilePhoto = async ( imageUpload ) => {
         try {
             const imageRef = ref( storage, `images/profilePictures/${ imageUpload.name + v4() }`)
-            const res = await uploadBytes( imageRef, imageUpload )
-            console.log(res);
+            await uploadBytes( imageRef, imageUpload )
             const imageURL = await getDownloadURL( imageRef )
             const data = {
                 profilePhoto: imageURL

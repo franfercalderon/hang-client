@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-// import { AppContext } from "../context/AppContext"
+import { AppContext } from "../context/AppContext"
 import Swal from "sweetalert2"
 import useUsers from "../hooks/useUsers"
 // import MainInput from "../components/MainInput/MainInput"
@@ -9,6 +9,7 @@ import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
 import BtnSecondary from "../components/BtnSecondary/BtnSecondary"
 import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalendar"
 import OnboardingInvite from "../components/OnboardingInvite/OnboardingInvite"
+import { useNavigate } from "react-router-dom"
 
 export default function Onboarding () {
 
@@ -18,14 +19,16 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-
     const [ onboardingStage, setOnboardingStage ] = useState( 1 )
     
     //CONTEXT
-    // const { authUser } = useContext( AppContext )
+    const { setPopulateUser } = useContext( AppContext )
 
     //HOOKS
     const { updateUserById } = useUsers()
+
+    //ROUTER
+    const navigate = useNavigate()
 
     //FUNCTIONS
     const updateUserInfo = async ( e ) => {
@@ -52,7 +55,13 @@ export default function Onboarding () {
     }
 
     const handleOnboardingStage = () => {
-        setOnboardingStage( onboardingStage < 4 ? onboardingStage + 1 : 1 )
+        if( onboardingStage < 4 ){
+            setOnboardingStage( onboardingStage + 1 )
+        } else {
+            setOnboardingStage( 1 )
+            setPopulateUser( true )
+            navigate('/')
+        }
     }
 
     const handleChange = ( e ) => {

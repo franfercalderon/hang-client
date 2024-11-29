@@ -83,7 +83,6 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                 startTime,
                 endTime
             }
-            console.log('vuelve acá');
             setIsLoading( true )
             if( validateTimes( slot ) ){
                 setSavedSlots(( prevValue ) => [...prevValue, slot ])
