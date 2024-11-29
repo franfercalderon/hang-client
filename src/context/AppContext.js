@@ -65,6 +65,10 @@ const AppProvider = ({ children }) => {
         }
     }, [ authToken, populateUser, getGlobalUser, firebaseUserId ] )
 
+    useEffect(()=> {
+        console.log(populateUser);
+    }, [ populateUser])
+
     return(
         <Provider value={{
             authToken,
