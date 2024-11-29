@@ -20,6 +20,7 @@ export default function Onboarding () {
         email: ''
     })
     const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
     const { setPopulateUser } = useContext( AppContext )
@@ -34,10 +35,13 @@ export default function Onboarding () {
     const updateUserInfo = async ( e ) => {
         e.preventDefault()
         try {
+            setIsLoading( true )
             await updateUserById( userData )
+            setIsLoading( false )
             handleOnboardingStage()
             
         } catch ( error ) {
+            setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
                 text: error.message,
@@ -97,7 +101,7 @@ export default function Onboarding () {
                 <div className="section-container full-height">
                     {
                         onboardingStage === 1 &&
-                        <OnboardingForm updateUserInfo={ updateUserInfo } userData={ userData } handleChange={ handleChange } />
+                        <OnboardingForm updateUserInfo={ updateUserInfo } userData={ userData } handleChange={ handleChange } isLoading={ isLoading }/>
                     }
                     {
                         onboardingStage === 2 &&
