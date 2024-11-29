@@ -33,7 +33,6 @@ function useUsers () {
     const updateUserById = async ( data ) => {
         try {
             if( firebaseUserId ){
-                console.log(data);
                 await axios.patch(`${process.env.REACT_APP_API_URL}/users/${ firebaseUserId }`, data, {
                     headers: {
                         'Content-Type': 'application/json',

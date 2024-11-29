@@ -1,4 +1,4 @@
-import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faL, faXmark } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useEffect, useState } from "react"
 
@@ -6,6 +6,8 @@ export default function TimePicker({ handleClose, handleChange, action, value })
 
     //STATE
     const [ enableButton, setEnableButton ] = useState( false )
+
+    const toggleTimePicker = action === 'start' ? true : false
 
     //EFFECTS
     useEffect(() => {
@@ -15,7 +17,7 @@ export default function TimePicker({ handleClose, handleChange, action, value })
 
     return(
         <div className="time-picker-main-container round-div div-shadow">
-            <FontAwesomeIcon icon={ faXmark } className="close-btn" onClick={ ( e ) => handleClose( e, true )}/>
+            <FontAwesomeIcon icon={ faXmark } className="close-btn" onClick={ ( e ) => handleClose( e, true, false )}/>
             <p>{`Select the ${action} time`}</p>
             <div className="select-container">
                 <form>
@@ -74,7 +76,7 @@ export default function TimePicker({ handleClose, handleChange, action, value })
                         </select>
 
                     </div>
-                    <button className={`btn cta rounded ${ !enableButton ? 'disabled' : ''}`} type="submit" disabled={ !enableButton } onClick={ ( e ) => handleClose( e, false ) }>
+                    <button className={`btn cta rounded ${ !enableButton ? 'disabled' : ''}`} type="submit" disabled={ !enableButton } onClick={ ( e ) => handleClose( e, false, toggleTimePicker ) }>
                         OK
                     </button>
                 </form>

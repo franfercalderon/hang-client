@@ -8,6 +8,7 @@ import OnboardingForm from "../components/OnboardingForm/OnboardingForm"
 import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
 import BtnSecondary from "../components/BtnSecondary/BtnSecondary"
 import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalendar"
+import OnboardingInvite from "../components/OnboardingInvite/OnboardingInvite"
 
 export default function Onboarding () {
 
@@ -18,7 +19,7 @@ export default function Onboarding () {
         email: ''
     })
 
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 4 )
     
     //CONTEXT
     // const { authUser } = useContext( AppContext )
@@ -66,7 +67,22 @@ export default function Onboarding () {
     return(
         <div className="view-container onboarding">
             <div className="section-container topbar-title">
-                Create Your Account
+                {
+                    onboardingStage === 1 &&
+                    <p>Create Your Account</p>
+                }
+                {
+                    onboardingStage === 2 &&
+                    <p>Add a Profile Photo</p>
+                }
+                {
+                    onboardingStage === 3 &&
+                    <p>Set Up Your Availability</p>
+                }
+                {
+                    onboardingStage === 4 &&
+                    <p>Invite Friends</p>
+                }
             </div>
             <div className="view-body">
                 <div className="section-container full-height">
@@ -84,8 +100,7 @@ export default function Onboarding () {
                     }
                     {
                         onboardingStage === 4 &&
-                        //LINK
-                        <p>4 - INVITE LINK</p>
+                        <OnboardingInvite handleOnboardingStage={ handleOnboardingStage }/>
                     }
                 </div>
             {/* <div className="bottom-container">
