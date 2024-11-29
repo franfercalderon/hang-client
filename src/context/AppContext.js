@@ -1,5 +1,5 @@
 import { createContext, useState , useEffect, useCallback } from "react"
-import { onAuthStateChanged, getAuth, signOut } from 'firebase/auth'
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
@@ -31,10 +31,8 @@ const AppProvider = ({ children }) => {
     const getGlobalUser = useCallback( async () => {
         const user = await getUser( firebaseUserId, authToken )
         setGlobalUser( user )
-        console.log(user);
+        return user 
     }, [ getUser, authToken, firebaseUserId ])
-
-
 
     //EFFECTS
     useEffect(() => {
@@ -58,16 +56,16 @@ const AppProvider = ({ children }) => {
         return () => unsubscribe();
     }, [ auth, navigate ]);
 
-    useEffect(() => {
-        if( authToken && authToken !== '' && populateUser && firebaseUserId ){
-            console.log('entra acá?');
-            getGlobalUser()
-        }
-    }, [ authToken, populateUser, getGlobalUser, firebaseUserId ] )
+    // useEffect(() => {
+    //     if( authToken && authToken !== '' && populateUser && firebaseUserId ){
+    //         console.log('entra acá?');
+    //         getGlobalUser()
+    //     }
+    // }, [ authToken, populateUser, getGlobalUser, firebaseUserId ] )
 
-    useEffect(()=> {
-        console.log(populateUser);
-    }, [ populateUser])
+    // useEffect(()=> {
+    //     console.log(populateUser);
+    // }, [ populateUser])
 
     return(
         <Provider value={{
@@ -78,7 +76,8 @@ const AppProvider = ({ children }) => {
             authUser,
             setGlobalUser,
             firebaseUserId, 
-            setFirebaseUserId
+            setFirebaseUserId,
+            getGlobalUser
         }}>
             { children }
         </Provider>

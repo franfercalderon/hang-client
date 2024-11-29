@@ -59,7 +59,7 @@ function useUsers () {
         } catch ( error ) {
             throw error
         }
-    }
+    }  
 
     const getUser = useCallback( async ( userId, authToken ) => {
         try {
