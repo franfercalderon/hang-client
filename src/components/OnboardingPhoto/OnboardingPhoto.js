@@ -5,12 +5,14 @@ import Swal from "sweetalert2"
 import useUsers from "../../hooks/useUsers"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faXmark } from "@fortawesome/free-solid-svg-icons"
+import Loader from "../Loader/Loader"
 
 export default function OnboardingPhoto({ handleOnboardingStage }){
 
     //STATE
     const [ userImg, setUserImg ] = useState( '' )
     const [ selectedFile, setSelectedFile ] = useState( null )
+    const [ isLoading, setIsLoading ] = useState( false )
 
     //HOOKS
     const { uploadProfilePhoto } = useUsers()
@@ -29,9 +31,12 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
             if( !selectedFile ){
                 return 
             } 
+            setIsLoading( true )
             await uploadProfilePhoto( selectedFile )
+            setIsLoading( false )
             handleOnboardingStage()
         } catch ( error ) {
+            setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
                 text: error.message,
@@ -63,6 +68,12 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
 
     return(
         <>
+        {
+            isLoading ?
+            <Loader/>
+            :
+
+            <>
             <div className="profile-img-container" >
                 {
                     userImg &&
@@ -91,6 +102,8 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
             <div className="bottom-container">
                 <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
             </div>
-        </> 
+            </> 
+        }
+        </>
     )
 }
