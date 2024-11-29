@@ -19,7 +19,7 @@ export default function Onboarding () {
         email: ''
     })
 
-    const [ onboardingStage, setOnboardingStage ] = useState( 4 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
     
     //CONTEXT
     // const { authUser } = useContext( AppContext )
