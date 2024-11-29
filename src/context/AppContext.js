@@ -29,7 +29,7 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async () => {
-        const user = getUser( firebaseUserId, authToken )
+        const user = await getUser( firebaseUserId, authToken )
         setGlobalUser( user )
         console.log(user);
     }, [ getUser, authToken, firebaseUserId ])
@@ -59,10 +59,11 @@ const AppProvider = ({ children }) => {
     }, [ auth, navigate ]);
 
     useEffect(() => {
-        if( authToken && authToken !== '' && populateUser ){
+        if( authToken && authToken !== '' && populateUser && firebaseUserId ){
+            console.log('entra acá?');
             getGlobalUser()
         }
-    }, [ authToken, populateUser, getGlobalUser ] )
+    }, [ authToken, populateUser, getGlobalUser, firebaseUserId ] )
 
     return(
         <Provider value={{
