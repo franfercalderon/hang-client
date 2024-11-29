@@ -30,6 +30,7 @@ const AppProvider = ({ children }) => {
     //FUNCTIONS
     const getGlobalUser = useCallback( async () => {
         const user = await getUser( firebaseUserId, authToken )
+        console.log(user);
         setGlobalUser( user )
         return user 
     }, [ getUser, authToken, firebaseUserId ])
