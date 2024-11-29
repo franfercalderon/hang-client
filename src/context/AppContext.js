@@ -57,12 +57,12 @@ const AppProvider = ({ children }) => {
         return () => unsubscribe();
     }, [ auth, navigate ]);
 
-    // useEffect(() => {
-    //     if( authToken && authToken !== '' && populateUser && firebaseUserId ){
-    //         console.log('entra acá?');
-    //         getGlobalUser()
-    //     }
-    // }, [ authToken, populateUser, getGlobalUser, firebaseUserId ] )
+    useEffect(() => {
+        if( authToken !== '' &&  firebaseUserId ){
+            console.log('entra acá?');
+            getGlobalUser()
+        }
+    }, [ authToken, getGlobalUser, firebaseUserId ] )
 
     // useEffect(()=> {
     //     console.log(populateUser);
