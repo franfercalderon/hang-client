@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
 import { storage, ref, uploadBytes, getDownloadURL } from "../fb"
 import { v4 } from "uuid"
@@ -62,10 +62,26 @@ function useUsers () {
         }
     }
 
+    const getUser = useCallback( async ( userId, authToken ) => {
+        try {
+            const user = await axios.get(`${process.env.REACT_APP_API_URL}/users/${ userId }`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            return user 
+            
+        } catch ( error ) {
+            throw error
+        }
+    }, [])
+
     return {
         createUser,
         updateUserById,
-        uploadProfilePhoto
+        uploadProfilePhoto,
+        getUser
     }
 
 }

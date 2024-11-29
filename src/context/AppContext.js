@@ -2,13 +2,14 @@ import { createContext, useState , useEffect, useCallback } from "react"
 import { onAuthStateChanged, getAuth, signOut } from 'firebase/auth'
 import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
+import useUsers from "../hooks/useUsers"
 // import axios from 'axios'
 const AppContext = createContext('')
 const { Provider } = AppContext
 
 const AppProvider = ({ children }) => {
 
-    //AUTH STATE
+    //STATE
     const [ globalUser, setGlobalUser ] = useState( null )
     const [ authToken, setAuthToken ] = useState( "" )
     const [ tokenLoading, setTokenLoading ] = useState( true  )
@@ -17,6 +18,9 @@ const AppProvider = ({ children }) => {
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
 
 
+    //HOOKS
+    const { getUser } = useUsers()
+
     //FIREBASE
     const auth = getAuth( app )
 
@@ -24,23 +28,11 @@ const AppProvider = ({ children }) => {
     const navigate = useNavigate()
 
     //FUNCTIONS
-    // const userLogin = async () => {
-
-    //     try{
-    //         // await signInWithEmailAndPassword(auth, data.email, data.password)
-
-    //     } catch ( error ){
-    //         throw error
-    //     }
-    // }
-
-    // const createUserInDb = async () => {
-    //     try {
-            
-    //     } catch ( error ) {
-    //         throw error
-    //     }
-    // }
+    const getGlobalUser = useCallback( async () => {
+        const user = getUser( firebaseUserId, authToken )
+        setGlobalUser( user )
+        console.log(user);
+    }, [ getUser, authToken, firebaseUserId ])
 
 
 
@@ -68,11 +60,9 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if( authToken && authToken !== '' && populateUser ){
-            //GET USER FROM DB
-            //SET GLOBAL USER
-
+            getGlobalUser()
         }
-    }, [ authToken, populateUser ] )
+    }, [ authToken, populateUser, getGlobalUser ] )
 
     return(
         <Provider value={{
