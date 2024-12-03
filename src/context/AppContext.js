@@ -16,7 +16,7 @@ const AppProvider = ({ children }) => {
     const [ populateUser, setPopulateUser ] = useState( false )
     const [ authUser, setAuthUser ] = useState( null )
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
-    const [ inviterId, setInviterId ] = useState( null )
+    const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
 
 
