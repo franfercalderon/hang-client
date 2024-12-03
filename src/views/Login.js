@@ -52,7 +52,7 @@ export default function Login () {
         } catch  ( error ) {
             console.log(error);
             setIsLoading( false )
-            setDisplayError( error.response )
+            setDisplayError( error.response.data )
             setOtp(Array(6).fill( "" ))
         }
     }
