@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import PhoneInput from 'react-phone-number-input'
 import useAuth from "../hooks/useAuth";
@@ -7,6 +7,7 @@ import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth'
 import { app } from "../fb";
+import { AppContext } from "../context/AppContext";
 
 
 export default function Login () {
@@ -20,6 +21,9 @@ export default function Login () {
 
     //HOOKS
     const { userLogin, setConfirmObject } = useAuth()
+
+    //CONTEXT
+    const { inviterId } = useContext( AppContext )
 
     //AUTH
     const auth = getAuth( app )
@@ -61,7 +65,7 @@ export default function Login () {
                 :
                 <>
                 <div className="section-container topbar-title">
-                    Welcome
+                    { inviterId ?  'You have been Invited to Hang' : 'Welcome Back'}
                 </div>
                 <div className="view-body">
                     <div className="section-container">
