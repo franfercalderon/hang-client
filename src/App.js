@@ -6,6 +6,7 @@ import Welcome from './views/Welcome';
 import { AppProvider } from './context/AppContext';
 import Onboarding from './views/Onboarding';
 import Invite from './views/Invite';
+import Master from './views/Master';
 
 function App() {
   return (  
@@ -15,6 +16,7 @@ function App() {
           <Routes>
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
+              <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
               <Route exact path='/'element={

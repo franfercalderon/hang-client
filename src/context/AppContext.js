@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
     const [ authUser, setAuthUser ] = useState( null )
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
     const [ inviterId, setInviterId ] = useState( null )
+    const [ masterToken, setMasterToken ] = useState( '' )
 
 
     //HOOKS
@@ -81,7 +82,9 @@ const AppProvider = ({ children }) => {
             setFirebaseUserId,
             getGlobalUser,
             inviterId, 
-            setInviterId
+            setInviterId,
+            masterToken, 
+            setMasterToken
         }}>
             { children }
         </Provider>

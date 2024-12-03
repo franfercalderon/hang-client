@@ -6,14 +6,9 @@ import { v4 } from "uuid"
 
 function useUsers () {
     //CONTEXT
-    const { firebaseUserId, setFirebaseUserId, authToken, inviterId } = useContext( AppContext )
+    const { firebaseUserId, setFirebaseUserId, authToken, inviterId, masterToken } = useContext( AppContext )
 
     //FUNCTIONS
-    const handleInvitedUser = async ( data ) => {
-
-    }
-
-
     const createUser = async ( data ) => {
         try{
             const user = {
@@ -26,14 +21,13 @@ function useUsers () {
             const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'InviteId': inviterId
+                    'InviteId': inviterId,
+                    'MasterToken': masterToken
                 }
             })  
             setFirebaseUserId( userId.data )
 
         } catch ( error ) {
-            console.log(error.message);
-            console.log(error);
             throw error
         } 
     }

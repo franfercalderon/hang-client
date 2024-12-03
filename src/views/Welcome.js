@@ -9,7 +9,7 @@ export default function Welcome () {
     //ROUTER
     const navigate = useNavigate()
 
-    //ROUTER
+    //CONTEXT
     const { inviterId } = useContext( AppContext )
 
     return(

@@ -50,7 +50,6 @@ export default function Login () {
         try {
             await userLogin( otp )
         } catch  ( error ) {
-            console.log(error);
             setIsLoading( false )
             setDisplayError( error.response.data )
             setOtp(Array(6).fill( "" ))
@@ -66,7 +65,7 @@ export default function Login () {
                 :
                 <>
                 <div className="section-container topbar-title">
-                    { inviterId ?  'Create Your Account' : 'Welcome Back'}
+                    { inviterId ?  'Create Your Account' : 'Welcome'}
                 </div>
                 <div className="view-body">
                     <div className="section-container">
