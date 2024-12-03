@@ -65,7 +65,7 @@ export default function Login () {
                 :
                 <>
                 <div className="section-container topbar-title">
-                    { inviterId ?  'You have been Invited to Hang' : 'Welcome Back'}
+                    { inviterId ?  'Create Your Account' : 'Welcome Back'}
                 </div>
                 <div className="view-body">
                     <div className="section-container">

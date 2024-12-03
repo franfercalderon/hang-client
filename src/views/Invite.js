@@ -15,7 +15,7 @@ export default function Invite () {
     //EFFECTS
     useEffect(()=> {
         if ( inviterId ){
-            navigate('/login')
+            navigate('/')
         }
     }, [ inviterId, navigate ])
     
