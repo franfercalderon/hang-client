@@ -1,17 +1,30 @@
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import BtnSecondary from "../BtnSecondary/BtnSecondary";
+import { AppContext } from "../../context/AppContext";
 
 export default function OnboardingInvite({ handleOnboardingStage }){
 
+    //STATE
+    const [ inviteUrl, setInviteUrl ] = useState( null )
+
+    //CONTEXT
+    const { firebaseUserId } = useContext( AppContext )
+
     //FUNCTIONS
     const copyLink = () => {
-
+        navigator.clipboard
+            .writeText( inviteUrl )
+            .then(()=> console.log('copied'))
     }
 
     useEffect(()=> {
+        if( firebaseUserId ){
+            const url = `${process.env.REACT_APP_BASE_URL}/invite/${ firebaseUserId }`
+            setInviteUrl( url )
+        }
+    }, [ firebaseUserId ])
 
-    })
     return(
         <>
             <p>Send this Invite Link to your friends so they can join you in Hang!</p>
