@@ -21,8 +21,8 @@ function useUsers () {
             const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'InviteId': inviterId,
-                    // 'MasterToken': masterToken
+                    'InviteId': inviterId,
+                    'MasterToken': masterToken
                 }
             })  
             setFirebaseUserId( userId.data )
