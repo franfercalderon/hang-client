@@ -71,7 +71,7 @@ function useUsers () {
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
-            return user 
+            return user.data 
             
         } catch ( error ) {
             throw error

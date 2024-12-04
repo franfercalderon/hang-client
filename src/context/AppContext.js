@@ -61,7 +61,6 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if( authToken !== '' &&  firebaseUserId ){
-            console.log('entra acá?');
             getGlobalUser()
         }
     }, [ authToken, getGlobalUser, firebaseUserId ] )
