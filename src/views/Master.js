@@ -31,10 +31,15 @@ export default function Master () {
 
 
     return(
-        <div className="view-container ">
-            <div className="section-container">
-                <MainInput name={ 'tokenValue' } value={ value } handleChange={ handleChange } label={'Enter Master Token'}/>
-                <BtnPrimary action={ ( e ) => submitCode( e ) } displayText={ 'Submit' } submit={ true } enabled={ value.length === 6 ? true : false  }/>
+        <div className="view-container onboarding">
+            <div className="section-container topbar-title">
+                Create a Master Account
+            </div>
+            <div className="view-body">
+                <div className="section-container master-token">
+                    <MainInput name={ 'tokenValue' } value={ value } handleChange={ handleChange } label={'Enter Token'}/>
+                    <BtnPrimary action={ ( e ) => submitCode( e ) } displayText={ 'Submit' } submit={ true } enabled={ value.length === 6 ? true : false  }/>
+                </div>
             </div>
         </div>
     )
