@@ -28,8 +28,6 @@ export default function Master () {
         navigate('/login')
     }
 
-
-
     return(
         <div className="view-container onboarding">
             <div className="section-container topbar-title">

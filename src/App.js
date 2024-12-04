@@ -19,12 +19,13 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/'element={
+              <Route exact path='/' element={ <Feed/> } />
+              {/* <Route exact path='/'element={
                   <ProtectedRoute >
                     <Feed/>
                   </ProtectedRoute>
                 } 
-              />
+              /> */}
           </Routes>
         </AppProvider>
       </BrowserRouter>

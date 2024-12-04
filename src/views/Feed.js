@@ -32,10 +32,22 @@ export default function Feed () {
                 isLoading ? 
                 <Loader/>
                 :
-                <>
-                    <p>FEEF</p>
-                    <button onClick={signOutUser}>Sign Out</button>
-                </>
+                <div className="view-container">
+                    <div className="feed-topbar">
+
+                    </div>
+                    <div className="view-body">
+
+                    </div>
+                    <div className="feed-bottombar">
+
+                    </div>
+
+                </div>
+                // <>
+                //     <p>FEEF</p>
+                //     <button onClick={signOutUser}>Sign Out</button>
+                // </>
             }
         </>
     )
