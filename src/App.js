@@ -24,17 +24,16 @@ function App() {
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
 
-              {/* <Route exact path='/'element={
-                  <ProtectedRoute >
+              <Route exact path='/'element={
+                <ProtectedRoute >
                   <Feed/>
-                  </ProtectedRoute>
-                  } 
-                  /> */}
-              <Route exact path='/' element={ <Feed/> } />
-              <Route exact path='/notifications' element={ <Notifactions/>} />
+                </ProtectedRoute>
+              }/>
+              {/* <Route exact path='/' element={ <Feed/> } /> */}
+              {/* <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/settings' element={ <Settings/>} />
-              <Route exact path='/create' element={ <Create/>} />
+              <Route exact path='/create' element={ <Create/>} /> */}
           </Routes>
         </AppProvider>
       </BrowserRouter>
