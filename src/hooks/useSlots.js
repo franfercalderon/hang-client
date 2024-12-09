@@ -107,7 +107,7 @@ function useSlots (){
     const getUserFixedSlots = useCallback( async ( userId ) => {
         try{
             //CREATES USER IN DB   
-            const fixedSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/user/${ userId }`, {
+            const fixedSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/fixed/user/${ userId }`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
