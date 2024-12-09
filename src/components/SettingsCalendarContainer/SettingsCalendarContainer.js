@@ -8,10 +8,10 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary";
 export default function SettingsCalendarContainer(){
 
     //STATE
-    const [ fixedSlots, setFixedSlots, convertArrayToString ] = useState( null )
+    const [ fixedSlots, setFixedSlots ] = useState( null )
 
     //HOOKS
-    const { getUserFixedSlots } = useSlots()
+    const { getUserFixedSlots, convertArrayToString } = useSlots()
     const { globalUser } = useContext( AppContext )
 
     //FUNCTIONS

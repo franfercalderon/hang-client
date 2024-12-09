@@ -35,7 +35,7 @@ const AppProvider = ({ children }) => {
         console.log(user);
         setGlobalUser( user )
         return user 
-    }, [ getUser, authToken, firebaseUserId ])
+    }, [ getUser, authToken, firebaseUserId ]) 
 
     //EFFECTS
     useEffect(() => {
@@ -61,6 +61,8 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if( authToken !== '' &&  firebaseUserId ){
+            console.log(authToken);
+            console.log(firebaseUserId);
             getGlobalUser()
         }
     }, [ authToken, getGlobalUser, firebaseUserId ] )
