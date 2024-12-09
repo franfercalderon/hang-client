@@ -5,12 +5,10 @@ $darkgray: #333333
 $alertred: #f6230c68
 $bordergray: #bebebe
 
-
 //VARIABLES
 .view-container
     height: 100vh
     width: 100vw
-    // max-width: 768px
     background-color: $darkwhite
     display: flex
     flex-direction: column
@@ -114,22 +112,6 @@ $bordergray: #bebebe
 
 .onboarding-img-input
     display: none
-    // display: flex
-    // line-height: 3rem
-    // justify-content: center
-    // align-items: center
-    // text-align: center
-    // height: 3rem
-    // width: 100%
-    // border: 2px solid $hangblue
-    // background-color: $hangblue
-    // font-size: 1rem
-    // font-weight: 600
-    // color: $darkwhite
-    // opacity: 0.9
-    // margin: 1rem 0
-    // margin-top: 3rem
-    // border-radius: 500px
 
 .file-input-label
     cursor: pointer
@@ -198,10 +180,10 @@ select:active
     display: flex
     flex-direction: column
     justify-content: start
+    align-items: center
     overflow: scroll
     position: relative
     z-index: 1
-
 
 .main-bottombar
     height: 7rem
@@ -221,7 +203,6 @@ select:active
     background-color: white
     margin: 1rem 0
     font-size: 0.95rem
-
 
 .cta-card .body-container
     width: 100%
@@ -245,8 +226,6 @@ select:active
     color: white
     font-weight: 500 
 
-
-
 .cta-card p
     font-weight: 400 
 
@@ -255,7 +234,6 @@ select:active
     margin-bottom: 0.5rem
     color: $hangblue
 
-
 .main-topbar .nav-btn-container
     display: flex
     align-items: center
@@ -263,15 +241,39 @@ select:active
 .main-topbar .nav-btn-container p 
     margin-left: 1rem
 
+.cta-card.sign-out
+    justify-content: center
+    margin-top: 3rem
+
+.cta-card.sign-out p 
+    font-weight: 500
+
+.mt-2
+    margin-top: 2rem
+
+.hang-alert-container .btn
+    padding: 0.5rem 1.2rem
+    border-radius: 500px
+    font-size: 1rem
+
+.hang-alert-container .btn.confirm-btn
+    border: 2px solid $hangblue
+    background-color: $hangblue
+    color: white
 
 
+.hang-alert-container .btn.deny-btn
+    border: 2px solid $hangblue
+    background-color: white
+    color: $hangblue
+    margin-right: 1rem
 
+.order1
+    order: 1
 
+.order2
+    order: 2
 
-
-
-
-
-
-
+// .hang-alert-container .alert-icon
+//     color: $hangblue
 

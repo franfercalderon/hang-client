@@ -11,6 +11,8 @@ import Notifactions from './views/Notifications';
 import Assistant from './views/Assistant';
 import Settings from './views/Settings';
 import Create from './views/Create';
+import CreateHang from './views/CreateHang';
+import CreateNow from './views/CreateNow';
 
 function App() {
   return (  
@@ -23,17 +25,18 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-
-              <Route exact path='/'element={
+              {/* <Route exact path='/'element={
                 <ProtectedRoute >
                   <Feed/>
                 </ProtectedRoute>
-              }/>
-              {/* <Route exact path='/' element={ <Feed/> } /> */}
-              {/* <Route exact path='/notifications' element={ <Notifactions/>} />
+              }/> */}
+              <Route exact path='/' element={ <Feed/> } />
+              <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/settings' element={ <Settings/>} />
-              <Route exact path='/create' element={ <Create/>} /> */}
+              <Route exact path='/create' element={ <Create/>} />
+              <Route exact path='/create/hang' element={ <CreateHang/>} />
+              <Route exact path='/create/now' element={ <CreateNow/>} />
           </Routes>
         </AppProvider>
       </BrowserRouter>

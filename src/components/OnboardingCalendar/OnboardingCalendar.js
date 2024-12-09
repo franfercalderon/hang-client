@@ -28,7 +28,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
     })
 
     //HOOKS
-    const { createSlot, validateTimes } = useSlots()
+    const { postFixedSlot, validateTimes } = useSlots()
 
     //FUNCTIONS
     const handleSelectDay = ( selectedDay ) => {
@@ -86,7 +86,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
             setIsLoading( true )
             if( validateTimes( slot ) ){
                 setSavedSlots(( prevValue ) => [...prevValue, slot ])
-                await createSlot( slot )
+                await postFixedSlot( slot )
                 resetTimes()
                 setSelectedDays([])
                 setIsLoading( false )

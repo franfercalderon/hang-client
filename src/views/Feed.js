@@ -4,7 +4,7 @@ import { AppContext } from "../context/AppContext"
 import Loader from "../components/Loader/Loader"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faBell, faPlus } from "@fortawesome/free-solid-svg-icons"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import FeedCard from "../components/FeedCard/FeedCard"
 
 

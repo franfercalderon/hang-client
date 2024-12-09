@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext } from "react"
+import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
 
 
@@ -9,11 +9,43 @@ function useSlots (){
     const { authToken } = useContext( AppContext )
 
     //FUNCTIONS
-    const createSlot = async ( slot ) => {
+    const postFixedSlot = async ( slot ) => {
 
         try{
             //CREATES USER IN DB   
-            await axios.post(`${process.env.REACT_APP_API_URL}/slots/`, slot, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/slots/fixed`, slot, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+        } catch ( error ) {
+            throw error
+        } 
+    }
+
+    const postAvailableNowSlot = async ( slot ) => {
+
+        try{
+            //CREATES USER IN DB   
+            await axios.post(`${process.env.REACT_APP_API_URL}/slots/now`, slot, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+        } catch ( error ) {
+            throw error
+        } 
+    }
+
+    const postScheduledSlot = async ( slot ) => {
+
+        try{
+            //CREATES USER IN DB   
+            await axios.post(`${process.env.REACT_APP_API_URL}/slots/schedule`, slot, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
@@ -45,9 +77,41 @@ function useSlots (){
         return startMinutes < endMinutes
     }
 
+    const convertTimeToTimestamp = useCallback(( time, date ) => {
+        
+        const { hour, minute, ampm } = time
+        if (!hour || !minute || !ampm ){
+            throw new Error('Incomplete time object')
+        }
+        
+        let hour24 = parseInt( hour, 10 )
+        if( ampm.toLowerCase() === 'pm' && hour24 !== 12 ){
+            hour24 += 12
+        } else if( ampm.toLowerCase() === 'am' && hour24 === 12 ){
+            hour24 = 0
+        }
+        const now = new Date()
+        const timeStamp = new Date (
+            date ? date.getFullYear() : now.getFullYear(),
+            date ? date.getMonth() : now.getMonth(),
+            date ? date.getDate() : now.getDate(),
+            hour24,
+            parseInt( minute, 10 ),
+            0,
+            0
+        )
+        return timeStamp.getTime()
+
+    }, [] )
+
+
+
     return({
-        createSlot,
-        validateTimes
+        postFixedSlot,
+        validateTimes,
+        convertTimeToTimestamp,
+        postAvailableNowSlot,
+        postScheduledSlot
     })
 
 }

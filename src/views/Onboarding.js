@@ -19,7 +19,7 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 3 )
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
@@ -116,9 +116,6 @@ export default function Onboarding () {
                         <OnboardingInvite handleOnboardingStage={ handleOnboardingStage }/>
                     }
                 </div>
-            {/* <div className="bottom-container">
-                <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
-            </div> */}
             </div>
         </div>
 
