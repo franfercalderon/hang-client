@@ -1,12 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useState } from "react"
 import { AppContext } from "../context/AppContext"
 import Swal from "sweetalert2"
 import useUsers from "../hooks/useUsers"
-// import MainInput from "../components/MainInput/MainInput"
-// import BtnPrimary from "../components/BtnPrimary/BtnPrimary"
 import OnboardingForm from "../components/OnboardingForm/OnboardingForm"
 import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
-import BtnSecondary from "../components/BtnSecondary/BtnSecondary"
 import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalendar"
 import OnboardingInvite from "../components/OnboardingInvite/OnboardingInvite"
 import { useNavigate } from "react-router-dom"
@@ -19,7 +16,7 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 3 )
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
@@ -49,7 +46,7 @@ export default function Onboarding () {
                 confirmButtonText: 'Ok',
                 buttonsStyling: false,
                 customClass: {
-                    popup: 'marketsauce-alert-container round-div div-shadow',
+                    popup: 'hang-alert-container round-div div-shadow',
                     icon: 'alert-icon',
                     confirmButton: 'confirm-btn btn order2',
                     denyButton: 'deny-btn btn order1',

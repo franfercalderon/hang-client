@@ -44,7 +44,7 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
                 confirmButtonText: 'Ok',
                 buttonsStyling: false,
                 customClass: {
-                    popup: 'marketsauce-alert-container round-div div-shadow',
+                    popup: 'hang-alert-container round-div div-shadow',
                     icon: 'alert-icon',
                     confirmButton: 'confirm-btn btn order2',
                     denyButton: 'deny-btn btn order1',

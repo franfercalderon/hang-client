@@ -104,7 +104,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                 confirmButtonText: 'Ok',
                 buttonsStyling: false,
                 customClass: {
-                    popup: 'marketsauce-alert-container round-div div-shadow',
+                    popup: 'hang-alert-container round-div div-shadow',
                     icon: 'alert-icon',
                     confirmButton: 'confirm-btn btn order2',
                     denyButton: 'deny-btn btn order1',
@@ -172,7 +172,17 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                         <BtnPrimary action={ handleSaveSlot } displayText={'Save Date'} submit={ false } enabled={ enableSaveBtn }/>
                     }
                     <div className="bottom-container">
-                        <BtnSecondary action={ handleOnboardingStage } displayText={ savedSlots.length < 1 ? 'Skip' : 'Done'} enabled={ true }/>
+                        {
+                            savedSlots.length < 1 ?
+                            
+                            <BtnSecondary action={ handleOnboardingStage } displayText={ 'Skip' } enabled={ true } submit={ false }/>
+                            :
+                            <>  
+                                <p>Your date has been saved, you can add more or continue</p>
+                                <BtnPrimary action={ handleOnboardingStage } displayText={ 'Continue' } enabled={ true } submit={ false }/>
+                            </>
+
+                        }
                     </div>
                 </>
             }
