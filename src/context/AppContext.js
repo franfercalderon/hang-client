@@ -31,6 +31,7 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async () => {
+        console.log('entro sin ser llamado');
         const user = await getUser( firebaseUserId, authToken )
         console.log(user);
         setGlobalUser( user )
@@ -63,6 +64,7 @@ const AppProvider = ({ children }) => {
         if( authToken !== '' &&  firebaseUserId ){
             console.log(authToken);
             console.log(firebaseUserId);
+            console.log('entonces será llamado');
             getGlobalUser()
         }
     }, [ authToken, getGlobalUser, firebaseUserId ] )
