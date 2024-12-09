@@ -11,7 +11,7 @@ import FeedCard from "../components/FeedCard/FeedCard"
 export default function Feed () {
 
     //STATE
-    const [ isLoading, setIsLoading ] = useState( false )
+    const [ isLoading, setIsLoading ] = useState( true )
 
     //CONTEXT
     const { getGlobalUser, authToken, globalUser } = useContext( AppContext )
@@ -21,11 +21,11 @@ export default function Feed () {
     const navigate = useNavigate()
 
     //EFFECTS
-    useEffect(() => {
-        if ( authToken !== '' ){
-            getGlobalUser()
-        }
-    }, [ getGlobalUser, authToken ])
+    // useEffect(() => {
+    //     if ( authToken !== '' ){
+    //         getGlobalUser()
+    //     }
+    // }, [ getGlobalUser, authToken ])
 
     useEffect(() => {
         if( globalUser ){
