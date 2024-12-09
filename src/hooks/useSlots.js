@@ -104,6 +104,23 @@ function useSlots (){
 
     }, [] )
 
+    const getUserFixedSlots = useCallback( async ( userId ) => {
+        try{
+            //CREATES USER IN DB   
+            const fixedSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/${ userId }`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+            return fixedSlots
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
+
 
 
     return({
@@ -111,7 +128,8 @@ function useSlots (){
         validateTimes,
         convertTimeToTimestamp,
         postAvailableNowSlot,
-        postScheduledSlot
+        postScheduledSlot,
+        getUserFixedSlots
     })
 
 }

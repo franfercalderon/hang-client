@@ -13,6 +13,7 @@ import Settings from './views/Settings';
 import Create from './views/Create';
 import CreateHang from './views/CreateHang';
 import CreateNow from './views/CreateNow';
+import SettingsCalendar from './views/SettingsCalendar';
 
 function App() {
   return (  
@@ -33,10 +34,11 @@ function App() {
               <Route exact path='/' element={ <Feed/> } />
               <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
-              <Route exact path='/settings' element={ <Settings/>} />
               <Route exact path='/create' element={ <Create/>} />
               <Route exact path='/create/hang' element={ <CreateHang/>} />
               <Route exact path='/create/now' element={ <CreateNow/>} />
+              <Route exact path='/settings' element={ <Settings/>} />
+              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
           </Routes>
         </AppProvider>
       </BrowserRouter>

@@ -85,8 +85,8 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
             }
             setIsLoading( true )
             if( validateTimes( slot ) ){
-                setSavedSlots(( prevValue ) => [...prevValue, slot ])
                 await postFixedSlot( slot )
+                setSavedSlots(( prevValue ) => [...prevValue, slot ])
                 resetTimes()
                 setSelectedDays([])
                 setIsLoading( false )

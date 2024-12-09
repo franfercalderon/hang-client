@@ -135,7 +135,7 @@ export default function CreateHangContainer(){
         <div className="main-view-body">
             <div className="section-container">
                 <div className="mt-2">
-                    <MainInput handleChange={ handleTitle } value={ title } label={'Title'}/> 
+                    <MainInput handleChange={ handleTitle } value={ title } label={'Title'} optional={ true }/> 
                 </div>
                 <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
                 <div className="times-container">
