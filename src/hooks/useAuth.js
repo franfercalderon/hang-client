@@ -41,7 +41,6 @@ function useAuth () {
             if( newUser ){
                 await createUser( res )
                 navigate('/onboarding')
-                // setPopulateUser( false )
 
             } else {
                 navigate( '/' )
@@ -50,18 +49,6 @@ function useAuth () {
             
         } catch ( error ) {
             throw error
-        }
-    }
-
-    const handleOnboarding = async () => {
-        try {
-            //COMPLETE ONBOARDING WITH USER DATA
-
-            //CREATE USER IN DB
-
-            setPopulateUser( true )
-        } catch ( error ) {
-            throw new Error ( error )
         }
     }
 
@@ -75,9 +62,7 @@ function useAuth () {
 
 
     return {
-        // sendOtp,
         userLogin,
-        handleOnboarding,
         signOutUser,
         setConfirmObject
 

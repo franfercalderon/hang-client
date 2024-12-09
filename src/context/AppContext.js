@@ -31,9 +31,7 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async () => {
-        console.log('entro sin ser llamado');
         const user = await getUser( authToken )
-        console.log(user);
         setGlobalUser( user )
         return user 
     }, [ getUser, authToken ]) 
@@ -61,11 +59,10 @@ const AppProvider = ({ children }) => {
     }, [ auth, navigate ]);
 
     useEffect(() => {
-        if( authToken !== '' ){
-            console.log('entonces será llamado');
+        if( authToken !== '' && populateUser ){
             getGlobalUser()
         }
-    }, [ authToken, getGlobalUser, firebaseUserId ] )
+    }, [ authToken, getGlobalUser, firebaseUserId, populateUser ] )
 
     // useEffect(()=> {
     //     console.log(populateUser);
