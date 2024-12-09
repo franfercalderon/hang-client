@@ -14,24 +14,24 @@ export default function Feed () {
     const [ isLoading, setIsLoading ] = useState( true )
 
     //CONTEXT
-    const { getGlobalUser, authToken, globalUser } = useContext( AppContext )
+    const { setPopulateUser, authToken, globalUser } = useContext( AppContext )
     const { signOutUser } = useAuth()
 
     //ROUTER
     const navigate = useNavigate()
 
     //EFFECTS
-    // useEffect(() => {
-    //     if ( authToken !== '' ){
-    //         getGlobalUser()
-    //     }
-    // }, [ getGlobalUser, authToken ])
+    useEffect(() => {
+        setPopulateUser( true )
+    }, [  setPopulateUser ])
 
     useEffect(() => {
         if( globalUser ){
             setIsLoading( false )
         }
     }, [ globalUser ])
+
+
 
     return(
         <>

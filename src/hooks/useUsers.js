@@ -63,9 +63,9 @@ function useUsers () {
         }
     }  
 
-    const getUser = useCallback( async ( userId, authToken ) => {
+    const getUser = useCallback( async ( authToken ) => {
         try {
-            const user = await axios.get(`${process.env.REACT_APP_API_URL}/users/${ userId }`, {
+            const user = await axios.get(`${process.env.REACT_APP_API_URL}/users/`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
