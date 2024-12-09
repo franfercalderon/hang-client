@@ -16,6 +16,7 @@ export default function SettingsCalendarContainer(){
 
     //FUNCTIONS
     const getFixedSlots = useCallback( async ( userId ) => {
+        console.log('jasjas');
         const slots = await getUserFixedSlots( userId )
         setFixedSlots( slots.length > 0 ? slots : null )
     }, [ getUserFixedSlots, setFixedSlots ])
