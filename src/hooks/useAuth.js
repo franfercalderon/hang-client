@@ -2,8 +2,8 @@ import {  getAuth, signOut } from 'firebase/auth'
 import { app } from "../fb"
 import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { AppContext } from '../context/AppContext'
 import useUsers from './useUsers'
+import { AppContext } from '../context/AppContext'
 
 function useAuth () {
 
@@ -11,7 +11,7 @@ function useAuth () {
     const [ confirmObject, setConfirmObject ] = useState('')
 
     //CONTEXT
-    // const { setPopulateUser } = useContext( AppContext )
+    const { setPopulateUser } = useContext( AppContext )
 
     //HOOKS 
     const { createUser } = useUsers()
@@ -41,10 +41,10 @@ function useAuth () {
             if( newUser ){
                 await createUser( res )
                 navigate('/onboarding')
-
+                
             } else {
+                setPopulateUser( true )
                 navigate( '/' )
-                // setPopulateUser( true )
             }
             
         } catch ( error ) {
@@ -60,14 +60,11 @@ function useAuth () {
         }
     }
 
-
     return {
         userLogin,
         signOutUser,
         setConfirmObject
-
     }
-
 }
 
 export default useAuth
