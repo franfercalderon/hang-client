@@ -13,8 +13,8 @@ const AppProvider = ({ children }) => {
     const [ globalUser, setGlobalUser ] = useState( null )
     const [ authToken, setAuthToken ] = useState( "" )
     const [ tokenLoading, setTokenLoading ] = useState( true  )
-    const [ populateUser, setPopulateUser ] = useState( false )
-    const [ authUser, setAuthUser ] = useState( null )
+    // const [ populateUser, setPopulateUser ] = useState( false )
+    // const [ authUser, setAuthUser ] = useState( null )
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
     const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
@@ -30,11 +30,11 @@ const AppProvider = ({ children }) => {
     const navigate = useNavigate()
 
     //FUNCTIONS
-    const getGlobalUser = useCallback( async () => {
-        const user = await getUser( authToken )
+    const getGlobalUser = useCallback( async ( token ) => {
+        const user = await getUser( token )
         setGlobalUser( user )
         return user 
-    }, [ getUser, authToken ]) 
+    }, [ getUser ]) 
 
     //EFFECTS
     useEffect(() => {
@@ -44,25 +44,27 @@ const AppProvider = ({ children }) => {
                 try {
                     const token = await user.getIdToken();
                     setAuthToken( token );
-                    setAuthUser( user )
+                    await getGlobalUser( token )
+                    // setAuthUser( user )
                     setTokenLoading( false )
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
                 }
             } else {
                 setAuthToken( '' );
+                setGlobalUser( null )
                 setTokenLoading( false )
             }
         });
     
         return () => unsubscribe();
-    }, [ auth, navigate ]);
+    }, [ auth, navigate, getGlobalUser ]);
 
-    useEffect(() => {
-        if( authToken !== '' && populateUser ){
-            getGlobalUser()
-        }
-    }, [ authToken, getGlobalUser, firebaseUserId, populateUser ] )
+    // useEffect(() => {
+    //     if( authToken !== '' && populateUser ){
+    //         getGlobalUser()
+    //     }
+    // }, [ authToken, getGlobalUser, firebaseUserId, populateUser ] )
 
     // useEffect(()=> {
     //     console.log(populateUser);
@@ -72,9 +74,9 @@ const AppProvider = ({ children }) => {
         <Provider value={{
             authToken,
             globalUser,
-            setPopulateUser,
+            // setPopulateUser,
             tokenLoading,
-            authUser,
+            // authUser,
             setGlobalUser,
             firebaseUserId, 
             setFirebaseUserId,

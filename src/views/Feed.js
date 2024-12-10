@@ -21,9 +21,9 @@ export default function Feed () {
     const navigate = useNavigate()
 
     //EFFECTS
-    useEffect(() => {
-        setPopulateUser( true )
-    }, [  setPopulateUser ])
+    // useEffect(() => {
+    //     setPopulateUser( true )
+    // }, [  setPopulateUser ])
 
     useEffect(() => {
         if( globalUser ){

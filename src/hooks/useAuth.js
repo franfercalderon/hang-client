@@ -11,7 +11,7 @@ function useAuth () {
     const [ confirmObject, setConfirmObject ] = useState('')
 
     //CONTEXT
-    const { setPopulateUser } = useContext( AppContext )
+    // const { setPopulateUser } = useContext( AppContext )
 
     //HOOKS 
     const { createUser } = useUsers()
@@ -44,7 +44,7 @@ function useAuth () {
 
             } else {
                 navigate( '/' )
-                setPopulateUser( true )
+                // setPopulateUser( true )
             }
             
         } catch ( error ) {

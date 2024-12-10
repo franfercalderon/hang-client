@@ -20,7 +20,7 @@ export default function Onboarding () {
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
-    const { setPopulateUser } = useContext( AppContext )
+    const { authToken, getGlobalUser } = useContext( AppContext )
 
     //HOOKS
     const { updateUserById } = useUsers()
@@ -55,12 +55,13 @@ export default function Onboarding () {
         }
     }
 
-    const handleOnboardingStage = () => {
+    const handleOnboardingStage = async () => {
         if( onboardingStage < 4 ){
             setOnboardingStage( onboardingStage + 1 )
         } else {
             setOnboardingStage( 1 )
-            setPopulateUser( true )
+            await getGlobalUser( authToken )
+            // setPopulateUser( true )
             navigate('/')
         }
     }
