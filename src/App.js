@@ -31,14 +31,24 @@ function App() {
                   <Feed/>
                 </ProtectedRoute>
               }/>
+              <Route exact path='/settings'element={
+                <ProtectedRoute >
+                  <Settings/>
+                </ProtectedRoute>
+              }/>
+              <Route exact path='/settings/calendar'element={
+                <ProtectedRoute >
+                  <SettingsCalendar/>
+                </ProtectedRoute>
+              }/>
               {/* <Route exact path='/' element={ <Feed/> } /> */}
+              {/* <Route exact path='/settings' element={ <Settings/>} />
+              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} /> */}
               <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/create' element={ <Create/>} />
               <Route exact path='/create/hang' element={ <CreateHang/>} />
               <Route exact path='/create/now' element={ <CreateNow/>} />
-              <Route exact path='/settings' element={ <Settings/>} />
-              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
           </Routes>
         </AppProvider>
       </BrowserRouter>
