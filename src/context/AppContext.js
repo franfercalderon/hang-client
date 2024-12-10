@@ -43,10 +43,10 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async ( token ) => {
-        // const user = await getUser( token )
-        // setGlobalUser( user )
-        // return user 
-        setGlobalUser( testUser )
+        const user = await getUser( token )
+        setGlobalUser( user )
+        return user 
+        // setGlobalUser( testUser )
     }, [ getUser ]) 
 
     //EFFECTS
@@ -63,11 +63,11 @@ const AppProvider = ({ children }) => {
                 }
             } else {
                 setAuthToken( '' );
-                // setGlobalUser( null )
+                setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
 
-                setGlobalUser( testUser )
+                // setGlobalUser( testUser )
             }
         });
     
