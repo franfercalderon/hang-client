@@ -27,11 +27,26 @@ const AppProvider = ({ children }) => {
     //ROUTER
     const navigate = useNavigate()
 
+    //TEST
+    const testUser = {
+        friends: [],
+        id: "kNLM7MIzTIakz8Qjzw5WLiGD7ib2",
+        createdAt: "1733852690542",
+        phoneNumber: "+15555555555",
+        acceptedInvites: 0,
+        master: true,
+        name: "Franco",
+        email: "franco@genaiuniversity.com",
+        lastname: "Fernandez",
+        profilePhoto: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fimage.webp9b84ef4d-2af2-45de-9275-ef8880e93a07?alt=media&token=93a043a5-1346-46af-b2b9-a3f18ca595f6"
+    }
+
     //FUNCTIONS
     const getGlobalUser = useCallback( async ( token ) => {
-        const user = await getUser( token )
-        setGlobalUser( user )
-        return user 
+        // const user = await getUser( token )
+        // setGlobalUser( user )
+        // return user 
+        setGlobalUser( testUser )
     }, [ getUser ]) 
 
     //EFFECTS
@@ -48,9 +63,11 @@ const AppProvider = ({ children }) => {
                 }
             } else {
                 setAuthToken( '' );
-                setGlobalUser( null )
+                // setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
+
+                setGlobalUser( testUser )
             }
         });
     

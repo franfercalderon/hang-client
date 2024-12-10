@@ -14,6 +14,7 @@ import Create from './views/Create';
 import CreateHang from './views/CreateHang';
 import CreateNow from './views/CreateNow';
 import SettingsCalendar from './views/SettingsCalendar';
+import SettingsCalendarNew from './views/SettingsCalendarNew';
 
 function App() {
   return (  
@@ -44,6 +45,7 @@ function App() {
               <Route exact path='/' element={ <Feed/> } />
               <Route exact path='/settings' element={ <Settings/>} />
               <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
+              <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
               <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/create' element={ <Create/>} />

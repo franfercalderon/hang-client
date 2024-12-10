@@ -106,7 +106,7 @@ function useSlots (){
 
     const getUserFixedSlots = useCallback( async ( userId ) => {
         try{
-            //CREATES USER IN DB   
+            //GETS FIXED SLOTS   
             const fixedSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/fixed/user/${ userId }`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ function useSlots (){
                 }
             })  
 
-            return fixedSlots
+            return fixedSlots.data
 
         } catch ( error ) {
             throw error
@@ -129,6 +129,20 @@ function useSlots (){
         return result
     }
 
+    const deleteFixedSlot = async ( slotId ) => {
+        try {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/slots/fixed/${ slotId }`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+        } catch ( error ) {
+            throw error
+        }
+    }
+
 
 
     return({
@@ -138,7 +152,8 @@ function useSlots (){
         postAvailableNowSlot,
         postScheduledSlot,
         getUserFixedSlots,
-        convertArrayToString
+        convertArrayToString,
+        deleteFixedSlot
     })
 
 }

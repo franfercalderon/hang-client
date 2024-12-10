@@ -1,7 +1,7 @@
-import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FeedCard({ title, descritpion, times, location, action, ctaText }){
+export default function FeedCard({ title, descritpion, times, location, action, ctaText, erase }){
     return(
         <div className="rounded cta-card" onClick={ !ctaText  ? action : undefined }>
             <div className="body-container">
@@ -24,7 +24,7 @@ export default function FeedCard({ title, descritpion, times, location, action, 
                     ctaText ?
                     <button className="card-cta font-small btn rounded pointer" onClick={ action }>{ ctaText }</button>
                     :
-                    <FontAwesomeIcon icon={ faChevronRight } onClick={ action }/>
+                    <FontAwesomeIcon icon={ erase ? faTrashCan : faChevronRight } onClick={ action }/>
                 }
             </div>
         </div>
