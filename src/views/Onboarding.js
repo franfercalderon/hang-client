@@ -16,7 +16,7 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 4 )
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
@@ -61,7 +61,6 @@ export default function Onboarding () {
         } else {
             setOnboardingStage( 1 )
             setPopulateUser( true )
-            // await getGlobalUser( authToken )
             navigate('/')
         }
     }

@@ -6,7 +6,7 @@ import { v4 } from "uuid"
 
 function useUsers () {
     //CONTEXT
-    const { firebaseUserId, setFirebaseUserId, authToken, inviterId, masterToken } = useContext( AppContext )
+    const { firebaseUserId, setFirebaseUserId, authToken, inviterId, masterToken, setMasterToken } = useContext( AppContext )
 
     //FUNCTIONS
     const createUser = async ( data ) => {
@@ -26,6 +26,7 @@ function useUsers () {
                 }
             })  
             setFirebaseUserId( userId.data )
+            setMasterToken( '' )
 
         } catch ( error ) {
             throw error

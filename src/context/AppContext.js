@@ -18,7 +18,6 @@ const AppProvider = ({ children }) => {
     const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
 
-
     //HOOKS
     const { getUser } = useUsers()
 
@@ -30,9 +29,7 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async ( token ) => {
-        console.log('va a buscar');
         const user = await getUser( token )
-        console.log('ha encontrao');
         setGlobalUser( user )
         return user 
     }, [ getUser ]) 
@@ -45,7 +42,6 @@ const AppProvider = ({ children }) => {
                 try {
                     const token = await user.getIdToken();
                     setAuthToken( token );
-                    // await getGlobalUser( token )
                     setTokenLoading( false )
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
@@ -63,7 +59,6 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if ( authToken && authToken !== '' && populateUser ){
-            console.log('va a llamar function');
             getGlobalUser( authToken )
         }
     }, [ authToken, populateUser, getGlobalUser ] )

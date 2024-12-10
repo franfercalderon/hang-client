@@ -49,7 +49,6 @@ function useAuth () {
             }
             
         } catch ( error ) {
-            console.log('acá debe eliminar login');
             throw error
         }
     }

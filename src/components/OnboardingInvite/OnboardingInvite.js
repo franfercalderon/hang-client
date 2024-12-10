@@ -28,15 +28,14 @@ export default function OnboardingInvite({ handleOnboardingStage }){
     return(
         <>
             <p>Send this Invite Link to your friends so they can join you in Hang!</p>
-            <div className="invite-img-containter" >
+            <div className="invite-img-containter mt-4" >
                 <img src="./images/inviteIcon.svg" alt="invite"/>
             </div>
             <BtnPrimary action={ copyLink } displayText={'Get Link'} enabled={ true } submit={ false }/>
             <div className="bottom-container">
-                <p>{`Don't worry, you can get your link later in Settings > Friends`}</p>
+                <p className="mt-2">{`Don't worry, you can get your link later in Settings > Friends`}</p>
                 <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
             </div>
-
         </>
     )
 }
