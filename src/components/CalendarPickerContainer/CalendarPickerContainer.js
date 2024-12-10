@@ -88,7 +88,7 @@ export default function CalendarPickerContainer() {
             setIsLoading( true )
             if( validateTimes( slot ) ){
                 await postFixedSlot( slot )
-                navigate('/settins/calendar')
+                navigate('/settings/calendar')
 
             } else {
                 throw new Error('Start date must be before End date')

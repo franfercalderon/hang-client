@@ -57,13 +57,13 @@ const AppProvider = ({ children }) => {
                 try {
                     const token = await user.getIdToken();
                     setAuthToken( token );
+                    getGlobalUser( token )
                     setTokenLoading( false )
                 } catch (error) {
                     console.error( "Error getting ID token:", error );
                 }
             } else {
                 setAuthToken( '' );
-                console.log('borra globalUser');
                 setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
