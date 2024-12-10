@@ -66,7 +66,7 @@ const AppProvider = ({ children }) => {
             console.log('va a llamar function');
             getGlobalUser( authToken )
         }
-    })
+    }, [ authToken, populateUser, getGlobalUser ] )
 
     return(
         <Provider value={{
