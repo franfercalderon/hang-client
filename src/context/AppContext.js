@@ -63,6 +63,7 @@ const AppProvider = ({ children }) => {
                 }
             } else {
                 setAuthToken( '' );
+                console.log('borra globalUser');
                 setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
