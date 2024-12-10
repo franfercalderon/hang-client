@@ -33,7 +33,7 @@ export default function SettingsCalendarContainer(){
         if (fixedSlots){
             console.log(fixedSlots);
         }
-    })
+    }, [ fixedSlots])
 
 
     return(
