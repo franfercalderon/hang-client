@@ -31,9 +31,9 @@ export default function SettingsCalendarContainer(){
     }, [ getUserFixedSlots, setFixedSlots ])
 
     const handleDeleteSlot = async ( slotId ) => {
-        try {
-            Swal
-                .fire({
+
+        Swal
+            .fire({
                 title: null,
                 text: 'Are you sure you want to delete this date?',
                 icon: 'warning',
@@ -46,29 +46,84 @@ export default function SettingsCalendarContainer(){
                     denyButton: 'deny-btn btn order1',
                 }
             })
-                .then( ( res ) => {
-                    if( res.isConfirmed ){
-                        deleteFixedSlot( slotId )
-                        getFixedSlots( globalUser.id )
-                    }
-                })
-
-        } catch ( error ) {
-            Swal.fire({
-                title: 'Oops!',
-                text: error.message,
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
+            .then( ( res ) => {
+                if( res.isConfirmed ){
+                    return deleteFixedSlot( slotId )
                 }
             })
+            .then(() => {
+                getFixedSlots( globalUser.id )
+            })
+            .catch(( error ) => {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: error.message,
+                    icon: 'warning',
+                    confirmButtonText: 'Ok',
+                    buttonsStyling: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                })
+            })
+        // try {
+        //     Swal
+        //         .fire({
+        //         title: null,
+        //         text: 'Are you sure you want to delete this date?',
+        //         icon: 'warning',
+        //         confirmButtonText: 'Ok',
+        //         buttonsStyling: false,
+        //         customClass: {
+        //             popup: 'hang-alert-container round-div div-shadow',
+        //             icon: 'alert-icon',
+        //             confirmButton: 'confirm-btn btn order2',
+        //             denyButton: 'deny-btn btn order1',
+        //         }
+        //     })
+        //         .then( ( res ) => {
+        //             if( res.isConfirmed ){
+        //                 return deleteFixedSlot( slotId )
+        //             }
+        //         })
+        //         .then(() => {
+        //             getFixedSlots( globalUser.id )
+        //         })
+        //         .catch(( error ) => {
+        //             Swal.fire({
+        //                 title: 'Oops!',
+        //                 text: error.message,
+        //                 icon: 'warning',
+        //                 confirmButtonText: 'Ok',
+        //                 buttonsStyling: false,
+        //                 customClass: {
+        //                     popup: 'hang-alert-container round-div div-shadow',
+        //                     icon: 'alert-icon',
+        //                     confirmButton: 'confirm-btn btn order2',
+        //                     denyButton: 'deny-btn btn order1',
+        //                 }
+        //             })
+        //         })
+
+        // } catch ( error ) {
+        //     Swal.fire({
+        //         title: 'Oops!',
+        //         text: error.message,
+        //         icon: 'warning',
+        //         confirmButtonText: 'Ok',
+        //         buttonsStyling: false,
+        //         customClass: {
+        //             popup: 'hang-alert-container round-div div-shadow',
+        //             icon: 'alert-icon',
+        //             confirmButton: 'confirm-btn btn order2',
+        //             denyButton: 'deny-btn btn order1',
+        //         }
+        //     })
             
-        }
+        // }
     }
 
     //EFFECTS
