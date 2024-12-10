@@ -4,6 +4,7 @@ import { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useUsers from './useUsers'
 import { AppContext } from '../context/AppContext'
+import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
 
 function useAuth () {
 
@@ -48,6 +49,7 @@ function useAuth () {
             }
             
         } catch ( error ) {
+            console.log('acá debe eliminar login');
             throw error
         }
     }
