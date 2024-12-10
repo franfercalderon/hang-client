@@ -80,7 +80,8 @@ const AppProvider = ({ children }) => {
             inviterId, 
             setInviterId,
             masterToken, 
-            setMasterToken
+            setMasterToken,
+            setPopulateUser
         }}>
             { children }
         </Provider>
