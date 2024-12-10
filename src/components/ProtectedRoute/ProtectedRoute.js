@@ -6,7 +6,7 @@ import Loader from "../Loader/Loader";
 export default function ProtectedRoute({ children }) {
 
     //CONTEXT
-    const { globalUser, tokenLoading } = useContext( AppContext )
+    const { authToken, tokenLoading } = useContext( AppContext )
 
     if( tokenLoading ){
         return(
@@ -14,7 +14,7 @@ export default function ProtectedRoute({ children }) {
         )
     }
 
-    if ( !globalUser ) {
+    if ( !authToken || authToken === '' ) {
 
         return <Navigate to="/welcome"  />
     }
