@@ -50,6 +50,7 @@ export default function SettingsCalendarContainer(){
                     if( res.isConfirmed ){
                         deleteFixedSlot( slotId )
                         getFixedSlots( globalUser.id )
+                        console.log('ejecuto todo el then');
                     }
                 })
 
