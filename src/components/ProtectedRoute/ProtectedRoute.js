@@ -16,7 +16,7 @@ export default function ProtectedRoute({ children }) {
 
     if ( !globalUser ) {
 
-        return <Navigate to="/login"  />
+        return <Navigate to="/welcome"  />
     }
     
     return children
