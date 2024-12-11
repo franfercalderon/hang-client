@@ -27,12 +27,12 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              {/* <Route exact path='/'element={
+              <Route exact path='/'element={
                 <ProtectedRoute >
                   <Feed/>
                 </ProtectedRoute>
               }/>
-              <Route exact path='/settings'element={
+              {/* <Route exact path='/settings'element={
                 <ProtectedRoute >
                   <Settings/>
                 </ProtectedRoute>
@@ -44,7 +44,7 @@ function App() {
               }/> */}
 
               <Route element={<ProtectedRoute />}>
-                <Route exact path='/' element={ <Feed/> } />
+                {/* <Route exact path='/' element={ <Feed/> } /> */}
                 <Route path="/settings" element={<Settings />}>
                   <Route path="calendar" element={<SettingsCalendar />} />
                 </Route>
