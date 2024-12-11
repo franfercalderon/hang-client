@@ -21,17 +21,25 @@ function App() {
     <>
       <BrowserRouter>
         <AppProvider>
+          <ProtectedRoute>
+            <Routes>
+              <Route exact path='/' element={ <Feed/> } />
+              <Route exact path='/settings' element={ <Settings/>} />
+              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
+            </Routes>
+          </ProtectedRoute>
           <Routes>
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/login' element={ <Login/> }/>
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/'element={
+              
+              {/* <Route exact path='/'element={
                 <ProtectedRoute >
                   <Feed/>
                 </ProtectedRoute>
-              }/>
+              }/> */}
               {/* <Route exact path='/settings'element={
                 <ProtectedRoute >
                   <Settings/>
@@ -43,12 +51,12 @@ function App() {
                 </ProtectedRoute>
               }/> */}
 
-              <Route element={<ProtectedRoute />}>
-                {/* <Route exact path='/' element={ <Feed/> } /> */}
+              {/* <Route element={<ProtectedRoute />}>
+                <Route exact path='/' element={ <Feed/> } />
                 <Route path="/settings" element={<Settings />}>
                   <Route path="calendar" element={<SettingsCalendar />} />
                 </Route>
-              </Route>
+              </Route> */}
 
               {/* <Route exact path='/' element={ <Feed/> } />
               <Route exact path='/settings' element={ <Settings/>} />
