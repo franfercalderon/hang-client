@@ -25,13 +25,11 @@ export default function SettingsCalendarContainer(){
     const getFixedSlots = useCallback( async ( userId ) => {
         setIsLoading( true )
         const slots = await getUserFixedSlots( userId )
-        console.log(slots);
         setFixedSlots( slots.length > 0 ? slots : null )
         setIsLoading( false )
     }, [ getUserFixedSlots, setFixedSlots ])
 
     const handleDeleteSlot = async ( slotId ) => {
-
         Swal
             .fire({
                 title: null,
@@ -69,61 +67,6 @@ export default function SettingsCalendarContainer(){
                     }
                 })
             })
-        // try {
-        //     Swal
-        //         .fire({
-        //         title: null,
-        //         text: 'Are you sure you want to delete this date?',
-        //         icon: 'warning',
-        //         confirmButtonText: 'Ok',
-        //         buttonsStyling: false,
-        //         customClass: {
-        //             popup: 'hang-alert-container round-div div-shadow',
-        //             icon: 'alert-icon',
-        //             confirmButton: 'confirm-btn btn order2',
-        //             denyButton: 'deny-btn btn order1',
-        //         }
-        //     })
-        //         .then( ( res ) => {
-        //             if( res.isConfirmed ){
-        //                 return deleteFixedSlot( slotId )
-        //             }
-        //         })
-        //         .then(() => {
-        //             getFixedSlots( globalUser.id )
-        //         })
-        //         .catch(( error ) => {
-        //             Swal.fire({
-        //                 title: 'Oops!',
-        //                 text: error.message,
-        //                 icon: 'warning',
-        //                 confirmButtonText: 'Ok',
-        //                 buttonsStyling: false,
-        //                 customClass: {
-        //                     popup: 'hang-alert-container round-div div-shadow',
-        //                     icon: 'alert-icon',
-        //                     confirmButton: 'confirm-btn btn order2',
-        //                     denyButton: 'deny-btn btn order1',
-        //                 }
-        //             })
-        //         })
-
-        // } catch ( error ) {
-        //     Swal.fire({
-        //         title: 'Oops!',
-        //         text: error.message,
-        //         icon: 'warning',
-        //         confirmButtonText: 'Ok',
-        //         buttonsStyling: false,
-        //         customClass: {
-        //             popup: 'hang-alert-container round-div div-shadow',
-        //             icon: 'alert-icon',
-        //             confirmButton: 'confirm-btn btn order2',
-        //             denyButton: 'deny-btn btn order1',
-        //         }
-        //     })
-            
-        // }
     }
 
     //EFFECTS

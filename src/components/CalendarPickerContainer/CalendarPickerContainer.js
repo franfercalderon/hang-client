@@ -11,7 +11,6 @@ export default function CalendarPickerContainer() {
 
     //STATE
     const [ isLoading, setIsLoading ] = useState( false )
-    const [ savedSlots, setSavedSlots ] = useState( [] )
     const [ selectedDays, setSelectedDays ] = useState( [] )
     const [ enableSaveBtn, setEnableSaveBtn ] = useState( false )
     const [ showStartPicker, setShowStartPicker ] = useState( false )
