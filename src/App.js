@@ -27,53 +27,17 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route element={<ProtectedRoute />}>
-                <Route exact path='/' element={ <Feed/> } />
-                <Route exact path='/settings' element={ <Settings/>}/>
-                <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
-              </Route>
-              
-              
-              {/* <ProtectedRoute>
-                <Route exact path='/' element={ <Feed/> } />
-              </ProtectedRoute> */}
-          {/* </Routes>
-            <Routes>
-            </Routes>
-          <Routes> */}
-              
-              {/* <Route exact path='/'element={
-                <ProtectedRoute >
-                  <Feed/>
-                </ProtectedRoute>
-              }/> */}
-              {/* <Route exact path='/settings'element={
-                <ProtectedRoute >
-                  <Settings/>
-                </ProtectedRoute>
-              }/>
-              <Route exact path='/settings/calendar'element={
-                <ProtectedRoute >
-                  <SettingsCalendar/>
-                </ProtectedRoute>
-              }/> */}
-
-              {/* <Route element={<ProtectedRoute />}>
-                <Route exact path='/' element={ <Feed/> } />
-                <Route path="/settings" element={<Settings />}>
-                  <Route path="calendar" element={<SettingsCalendar />} />
-                </Route>
-              </Route> */}
-
-              {/* <Route exact path='/' element={ <Feed/> } />
-              <Route exact path='/settings' element={ <Settings/>} />
-              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} /> */}
-              <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
               <Route exact path='/notifications' element={ <Notifactions/>} />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/create' element={ <Create/>} />
               <Route exact path='/create/hang' element={ <CreateHang/>} />
               <Route exact path='/create/now' element={ <CreateNow/>} />
+              <Route element={<ProtectedRoute />}>
+                <Route exact path='/' element={ <Feed/> } />
+                <Route exact path='/settings' element={ <Settings/>}/>
+                <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
+                <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
+              </Route>
           </Routes>
         </AppProvider>
       </BrowserRouter>
