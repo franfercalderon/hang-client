@@ -24,8 +24,9 @@ function App() {
           <ProtectedRoute>
             <Routes>
               <Route exact path='/' element={ <Feed/> } />
-              <Route exact path='/settings' element={ <Settings/>} />
-              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
+              <Route exact path='/settings' element={ <Settings/>}>
+                <Route exact path='/calendar' element={ <SettingsCalendar/>} />
+              </Route>
             </Routes>
           </ProtectedRoute>
           <Routes>
