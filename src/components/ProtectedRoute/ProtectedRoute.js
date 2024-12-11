@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from '../../context/AppContext'
 import Loader from "../Loader/Loader";
@@ -16,8 +16,8 @@ export default function ProtectedRoute({ children }) {
 
     if ( !authToken || authToken === '' ) {
 
-        return <Navigate to="/welcome"  />
+        return <Navigate to="/welcome" replace/>
     }
     
-    return children
+    return <Outlet />
 }
