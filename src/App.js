@@ -27,15 +27,15 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-          </Routes>
-          <ProtectedRoute>
+              <ProtectedRoute>
+                <Route exact path='/' element={ <Feed/> } />
+                <Route exact path='/settings' element={ <Settings/>}/>
+                <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
+              </ProtectedRoute>
+          {/* </Routes>
             <Routes>
-              <Route exact path='/' element={ <Feed/> } />
-              <Route exact path='/settings' element={ <Settings/>}/>
-              <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
             </Routes>
-          </ProtectedRoute>
-          <Routes>
+          <Routes> */}
               
               {/* <Route exact path='/'element={
                 <ProtectedRoute >
