@@ -44,6 +44,7 @@ function App() {
               }/> */}
 
               <Route element={<ProtectedRoute />}>
+                <Route exact path='/' element={ <Feed/> } />
                 <Route path="/settings" element={<Settings />}>
                   <Route path="calendar" element={<SettingsCalendar />} />
                 </Route>
