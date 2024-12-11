@@ -21,6 +21,13 @@ function App() {
     <>
       <BrowserRouter>
         <AppProvider>
+          <Routes>
+              <Route exact path='/welcome' element={ <Welcome/> }/>
+              <Route exact path='/login' element={ <Login/> }/>
+              <Route exact path='/master' element={ <Master/> }/>
+              <Route exact path='/onboarding' element={ <Onboarding/> }/>
+              <Route exact path='/invite/:id' element={ <Invite/> } />
+          </Routes>
           <ProtectedRoute>
             <Routes>
               <Route exact path='/' element={ <Feed/> } />
@@ -29,11 +36,6 @@ function App() {
             </Routes>
           </ProtectedRoute>
           <Routes>
-              <Route exact path='/welcome' element={ <Welcome/> }/>
-              <Route exact path='/login' element={ <Login/> }/>
-              <Route exact path='/master' element={ <Master/> }/>
-              <Route exact path='/onboarding' element={ <Onboarding/> }/>
-              <Route exact path='/invite/:id' element={ <Invite/> } />
               
               {/* <Route exact path='/'element={
                 <ProtectedRoute >
