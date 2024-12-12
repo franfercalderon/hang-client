@@ -49,6 +49,19 @@ const AppProvider = ({ children }) => {
         // setGlobalUser( testUser )
     }, [ getUser, authToken ]) 
 
+    const mergeArraysById = ( array1, array2 ) => {
+
+        return array1.map( item1 => {
+
+            const match = array2.find( item2 => item2.id === item1.id )
+
+            return {
+                ...item1,
+                match
+            }
+        })
+    }
+
     //EFFECTS
     useEffect(() => {
         const unsubscribe = onAuthStateChanged( auth, async ( user ) => {
@@ -92,7 +105,8 @@ const AppProvider = ({ children }) => {
             setInviterId,
             masterToken, 
             setMasterToken,
-            setPopulateUser
+            setPopulateUser,
+            mergeArraysById
         }}>
             { children }
         </Provider>

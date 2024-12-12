@@ -8,18 +8,18 @@ import { AppContext } from "../../context/AppContext";
 import Swal from "sweetalert2";
 import useUsers from "../../hooks/useUsers";
 
-export default function ManageFriendsContainer(){
+export default function ManageFriendsContainer({ friends, setFriends, isLoading, handleSave }) { 
 
     //STATE
-    const [ friends, setFriends ] = useState( null )
-    const [ isLoading, setIsLoading ] = useState( true )
+    // const [ friends, setFriends ] = useState( null )
+    // const [ isLoading, setIsLoading ] = useState( true )
     const [ showConfirm, setShowConfirm ] = useState( false )
 
     //CONTEXT
-    const { getGlobalUser } = useContext( AppContext )
+    // const { getGlobalUser } = useContext( AppContext )
 
     //HOOKS
-    const { updateUserFriends } = useUsers()
+    // const { updateUserFriends } = useUsers()
 
     //FUNCTION
     const handleDragEnd = ( e ) => {
@@ -45,66 +45,66 @@ export default function ManageFriendsContainer(){
         }
     }
 
-    const handleSave = async () => {
-        try {
-            setIsLoading( true )
-            await updateUserFriends( friends )
-            await getGlobalUser()
-            setIsLoading( false )
+    // const handleSave = async () => {
+    //     try {
+    //         setIsLoading( true )
+    //         await updateUserFriends( friends )
+    //         await getGlobalUser()
+    //         setIsLoading( false )
 
-        } catch ( error ) {
-            setIsLoading( false )
-            Swal.fire({
-                title: 'Oops!',
-                text: error.message,
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
-        }
-    }
+    //     } catch ( error ) {
+    //         setIsLoading( false )
+    //         Swal.fire({
+    //             title: 'Oops!',
+    //             text: error.message,
+    //             icon: 'warning',
+    //             confirmButtonText: 'Ok',
+    //             buttonsStyling: false,
+    //             customClass: {
+    //                 popup: 'hang-alert-container round-div div-shadow',
+    //                 icon: 'alert-icon',
+    //                 confirmButton: 'confirm-btn btn order2',
+    //                 denyButton: 'deny-btn btn order1',
+    //             }
+    //         })
+    //     }
+    // }
 
     //EFFECTS
-    useEffect(() => {
-        const friends = [
-            {
-                name: 'Bob',
-                id: 'Bob',
-                priority: 2
-            },
-            {
-                name: 'Alejandra',
-                id: 'Alejandra',
-                priority: 1
-            },
-            {
-                name: 'Mark',
-                id: 'Mark',
-                priority: 3
-            },
-            {
-                name: 'Momo',
-                id: 'Momo',
-                priority: 4
-            },
-        ]
-        setTimeout(() => {
-            friends.sort(( a, b) => a.priority - b.priority )
-            setFriends( friends )
-        }, 1000);
-    }, [ ])
+    // useEffect(() => {
+    //     const friends = [
+    //         {
+    //             name: 'Bob',
+    //             id: 'Bob',
+    //             priority: 2
+    //         },
+    //         {
+    //             name: 'Alejandra',
+    //             id: 'Alejandra',
+    //             priority: 1
+    //         },
+    //         {
+    //             name: 'Mark',
+    //             id: 'Mark',
+    //             priority: 3
+    //         },
+    //         {
+    //             name: 'Momo',
+    //             id: 'Momo',
+    //             priority: 4
+    //         },
+    //     ]
+    //     setTimeout(() => {
+    //         friends.sort(( a, b) => a.priority - b.priority )
+    //         setFriends( friends )
+    //     }, 1000);
+    // }, [ ])
 
-    useEffect(() => {
-        if ( friends ){
-            setIsLoading( false )
-        }
-    }, [ friends ])
+    // useEffect(() => {
+    //     if ( friends ){
+    //         setIsLoading( false )
+    //     }
+    // }, [ friends ])
     return(
         <>
         {
@@ -131,7 +131,7 @@ export default function ManageFriendsContainer(){
                         </DndContext>
                         {
                             showConfirm &&
-                            <BtnPrimary displayText={ 'Save Changes' } enabled={ true } submit={ false } />
+                            <BtnPrimary displayText={ 'Save Changes' } enabled={ true } submit={ false } action={ handleSave }/>
                         }
                     </>
                     :
