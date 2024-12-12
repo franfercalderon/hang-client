@@ -18,6 +18,7 @@ export default function SettingsFriendsManage(){
     //FUNCTIONS
     const getFriends = useCallback( async () => {
         const res = await getUserFriends()
+        console.log(res);
         setUserFriends( res )
     }, [ getUserFriends ] )
 
