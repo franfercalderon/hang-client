@@ -12,7 +12,7 @@ function useAuth () {
     const [ confirmObject, setConfirmObject ] = useState('')
 
     //CONTEXT
-    const { setPopulateUser } = useContext( AppContext )
+    const { setPopulateUser, globalUser } = useContext( AppContext )
 
     //HOOKS 
     const { createUser } = useUsers()
@@ -61,10 +61,18 @@ function useAuth () {
         }
     }
 
+    const createInviteLink = () => {
+        if( globalUser ){
+            const inviteUrl = `${process.env.REACT_APP_BASE_URL}/invite/${ globalUser.id }`
+            return inviteUrl
+        }
+    }
+
     return {
         userLogin,
         signOutUser,
-        setConfirmObject
+        setConfirmObject,
+        createInviteLink
     }
 }
 
