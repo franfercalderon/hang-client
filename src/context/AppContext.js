@@ -3,7 +3,6 @@ import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
-import { faL } from "@fortawesome/free-solid-svg-icons"
 const AppContext = createContext('')
 const { Provider } = AppContext
 

@@ -1,25 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
 import Loader from "../Loader/Loader";
 import { closestCenter, DndContext } from '@dnd-kit/core'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import DraggableCard from "../DraggableCard/DraggableCard";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
-import { AppContext } from "../../context/AppContext";
-import Swal from "sweetalert2";
-import useUsers from "../../hooks/useUsers";
+
 
 export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave }) { 
 
     //STATE
-    // const [ friends, setFriends ] = useState( null )
-    // const [ isLoading, setIsLoading ] = useState( true )
     const [ showConfirm, setShowConfirm ] = useState( false )
-
-    //CONTEXT
-    // const { getGlobalUser } = useContext( AppContext )
-
-    //HOOKS
-    // const { updateUserFriends } = useUsers()
 
     //FUNCTION
     const handleDragEnd = ( e ) => {

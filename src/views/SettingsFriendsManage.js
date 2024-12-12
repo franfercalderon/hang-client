@@ -1,7 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import FeedCard from "../components/FeedCard/FeedCard";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
-import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import ManageFriendsContainer from "../components/ManageFriendsContainer/ManageFriendsContainer";
 import { useCallback, useContext, useEffect, useState } from "react";
 import useFriends from "../hooks/useFriends";
@@ -57,7 +54,6 @@ export default function SettingsFriendsManage(){
             })
         }
     }
-
 
     //EFFECTS
     useEffect(() => {
