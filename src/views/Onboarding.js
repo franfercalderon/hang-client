@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../context/AppContext"
 import Swal from "sweetalert2"
 import useUsers from "../hooks/useUsers"
@@ -60,11 +60,10 @@ export default function Onboarding () {
             setOnboardingStage( onboardingStage + 1 )
         } else {
             setOnboardingStage( 1 )
-            setPopulateUser( true )
             navigate('/')
         }
     }
-
+    
     const handleChange = ( e ) => {
         const { name, value } = e.target
         setUserData(( prevData ) => ({
@@ -72,6 +71,13 @@ export default function Onboarding () {
             [ name ]: value
         }))
     }
+    
+    //EFFECTS
+    useEffect(() => {
+        if( onboardingStage === 2 ){
+            setPopulateUser( true )
+        }
+    }, [ onboardingStage, setPopulateUser ])
 
 
     return(

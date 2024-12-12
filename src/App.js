@@ -7,7 +7,7 @@ import { AppProvider } from './context/AppContext';
 import Onboarding from './views/Onboarding';
 import Invite from './views/Invite';
 import Master from './views/Master';
-import Notifactions from './views/Notifications';
+import Notifactions from './views/SettingsNotifications';
 import Assistant from './views/Assistant';
 import Settings from './views/Settings';
 import Create from './views/Create';
@@ -15,6 +15,10 @@ import CreateHang from './views/CreateHang';
 import CreateNow from './views/CreateNow';
 import SettingsCalendar from './views/SettingsCalendar';
 import SettingsCalendarNew from './views/SettingsCalendarNew';
+import SettingsFriends from './views/SettingsFriends';
+import SettingsNotifications from './views/SettingsNotifications';
+import SettingsAdmin from './views/SettingsAdmin';
+import SettingsFriendsManage from './views/SettingsFriendsManage';
 
 function App() {
   return (  
@@ -32,12 +36,16 @@ function App() {
               <Route exact path='/create' element={ <Create/>} />
               <Route exact path='/create/hang' element={ <CreateHang/>} />
               <Route exact path='/create/now' element={ <CreateNow/>} />
-              <Route element={<ProtectedRoute />}>
+              {/* <Route element={<ProtectedRoute />}> */}
                 <Route exact path='/' element={ <Feed/> } />
                 <Route exact path='/settings' element={ <Settings/>}/>
+                <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
+                <Route exact path='/settings/friends/manage' element={ <SettingsFriendsManage/>} />
                 <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
                 <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
-              </Route>
+                <Route exact path='/settings/notifications' element={ <SettingsNotifications/>} />
+                <Route exact path='/settings/admin' element={ <SettingsAdmin/>} />
+              {/* </Route> */}
           </Routes>
         </AppProvider>
       </BrowserRouter>

@@ -43,11 +43,11 @@ const AppProvider = ({ children }) => {
 
     //FUNCTIONS
     const getGlobalUser = useCallback( async ( token ) => {
-        const user = await getUser( token )
+        const user = await getUser( token ? token : authToken )
         setGlobalUser( user )
         return user 
         // setGlobalUser( testUser )
-    }, [ getUser ]) 
+    }, [ getUser, authToken ]) 
 
     //EFFECTS
     useEffect(() => {
@@ -67,8 +67,6 @@ const AppProvider = ({ children }) => {
                 setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
-
-                // setGlobalUser( testUser )
             }
         });
     

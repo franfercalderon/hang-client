@@ -282,3 +282,33 @@ select:active
 
 label span
     opacity: 0.55
+
+.toggle-btn
+    height: 1.8rem
+    width: 3.2rem
+    border-radius: 500px
+    background-color: $darkwhite
+    display: flex
+    align-items: center
+    justify-content: start
+    padding: 0.2rem
+
+
+.toggle-btn.active
+    justify-content: end
+
+.toggle-btn span 
+    height: 1.4rem
+    width: 1.4rem
+    border-radius: 500px
+    background-color: $darkgray
+    opacity: 0.6
+
+.toggle-btn.active span 
+    background-color: $hangblue
+    opacity: 1
+
+.toggle-card
+    display: flex
+    justify-content: space-between
+    align-items: center

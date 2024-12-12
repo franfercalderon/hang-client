@@ -79,11 +79,27 @@ function useUsers () {
         }
     }, [])
 
+    const updateUserFriends = async ( friends ) => {
+
+        try {
+            await axios.patch(`${process.env.REACT_APP_API_URL}/users/friends/:id`, friends, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })   
+            
+        } catch ( error ) {
+            throw error
+        }
+    }
+
     return {
         createUser,
         updateUserById,
         uploadProfilePhoto,
-        getUser
+        getUser,
+        updateUserFriends
     }
 
 }
