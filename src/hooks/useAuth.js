@@ -1,6 +1,6 @@
 import {  getAuth, signOut } from 'firebase/auth'
 import { app } from "../fb"
-import { useContext, useState } from 'react'
+import { useCallback, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useUsers from './useUsers'
 import { AppContext } from '../context/AppContext'
@@ -61,12 +61,12 @@ function useAuth () {
         }
     }
 
-    const createInviteLink = () => {
+    const createInviteLink = useCallback (() => {
         if( globalUser ){
             const inviteUrl = `${process.env.REACT_APP_BASE_URL}/invite/${ globalUser.id }`
             return inviteUrl
         }
-    }
+    }, [ globalUser ] )
 
     return {
         userLogin,
