@@ -51,6 +51,9 @@ const AppProvider = ({ children }) => {
 
     const mergeArraysById = ( array1, array2 ) => {
 
+        console.log(array1);
+        console.log(array2);
+
         return array1.map( item1 => {
 
             const match = array2.find( item2 => item2.id === item1.id )
