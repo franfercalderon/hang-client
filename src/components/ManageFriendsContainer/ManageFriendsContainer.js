@@ -8,7 +8,7 @@ import { AppContext } from "../../context/AppContext";
 import Swal from "sweetalert2";
 import useUsers from "../../hooks/useUsers";
 
-export default function ManageFriendsContainer({ friends, setFriends, isLoading, handleSave }) { 
+export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave }) { 
 
     //STATE
     // const [ friends, setFriends ] = useState( null )
@@ -25,14 +25,13 @@ export default function ManageFriendsContainer({ friends, setFriends, isLoading,
     const handleDragEnd = ( e ) => {
 
         const { active, over } = e
-
         if( active.id !== over.id ){
 
-            setFriends(( prevValue ) => {
+            setUserFriends(( prevValue ) => {
 
                 const oldIndex = prevValue.findIndex(( friend ) => friend.id === active.id )
                 const newIndex = prevValue.findIndex(( friend ) => friend.id === over.id )
-                const reorderedFriends = arrayMove( friends, oldIndex, newIndex )
+                const reorderedFriends = arrayMove( userFriends, oldIndex, newIndex )
                 const updatedFriends = reorderedFriends.map(( friend, idx ) => ({
                     ...friend,
                     priority: idx + 1
@@ -40,71 +39,10 @@ export default function ManageFriendsContainer({ friends, setFriends, isLoading,
                 
                 return updatedFriends
             })
-
             setShowConfirm( true )
         }
     }
 
-    // const handleSave = async () => {
-    //     try {
-    //         setIsLoading( true )
-    //         await updateUserFriends( friends )
-    //         await getGlobalUser()
-    //         setIsLoading( false )
-
-    //     } catch ( error ) {
-    //         setIsLoading( false )
-    //         Swal.fire({
-    //             title: 'Oops!',
-    //             text: error.message,
-    //             icon: 'warning',
-    //             confirmButtonText: 'Ok',
-    //             buttonsStyling: false,
-    //             customClass: {
-    //                 popup: 'hang-alert-container round-div div-shadow',
-    //                 icon: 'alert-icon',
-    //                 confirmButton: 'confirm-btn btn order2',
-    //                 denyButton: 'deny-btn btn order1',
-    //             }
-    //         })
-    //     }
-    // }
-
-    //EFFECTS
-    // useEffect(() => {
-    //     const friends = [
-    //         {
-    //             name: 'Bob',
-    //             id: 'Bob',
-    //             priority: 2
-    //         },
-    //         {
-    //             name: 'Alejandra',
-    //             id: 'Alejandra',
-    //             priority: 1
-    //         },
-    //         {
-    //             name: 'Mark',
-    //             id: 'Mark',
-    //             priority: 3
-    //         },
-    //         {
-    //             name: 'Momo',
-    //             id: 'Momo',
-    //             priority: 4
-    //         },
-    //     ]
-    //     setTimeout(() => {
-    //         friends.sort(( a, b) => a.priority - b.priority )
-    //         setFriends( friends )
-    //     }, 1000);
-    // }, [ ])
-
-    // useEffect(() => {
-    //     if ( friends ){
-    //         setIsLoading( false )
-    //     }
-    // }, [ friends ])
     return(
         <>
         {
@@ -113,14 +51,14 @@ export default function ManageFriendsContainer({ friends, setFriends, isLoading,
             :
             <div className="section-container mt-2">
                 {
-                    friends.length > 0 ?
+                    userFriends.length > 0 ?
                     <>
                         <p>Drag and drop to change priorities:</p>
                         <DndContext onDragEnd={ handleDragEnd } collisionDetection={ closestCenter }>
                             <ul className="mt-2">
-                                <SortableContext items={ friends } strategy={ verticalListSortingStrategy } >
+                                <SortableContext items={ userFriends } strategy={ verticalListSortingStrategy } >
                                     {
-                                        friends.map(( friend, idx ) => {
+                                        userFriends.map(( friend, idx ) => {
                                             return(
                                                 <DraggableCard key={ friend.id } friend={ friend }/>
                                             )
