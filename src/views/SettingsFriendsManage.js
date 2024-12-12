@@ -25,10 +25,11 @@ export default function SettingsFriendsManage(){
 
     //FUNCTIONS
     const getFriends = useCallback( async () => {
-        
+
         const res = await getUserFriends()
         const displayFriends = mergeArraysById( res, globalUser.friends )
         displayFriends.sort(( a, b ) => a.priority - b.priority )
+        console.log(displayFriends);
         setUserFriends( displayFriends )
 
     }, [ mergeArraysById, getUserFriends, globalUser ] )
