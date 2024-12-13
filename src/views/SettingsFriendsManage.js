@@ -28,12 +28,6 @@ export default function SettingsFriendsManage(){
         displayFriends.sort(( a, b ) => a.priority - b.priority )
         setUserFriends( displayFriends )
 
-        // const fakeArray = [
-
-        // ]
-        // setUserFriends( fakeArray )
-
-
     }, [ mergeArraysById, getUserFriends, globalUser ] )
 
     const handleSave = async () => {
