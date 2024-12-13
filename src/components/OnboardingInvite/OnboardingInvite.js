@@ -52,7 +52,7 @@ export default function OnboardingInvite({ handleOnboardingStage }){
                     <div className="invite-img-containter mt-4" >
                         <img src="./images/inviteIcon.svg" alt="invite"/>
                     </div>
-                    <div className="relative centered">
+                    <div className="relative centered onboarding-invite">
                         <CopiedCard active={ showCopiedCard }/>
                         <p>Send this Invite Link to your friends so they can join you in Hang!</p>
                         <BtnPrimary action={ copyLink } displayText={'Get Link'} enabled={ true } submit={ false }/>
