@@ -62,19 +62,19 @@ export default function SettingsFriendsExplore(){
         getSuggestions()
     }, [ getSuggestions ] )
 
-    // useEffect(() => {
-    //     setIsLoading( userFriends ? false : true )
-    // }, [ userFriends ])
+    useEffect(() => {
+        setIsLoading( friendSuggestions ? false : true )
+    }, [ friendSuggestions ])
 
     return(
         <div className="view-container friends">
             <TopBarNav navigation={'settings/friends'} title={'My Friends'} />
             <div className="main-view-body">
                 {
-                    ! friendSuggestions ?
+                    isLoading ?
                     <Loader/>
                     :
-                    <ExploreFriendsContainer friendSuggestions={ friendSuggestions } isLoading={ isLoading } handleSave={ handleSave } />
+                    <ExploreFriendsContainer friendSuggestions={ friendSuggestions } handleSave={ handleSave } />
                 }
             </div>
         </div>
