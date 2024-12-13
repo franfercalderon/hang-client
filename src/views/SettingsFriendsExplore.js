@@ -19,7 +19,7 @@ export default function SettingsFriendsExplore(){
 
     //HOOK
     const { getFriendSuggestions } = useFriends()
-    const { updateUserProperties } = useUsers()
+    // const { updateUserProperties } = useUsers()
 
     //FUNCTIONS
     const getSuggestions = useCallback( async () => {
