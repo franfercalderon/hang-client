@@ -18,7 +18,7 @@ export default function SettingsFriendsManage(){
 
     //HOOK
     const { getUserFriends } = useFriends()
-    const { updateUserFriends } = useUsers()
+    const { updateUserProperties } = useUsers()
 
     //FUNCTIONS
     const getFriends = useCallback( async () => {
@@ -33,7 +33,7 @@ export default function SettingsFriendsManage(){
     const handleSave = async () => {
         try {
             setIsLoading( true )
-            await updateUserFriends( userFriends )
+            await updateUserProperties( userFriends )
             await getGlobalUser()
             setIsLoading( false )
 
