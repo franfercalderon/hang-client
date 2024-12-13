@@ -51,7 +51,7 @@ export default function SettingsFriends(){
                 <div className="main-view-body">
                     <div className="section-container">
                         <FeedCard title={'My Friends'} descritpion={'Manage your friends list'} action={ () => navigate('/settings/friends/manage') }/>
-                        <FeedCard title={'Explore'} descritpion={'Discover people you might know'} action={ () => navigate('/settings/friends/discover') }/>
+                        <FeedCard title={'Explore'} descritpion={'Discover people you might know'} action={ () => navigate('/settings/friends/explore') }/>
                     </div>
                     <div className="bottom-container section-container">
                         <p>Invite Friends to Hang</p>

@@ -19,6 +19,7 @@ import SettingsFriends from './views/SettingsFriends';
 import SettingsNotifications from './views/SettingsNotifications';
 import SettingsAdmin from './views/SettingsAdmin';
 import SettingsFriendsManage from './views/SettingsFriendsManage';
+import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 
 function App() {
   return (  
@@ -41,6 +42,7 @@ function App() {
                 <Route exact path='/settings' element={ <Settings/>}/>
                 <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
                 <Route exact path='/settings/friends/manage' element={ <SettingsFriendsManage/>} />
+                <Route exact path='/settings/friends/explore' element={ <SettingsFriendsExplore/>} />
                 <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
                 <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
                 <Route exact path='/settings/notifications' element={ <SettingsNotifications/>} />
