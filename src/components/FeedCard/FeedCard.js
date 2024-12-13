@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function FeedCard({ title, descritpion, times, location, action, ctaText, erase }){
     return(
-        <div className="rounded cta-card" onClick={ !ctaText  ? action : undefined }>
+        <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''}`} onClick={ !ctaText ? action : undefined }>
             <div className="body-container">
                 <h3 className="font-big">{ title }</h3>
                 {

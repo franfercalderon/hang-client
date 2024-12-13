@@ -63,7 +63,7 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
                         }
                     </>
                     :
-                    <p>Add friends</p>
+                    <p>No friends to show</p>
                 }
             </div>
 
