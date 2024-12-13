@@ -16,11 +16,11 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 4 )
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
-    const { authToken, getGlobalUser, setPopulateUser } = useContext( AppContext )
+    const { setPopulateUser } = useContext( AppContext )
 
     //HOOKS
     const { updateUserById } = useUsers()

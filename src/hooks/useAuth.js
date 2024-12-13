@@ -72,7 +72,7 @@ function useAuth () {
         userLogin,
         signOutUser,
         setConfirmObject,
-        createInviteLink
+        createInviteLink 
     }
 }
 

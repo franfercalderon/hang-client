@@ -17,9 +17,17 @@ $bordergray: #bebebe
     overflow: scroll
 
 .section-container
+    position: relative
     width: 100%
     max-width: 768px
     padding: 0 25px
+
+.relative
+    position: relative
+
+.centered
+    display: flex
+    justify-content: center
 
 .view-body
     height: 100%
@@ -312,3 +320,22 @@ label span
     display: flex
     justify-content: space-between
     align-items: center
+
+.copied-message-card
+    position: absolute
+    top: 0
+    opacity: 0
+    transform: translateY( 20px )
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out
+    pointer-events: none
+    background-color: $darkgray
+    padding: 0.5rem 1rem
+    color: $darkwhite
+    font-weight: 500
+    border-radius: 500px
+    
+
+.copied-message-card.show
+    opacity: 1
+    transform: translateY( 0 )
+    pointer-events: auto
