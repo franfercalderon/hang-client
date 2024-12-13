@@ -33,7 +33,10 @@ export default function SettingsFriendsManage(){
     const handleSave = async () => {
         try {
             setIsLoading( true )
-            await updateUserProperties( userFriends )
+            const data = {
+                friends : userFriends
+            }
+            await updateUserProperties( data )
             await getGlobalUser()
             setIsLoading( false )
 
