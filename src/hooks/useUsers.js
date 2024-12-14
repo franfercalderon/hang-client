@@ -5,6 +5,7 @@ import { storage, ref, uploadBytes, getDownloadURL } from "../fb"
 import { v4 } from "uuid"
 
 function useUsers () {
+    
     //CONTEXT
     const { firebaseUserId, setFirebaseUserId, authToken, inviterId, masterToken, setMasterToken } = useContext( AppContext )
 

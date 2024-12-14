@@ -42,9 +42,28 @@ function useFriends(){
         } 
     }, [ authToken ])
 
+    const postFriendshipRequest = useCallback( async ( request ) => {
+
+        try{
+            //GETS FIXED SLOTS   
+            await axios.post(`${process.env.REACT_APP_API_URL}/friends/friendshipRequest`, request, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+            return 
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
+
     return({
         getUserFriends,
-        getFriendSuggestions
+        getFriendSuggestions,
+        postFriendshipRequest
     })
 }
 

@@ -1,4 +1,4 @@
-export default function ExploreFriendsContainer ({ friendSuggestions, handleSave }) { 
+export default function ExploreFriendsContainer ({ friendSuggestions, sendInvite }) { 
 
     return(
         <div className="section-container mt-2">
@@ -15,7 +15,7 @@ export default function ExploreFriendsContainer ({ friendSuggestions, handleSave
                                         <img src={ friend.imgUrl ? friend.imgUrl : '/images/defaultProfile.jpg' } alt={ friend.name } className="profile-img-min"/>
                                         <p>{`${ friend.name } ${ friend.lastname }`}</p>
                                     </div>
-                                    <div className="inline-cta pointer rounded">
+                                    <div className="inline-cta pointer rounded" onClick={() => sendInvite( friend.id ) }>
                                         Invite
                                     </div>
                                 </li>

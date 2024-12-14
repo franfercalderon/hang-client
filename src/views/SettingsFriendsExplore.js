@@ -15,10 +15,10 @@ export default function SettingsFriendsExplore(){
     const [ isLoading, setIsLoading ] = useState( true )
 
     //CONTEXT
-    // const { mergeArraysById, getGlobalUser, globalUser } = useContext( AppContext )
+    const { mergeArraysById, getGlobalUser, globalUser } = useContext( AppContext )
 
     //HOOK
-    const { getFriendSuggestions } = useFriends()
+    const { getFriendSuggestions, postFriendshipRequest } = useFriends()
     // const { updateUserProperties } = useUsers()
 
     //FUNCTIONS
@@ -29,14 +29,15 @@ export default function SettingsFriendsExplore(){
 
     }, [ getFriendSuggestions ] )
 
-    const handleSave = async () => {
+    const sendInvite = async ( receiverId ) => {
         try {
             setIsLoading( true )
-            // const data = {
-            //     friends : userFriends
-            // }
-            // await updateUserProperties( data )
-            // await getGlobalUser()
+
+            const data = {
+                receiverId, 
+                requesterProfilePicture: globalUser.profilePicture
+            }
+            await postFriendshipRequest( data )
             setIsLoading( false )
 
         } catch ( error ) {
@@ -74,7 +75,7 @@ export default function SettingsFriendsExplore(){
                     isLoading ?
                     <Loader/>
                     :
-                    <ExploreFriendsContainer friendSuggestions={ friendSuggestions } handleSave={ handleSave } />
+                    <ExploreFriendsContainer friendSuggestions={ friendSuggestions } sendInvite={ sendInvite } />
                 }
             </div>
         </div>
