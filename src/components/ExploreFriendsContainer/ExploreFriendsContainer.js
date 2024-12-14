@@ -10,7 +10,7 @@ export default function ExploreFriendsContainer ({ friendSuggestions, sendInvite
                     {
                         friendSuggestions.map(( friend, idx ) => {
                             return(
-                                <li className="order-card cta-card rounded" key={ idx }> 
+                                <li className=" cta-card rounded" key={ idx }> 
                                     <div className="inner">
                                         <img src={ friend.imgUrl ? friend.imgUrl : '/images/defaultProfile.jpg' } alt={ friend.name } className="profile-img-min"/>
                                         <p>{`${ friend.name } ${ friend.lastname }`}</p>

@@ -9,7 +9,7 @@ export default function DraggableCard({ friend }){
         transition
     }
     return(
-        <li style={ style } ref={ setNodeRef } { ...attributes } { ...listeners }   className="order-card cta-card rounded pointer">
+        <li style={ style } ref={ setNodeRef } { ...attributes } { ...listeners }   className="slim-hang-card cta-card rounded pointer">
             <div className="inner"> 
                 <img src={ friend.imgUrl ? friend.imgUrl : '/images/defaultProfile.jpg' } alt={ friend.name } className="profile-img-min"/>
                 <p>{`${ friend.name } ${ friend.lastname }`}</p>

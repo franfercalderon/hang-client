@@ -15,7 +15,7 @@ export default function NotificationsContainer(){
             {
                 friendshipRequest?.map(( request, idx ) => {
                     return(
-                        <div className="order-card cta-card rounded" key={ idx }>
+                        <div className="slim-hang-card cta-card rounded" key={ idx }>
                             <div className="inner">
                                 <img src={ request.requesterProfilePicture ? request.requesterProfilePicture : '/images/defaultProfile.jpg' } alt={ request.name } className="profile-img-min"/>
                                 <p>{`${ request.requesterName } ${ request.requesterLastame } wants to be your friend`}</p>

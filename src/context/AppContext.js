@@ -96,7 +96,7 @@ const AppProvider = ({ children }) => {
         });
     
         return () => unsubscribe();
-    }, [ auth, navigate, getGlobalUser ]);
+    }, [ auth, navigate, getGlobalUser, getUserData ]);
 
     useEffect(() => {
         if ( authToken && authToken !== '' && populateUser ){
