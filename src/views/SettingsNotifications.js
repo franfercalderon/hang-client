@@ -1,4 +1,4 @@
-import NotificationsContainer from "../components/NotificationsContainer/NotificationsContainer";
+import SettingsNotificationsContainer from "../components/SettingsNotificationsContainer/SettingsNotificationsContainer";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
 
 export default function SettingsNotifications(){
@@ -6,7 +6,7 @@ export default function SettingsNotifications(){
         <div className="view-container">
             <TopBarNav navigation={'settings'} title={'Notifications'}/>
             <div className="main-view-body">
-                <NotificationsContainer/>
+                <SettingsNotificationsContainer/>
             </div>
         </div>
     )

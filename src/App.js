@@ -7,7 +7,7 @@ import { AppProvider } from './context/AppContext';
 import Onboarding from './views/Onboarding';
 import Invite from './views/Invite';
 import Master from './views/Master';
-import Notifactions from './views/SettingsNotifications';
+import Notifactions from './views/Notifications';
 import Assistant from './views/Assistant';
 import Settings from './views/Settings';
 import Create from './views/Create';
@@ -32,7 +32,7 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/notifications' element={ <Notifactions/>} />
+              <Route exact path='/notifications' element={ <Notifactions/> } />
               <Route exact path='/assistant' element={ <Assistant/>} />
               <Route exact path='/create' element={ <Create/>} />
               <Route exact path='/create/hang' element={ <CreateHang/>} />

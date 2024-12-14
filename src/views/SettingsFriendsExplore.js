@@ -32,12 +32,14 @@ export default function SettingsFriendsExplore(){
     const sendInvite = async ( receiverId ) => {
         try {
             setIsLoading( true )
-            console.log(globalUser);
 
             const data = {
                 receiverId, 
-                requesterProfilePicture: globalUser.profilePhoto
+                requesterProfilePicture: globalUser.profilePhoto,
+                requesterName: globalUser.name,
+                requesterLastame: globalUser.lastname,
             }
+
             await postFriendshipRequest( data )
             setIsLoading( false )
 
@@ -70,7 +72,7 @@ export default function SettingsFriendsExplore(){
 
     return(
         <div className="view-container friends">
-            <TopBarNav navigation={'settings/friends'} title={'My Friends'} />
+            <TopBarNav navigation={'settings/friends'} title={'Discover Friends'} />
             <div className="main-view-body">
                 {
                     isLoading ?
