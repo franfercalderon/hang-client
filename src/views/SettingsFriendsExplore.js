@@ -32,10 +32,11 @@ export default function SettingsFriendsExplore(){
     const sendInvite = async ( receiverId ) => {
         try {
             setIsLoading( true )
+            console.log(globalUser);
 
             const data = {
                 receiverId, 
-                requesterProfilePicture: globalUser.profilePicture
+                requesterProfilePicture: globalUser.profilePhoto
             }
             await postFriendshipRequest( data )
             setIsLoading( false )
