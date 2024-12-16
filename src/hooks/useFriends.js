@@ -61,8 +61,6 @@ function useFriends(){
     }, [ authToken ])
 
     const getUserFriendShipsRequests = useCallback( async ( token ) => {
-        console.log(token);
-        console.log(authToken);
         
         try{
             //GETS FIXED SLOTS   
