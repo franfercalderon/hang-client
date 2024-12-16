@@ -102,9 +102,6 @@ export default function CreateNowContainer() {
                         confirmButton: 'confirm-btn btn order2',
                         denyButton: 'deny-btn btn order1',
                     }
-                    .then(() => {
-                        navigate('/')
-                    })
                 })
                 
 
