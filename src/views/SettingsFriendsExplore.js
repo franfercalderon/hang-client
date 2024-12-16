@@ -44,6 +44,7 @@ export default function SettingsFriendsExplore(){
             setIsLoading( false )
 
         } catch ( error ) {
+            console.log(error);
             setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
