@@ -16,11 +16,11 @@ export default function NotificationsContainer(){
     const { replyFriendsRequest } = useFriends()
 
     //FUNCTIONS
-    const replyRequest = async ( requestId, accepted, requesterId ) => {
+    const replyRequest = async ( requestId, requesterId, accepted ) => {
 
         try {
             setIsLoading( true )
-            await replyFriendsRequest( requestId, accepted, requesterId )
+            await replyFriendsRequest( requestId, requesterId, accepted )
             setIsLoading( false )
             Swal.fire({
                 text: accepted ? 'Friend added' : 'Request rejected',
@@ -76,7 +76,7 @@ export default function NotificationsContainer(){
             if( res.isConfirmed ){
                 return replyRequest( requestId, requesterId, true )
             } else if ( res.isDenied ){
-                return replyRequest( requestId, false ) 
+                return replyRequest( requestId, requesterId, false ) 
             }
         })
         .catch(( error ) => {
