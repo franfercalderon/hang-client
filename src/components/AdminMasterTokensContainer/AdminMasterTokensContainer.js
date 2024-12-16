@@ -9,7 +9,7 @@ import CopiedCard from "../CopiedCard/CopiedCard";
 export default function AdminMasterTokensContainer(){ 
 
     //STATE
-    const [ masterToken, setMasterToken ] = useState( 'OP541S' )
+    const [ masterToken, setMasterToken ] = useState( null )
     const [ showCopiedCard, setShowCopiedCard ] = useState( false )
 
 
