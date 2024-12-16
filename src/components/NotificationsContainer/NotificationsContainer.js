@@ -20,6 +20,7 @@ export default function NotificationsContainer(){
             icon: null,
             confirmButtonText: 'Accept',
             cancelButtonText: 'Reject',
+            showDenyButton: true,
             buttonsStyling: false,
             customClass: {
                 popup: 'hang-alert-container round-div div-shadow',
