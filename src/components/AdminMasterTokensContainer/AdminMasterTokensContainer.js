@@ -12,7 +12,6 @@ export default function AdminMasterTokensContainer(){
     const [ masterToken, setMasterToken ] = useState( null )
     const [ showCopiedCard, setShowCopiedCard ] = useState( false )
 
-
     //HOOKS
     const { getMasterToken } = useAuth()
 
@@ -29,9 +28,19 @@ export default function AdminMasterTokensContainer(){
 
     }, [ getMasterToken ])
 
+
+    //EFFECTS
     useEffect(() => {
         getToken()
     }, [ getToken ])
+
+    useEffect(() => {
+        if( showCopiedCard ){
+            setTimeout(() => {
+                setShowCopiedCard( false )
+            }, 1000 )
+        }
+    }, [ showCopiedCard ] )
 
     return(
         <div className="section-container mt-2">
