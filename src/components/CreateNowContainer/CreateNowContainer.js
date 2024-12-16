@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
@@ -6,6 +6,7 @@ import useSlots from "../../hooks/useSlots";
 import Swal from "sweetalert2";
 import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
+import { AppContext } from "../../context/AppContext";
 
 export default function CreateNowContainer() { 
     
@@ -29,6 +30,9 @@ export default function CreateNowContainer() {
 
     //HOOKS
     const { convertTimeToTimestamp, postAvailableNowSlot } = useSlots()
+
+    //CONTEXT
+    const { globalUser } = useContext( AppContext )
 
     //ROUTER
     const navigate = useNavigate()
@@ -85,6 +89,7 @@ export default function CreateNowContainer() {
                     starts: slot.starts,
                     ends: slot.ends,
                     location,
+                    userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null 
                 }
                 await postAvailableNowSlot( availableNowSlot ) 
                 setIsLoading( false )
@@ -104,8 +109,6 @@ export default function CreateNowContainer() {
                     }
                 })
                 navigate('/')
-                
-
             }
         } catch ( error ) {
             setIsLoading( false )
