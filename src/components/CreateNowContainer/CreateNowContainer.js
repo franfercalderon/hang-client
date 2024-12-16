@@ -103,6 +103,7 @@ export default function CreateNowContainer() {
                         denyButton: 'deny-btn btn order1',
                     }
                 })
+                navigate('/')
                 
 
             }
