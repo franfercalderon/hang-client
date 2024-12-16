@@ -43,27 +43,26 @@ export default function AdminMasterTokensContainer(){
     }, [ showCopiedCard ] )
 
     return(
-        <div className="section-container mt-2">
-            {
-                ! masterToken?
-                <Loader/>
-                :
-                <>
-                    <p>Click and copy this token to create new Master Accounts</p>
-                    <div>
-                        <div className="admin-token-container relative">
-                            <CopiedCard active={ showCopiedCard }/>
-                            <div className="master-token-card mt-4 rounded pointer" onClick={ handleCopy }>
-                                <p>{ masterToken }</p>
-                            </div>
+        <>
+        {
+            ! masterToken?
+            <Loader/>
+            :
+            <div className="section-container mt-2"> 
+                <p>Click and copy this token to create new Master Accounts</p>
+                <div>
+                    <div className="admin-token-container relative">
+                        <CopiedCard active={ showCopiedCard }/>
+                        <div className="master-token-card mt-4 rounded pointer" onClick={ handleCopy }>
+                            <p>{ masterToken }</p>
                         </div>
                     </div>
-                    <div className="mt-4">
-                        <BtnSecondary displayText={'Copy Link for Master Accounts'} />
-                    </div>
-                    
-                </>
-            }
-        </div>
+                </div>
+                <div className="mt-4">
+                    <BtnSecondary displayText={'Copy Link for Master Accounts'} />
+                </div>   
+            </div>
+        }
+        </>
     )
 }
