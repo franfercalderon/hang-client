@@ -42,9 +42,23 @@ export default function SettingsFriendsExplore(){
 
             await postFriendshipRequest( data )
             setIsLoading( false )
+            Swal.fire({
+                title: 'Invite Sent!',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                timer: 1000,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
 
         } catch ( error ) {
-            console.log(error);
             setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
