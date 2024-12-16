@@ -56,7 +56,7 @@ function useFriends(){
             return 
 
         } catch ( error ) {
-            throw error
+            throw error.response.data
         } 
     }, [ authToken ])
 
