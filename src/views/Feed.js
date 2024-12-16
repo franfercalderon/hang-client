@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import FeedCard from "../components/FeedCard/FeedCard"
+import useSlots from "../hooks/useSlots"
 
 
 export default function Feed () {
@@ -14,6 +15,9 @@ export default function Feed () {
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
+
+    //HOOKS
+    const { availableNowSlots, scheduledSlots } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()

@@ -1,9 +1,13 @@
 import axios from "axios"
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { AppContext } from "../context/AppContext"
 
 
 function useSlots (){
+
+    //STATE
+    const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
+    const [ scheduledSlots, setScheduledSlots ] = useState( [] )
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
@@ -44,13 +48,14 @@ function useSlots (){
     const getAvailableNowSlots = useCallback( async () => {
         try{
             //GETS FIXED SLOTS   
-            const availableNowSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/now`, {
+            const availableNowSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/now`,{
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
 
+            setAvailableNowSlots( availableNowSlots.data )
             return availableNowSlots.data
 
         } catch ( error ) {
@@ -73,6 +78,24 @@ function useSlots (){
             throw error
         } 
     }
+
+    const getScheduledSlots = useCallback( async () => {
+        try{
+            //GETS FIXED SLOTS   
+            const scheduledSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/scheduled`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+            setScheduledSlots( scheduledSlots.data )
+            return scheduledSlots.data
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
 
     const validateTimes = ( slot ) => {
 
@@ -160,6 +183,13 @@ function useSlots (){
         }
     }
 
+    //EFFECTS
+    useEffect(() => {
+        getAvailableNowSlots()
+        getScheduledSlots()
+        console.log('CARGARON');
+    }, [ getAvailableNowSlots, getScheduledSlots ])
+
 
 
     return({
@@ -169,9 +199,13 @@ function useSlots (){
         postAvailableNowSlot,
         postScheduledSlot,
         getUserFixedSlots,
-        getAvailableNowSlots,
         convertArrayToString,
         deleteFixedSlot,
+        getAvailableNowSlots,
+        getScheduledSlots,
+        availableNowSlots,
+        scheduledSlots
+
     })
 
 }

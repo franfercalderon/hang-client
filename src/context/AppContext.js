@@ -4,6 +4,7 @@ import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
 import useFriends from "../hooks/useFriends"
+import useSlots from "../hooks/useSlots"
 const AppContext = createContext('')
 const { Provider } = AppContext
 
@@ -18,12 +19,15 @@ const AppProvider = ({ children }) => {
     const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
     const [ friendshipRequest, setFriendshipRequest ] = useState( [] )
+    // const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
+    // const [ scheduledSlots, setScheuledSlots ] = useState( [] )
     const [ hangSuggestions, setHangSuggestions ] = useState( [] )
     const [ notificationBadge, setNotificationBadge ] = useState( false )
 
     //HOOKS
     const { getUser } = useUsers()
     const { getUserFriendShipsRequests } = useFriends()
+    // const { getAvailableNowSlots, getScheduledSlots } = useSlots()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -39,10 +43,11 @@ const AppProvider = ({ children }) => {
     }, [ getUser, authToken ]) 
 
     const getUserData = useCallback( async ( token ) => {
+
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-        
-        //GETNOTIFICATIONS
+
+    
         //GET MATCHES
 
 
@@ -115,7 +120,7 @@ const AppProvider = ({ children }) => {
             mergeArraysById,
             friendshipRequest,
             getUserData,
-            notificationBadge
+            notificationBadge,
         }}>
             { children }
         </Provider>
