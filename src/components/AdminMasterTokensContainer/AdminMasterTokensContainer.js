@@ -10,16 +10,23 @@ export default function AdminMasterTokensContainer(){
 
     //STATE
     const [ masterToken, setMasterToken ] = useState( null )
-    const [ showCopiedCard, setShowCopiedCard ] = useState( false )
+    const [ showCopiedCardToken, setShowCopiedCardToken ] = useState( false )
+    const [ showCopiedCardUrl, setShowCopiedCardUrl ] = useState( false )
 
     //HOOKS
     const { getMasterToken } = useAuth()
 
     //FUNCTIONS
-    const handleCopy = () => {
+    const copyToken = () => {
         navigator.clipboard
             .writeText( masterToken )
-            .then(()=> setShowCopiedCard( true ))
+            .then(()=> setShowCopiedCardToken( true ))
+    }
+
+    const copyUrl = () => {
+        navigator.clipboard
+            .writeText( `${ process.env.REACT_APP_BASE_URL }/master` )
+            .then(()=> setShowCopiedCardUrl( true ))
     }
 
     const getToken = useCallback( async () => {
@@ -35,12 +42,20 @@ export default function AdminMasterTokensContainer(){
     }, [ getToken ])
 
     useEffect(() => {
-        if( showCopiedCard ){
+        if( showCopiedCardToken ){
             setTimeout(() => {
-                setShowCopiedCard( false )
+                setShowCopiedCardToken( false )
             }, 1000 )
         }
-    }, [ showCopiedCard ] )
+    }, [ showCopiedCardToken ] )
+
+    useEffect(() => {
+        if( showCopiedCardUrl ){
+            setTimeout(() => {
+                setShowCopiedCardUrl( false )
+            }, 1000 )
+        }
+    }, [ showCopiedCardUrl ] )
 
     return(
         <>
@@ -52,14 +67,15 @@ export default function AdminMasterTokensContainer(){
                 <p>Click and copy this token to create new Master Accounts</p>
                 <div>
                     <div className="admin-token-container relative">
-                        <CopiedCard active={ showCopiedCard }/>
-                        <div className="master-token-card mt-4 rounded pointer" onClick={ handleCopy }>
+                        <CopiedCard active={ showCopiedCardToken }/>
+                        <div className="master-token-card mt-4 rounded pointer" onClick={ copyToken }>
                             <p>{ masterToken }</p>
                         </div>
                     </div>
                 </div>
-                <div className="mt-4">
-                    <BtnSecondary displayText={'Copy Link for Master Accounts'} />
+                <div className="mt-4 relative">
+                    <CopiedCard active={ showCopiedCardUrl }/>
+                    <BtnSecondary displayText={'Copy Link for Master Accounts'} action={copyUrl } enabled={ true }/>
                 </div>   
             </div>
         }
