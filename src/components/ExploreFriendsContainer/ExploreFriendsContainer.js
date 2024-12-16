@@ -16,7 +16,7 @@ export default function ExploreFriendsContainer ({ friendSuggestions, sendInvite
                                         <p>{`${ friend.name } ${ friend.lastname }`}</p>
                                     </div>
                                     <div className="inline-cta pointer rounded" onClick={() => sendInvite( friend.id ) }>
-                                        Invite
+                                        Add Friend
                                     </div>
                                 </li>
                             )

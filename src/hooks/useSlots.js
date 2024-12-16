@@ -41,6 +41,23 @@ function useSlots (){
         } 
     }
 
+    const getAvailableNowSlots = useCallback( async () => {
+        try{
+            //GETS FIXED SLOTS   
+            const availableNowSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/now`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+            return availableNowSlots.data
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
+
     const postScheduledSlot = async ( slot ) => {
 
         try{
@@ -152,8 +169,9 @@ function useSlots (){
         postAvailableNowSlot,
         postScheduledSlot,
         getUserFixedSlots,
+        getAvailableNowSlots,
         convertArrayToString,
-        deleteFixedSlot
+        deleteFixedSlot,
     })
 
 }
