@@ -4,6 +4,7 @@ import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
 import useSlots from "../../hooks/useSlots";
 import Swal from "sweetalert2";
+import Loader from '../Loader/Loader'
 
 export default function CreateNowContainer() { 
     
@@ -129,45 +130,52 @@ export default function CreateNowContainer() {
 
     return(
         <div className="main-view-body">
-            <div className="section-container">
-                <div className="full-width-toggle">
-                    <div className={`inner ${ isNow ? 'active' : '' }`} onClick={() => setIsNow( true )}>
-                        <p>Now</p>
-                    </div>
-                    <div className={`inner ${ !isNow ? 'active' : '' }`} onClick={() => setIsNow( false )}>
-                        <p>Later Today</p>
-                    </div>
-                </div>
-                <div className="times-container">
-                    <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
-                        <p>From</p>
-                        <div className="time-display rounded">
-                            <p>{  isNow ? 'now' : `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+            {
+                isLoading ?
+                <Loader/>
+                :
+                <>
+                    <div className="section-container">
+                        <div className="full-width-toggle">
+                            <div className={`inner ${ isNow ? 'active' : '' }`} onClick={() => setIsNow( true )}>
+                                <p>Now</p>
+                            </div>
+                            <div className={`inner ${ !isNow ? 'active' : '' }`} onClick={() => setIsNow( false )}>
+                                <p>Later Today</p>
+                            </div>
+                        </div>
+                        <div className="times-container">
+                            <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
+                                <p>From</p>
+                                <div className="time-display rounded">
+                                    <p>{  isNow ? 'now' : `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+                                </div>
+                            </div>
+                            <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
+                                <p>To</p>
+                                <div className="time-display rounded">
+                                    <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            showStartPicker &&
+                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                        }
+                        {
+                            showEndPicker &&
+                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                        }
+                        <div className="location-container">
+                            <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
                         </div>
                     </div>
-                    <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
-                        <p>To</p>
-                        <div className="time-display rounded">
-                            <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
-                        </div>
-                    </div>
-                </div>
-                {
-                    showStartPicker &&
-                    <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
-                }
-                {
-                    showEndPicker &&
-                    <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
-                }
-                <div className="location-container">
-                    <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
-                </div>
-            </div>
 
-            <div className="section-container">
-                <BtnPrimary action={ handleSave } displayText={'Save'} submit={ false } enabled={ slot && location !== '' ? true : false }/>
-            </div>
+                    <div className="section-container">
+                        <BtnPrimary action={ handleSave } displayText={'Save'} submit={ false } enabled={ slot && location !== '' ? true : false }/>
+                    </div>
+                </>
+            }
         </div>
     )
 }

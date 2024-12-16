@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useSlots from "../../hooks/useSlots";
 import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
+import Loader from '../Loader/Loader'
 
 export default function CreateHangContainer(){ 
 
@@ -137,48 +138,55 @@ export default function CreateHangContainer(){
 
     return(
         <div className="main-view-body">
-            <div className="section-container">
-                <div className="mt-2">
-                    <MainInput handleChange={ handleTitle } value={ title } label={'Title'} optional={ true }/> 
-                </div>
-                <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
-                <div className="times-container">
-                    <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
-                        <p>From</p>
-                        <div className="time-display rounded">
-                            <p>{ `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+            {
+                isLoading ?
+                <Loader/>
+                :
+                <>
+                    <div className="section-container">
+                        <div className="mt-2">
+                            <MainInput handleChange={ handleTitle } value={ title } label={'Title'} optional={ true }/> 
+                        </div>
+                        <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
+                        <div className="times-container">
+                            <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
+                                <p>From</p>
+                                <div className="time-display rounded">
+                                    <p>{ `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+                                </div>
+                            </div>
+                            <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
+                                <p>To</p>
+                                <div className="time-display rounded">
+                                    <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {
+                            showStartPicker &&
+                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                        }
+                        {
+                            showEndPicker &&
+                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                        }
+                        <div className="location-container">
+                            <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
+                        </div>
+                        <div className="seats-container mt-2">
+                            <label htmlFor="seats">Spots?<span>{` (other than you)`}</span></label>
+                            <div className="seats-inner main-input">
+                                <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
+                                <p>{ spots }</p>
+                                <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                            </div>
                         </div>
                     </div>
-                    <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
-                        <p>To</p>
-                        <div className="time-display rounded">
-                            <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
-                        </div>
+                    <div className="section-container">
+                        <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ slot && spots > 0 && location !== '' ? true : false }/>
                     </div>
-                </div>
-                {
-                    showStartPicker &&
-                    <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
-                }
-                {
-                    showEndPicker &&
-                    <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
-                }
-                <div className="location-container">
-                    <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
-                </div>
-                <div className="seats-container mt-2">
-                    <label htmlFor="seats">Spots?<span>{` (other than you)`}</span></label>
-                    <div className="seats-inner main-input">
-                        <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
-                        <p>{ spots }</p>
-                        <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
-                    </div>
-                </div>
-            </div>
-            <div className="section-container">
-                <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ slot && spots > 0 && location !== '' ? true : false }/>
-            </div>
+                </>
+            }
         </div>
     )
 }
