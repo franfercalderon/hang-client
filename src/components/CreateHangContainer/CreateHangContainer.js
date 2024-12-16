@@ -120,6 +120,7 @@ export default function CreateHangContainer(){
                         denyButton: 'deny-btn btn order1',
                     }
                 })
+                navigate('/')
 
             }
         } catch ( error ) {
