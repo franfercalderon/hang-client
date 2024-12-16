@@ -61,7 +61,9 @@ function useFriends(){
     }, [ authToken ])
 
     const getUserFriendShipsRequests = useCallback( async ( token ) => {
-
+        console.log(token);
+        console.log(authToken);
+        
         try{
             //GETS FIXED SLOTS   
             const friendShipRequests = await axios.get(`${process.env.REACT_APP_API_URL}/friends/requests`, {
@@ -86,7 +88,7 @@ function useFriends(){
             accepted,
             invitedFriendsLength: globalUser.friends.length,
         }
-        
+
         try{ 
             await axios.patch(`${process.env.REACT_APP_API_URL}/friends/friendshipRequest`, data, {
                 headers: {
