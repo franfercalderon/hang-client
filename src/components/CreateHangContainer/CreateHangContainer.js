@@ -6,6 +6,7 @@ import useSlots from "../../hooks/useSlots";
 import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
+import { useNavigate } from "react-router-dom"
 
 export default function CreateHangContainer(){ 
 
@@ -31,6 +32,9 @@ export default function CreateHangContainer(){
 
     //HOOKS
     const { convertTimeToTimestamp, postScheduledSlot } = useSlots()
+
+    //ROUTER
+    const navigate = useNavigate()
 
     //FUNCTIONS
     const resetTimes = () => {
@@ -101,6 +105,24 @@ export default function CreateHangContainer(){
                 }
                 await postScheduledSlot( scheduledHang )
                 setIsLoading( false )
+                Swal.fire({
+                    text: 'Your event has been created!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    timer: 1300,
+                    buttonsStyling: false,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                    .then(() => {
+                        navigate('/')
+                    })
+                })
 
             }
         } catch ( error ) {
