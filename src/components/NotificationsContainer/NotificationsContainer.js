@@ -41,7 +41,7 @@ export default function NotificationsContainer(){
         }
     }
 
-    const handleRequest = async ( requestId ) => {
+    const handleRequest = async ( requestId, requesterId ) => {
         Swal.fire({
             title: null,
             text: 'Do you want to accept this request?',
@@ -59,7 +59,7 @@ export default function NotificationsContainer(){
         })
         .then( ( res ) => {
             if( res.isConfirmed ){
-                return replyRequest( requestId, true )
+                return replyRequest( requestId, requesterId, true )
             } else if ( res.isDenied ){
                 return replyRequest( requestId, false ) 
             }
