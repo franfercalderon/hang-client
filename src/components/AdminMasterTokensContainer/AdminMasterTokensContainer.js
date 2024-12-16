@@ -1,6 +1,5 @@
 
 import { useCallback, useEffect, useState } from "react";
-import ToggleBtn from "../ToggleBtn/ToggleBtn";
 import Loader from "../Loader/Loader";
 import BtnSecondary from '../BtnSecondary/BtnSecondary'
 import useAuth from "../../hooks/useAuth";

@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react"
-import useAuth from "../hooks/useAuth"
 import { AppContext } from "../context/AppContext"
 import Loader from "../components/Loader/Loader"
 import { useNavigate } from "react-router-dom"
@@ -11,22 +10,20 @@ import FeedCard from "../components/FeedCard/FeedCard"
 export default function Feed () {
 
     //STATE
-    const [ isLoading, setIsLoading ] = useState( false )
+    const [ isLoading, setIsLoading ] = useState( true )
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
-    const { signOutUser } = useAuth()
 
     //ROUTER
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     if( globalUser ){
-    //         setIsLoading( false )
-    //     }
-    // }, [ globalUser ])
-
-
+    //EFFECTS
+    useEffect(() => {
+        if( globalUser ){
+            setIsLoading( false )
+        }
+    }, [ globalUser ])
 
     return(
         <>
