@@ -5,9 +5,10 @@ import MainInput from "../MainInput/MainInput";
 import useSlots from "../../hooks/useSlots";
 import Swal from "sweetalert2";
 
-export default function CreateNowContainer() {
+export default function CreateNowContainer() { 
     
     //STATE
+    const [ isLoading, setIsLoading ] = useState( false )
     const [ isNow, setIsNow ] = useState( true )
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
@@ -74,15 +75,17 @@ export default function CreateNowContainer() {
             if ( slot.starts > slot.ends ){
                 throw new Error ('Start hour must be before end hour')
             } else {
+                setIsLoading( true )
                 const availableNowSlot = {
                     starts: slot.starts,
                     ends: slot.ends,
                     location,
                 }
                 await postAvailableNowSlot( availableNowSlot ) 
+                setIsLoading( false )
             }
         } catch ( error ) {
-
+            setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
                 text: error.message,

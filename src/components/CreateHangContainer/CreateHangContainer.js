@@ -6,9 +6,10 @@ import useSlots from "../../hooks/useSlots";
 import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
 
-export default function CreateHangContainer(){
+export default function CreateHangContainer(){ 
 
     //STATE
+    const [ isLoading, setIsLoading ] = useState( false )
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
     const [ startTime, setStartTime ] = useState({
@@ -89,6 +90,7 @@ export default function CreateHangContainer(){
             if ( slot.starts > slot.ends ){
                 throw new Error ('Start hour must be before end hour')
             } else {
+                setIsLoading( true )
                 const scheduledHang = {
                     title,
                     starts: slot.starts,
@@ -97,9 +99,11 @@ export default function CreateHangContainer(){
                     spots
                 }
                 await postScheduledSlot( scheduledHang )
+                setIsLoading( false )
+
             }
         } catch ( error ) {
-
+            setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
                 text: error.message,

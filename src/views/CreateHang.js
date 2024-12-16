@@ -5,7 +5,7 @@ export default function CreateHang (){
     return(
         <div className="view-container">
             <TopBarNav navigation={'create'} title={ 'Schedule Hang' }/>
-            <CreateHangContainer/>
+            <CreateHangContainer/> 
         </div>
     )
 }
