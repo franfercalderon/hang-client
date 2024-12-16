@@ -71,7 +71,7 @@ function useAuth () {
     const getMasterToken = useCallback( async () => {
         try{
             //GETS FIXED SLOTS   
-            const masterToken = await axios.get(`${process.env.REACT_APP_API_URL}/admin/masterToken`, {
+            const masterToken = await axios.get(`${process.env.REACT_APP_API_URL}/master/masterToken`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
