@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import Swal from "sweetalert2";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function NotificationsContainer(){
 
@@ -35,9 +34,6 @@ export default function NotificationsContainer(){
             } else if ( res.isDenied ){
                 return replyRequest( requestId, false ) 
             }
-        })
-        .then(() => {
-            getFixedSlots( globalUser.id )
         })
         .catch(( error ) => {
             Swal.fire({
