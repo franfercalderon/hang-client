@@ -79,9 +79,6 @@ function useFriends(){
     }, [ authToken ] )
 
     const replyFriendsRequest = async ( requestId, requesterId, accepted ) => {
-        console.log('requestId '+requestId);
-        console.log('requesterId '+requesterId);
-        console.log('accepted '+accepted);
 
         const data = {
             requestId,
@@ -89,6 +86,7 @@ function useFriends(){
             accepted,
             invitedFriendsLength: globalUser.friends.length,
         }
+        
         try{ 
             await axios.patch(`${process.env.REACT_APP_API_URL}/friends/friendshipRequest`, data, {
                 headers: {

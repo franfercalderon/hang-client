@@ -17,7 +17,9 @@ const AppProvider = ({ children }) => {
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
     const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
-    const [ friendshipRequest, setFriendshipRequest ] = useState( null )
+    const [ friendshipRequest, setFriendshipRequest ] = useState( [] )
+    const [ hangSuggestions, setHangSuggestions ] = useState( [] )
+    const [ notificationBadge, setNotificationBadge ] = useState( false )
 
     //HOOKS
     const { getUser } = useUsers()
@@ -29,20 +31,6 @@ const AppProvider = ({ children }) => {
     //ROUTER
     const navigate = useNavigate()
 
-    //TEST
-    // const testUser = {
-    //     friends: [],
-    //     id: "kNLM7MIzTIakz8Qjzw5WLiGD7ib2",
-    //     createdAt: "1733852690542",
-    //     phoneNumber: "+15555555555",
-    //     acceptedInvites: 0,
-    //     master: true,
-    //     name: "Franco",
-    //     email: "franco@genaiuniversity.com",
-    //     lastname: "Fernandez",
-    //     profilePhoto: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fimage.webp9b84ef4d-2af2-45de-9275-ef8880e93a07?alt=media&token=93a043a5-1346-46af-b2b9-a3f18ca595f6"
-    // }
-
     //FUNCTIONS
     const getGlobalUser = useCallback( async ( token ) => {
         const user = await getUser( token ? token : authToken )
@@ -53,7 +41,7 @@ const AppProvider = ({ children }) => {
     const getUserData = useCallback( async ( token ) => {
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-    
+        
         //GETNOTIFICATIONS
         //GET MATCHES
 
@@ -104,6 +92,11 @@ const AppProvider = ({ children }) => {
         }
     }, [ authToken, populateUser, getGlobalUser ] )
 
+    useEffect(() => {
+        setNotificationBadge( friendshipRequest.length > 0 || hangSuggestions.length > 0 ? true : false )
+   
+    }, [ friendshipRequest, hangSuggestions ])
+
     return(
         <Provider value={{
             authToken,
@@ -119,7 +112,9 @@ const AppProvider = ({ children }) => {
             setMasterToken,
             setPopulateUser,
             mergeArraysById,
-            friendshipRequest
+            friendshipRequest,
+            getUserData,
+            notificationBadge
         }}>
             { children }
         </Provider>

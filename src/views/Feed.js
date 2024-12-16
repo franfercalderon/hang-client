@@ -11,25 +11,20 @@ import FeedCard from "../components/FeedCard/FeedCard"
 export default function Feed () {
 
     //STATE
-    const [ isLoading, setIsLoading ] = useState( true )
+    const [ isLoading, setIsLoading ] = useState( false )
 
     //CONTEXT
-    const { setPopulateUser, authToken, globalUser } = useContext( AppContext )
+    const { globalUser, notificationBadge } = useContext( AppContext )
     const { signOutUser } = useAuth()
 
     //ROUTER
     const navigate = useNavigate()
 
-    //EFFECTS
     // useEffect(() => {
-    //     setPopulateUser( true )
-    // }, [  setPopulateUser ])
-
-    useEffect(() => {
-        if( globalUser ){
-            setIsLoading( false )
-        }
-    }, [ globalUser ])
+    //     if( globalUser ){
+    //         setIsLoading( false )
+    //     }
+    // }, [ globalUser ])
 
 
 
@@ -44,20 +39,19 @@ export default function Feed () {
                         <div className="feed-logo-container">
                             <img src="/images/logo_trim.svg" alt="Hang"/>
                         </div>
-                        <div className="btn-main-container">
+                        <div className="btn-main-container relative">
+                            { notificationBadge &&
+                                <span className="notification-badge"></span>
+                            }
                             <div className="btn-container pointer" onClick={ () => navigate('/notifications') }>
                                 <img src="/images/bell.svg" alt="notifications"/>
                             </div>
-                            {/* <div className="btn-container chat">
-                                <img src="/images/bubble.svg" alt="chat"/>
-                            </div> */}
                         </div>
                     </div>
                     <div className="main-view-body">
                         <div className="section-container">
                             <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
                             <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} />
-                            <button onClick={signOutUser}>Sign Out</button>
                         </div>
                     </div>
                     <div className="main-bottombar">

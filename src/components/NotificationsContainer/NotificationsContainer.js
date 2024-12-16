@@ -10,7 +10,7 @@ export default function NotificationsContainer(){
     const [ isLoading, setIsLoading ] = useState( false )
 
     //CONTEXT
-    const { friendshipRequest } = useContext( AppContext ) 
+    const { friendshipRequest, getGlobalUser, getUserData } = useContext( AppContext ) 
 
     //HOOKS
     const { replyFriendsRequest } = useFriends()
@@ -37,6 +37,8 @@ export default function NotificationsContainer(){
                     denyButton: 'deny-btn btn order1',
                 }
             })
+            await getUserData()
+            await getGlobalUser()
             
         } catch ( error ) {
             setIsLoading( false )
