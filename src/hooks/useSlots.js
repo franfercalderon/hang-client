@@ -48,7 +48,7 @@ function useSlots (){
             await axios.post(`${process.env.REACT_APP_API_URL}/slots/schedule`, slot, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${ authToken }`
+                    'Authorization': `Bearer ${ authToken }` 
                 }
             })  
 

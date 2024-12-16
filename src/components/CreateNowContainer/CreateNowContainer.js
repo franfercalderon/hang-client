@@ -5,6 +5,7 @@ import MainInput from "../MainInput/MainInput";
 import useSlots from "../../hooks/useSlots";
 import Swal from "sweetalert2";
 import Loader from '../Loader/Loader'
+import { useNavigate } from "react-router-dom"
 
 export default function CreateNowContainer() { 
     
@@ -28,6 +29,9 @@ export default function CreateNowContainer() {
 
     //HOOKS
     const { convertTimeToTimestamp, postAvailableNowSlot } = useSlots()
+
+    //ROUTER
+    const navigate = useNavigate()
 
     //FUNCTIONS
     const resetTimes = () => {
@@ -84,6 +88,26 @@ export default function CreateNowContainer() {
                 }
                 await postAvailableNowSlot( availableNowSlot ) 
                 setIsLoading( false )
+                Swal.fire({
+                    text: 'Your event has been created!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok',
+                    timer: 1300,
+                    buttonsStyling: false,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                    .then(() => {
+                        navigate('/')
+                    })
+                })
+                
+
             }
         } catch ( error ) {
             setIsLoading( false )
@@ -132,6 +156,7 @@ export default function CreateNowContainer() {
         <div className="main-view-body">
             {
                 isLoading ?
+
                 <Loader/>
                 :
                 <>
