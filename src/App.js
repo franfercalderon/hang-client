@@ -22,6 +22,7 @@ import SettingsFriendsManage from './views/SettingsFriendsManage';
 import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 
 function App() {
+
   return (  
     <>
       <BrowserRouter>
