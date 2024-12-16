@@ -46,7 +46,9 @@ export default function Feed () {
                         </div>
                     </div>
                     <div className="main-view-body">
-                        <h2>{`Welcome ${globalUser.name}`}</h2>
+                        <div className="section-container user-name-container">
+                            <h2>{`Welcome ${globalUser.name}`}</h2>
+                        </div>
                         <div className="section-container">
                             <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
                             <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} />
