@@ -24,7 +24,7 @@ export default function AdminMasterTokensContainer(){
     }
 
     const getToken = useCallback( async () => {
-        const token = getMasterToken()
+        const token = await getMasterToken()
         setMasterToken( token )
 
     }, [ getMasterToken ])
