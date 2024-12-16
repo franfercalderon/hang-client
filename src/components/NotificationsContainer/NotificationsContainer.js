@@ -1,16 +1,19 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import Swal from "sweetalert2";
+import useFriends from "../../hooks/useFriends";
 
 export default function NotificationsContainer(){
 
     //CONTEXT
     const { friendshipRequest } = useContext( AppContext ) 
 
+    //HOOKS
+    const { replyFriendsRequest } = useFriends()
+
     //FUNCTIONS
-    const replyRequest = async ( requestId, accepted ) => {
-        console.log(requestId);
-        console.log(accepted);
+    const replyRequest = async ( requestId, accepted, requesterId ) => {
+        await replyFriendsRequest( requestId, accepted, requesterId )
     }
 
     const handleRequest = async ( requestId ) => {
@@ -19,7 +22,7 @@ export default function NotificationsContainer(){
             text: 'Do you want to accept this request?',
             icon: null,
             confirmButtonText: 'Accept',
-            cancelButtonText: 'Reject',
+            denyButtonText: 'Reject',
             showDenyButton: true,
             buttonsStyling: false,
             customClass: {
@@ -63,7 +66,7 @@ export default function NotificationsContainer(){
                                 <img src={ request.requesterProfilePicture ? request.requesterProfilePicture : '/images/defaultProfile.jpg' } alt={ request.name } className="profile-img-min"/>
                                 <p>{`${ request.requesterName } ${ request.requesterLastame } wants to be your friend`}</p>
                             </div>
-                            <div className="inline-cta pointer rounded" onClick={() => handleRequest( request.id ) }>
+                            <div className="inline-cta pointer rounded" onClick={() => handleRequest( request.id, request.requesterId ) }>
                                 Reply
                             </div>
                         </div>

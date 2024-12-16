@@ -5,7 +5,7 @@ import axios from "axios";
 function useFriends(){
 
     //CONTEXT
-    const { authToken } = useContext( AppContext )
+    const { authToken, globalUser } = useContext( AppContext )
 
     //FUNCTIONS
     const getUserFriends = useCallback( async ( userId ) => {
@@ -78,11 +78,34 @@ function useFriends(){
         } 
     }, [ authToken ] )
 
+    const replyFriendsRequest = async ( requestId, accepted, requesterId ) => {
+
+        const data = {
+            requestId,
+            requesterId,
+            accepted,
+            invitedFriendsLength: globalUser.friends.length,
+        }
+        try{ 
+            await axios.patch(`${process.env.REACT_APP_API_URL}/friends/friendshipRequest`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+        } catch ( error ) {
+            throw error
+        } 
+        
+    }
+
     return({
         getUserFriends,
         getFriendSuggestions,
         postFriendshipRequest,
-        getUserFriendShipsRequests
+        getUserFriendShipsRequests,
+        replyFriendsRequest
     })
 }
 
