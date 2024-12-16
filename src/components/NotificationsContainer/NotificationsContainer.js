@@ -22,6 +22,21 @@ export default function NotificationsContainer(){
             setIsLoading( true )
             await replyFriendsRequest( requestId, accepted, requesterId )
             setIsLoading( false )
+            Swal.fire({
+                text: accepted ? 'Friend added' : 'Request rejected',
+                icon: accepted ? 'sucess' : null,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
             
         } catch ( error ) {
             setIsLoading( false )
