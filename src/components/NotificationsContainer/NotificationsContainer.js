@@ -24,7 +24,7 @@ export default function NotificationsContainer(){
             setIsLoading( false )
             Swal.fire({
                 text: accepted ? 'Friend added' : 'Request rejected',
-                icon: accepted ? 'sucess' : null,
+                icon: accepted ? 'success' : null,
                 confirmButtonText: 'Ok',
                 timer: 1300,
                 buttonsStyling: false,

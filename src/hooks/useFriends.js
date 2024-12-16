@@ -79,7 +79,9 @@ function useFriends(){
     }, [ authToken ] )
 
     const replyFriendsRequest = async ( requestId, requesterId, accepted ) => {
-        console.log(requestId, accepted, requesterId);
+        console.log('requestId '+requestId);
+        console.log('requesterId '+requesterId);
+        console.log('accepted '+accepted);
 
         const data = {
             requestId,
