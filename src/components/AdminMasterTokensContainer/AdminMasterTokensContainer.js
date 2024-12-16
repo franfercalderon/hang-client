@@ -73,7 +73,7 @@ export default function AdminMasterTokensContainer(){
                         </div>
                     </div>
                 </div>
-                <div className="mt-4 relative">
+                <div className="mt-4 relative centered">
                     <CopiedCard active={ showCopiedCardUrl }/>
                     <BtnSecondary displayText={'Copy Link for Master Accounts'} action={copyUrl } enabled={ true }/>
                 </div>   
