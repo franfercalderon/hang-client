@@ -1,6 +1,6 @@
 import ToggleBtn from "../ToggleBtn/ToggleBtn";
 
-export default function SettingsNotificationsContainer(){
+export default function SettingsNotificationsContainer(){ 
     return(
         <div className="section-container mt-2">
             <p>Choose your notification channels:</p>

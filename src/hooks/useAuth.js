@@ -4,7 +4,7 @@ import { useCallback, useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useUsers from './useUsers'
 import { AppContext } from '../context/AppContext'
-import { faVolumeHigh } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
 
 function useAuth () {
 
@@ -12,7 +12,7 @@ function useAuth () {
     const [ confirmObject, setConfirmObject ] = useState('')
 
     //CONTEXT
-    const { setPopulateUser, globalUser } = useContext( AppContext )
+    const { setPopulateUser, globalUser, authToken } = useContext( AppContext )
 
     //HOOKS 
     const { createUser } = useUsers()
@@ -68,11 +68,28 @@ function useAuth () {
         }
     }, [ globalUser ] )
 
+    const getMasterToken = useCallback( async () => {
+        try{
+            //GETS FIXED SLOTS   
+            const masterToken = await axios.get(`${process.env.REACT_APP_API_URL}/admin/masterToken`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            return masterToken.data
+
+        } catch ( error ) {
+            throw error
+        }    
+    }, [ authToken ])
+
     return {
         userLogin,
         signOutUser,
         setConfirmObject,
-        createInviteLink 
+        createInviteLink,
+        getMasterToken
     }
 }
 

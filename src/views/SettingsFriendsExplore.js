@@ -46,7 +46,7 @@ export default function SettingsFriendsExplore(){
                 title: 'Invite Sent!',
                 icon: 'success',
                 confirmButtonText: 'Ok',
-                timer: 1000,
+                timer: 1300,
                 buttonsStyling: false,
                 showConfirmButton: false,
                 showCancelButton: false,

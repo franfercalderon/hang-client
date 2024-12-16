@@ -1,12 +1,12 @@
-import SettingsNotificationsContainer from "../components/SettingsNotificationsContainer/SettingsNotificationsContainer";
+import AdminMasterTokensContainer from "../components/AdminMasterTokensContainer/AdminMasterTokensContainer";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
 
 export default function SettingsAdmin(){
     return(
         <div className="view-container">
-            <TopBarNav navigation={'settings'} title={'Admin'}/>
+            <TopBarNav navigation={'settings'} title={'Admin Tools'}/>
             <div className="main-view-body">
-                <SettingsNotificationsContainer/>
+                <AdminMasterTokensContainer/>
             </div>
         </div>
     )
