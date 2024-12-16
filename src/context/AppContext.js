@@ -80,6 +80,7 @@ const AppProvider = ({ children }) => {
                 setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )
+                setNotificationBadge( false )
             }
         });
     
@@ -93,7 +94,7 @@ const AppProvider = ({ children }) => {
     }, [ authToken, populateUser, getGlobalUser ] )
 
     useEffect(() => {
-        setNotificationBadge( friendshipRequest.length > 0 || hangSuggestions.length > 0 ? true : false )
+        setNotificationBadge( friendshipRequest?.length > 0 || hangSuggestions?.length > 0 ? true : false )
    
     }, [ friendshipRequest, hangSuggestions ])
 
