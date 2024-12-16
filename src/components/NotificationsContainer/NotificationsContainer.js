@@ -1,17 +1,63 @@
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import Swal from "sweetalert2";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export default function NotificationsContainer(){
 
-    const { friendshipRequest } = useContext( AppContext )
+    //CONTEXT
+    const { friendshipRequest } = useContext( AppContext ) 
 
     //FUNCTIONS
-    const handleRequest = ( requestId ) => {
+    const replyRequest = async ( requestId, accepted ) => {
         console.log(requestId);
+        console.log(accepted);
+    }
+
+    const handleRequest = async ( requestId ) => {
+        Swal.fire({
+            title: null,
+            text: 'Do you want to accept this request?',
+            icon: null,
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Reject',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        })
+        .then( ( res ) => {
+            if( res.isConfirmed ){
+                return replyRequest( requestId, true )
+            } else if ( res.isDenied ){
+                return replyRequest( requestId, false ) 
+            }
+        })
+        .then(() => {
+            getFixedSlots( globalUser.id )
+        })
+        .catch(( error ) => {
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        })
     }
 
     return(
-        <div className="section-container mt-2">
+        <div className="section-container">
             {
                 friendshipRequest?.map(( request, idx ) => {
                     return(
