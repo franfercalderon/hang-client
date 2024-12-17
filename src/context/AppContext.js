@@ -46,8 +46,8 @@ const AppProvider = ({ children }) => {
 
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-        getAvailableNowSlots()
-        getScheduledSlots()
+        await getAvailableNowSlots()
+        await getScheduledSlots()
     
         //GET MATCHES
 

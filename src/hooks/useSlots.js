@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useCallback, useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useRef, useState } from "react"
 import { AppContext } from "../context/AppContext"
 
 
@@ -8,6 +8,9 @@ function useSlots (){
     //STATE
     const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
     const [ scheduledSlots, setScheduledSlots ] = useState( [] )
+
+    //REF
+    const populatedFriendsData = useRef( false );
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
@@ -184,10 +187,13 @@ function useSlots (){
     }
 
     //EFFECTS
-    // useEffect(() => {
-    //     getAvailableNowSlots()
-    //     getScheduledSlots()
-    // }, [ getAvailableNowSlots, getScheduledSlots ])
+    useEffect(() => {
+        if( authToken && !populatedFriendsData.current ){
+            getScheduledSlots()
+            getAvailableNowSlots()
+            populatedFriendsData.current = true 
+        }
+    }, [ getAvailableNowSlots, getScheduledSlots, authToken ])
 
 
     return({
