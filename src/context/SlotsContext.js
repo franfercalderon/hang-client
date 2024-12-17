@@ -25,7 +25,9 @@ export const SlotsProvider = ({ children }) => {
             setAvailableNowSlots( nowSlots )
 
             const laterSlots = await getScheduledSlots()
+            console.log(laterSlots);
             laterSlots.sort(( a, b ) => a.starts - b.starts )
+            console.log(laterSlots)
             setScheduledSlots( laterSlots )
         } catch ( error ) {
             console.log( error )
