@@ -27,7 +27,7 @@ const AppProvider = ({ children }) => {
     //HOOKS
     const { getUser } = useUsers()
     const { getUserFriendShipsRequests } = useFriends()
-    // const { getAvailableNowSlots, getScheduledSlots } = useSlots()
+    const { getAvailableNowSlots, getScheduledSlots } = useSlots()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -46,12 +46,13 @@ const AppProvider = ({ children }) => {
 
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-
+        getAvailableNowSlots()
+        getScheduledSlots()
     
         //GET MATCHES
 
 
-    }, [ getUserFriendShipsRequests ] )
+    }, [ getUserFriendShipsRequests, getAvailableNowSlots, getScheduledSlots ] )
 
     const mergeArraysById = ( array1, array2 ) => {
 

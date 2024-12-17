@@ -184,10 +184,10 @@ function useSlots (){
     }
 
     //EFFECTS
-    useEffect(() => {
-        getAvailableNowSlots()
-        getScheduledSlots()
-    }, [ getAvailableNowSlots, getScheduledSlots ])
+    // useEffect(() => {
+    //     getAvailableNowSlots()
+    //     getScheduledSlots()
+    // }, [ getAvailableNowSlots, getScheduledSlots ])
 
 
     return({
