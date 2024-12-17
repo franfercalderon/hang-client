@@ -66,7 +66,7 @@ export default function Feed () {
                                 availableNowSlots?.map(( slot, idx ) => {
                                     console.log(slot);
                                     return(
-                                        <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg }/>
+                                        <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } border={ true }/>
                                     )
                                 })
                             }

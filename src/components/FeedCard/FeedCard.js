@@ -26,7 +26,7 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
     return(
         <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''} ${ border ? 'borders' : '' }`} onClick={ !ctaText ? action : undefined }>
             <div className="body-container">
-                <div className="title-container mb-2">
+                <div className="title-container mb-1">
                     {
                         userImg &&
                         <img src={ userImg} alt={ userName } className="profile-img-min"/>
