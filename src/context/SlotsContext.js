@@ -21,8 +21,11 @@ export const SlotsProvider = ({ children }) => {
     const getFriendsActivity = useCallback( async () => {
         try {
             const nowSlots = await getAvailableNowSlots()
+            nowSlots.sort(( a, b ) => a.starts - b.starts )
             setAvailableNowSlots( nowSlots )
+
             const laterSlots = await getScheduledSlots()
+            laterSlots.sort(( a, b ) => a.starts - b.starts )
             setScheduledSlots( laterSlots )
         } catch ( error ) {
             console.log( error )
