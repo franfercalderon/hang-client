@@ -1,16 +1,9 @@
 import axios from "axios"
-import { useCallback, useContext, useEffect, useRef, useState } from "react"
+import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
 
 
 function useSlots (){
-
-    //STATE
-    // const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
-    // const [ scheduledSlots, setScheduledSlots ] = useState( [] )
-
-    //REF
-    // const populatedFriendsData = useRef( false );
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
@@ -58,7 +51,6 @@ function useSlots (){
                 }
             })  
 
-            // setAvailableNowSlots( availableNowSlots.data )
             return availableNowSlots.data
 
         } catch ( error ) {
@@ -91,8 +83,6 @@ function useSlots (){
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
-            // console.log(scheduledSlots.data);
-            // setScheduledSlots( scheduledSlots.data )
             return scheduledSlots.data
 
         } catch ( error ) {
@@ -186,16 +176,6 @@ function useSlots (){
         }
     }
 
-    //EFFECTS
-    // useEffect(() => {
-    //     if( authToken && !populatedFriendsData.current ){
-    //         getScheduledSlots()
-    //         getAvailableNowSlots()
-    //         populatedFriendsData.current = true 
-    //     }
-    // }, [ getAvailableNowSlots, getScheduledSlots, authToken ])
-
-
     return({
         postFixedSlot,
         validateTimes,
@@ -207,8 +187,6 @@ function useSlots (){
         deleteFixedSlot,
         getAvailableNowSlots,
         getScheduledSlots,
-        // availableNowSlots,
-        // scheduledSlots
 
     })
 

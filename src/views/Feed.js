@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import FeedCard from "../components/FeedCard/FeedCard"
-import useSlots from "../hooks/useSlots"
 import { SlotsContext } from "../context/SlotsContext"
-
+import CardLoader from "../components/CardLoader/CardLoader"
 
 export default function Feed () {
 
@@ -17,9 +16,6 @@ export default function Feed () {
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots } = useContext( SlotsContext )
-
-    //HOOKS
-    // const { availableNowSlots, scheduledSlots } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
@@ -62,6 +58,7 @@ export default function Feed () {
                             <h3>{`Welcome ${globalUser.name}`}</h3>
                         </div>
                         <div className="section-container">
+                            <CardLoader/>
                             {
                                 availableNowSlots?.map(( slot, idx ) => {
                                     return(
@@ -76,8 +73,6 @@ export default function Feed () {
                                     )
                                 })
                             }
-                            {/* <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
-                            <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} /> */}
                         </div>
                     </div>
                     <div className="main-bottombar">

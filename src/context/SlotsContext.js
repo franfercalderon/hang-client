@@ -8,8 +8,8 @@ export const SlotsContext = createContext();
 export const SlotsProvider = ({ children }) => {
 
     //STATE
-    const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
-    const [ scheduledSlots, setScheduledSlots] = useState( [] )
+    const [ availableNowSlots, setAvailableNowSlots ] = useState( null )
+    const [ scheduledSlots, setScheduledSlots] = useState( null )
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
@@ -28,31 +28,6 @@ export const SlotsProvider = ({ children }) => {
             console.log( error )
         } 
     }, [ getScheduledSlots, getAvailableNowSlots ] )
-
-    // const getAvailableNowSlots = useCallback(async () => {
-    //     try {
-    //         const res = await axios.get(`${process.env.REACT_APP_API_URL}/slots/now`, {
-    //         headers: { Authorization: `Bearer ${authToken}` },
-    //         });
-    //         setAvailableNowSlots(res.data);
-    //         return res.data;
-    //     } catch (error) {
-    //         console.error("Error fetching available now slots:", error);
-    //     }
-    // }, [authToken]);
-
-    // // Fetch Scheduled Slots
-    // const getScheduledSlots = useCallback(async () => {
-    // try {
-    //     const res = await axios.get(`${process.env.REACT_APP_API_URL}/slots/scheduled`, {
-    //     headers: { Authorization: `Bearer ${authToken}` },
-    //     });
-    //     setScheduledSlots(res.data);
-    //     return res.data;
-    // } catch (error) {
-    //     console.error("Error fetching scheduled slots:", error);
-    // }
-    // }, [authToken]);
 
     //EFFECTS
     useEffect(() => {
