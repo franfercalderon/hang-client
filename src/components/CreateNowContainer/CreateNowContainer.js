@@ -89,7 +89,10 @@ export default function CreateNowContainer() {
                     starts: slot.starts,
                     ends: slot.ends,
                     location,
-                    userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null 
+                    userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
+                    userName: globalUser?.name ? globalUser.name : null,
+                    userLastname: globalUser?.lastname ? globalUser.lastname : null,
+
                 }
                 await postAvailableNowSlot( availableNowSlot ) 
                 setIsLoading( false )
