@@ -62,6 +62,14 @@ export default function Feed () {
                             <h3>{`Welcome ${globalUser.name}`}</h3>
                         </div>
                         <div className="section-container">
+                            {
+                                availableNowSlots?.map(( slot, idx ) => {
+                                    console.log(slot);
+                                    return(
+                                        <p key={idx}></p>
+                                    )
+                                })
+                            }
                             <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
                             <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} />
                         </div>
