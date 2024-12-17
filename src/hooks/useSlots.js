@@ -176,6 +176,30 @@ function useSlots (){
         }
     }
 
+    const formatTimestampToDate = ( timestamp )  => {
+
+    const date = new Date(timestamp)
+    
+    const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+    
+    
+    const day = date.getDate()
+    const daySuffix = getDaySuffix(day)
+    
+    return `${ monthNames[ date.getMonth() ]} ${ day }${ daySuffix }`
+    }
+    
+    const getDaySuffix = ( day ) => {
+        if (day >= 11 && day <= 13) return "th"
+        switch (day % 10) {
+
+            case 1: return "st"
+            case 2: return "nd"
+            case 3: return "rd"
+            default: return "th"
+        }
+    }
+
     return({
         postFixedSlot,
         validateTimes,
@@ -187,6 +211,7 @@ function useSlots (){
         deleteFixedSlot,
         getAvailableNowSlots,
         getScheduledSlots,
+        formatTimestampToDate
 
     })
 

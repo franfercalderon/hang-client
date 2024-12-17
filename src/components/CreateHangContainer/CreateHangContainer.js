@@ -109,6 +109,7 @@ export default function CreateHangContainer(){
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
+                    attending: []
                 }
                 await postScheduledSlot( scheduledHang )
                 setIsLoading( false )

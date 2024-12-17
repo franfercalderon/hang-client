@@ -7,6 +7,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import FeedCard from "../components/FeedCard/FeedCard"
 import { SlotsContext } from "../context/SlotsContext"
 import CardLoader from "../components/CardLoader/CardLoader"
+import useSlots from "../hooks/useSlots"
 
 export default function Feed () {
 
@@ -16,6 +17,9 @@ export default function Feed () {
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots } = useContext( SlotsContext )
+
+    //HOOKS
+    const { formatTimestampToDate } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
@@ -80,7 +84,7 @@ export default function Feed () {
                                 {
                                     scheduledSlots?.map(( slot, idx ) => {
                                         return(
-                                            <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
+                                            <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
                                         )
                                     })
                                 }
