@@ -6,14 +6,21 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
     //FUNCTIONS
     const converTimestampToString = ( timestamp ) => {
 
-        const date = new Date( timestamp )
-        let hours = date.getHours()
-        const minutes = date.getMinutes()
-        const ampm = hours >= 12 ? 'pm' : 'am'
-        hours = hours % 12 || 12
-        const formattedMinutes = minutes.toString().padStart( 2, '0' )
+        const current = Date.now()
 
-        return `${ hours }:${ formattedMinutes } ${ ampm }`
+        if( timestamp < current ){
+            return 'now'
+        } else {
+            const date = new Date( timestamp )
+            let hours = date.getHours()
+            const minutes = date.getMinutes()
+            const ampm = hours >= 12 ? 'pm' : 'am'
+            hours = hours % 12 || 12
+            const formattedMinutes = minutes.toString().padStart( 2, '0' )
+    
+            return `${ hours }:${ formattedMinutes } ${ ampm }`
+        }
+
     }
 
     return(
