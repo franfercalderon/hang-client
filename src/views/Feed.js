@@ -62,14 +62,20 @@ export default function Feed () {
                         <div className="section-container">
                             {
                                 availableNowSlots?.map(( slot, idx ) => {
-                                    console.log(slot);
                                     return(
                                         <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } border={ true }/>
                                     )
                                 })
                             }
-                            <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
-                            <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} />
+                            {
+                                scheduledSlots?.map(( slot, idx ) => {
+                                    return(
+                                        <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
+                                    )
+                                })
+                            }
+                            {/* <FeedCard title={'Bob is free today'} descritpion={ null } times={'5:00 pm to 6:30 pm '} location={'The Commuter Bar'} ctaText={ 'Join'} />
+                            <FeedCard title={'Chuck has created a Hang'} descritpion={ 'Beers & Soccer' } times={'Friday at 6:00 pm'} location={'His Place'} ctaText={ 'Join'} /> */}
                         </div>
                     </div>
                     <div className="main-bottombar">

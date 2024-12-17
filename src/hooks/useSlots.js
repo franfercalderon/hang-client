@@ -88,7 +88,7 @@ function useSlots (){
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
-            
+            console.log(scheduledSlots.data);
             setScheduledSlots( scheduledSlots.data )
             return scheduledSlots.data
 
@@ -187,9 +187,7 @@ function useSlots (){
     useEffect(() => {
         getAvailableNowSlots()
         getScheduledSlots()
-        console.log('CARGARON');
     }, [ getAvailableNowSlots, getScheduledSlots ])
-
 
 
     return({
