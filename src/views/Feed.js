@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import FeedCard from "../components/FeedCard/FeedCard"
 import useSlots from "../hooks/useSlots"
+import { SlotsContext } from "../context/SlotsContext"
 
 
 export default function Feed () {
@@ -15,9 +16,10 @@ export default function Feed () {
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
+    const { availableNowSlots, scheduledSlots } = useContext(SlotsContext);
 
     //HOOKS
-    const { availableNowSlots, scheduledSlots } = useSlots()
+    // const { availableNowSlots, scheduledSlots } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
