@@ -6,11 +6,11 @@ import { AppContext } from "../context/AppContext"
 function useSlots (){
 
     //STATE
-    const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
-    const [ scheduledSlots, setScheduledSlots ] = useState( [] )
+    // const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
+    // const [ scheduledSlots, setScheduledSlots ] = useState( [] )
 
     //REF
-    const populatedFriendsData = useRef( false );
+    // const populatedFriendsData = useRef( false );
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
@@ -58,7 +58,7 @@ function useSlots (){
                 }
             })  
 
-            setAvailableNowSlots( availableNowSlots.data )
+            // setAvailableNowSlots( availableNowSlots.data )
             return availableNowSlots.data
 
         } catch ( error ) {
@@ -91,8 +91,8 @@ function useSlots (){
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
-            console.log(scheduledSlots.data);
-            setScheduledSlots( scheduledSlots.data )
+            // console.log(scheduledSlots.data);
+            // setScheduledSlots( scheduledSlots.data )
             return scheduledSlots.data
 
         } catch ( error ) {
@@ -207,8 +207,8 @@ function useSlots (){
         deleteFixedSlot,
         getAvailableNowSlots,
         getScheduledSlots,
-        availableNowSlots,
-        scheduledSlots
+        // availableNowSlots,
+        // scheduledSlots
 
     })
 

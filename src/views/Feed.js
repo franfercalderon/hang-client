@@ -16,7 +16,7 @@ export default function Feed () {
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
-    const { availableNowSlots, scheduledSlots } = useContext(SlotsContext);
+    const { availableNowSlots, scheduledSlots } = useContext( SlotsContext )
 
     //HOOKS
     // const { availableNowSlots, scheduledSlots } = useSlots()
