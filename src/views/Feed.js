@@ -29,6 +29,14 @@ export default function Feed () {
         }
     }, [ globalUser ])
 
+    useEffect(() => {
+        if( availableNowSlots ){
+            console.log( availableNowSlots )
+        }
+    }, [ availableNowSlots ])
+
+    
+
     return(
         <>
             {

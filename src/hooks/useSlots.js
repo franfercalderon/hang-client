@@ -47,7 +47,7 @@ function useSlots (){
 
     const getAvailableNowSlots = useCallback( async () => {
         try{
-            //GETS FIXED SLOTS   
+            //GETS AVAILABLE NOW SLOTS   
             const availableNowSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/now`,{
                 headers: {
                     'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ function useSlots (){
 
     const getScheduledSlots = useCallback( async () => {
         try{
-            //GETS FIXED SLOTS   
+            //GETS SCHEDULED SLOTS   
             const scheduledSlots = await axios.get(`${process.env.REACT_APP_API_URL}/slots/scheduled`,{
                 headers: {
                     'Content-Type': 'application/json',
