@@ -1,7 +1,7 @@
 import { faChevronRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase }){
+export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg }){
 
     //FUNCTIONS
     const converTimestampToString = ( timestamp ) => {
@@ -19,7 +19,10 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
     return(
         <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''}`} onClick={ !ctaText ? action : undefined }>
             <div className="body-container">
-                <h3 className="font-big">{ title }</h3>
+                <div className="title-container">
+                    <img src={ userImg ? userImg : '/images/defaultProfile.jpg' } alt={ userName } className="profile-img-min"/>
+                    <h3 className="font-big">{ title }</h3>
+                </div>
                 {
                     descritpion &&
                     <p>{ descritpion }</p>
