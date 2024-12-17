@@ -1,7 +1,21 @@
 import { faChevronRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function FeedCard({ title, descritpion, times, location, action, ctaText, erase }){
+export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase }){
+
+    //FUNCTIONS
+    const converTimestampToString = ( timestamp ) => {
+
+        const date = new Date( timestamp )
+        let hours = date.getHours()
+        const minutes = date.getMinutes()
+        const ampm = hours >= 12 ? 'pm' : 'am'
+        hours = hours % 12 || 12
+        const formattedMinutes = minutes.toString().padStart( 2, '0' )
+
+        return `${ hours }:${ formattedMinutes } ${ ampm }`
+    }
+
     return(
         <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''}`} onClick={ !ctaText ? action : undefined }>
             <div className="body-container">
@@ -11,8 +25,8 @@ export default function FeedCard({ title, descritpion, times, location, action, 
                     <p>{ descritpion }</p>
                 }
                 {
-                    times && 
-                    <p>{`From: ${ times }`}</p>
+                    starts && ends &&
+                    <p>{`From: ${ converTimestampToString( starts ) } to ${ converTimestampToString( ends ) }`}</p>
                 }
                 {
                     location && 
