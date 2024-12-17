@@ -58,20 +58,33 @@ export default function Feed () {
                             <h3>{`Welcome ${globalUser.name}`}</h3>
                         </div>
                         <div className="section-container">
-                            <CardLoader/>
                             {
-                                availableNowSlots?.map(( slot, idx ) => {
-                                    return(
-                                        <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } border={ true }/>
-                                    )
-                                })
+                                ! availableNowSlots ?
+                                <CardLoader/>
+                                :
+                                <>
+                                {
+                                    availableNowSlots?.map(( slot, idx ) => {
+                                        return(
+                                            <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } border={ true }/>
+                                        )
+                                    })
+                                }
+                                </>
                             }
                             {
-                                scheduledSlots?.map(( slot, idx ) => {
-                                    return(
-                                        <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
-                                    )
-                                })
+                                ! scheduledSlots ?
+                                <CardLoader/>
+                                :
+                                <>
+                                {
+                                    scheduledSlots?.map(( slot, idx ) => {
+                                        return(
+                                            <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
+                                        )
+                                    })
+                                }
+                                </>
                             }
                         </div>
                     </div>
