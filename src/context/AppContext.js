@@ -46,13 +46,13 @@ const AppProvider = ({ children }) => {
 
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-        await getAvailableNowSlots()
-        await getScheduledSlots()
+        // await getAvailableNowSlots()
+        // await getScheduledSlots()
     
         //GET MATCHES
 
 
-    }, [ getUserFriendShipsRequests, getAvailableNowSlots, getScheduledSlots ] )
+    }, [ getUserFriendShipsRequests ] )
 
     const mergeArraysById = ( array1, array2 ) => {
 
