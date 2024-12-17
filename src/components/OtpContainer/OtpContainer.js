@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const OTPInput = ( { otp, setOtp } ) => {
 
@@ -35,22 +35,30 @@ const OTPInput = ( { otp, setOtp } ) => {
         setOtp( newOtp )
     };
 
-  return (
-    <div className="otp-container">
-        { otp.map(( value, index ) => (
-            <input
-                key={ index }
-                ref={( el ) => ( inputRefs.current[ index ] = el )} 
-                type="text"
-                maxLength="1"
-                value={ value }
-                onChange={( e ) => handleChange( e, index )}
-                onKeyDown={( e ) => handleKeyDown( e, index )}
-                onPaste={ handlePaste }
-            />
-        ))}
-    </div>
-  )
+    //EFFECTS
+    useEffect(() => {
+        if ( inputRefs.current[ 0 ] ){
+            inputRefs.current[ 0 ].focus()
+        }
+    }, [])
+
+    return (
+        <div className="otp-container">
+            { otp.map(( value, index ) => (
+                <input
+                    key={ index }
+                    ref={( el ) => ( inputRefs.current[ index ] = el )} 
+                    type="tel"
+                    pattern="[0-9]*" 
+                    maxLength="1"
+                    value={ value }
+                    onChange={( e ) => handleChange( e, index )}
+                    onKeyDown={( e ) => handleKeyDown( e, index )}
+                    onPaste={ handlePaste }
+                />
+            ))}
+        </div>
+    )
 }
 
 export default OTPInput
