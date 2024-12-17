@@ -187,13 +187,13 @@ function useSlots (){
     }
 
     //EFFECTS
-    useEffect(() => {
-        if( authToken && !populatedFriendsData.current ){
-            getScheduledSlots()
-            getAvailableNowSlots()
-            populatedFriendsData.current = true 
-        }
-    }, [ getAvailableNowSlots, getScheduledSlots, authToken ])
+    // useEffect(() => {
+    //     if( authToken && !populatedFriendsData.current ){
+    //         getScheduledSlots()
+    //         getAvailableNowSlots()
+    //         populatedFriendsData.current = true 
+    //     }
+    // }, [ getAvailableNowSlots, getScheduledSlots, authToken ])
 
 
     return({
