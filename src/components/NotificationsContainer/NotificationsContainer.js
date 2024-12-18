@@ -26,6 +26,7 @@ export default function NotificationsContainer(){
             await deleteNotification( notificationId )
             removeNotification( notificationId )
             setIsLoading( false )
+            
         } catch ( error ) {
             setIsLoading( false )
             Swal.fire({
