@@ -1,10 +1,11 @@
-import { createContext, useState , useEffect, useCallback } from "react"
+import { createContext, useState , useEffect, useCallback, useContext } from "react"
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
 import useFriends from "../hooks/useFriends"
-import useSlots from "../hooks/useSlots"
+// import useSlots from "../hooks/useSlots"
+import { SlotsContext } from "./SlotsContext"
 const AppContext = createContext('')
 const { Provider } = AppContext
 
@@ -24,10 +25,13 @@ const AppProvider = ({ children }) => {
     const [ hangSuggestions, setHangSuggestions ] = useState( [] )
     const [ notificationBadge, setNotificationBadge ] = useState( false )
 
+    //CONTEXT
+    const { resetSlotContextState } = useContext( SlotsContext )
+
     //HOOKS
     const { getUser } = useUsers()
     const { getUserFriendShipsRequests } = useFriends()
-    const { getAvailableNowSlots, getScheduledSlots } = useSlots()
+    // const { getAvailableNowSlots, getScheduledSlots } = useSlots()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -85,11 +89,12 @@ const AppProvider = ({ children }) => {
                 setPopulateUser( null )
                 setTokenLoading( false )
                 setNotificationBadge( false )
+                resetSlotContextState( )
             }
         });
     
         return () => unsubscribe();
-    }, [ auth, navigate, getGlobalUser, getUserData ]);
+    }, [ auth, navigate, getGlobalUser, getUserData, resetSlotContextState ]);
 
     useEffect(() => {
         if ( authToken && authToken !== '' && populateUser ){

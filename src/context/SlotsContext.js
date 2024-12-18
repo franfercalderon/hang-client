@@ -32,6 +32,11 @@ export const SlotsProvider = ({ children }) => {
         } 
     }, [ getScheduledSlots, getAvailableNowSlots ] )
 
+    const resetSlotContextState = () => {
+        setAvailableNowSlots( null )
+        setScheduledSlots( null )
+    }
+
     //EFFECTS
     useEffect(() => {
     if ( authToken ) {
@@ -41,7 +46,7 @@ export const SlotsProvider = ({ children }) => {
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots }}
+        value={{ availableNowSlots, scheduledSlots, resetSlotContextState }}
     >
         { children }
     </SlotsContext.Provider>
