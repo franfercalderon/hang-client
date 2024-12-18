@@ -156,7 +156,7 @@ export default function NotificationsContainer(){
                                     <img src={ notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className="profile-img-min"/>
                                     <p>{`${ notification.senderName } ${ notification.text }`}</p>
                                 </div>
-                                <div className="inline-cta pointer rounded" onClick={() => handleDelete( notification.id ) }>
+                                <div className="pointer notification-card-icon" onClick={() => handleDelete( notification.id ) }>
                                     <FontAwesomeIcon icon={ faTrashCan }/>
                                 </div>
                             </div>
