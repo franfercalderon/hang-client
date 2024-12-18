@@ -4,10 +4,7 @@ import Loader from "../components/Loader/Loader"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faPlus } from "@fortawesome/free-solid-svg-icons"
-import FeedCard from "../components/FeedCard/FeedCard"
 import { SlotsContext } from "../context/SlotsContext"
-import CardLoader from "../components/CardLoader/CardLoader"
-import useSlots from "../hooks/useSlots"
 import FeedScheduledContainer from "../components/FeedScheduledContainer/FeedScheduledContainer"
 import FeedNowdContainer from "../components/FeedNowContainer/FeedNowContainer"
 
@@ -15,13 +12,11 @@ export default function Feed () {
 
     //STATE
     const [ isLoading, setIsLoading ] = useState( true )
+    const [ noDataMessage, setNoDataMessage ] = useState( false )
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots } = useContext( SlotsContext )
-
-    //HOOKS
-    const { formatTimestampToDate } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
@@ -34,10 +29,8 @@ export default function Feed () {
     }, [ globalUser ])
 
     useEffect(() => {
-        if( availableNowSlots ){
-            console.log( availableNowSlots )
-        }
-    }, [ availableNowSlots ])
+        setNoDataMessage( !availableNowSlots?.length > 0 && !scheduledSlots?.length > 0 ? true : false )
+    }, [ availableNowSlots, scheduledSlots ] )
 
     return(
         <>
@@ -64,37 +57,15 @@ export default function Feed () {
                             <h3>{`Welcome ${globalUser.name}`}</h3>
                         </div>
                         <div className="section-container">
+                            {
+                                noDataMessage &&
+                                <div className="no-data-feed mt-3">
+                                    <h4>Opps!</h4>
+                                    <p>Your friends have no upcoming events</p>
+                                </div>
+                            }
                             <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
                             <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
-
-                            {/* {
-                                ! availableNowSlots ?
-                                <CardLoader/>
-                                :
-                                <>
-                                {
-                                    availableNowSlots?.map(( slot, idx ) => {
-                                        return(
-                                            <FeedCard title={`${ slot.userName } is free today!`} descritpion={ null } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } border={ true }/>
-                                        )
-                                    })
-                                }
-                                </>
-                            }
-                            {
-                                ! scheduledSlots ?
-                                <CardLoader/>
-                                :
-                                <>
-                                {
-                                    scheduledSlots?.map(( slot, idx ) => {
-                                        return(
-                                            <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } />
-                                        )
-                                    })
-                                }
-                                </>
-                            } */}
                         </div>
                     </div>
                     <div className="main-bottombar">
