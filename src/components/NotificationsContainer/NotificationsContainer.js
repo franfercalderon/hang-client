@@ -25,9 +25,8 @@ export default function NotificationsContainer(){
             setIsLoading( true )
             await deleteNotification( notificationId )
             removeNotification( notificationId )
-            setIsLoading( true )
+            setIsLoading( false )
         } catch ( error ) {
-
             setIsLoading( false )
             Swal.fire({
                 title: 'Oops!',
