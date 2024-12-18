@@ -221,7 +221,7 @@ function useSlots (){
             })  
             
         } catch ( error ) {
-            throw error
+            throw error.response.data
         }
     }
 
