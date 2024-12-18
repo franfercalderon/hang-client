@@ -42,7 +42,9 @@ const AppProvider = ({ children }) => {
     }, [ getUser, authToken ]) 
 
     const removeNotification = ( id ) => {
+        console.log(notifications);
         const updatedArray = notifications.filter( notification => notification.id === id )
+        console.log(updatedArray);
         setNotifications( updatedArray.length > 0 ? updatedArray : null )
     }
     
