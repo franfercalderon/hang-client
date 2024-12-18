@@ -29,7 +29,14 @@ export default function Feed () {
     }, [ globalUser ])
 
     useEffect(() => {
-        setNoDataMessage( availableNowSlots && availableNowSlots.length > 0 &&  scheduledSlots && scheduledSlots.length > 0 ? false : true )
+        if( availableNowSlots && scheduledSlots ){
+            const status = availableNowSlots.length > 0 || scheduledSlots.length > 0 
+            console.log(status);
+            setNoDataMessage( status )
+        } else {
+            setNoDataMessage( true )
+        }
+        // setNoDataMessage( availableNowSlots && availableNowSlots.length > 0 && scheduledSlots && scheduledSlots.length > 0 ? false : true )
     }, [ availableNowSlots, scheduledSlots ] )
 
     return(
