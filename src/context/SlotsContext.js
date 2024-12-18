@@ -32,21 +32,23 @@ export const SlotsProvider = ({ children }) => {
         } 
     }, [ getScheduledSlots, getAvailableNowSlots ] )
 
-    const resetSlotContextState = () => {
+    const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
         setScheduledSlots( null )
-    }
+    }, [])
 
     //EFFECTS
     useEffect(() => {
     if ( authToken ) {
+        resetSlotContextState()
         getFriendsActivity()
     }
-    }, [ authToken, getFriendsActivity ])
+    }, [ authToken, getFriendsActivity, resetSlotContextState ])
+
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots, resetSlotContextState }}
+        value={{ availableNowSlots, scheduledSlots }}
     >
         { children }
     </SlotsContext.Provider>
