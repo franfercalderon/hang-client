@@ -201,8 +201,15 @@ function useSlots (){
     const joinEvent = async ( eventId, limitedSeats ) => {
 
         const data = {
-            eventId, 
-            limitedSeats
+            event: {
+                id: eventId,
+                limitedSeats
+            },
+            user: {
+                id: globalUser.id,
+                imgUrl: globalUser.profilePhoto ? globalUser.profilePhoto : null ,
+                name: globalUser.name
+            }
         }
 
         try {
