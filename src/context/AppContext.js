@@ -41,11 +41,16 @@ const AppProvider = ({ children }) => {
         return user 
     }, [ getUser, authToken ]) 
 
+    const removeNotification = ( id ) => {
+        const updatedArray = notifications.filter( notification => notification.id === id )
+        setNotifications( updatedArray.length > 0 ? updatedArray : null )
+    }
+    
     const getUserData = useCallback( async ( token ) => {
-
+        
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-
+        
         const notifications = await getUserNotifications( token )
         setNotifications( notifications.length > 0 ? notifications : null )
 
@@ -120,7 +125,8 @@ const AppProvider = ({ children }) => {
             friendshipRequest,
             getUserData,
             notificationBadge,
-            notifications
+            notifications,
+            removeNotification
         }}>
             { children }
         </Provider>

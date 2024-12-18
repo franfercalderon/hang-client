@@ -13,7 +13,7 @@ export default function NotificationsContainer(){
     const [ isLoading, setIsLoading ] = useState( false )
 
     //CONTEXT
-    const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications } = useContext( AppContext ) 
+    const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications, removeNotification } = useContext( AppContext ) 
 
     //HOOKS
     const { replyFriendsRequest } = useFriends()
@@ -24,7 +24,7 @@ export default function NotificationsContainer(){
         try {
             setIsLoading( true )
             await deleteNotification( notificationId )
-            //UPDATE NOTIFICATIONS
+            removeNotification( notificationId )
             setIsLoading( true )
         } catch ( error ) {
 
