@@ -6,7 +6,7 @@ import { AppContext } from "../context/AppContext"
 function useSlots (){
 
     //CONTEXT
-    const { authToken } = useContext( AppContext )
+    const { authToken, globalUser } = useContext( AppContext )
 
     //FUNCTIONS
     const postFixedSlot = async ( slot ) => {
@@ -178,15 +178,13 @@ function useSlots (){
 
     const formatTimestampToDate = ( timestamp )  => {
 
-    const date = new Date(timestamp)
-    
-    const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-    
-    
-    const day = date.getDate()
-    const daySuffix = getDaySuffix(day)
-    
-    return `${ monthNames[ date.getMonth() ]} ${ day }${ daySuffix }`
+        const date = new Date( timestamp )
+        const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
+        
+        const day = date.getDate()
+        const daySuffix = getDaySuffix(day)
+        
+        return `${ monthNames[ date.getMonth() ]} ${ day }${ daySuffix }`
     }
     
     const getDaySuffix = ( day ) => {
@@ -197,6 +195,26 @@ function useSlots (){
             case 2: return "nd"
             case 3: return "rd"
             default: return "th"
+        }
+    }
+
+    const joinEvent = async ( eventId, limitedSeats ) => {
+
+        const data = {
+            eventId, 
+            limitedSeats
+        }
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/slots/join`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+        } catch ( error ) {
+            throw error
         }
     }
 
@@ -211,7 +229,8 @@ function useSlots (){
         deleteFixedSlot,
         getAvailableNowSlots,
         getScheduledSlots,
-        formatTimestampToDate
+        formatTimestampToDate,
+        joinEvent
 
     })
 

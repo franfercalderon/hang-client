@@ -8,6 +8,8 @@ import FeedCard from "../components/FeedCard/FeedCard"
 import { SlotsContext } from "../context/SlotsContext"
 import CardLoader from "../components/CardLoader/CardLoader"
 import useSlots from "../hooks/useSlots"
+import FeedScheduledContainer from "../components/FeedScheduledContainer/FeedScheduledContainer"
+import FeedNowdContainer from "../components/FeedNowContainer/FeedNowContainer"
 
 export default function Feed () {
 
@@ -62,7 +64,10 @@ export default function Feed () {
                             <h3>{`Welcome ${globalUser.name}`}</h3>
                         </div>
                         <div className="section-container">
-                            {
+                            <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
+                            <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
+
+                            {/* {
                                 ! availableNowSlots ?
                                 <CardLoader/>
                                 :
@@ -89,7 +94,7 @@ export default function Feed () {
                                     })
                                 }
                                 </>
-                            }
+                            } */}
                         </div>
                     </div>
                     <div className="main-bottombar">
