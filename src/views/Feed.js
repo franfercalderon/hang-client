@@ -30,10 +30,11 @@ export default function Feed () {
 
     useEffect(() => {
         if( availableNowSlots && scheduledSlots ){
-            const status = !availableNowSlots.length > 0 || !scheduledSlots.length > 0 
-            setNoDataMessage( status )
+            if ( availableNowSlots.length === 0 && scheduledSlots.length === 0 ){
+                setNoDataMessage( true )
+            }
         } else {
-            setNoDataMessage( true )
+            setNoDataMessage( false )
         }
     }, [ availableNowSlots, scheduledSlots ] )
 
