@@ -3,6 +3,9 @@ import { AppContext } from "../../context/AppContext";
 import Swal from "sweetalert2";
 import useFriends from "../../hooks/useFriends";
 import Loader from "../Loader/Loader";
+import useNotifications from "../../hooks/useNotifications";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function NotificationsContainer(){
 
@@ -10,12 +13,38 @@ export default function NotificationsContainer(){
     const [ isLoading, setIsLoading ] = useState( false )
 
     //CONTEXT
-    const { friendshipRequest, getGlobalUser, getUserData, authToken } = useContext( AppContext ) 
+    const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications } = useContext( AppContext ) 
 
     //HOOKS
     const { replyFriendsRequest } = useFriends()
+    const { deleteNotification } = useNotifications()
 
     //FUNCTIONS
+    const handleDelete = async ( notificationId ) => {
+        try {
+            setIsLoading( true )
+            await deleteNotification( notificationId )
+            //UPDATE NOTIFICATIONS
+            setIsLoading( true )
+        } catch ( error ) {
+
+            setIsLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }
+
     const replyRequest = async ( requestId, requesterId, accepted ) => {
 
         try {
@@ -119,6 +148,22 @@ export default function NotificationsContainer(){
                         )
                     })
                 }
+                {
+                    notifications?.map(( notification, idx ) => {
+                        return(
+                            <div className="slim-hang-card cta-card rounded" key={ idx }>
+                                <div className="inner">
+                                    <img src={ notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className="profile-img-min"/>
+                                    <p>{`${ notification.senderName } ${ notification.text }`}</p>
+                                </div>
+                                <div className="inline-cta pointer rounded" onClick={() => handleDelete( notification.id ) }>
+                                    <FontAwesomeIcon icon={ faTrashCan }/>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+                
             </div>
         
         }

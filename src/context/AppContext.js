@@ -4,8 +4,7 @@ import { app } from "../fb"
 import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
 import useFriends from "../hooks/useFriends"
-// import useSlots from "../hooks/useSlots"
-// import { SlotsContext } from "./SlotsContext"
+import useNotifications from "../hooks/useNotifications"
 const AppContext = createContext('')
 const { Provider } = AppContext
 
@@ -20,18 +19,14 @@ const AppProvider = ({ children }) => {
     const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
     const [ friendshipRequest, setFriendshipRequest ] = useState( [] )
-    // const [ availableNowSlots, setAvailableNowSlots ] = useState( [] )
-    // const [ scheduledSlots, setScheuledSlots ] = useState( [] )
+    const [ notifications, setNotifications ] = useState( [] )
     const [ hangSuggestions, setHangSuggestions ] = useState( [] )
     const [ notificationBadge, setNotificationBadge ] = useState( false )
-
-    //CONTEXT
-    // const { resetSlotContextState } = useContext( SlotsContext )
 
     //HOOKS
     const { getUser } = useUsers()
     const { getUserFriendShipsRequests } = useFriends()
-    // const { getAvailableNowSlots, getScheduledSlots } = useSlots()
+    const { getUserNotifications } = useNotifications()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -50,11 +45,12 @@ const AppProvider = ({ children }) => {
 
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
-    
-        //GET NOTIFICATIONS
+
+        const notifications = await getUserNotifications( token )
+        setNotifications( notifications.length > 0 ? notifications : null )
 
 
-    }, [ getUserFriendShipsRequests ] )
+    }, [ getUserFriendShipsRequests, getUserNotifications ] )
 
     const mergeArraysById = ( array1, array2 ) => {
 
@@ -89,7 +85,6 @@ const AppProvider = ({ children }) => {
                 setPopulateUser( null )
                 setTokenLoading( false )
                 setNotificationBadge( false )
-                // resetSlotContextState( )
             }
         });
     
@@ -103,9 +98,9 @@ const AppProvider = ({ children }) => {
     }, [ authToken, populateUser, getGlobalUser ] )
 
     useEffect(() => {
-        setNotificationBadge( friendshipRequest?.length > 0 || hangSuggestions?.length > 0 ? true : false )
+        setNotificationBadge( notifications?.length > 0 || friendshipRequest?.length > 0 || hangSuggestions?.length > 0 ? true : false )
    
-    }, [ friendshipRequest, hangSuggestions ])
+    }, [ friendshipRequest, hangSuggestions, notifications ])
 
     return(
         <Provider value={{
@@ -125,6 +120,7 @@ const AppProvider = ({ children }) => {
             friendshipRequest,
             getUserData,
             notificationBadge,
+            notifications
         }}>
             { children }
         </Provider>
