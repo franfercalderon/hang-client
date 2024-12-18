@@ -29,7 +29,7 @@ export default function Feed () {
     }, [ globalUser ])
 
     useEffect(() => {
-        setNoDataMessage( !availableNowSlots?.length > 0 && !scheduledSlots?.length > 0 ? true : false )
+        setNoDataMessage( availableNowSlots && availableNowSlots.length > 0 &&  scheduledSlots && scheduledSlots.length > 0 ? false : true )
     }, [ availableNowSlots, scheduledSlots ] )
 
     return(
