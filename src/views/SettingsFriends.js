@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import FeedCard from "../components/FeedCard/FeedCard";
+import MainCard from "../components/MainCard/MainCard";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import useAuth from "../hooks/useAuth";
@@ -50,8 +50,8 @@ export default function SettingsFriends(){
                 :
                 <div className="main-view-body">
                     <div className="section-container">
-                        <FeedCard title={'My Friends'} descritpion={'Manage your friends list'} action={ () => navigate('/settings/friends/manage') }/>
-                        <FeedCard title={'Explore'} descritpion={'Discover people you might know'} action={ () => navigate('/settings/friends/explore') }/>
+                        <MainCard title={'My Friends'} descritpion={'Manage your friends list'} action={ () => navigate('/settings/friends/manage') }/>
+                        <MainCard title={'Explore'} descritpion={'Discover people you might know'} action={ () => navigate('/settings/friends/explore') }/>
                     </div>
                     <div className="bottom-container section-container">
                         <p>Invite Friends to Hang</p>

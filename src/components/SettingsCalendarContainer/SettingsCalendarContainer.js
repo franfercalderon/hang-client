@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import FeedCard from "../FeedCard/FeedCard";
+import MainCard from "../MainCard/MainCard";
 import useSlots from "../../hooks/useSlots";
 import { AppContext } from "../../context/AppContext";
 import BtnSecondary from "../BtnSecondary/BtnSecondary";
@@ -97,7 +97,7 @@ export default function SettingsCalendarContainer(){
                             const title = convertArrayToString( slot.days )
                             const description = `From ${ slot.startTime.hour }:${ slot.startTime.minute } ${ slot.startTime.ampm.toLowerCase() } to ${ slot.endTime.hour }:${ slot.endTime.minute } ${ slot.endTime.ampm.toLowerCase() }.`
                             return(
-                                <FeedCard key={ idx } title={ title } descritpion={ description } erase={ true } action={ () => handleDeleteSlot( slot.id ) }/>
+                                <MainCard key={ idx } title={ title } descritpion={ description } erase={ true } action={ () => handleDeleteSlot( slot.id ) }/>
                             )
                         })
 
