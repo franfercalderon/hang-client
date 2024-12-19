@@ -56,6 +56,9 @@ export default function AdminMasterTokensContainer(){
         }
     }, [ showCopiedCardUrl ] )
 
+    console.log(process.env.REACT_APP_BASE_URL);
+    console.log(process.env.REACT_APP_FIREBASE_AUTH_DOMAIN);
+
     return(
         <>
         {
