@@ -75,7 +75,7 @@ export default function Login () {
                                     <label>Phone Number</label>
                                     <div className="phone-number-container">
                                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
-                                        <p className="us-char">+1</p>
+                                        <p className="us-char">+54</p>
                                         <PhoneInput
                                             defaultCountry="AR"
                                             placeholder="( 555 )  555 - 5555"
