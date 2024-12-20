@@ -10,6 +10,7 @@ import { app } from "../fb";
 import { AppContext } from "../context/AppContext";
 
 export default function LoginTest () {
+
     const [phoneNumber, setPhoneNumber] = useState('');
     const [otp, setOtp] = useState(Array(6).fill(''));
     const [showOtp, setShowOtp] = useState(false);
@@ -27,12 +28,6 @@ export default function LoginTest () {
             'recaptcha-container',
             {
                 size: 'invisible',
-                callback: (response) => {
-                    // Optional success callback
-                },
-                'expired-callback': () => {
-                    setDisplayError('reCAPTCHA expired. Please try again.');
-                },
             }
         );
 
@@ -42,6 +37,29 @@ export default function LoginTest () {
             appVerifier.clear();
         };
     }, [auth]);
+
+    // useEffect(() => {
+    //     const appVerifier = new RecaptchaVerifier(
+    //         auth,
+    //         'recaptcha-container',
+    //         {
+    //             size: 'invisible',
+    //             callback: (response) => {
+    //                 // Optional success callback
+    //             },
+    //             'expired-callback': () => {
+    //                 setDisplayError('reCAPTCHA expired. Please try again.');
+    //             },
+    //         }
+    //     );
+
+    //     window.recaptchaVerifier = appVerifier;
+
+    //     return () => {
+    //         appVerifier.clear();
+    //     };
+    // }, [auth]);
+
 
     const handleSendOtp = async (e) => {
         e.preventDefault();
@@ -89,7 +107,7 @@ export default function LoginTest () {
                                             <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag" />
                                             <p className="us-char">+1</p>
                                             <PhoneInput
-                                                defaultCountry="AR"
+                                                defaultCountry="US"
                                                 placeholder="( 555 )  555 - 5555"
                                                 value={phoneNumber}
                                                 onChange={setPhoneNumber}
