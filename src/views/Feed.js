@@ -66,14 +66,18 @@ export default function Feed () {
                         </div>
                         <div className="section-container">
                             {
-                                noDataMessage &&
+                                noDataMessage ?
+                                
                                 <div className="no-data-feed mt-3">
                                     <h4>Opps!</h4>
                                     <p>Your friends have no upcoming events</p>
                                 </div>
+                                :
+                                <>
+                                    <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
+                                    <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
+                                </>
                             }
-                            <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
-                            <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
                         </div>
                     </div>
                     <div className="main-bottombar">
