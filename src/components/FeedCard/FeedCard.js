@@ -1,7 +1,7 @@
 import { faChevronRight, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function MainCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg, border }){
+export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg, border }){
 
     //FUNCTIONS
     const converTimestampToString = ( timestamp ) => {
