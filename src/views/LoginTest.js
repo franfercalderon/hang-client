@@ -24,10 +24,9 @@ export default function LoginTest () {
     const auth = getAuth( app )
 
     //FUNCTIONS
-    const handlePhoneInput = ( e ) => {
+    const handlePhoneInput = ( number ) => {
 
-        const { value } = e.target 
-        setPhoneNumber( phoneNumber.length > 11 ? value : phoneNumber )
+        setPhoneNumber( number.length > 11 ? number : phoneNumber )
 
     }
 
