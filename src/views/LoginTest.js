@@ -17,6 +17,7 @@ export default function LoginTest () {
     const [ displayError, setDisplayError ] = useState( '' )
     const [ isLoading, setIsLoading ] = useState( false )
     const [ enablePhoneCta, setEnablePhoneCta ] = useState( false )
+    const [ ctaLoading, setCtaLoading ] = useState( false )
 
     const { userLogin, setConfirmObject } = useAuth()
     const { inviterId } = useContext(AppContext)
@@ -26,22 +27,26 @@ export default function LoginTest () {
     //FUNCTIONS
     const handlePhoneInput = ( number ) => {
 
-        setPhoneNumber( number.length > 11 ? number : phoneNumber )
-
+        if( number && number.length < 13 ){
+            setPhoneNumber( number )
+        }
     }
 
 
     const handleSendOtp = async ( e ) => {
         e.preventDefault()
         setEnablePhoneCta( false )
+        setCtaLoading( true )
         try {
             if ( phoneNumber !== "" && phoneNumber !== undefined ) {
                 const appVerifier = window.recaptchaVerifier;
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
                 setConfirmObject( res )
                 setShowOtp( true )
+                setCtaLoading( false )
             }
         } catch (error) {
+            setCtaLoading( false )
             console.error( 'Error in handleSendOtp:', error )
             setDisplayError( error.message )
         }
@@ -78,7 +83,8 @@ export default function LoginTest () {
     }, [ auth ]);
 
     useEffect(() => {
-        setEnablePhoneCta( phoneNumber.length === 10 ? true : false )
+        console.log(phoneNumber.length);
+        setEnablePhoneCta( phoneNumber.length === 12 ? true : false )
     }, [ phoneNumber ])
 
     return (
@@ -115,6 +121,7 @@ export default function LoginTest () {
                                             action={( e ) => handleSendOtp( e )}
                                             id="send-otp-btn"
                                             enabled={ enablePhoneCta }
+                                            btnLoading={ ctaLoading }
                                         />
                                     </>
                                 ) : (
