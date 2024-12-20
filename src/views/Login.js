@@ -75,9 +75,9 @@ export default function Login () {
                                     <label>Phone Number</label>
                                     <div className="phone-number-container">
                                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
-                                        <p className="us-char">+54</p>
+                                        <p className="us-char">+1</p>
                                         <PhoneInput
-                                            defaultCountry="AR"
+                                            defaultCountry="US"
                                             placeholder="( 555 )  555 - 5555"
                                             value={ phoneNumber }
                                             onChange={ setPhoneNumber }
