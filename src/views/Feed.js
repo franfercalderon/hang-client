@@ -72,7 +72,7 @@ export default function Feed () {
                                     <p>Your friends have no upcoming events</p>
                                 </div>
                             }
-                            {/* <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/> */}
+                            <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
                             <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
                         </div>
                     </div>
