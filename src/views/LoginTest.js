@@ -23,6 +23,7 @@ export default function LoginTest () {
 
     useEffect(() => {
         const appVerifier = new RecaptchaVerifier(
+            auth,
             'recaptcha-container',
             {
                 size: 'invisible',
@@ -32,8 +33,7 @@ export default function LoginTest () {
                 'expired-callback': () => {
                     setDisplayError('reCAPTCHA expired. Please try again.');
                 },
-            },
-            auth
+            }
         );
 
         window.recaptchaVerifier = appVerifier;
