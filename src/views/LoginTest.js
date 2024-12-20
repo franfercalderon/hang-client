@@ -16,53 +16,25 @@ export default function LoginTest () {
     const [ showOtp, setShowOtp ] = useState( false )
     const [ displayError, setDisplayError ] = useState( '' )
     const [ isLoading, setIsLoading ] = useState( false )
+    const [ enablePhoneCta, setEnablePhoneCta ] = useState( false )
 
     const { userLogin, setConfirmObject } = useAuth()
     const { inviterId } = useContext(AppContext)
 
-    const auth = getAuth(app);
+    const auth = getAuth( app )
 
-    useEffect(() => {
-        const appVerifier = new RecaptchaVerifier(
-            auth,
-            'recaptcha-container',
-            {
-                size: 'invisible',
-            }
-        );
+    //FUNCTIONS
+    const handlePhoneInput = ( e ) => {
 
-        window.recaptchaVerifier = appVerifier;
+        const { value } = e.target 
+        setPhoneNumber( phoneNumber.length > 11 ? value : phoneNumber )
 
-        return () => {
-            appVerifier.clear()
-        };
-    }, [ auth ]);
-
-    // useEffect(() => {
-    //     const appVerifier = new RecaptchaVerifier(
-    //         auth,
-    //         'recaptcha-container',
-    //         {
-    //             size: 'invisible',
-    //             callback: (response) => {
-    //                 // Optional success callback
-    //             },
-    //             'expired-callback': () => {
-    //                 setDisplayError('reCAPTCHA expired. Please try again.');
-    //             },
-    //         }
-    //     );
-
-    //     window.recaptchaVerifier = appVerifier;
-
-    //     return () => {
-    //         appVerifier.clear();
-    //     };
-    // }, [auth]);
+    }
 
 
     const handleSendOtp = async ( e ) => {
         e.preventDefault()
+        setEnablePhoneCta( false )
         try {
             if ( phoneNumber !== "" && phoneNumber !== undefined ) {
                 const appVerifier = window.recaptchaVerifier;
@@ -89,6 +61,27 @@ export default function LoginTest () {
         }
     };
 
+    //EFFECTS
+    useEffect(() => {
+        const appVerifier = new RecaptchaVerifier(
+            auth,
+            'recaptcha-container',
+            {
+                size: 'invisible',
+            }
+        );
+
+        window.recaptchaVerifier = appVerifier;
+
+        return () => {
+            appVerifier.clear()
+        };
+    }, [ auth ]);
+
+    useEffect(() => {
+        setEnablePhoneCta( phoneNumber.length === 10 ? true : false )
+    }, [ phoneNumber ])
+
     return (
         <div className="view-container onboarding">
             { isLoading ? (
@@ -111,18 +104,18 @@ export default function LoginTest () {
                                                 defaultCountry="US"
                                                 placeholder="( 555 )  555 - 5555"
                                                 value={ phoneNumber }
-                                                onChange={ setPhoneNumber }
+                                                onChange={ handlePhoneInput }
                                             />
                                         </div>
                                         <div className="captcha-container">
                                             <div id="recaptcha-container"></div>
                                         </div>
-                                        {displayError && <InlineAlert text={ displayError } />}
+                                        { displayError && <InlineAlert text={ displayError } /> }
                                         <BtnPrimary
                                             displayText="Continue"
                                             action={( e ) => handleSendOtp( e )}
                                             id="send-otp-btn"
-                                            enabled={ !!phoneNumber }
+                                            enabled={ enablePhoneCta }
                                         />
                                     </>
                                 ) : (
@@ -132,7 +125,7 @@ export default function LoginTest () {
                                         { displayError && <InlineAlert text={ displayError } />}
                                         <BtnPrimary
                                             displayText="Log In"
-                                            action={( e ) => handleLogin( e, otp )}
+                                            action={ ( e ) => handleLogin( e, otp ) }
                                             enabled={ otp.join( '' ).length === 6 }
                                         />
                                     </>
