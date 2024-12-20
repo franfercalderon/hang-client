@@ -41,7 +41,7 @@ function App() {
                 <Route exact path='/create' element={ <Create/>} />
                 <Route exact path='/create/hang' element={ <CreateHang/>} />
                 <Route exact path='/create/now' element={ <CreateNow/>} />
-                {/* <Route element={<ProtectedRoute />}> */}
+                <Route element={<ProtectedRoute />}>
                   <Route exact path='/' element={ <Feed/> } />
                   <Route exact path='/settings' element={ <Settings/>}/>
                   <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
@@ -51,7 +51,7 @@ function App() {
                   <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
                   <Route exact path='/settings/notifications' element={ <SettingsNotifications/>} />
                   <Route exact path='/settings/admin' element={ <SettingsAdmin/>} />
-                {/* </Route> */}
+                </Route>
             </Routes>
           </SlotsProvider>
         </AppProvider>

@@ -83,7 +83,6 @@ export default function LoginTest () {
     }, [ auth ]);
 
     useEffect(() => {
-        console.log(phoneNumber.length);
         setEnablePhoneCta( phoneNumber.length === 12 ? true : false )
     }, [ phoneNumber ])
 

@@ -32,7 +32,6 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
             <div className="inner">
                 <div className="body-container">
                     <div className="title-container mb-05">
-                        {/* <img src={ userImg ? userImg : '/images/defaultProfile.jpg' } alt={ userName } className="profile-img-min"/> */}
                         <h3 className="font-big">{ title }</h3>
                     </div>
                     {
