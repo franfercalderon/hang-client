@@ -21,6 +21,7 @@ import SettingsAdmin from './views/SettingsAdmin';
 import SettingsFriendsManage from './views/SettingsFriendsManage';
 import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 import { SlotsProvider } from './context/SlotsContext';
+import LoginTest from './views/LoginTest';
 
 function App() {
 
@@ -31,7 +32,8 @@ function App() {
           <SlotsProvider>
             <Routes>
                 <Route exact path='/welcome' element={ <Welcome/> }/>
-                <Route exact path='/login' element={ <Login/> }/>
+                {/* <Route exact path='/login' element={ <Login/> }/> */}
+                <Route exact path='/login' element={ <LoginTest/> }/>
                 <Route exact path='/master' element={ <Master/> }/>
                 <Route exact path='/onboarding' element={ <Onboarding/> }/>
                 <Route exact path='/invite/:id' element={ <Invite/> } />
