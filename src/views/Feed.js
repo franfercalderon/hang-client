@@ -12,7 +12,7 @@ import ViewContainer from "../components/ViewContainer/ViewContainer"
 export default function Feed () {
 
     //STATE
-    const [ isLoading, setIsLoading ] = useState( false )
+    const [ isLoading, setIsLoading ] = useState( true )
     const [ noDataMessage, setNoDataMessage ] = useState( false )
 
     //CONTEXT
