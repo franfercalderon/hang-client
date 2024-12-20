@@ -11,14 +11,14 @@ import { AppContext } from "../context/AppContext";
 
 export default function LoginTest () {
 
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [otp, setOtp] = useState(Array(6).fill(''));
-    const [showOtp, setShowOtp] = useState(false);
-    const [displayError, setDisplayError] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [ phoneNumber, setPhoneNumber ] = useState( '' )
+    const [ otp, setOtp ] = useState( Array( 6 ).fill( '' ))
+    const [ showOtp, setShowOtp ] = useState( false )
+    const [ displayError, setDisplayError ] = useState( '' )
+    const [ isLoading, setIsLoading ] = useState( false )
 
-    const { userLogin, setConfirmObject } = useAuth();
-    const { inviterId } = useContext(AppContext);
+    const { userLogin, setConfirmObject } = useAuth()
+    const { inviterId } = useContext(AppContext)
 
     const auth = getAuth(app);
 
@@ -34,9 +34,9 @@ export default function LoginTest () {
         window.recaptchaVerifier = appVerifier;
 
         return () => {
-            appVerifier.clear();
+            appVerifier.clear()
         };
-    }, [auth]);
+    }, [ auth ]);
 
     // useEffect(() => {
     //     const appVerifier = new RecaptchaVerifier(
@@ -61,36 +61,37 @@ export default function LoginTest () {
     // }, [auth]);
 
 
-    const handleSendOtp = async (e) => {
-        e.preventDefault();
+    const handleSendOtp = async ( e ) => {
+        e.preventDefault()
         try {
-            if (phoneNumber !== "" && phoneNumber !== undefined) {
+            if ( phoneNumber !== "" && phoneNumber !== undefined ) {
                 const appVerifier = window.recaptchaVerifier;
-                const res = await signInWithPhoneNumber(auth, phoneNumber, appVerifier);
-                setConfirmObject(res);
-                setShowOtp(true);
+                const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
+                setConfirmObject( res )
+                setShowOtp( true )
             }
         } catch (error) {
-            console.error('Error in handleSendOtp:', error);
-            setDisplayError(error.message);
+            console.error( 'Error in handleSendOtp:', error )
+            setDisplayError( error.message )
         }
-    };
+    }
 
-    const handleLogin = async (e, otp) => {
-        e.preventDefault();
-        setIsLoading(true);
+    const handleLogin = async ( e, otp ) => {
+        e.preventDefault()
+        setIsLoading( true )
+
         try {
-            await userLogin(otp);
-        } catch (error) {
-            setIsLoading(false);
-            setDisplayError(error.response?.data || error.message);
-            setOtp(Array(6).fill(''));
+            await userLogin( otp )
+        } catch ( error ) {
+            setIsLoading( false )
+            setDisplayError( error.response?.data || error.message )
+            setOtp( Array( 6 ).fill( '' )) 
         }
     };
 
     return (
         <div className="view-container onboarding">
-            {isLoading ? (
+            { isLoading ? (
                 <Loader />
             ) : (
                 <>
@@ -109,30 +110,30 @@ export default function LoginTest () {
                                             <PhoneInput
                                                 defaultCountry="US"
                                                 placeholder="( 555 )  555 - 5555"
-                                                value={phoneNumber}
-                                                onChange={setPhoneNumber}
+                                                value={ phoneNumber }
+                                                onChange={ setPhoneNumber }
                                             />
                                         </div>
                                         <div className="captcha-container">
                                             <div id="recaptcha-container"></div>
                                         </div>
-                                        {displayError && <InlineAlert text={displayError} />}
+                                        {displayError && <InlineAlert text={ displayError } />}
                                         <BtnPrimary
                                             displayText="Continue"
-                                            action={(e) => handleSendOtp(e)}
+                                            action={( e ) => handleSendOtp( e )}
                                             id="send-otp-btn"
-                                            enabled={!!phoneNumber}
+                                            enabled={ !!phoneNumber }
                                         />
                                     </>
                                 ) : (
                                     <>
                                         <label>Enter Code</label>
-                                        <OTPInput otp={otp} setOtp={setOtp} />
-                                        {displayError && <InlineAlert text={displayError} />}
+                                        <OTPInput otp={ otp } setOtp={ setOtp } />
+                                        { displayError && <InlineAlert text={ displayError } />}
                                         <BtnPrimary
                                             displayText="Log In"
-                                            action={(e) => handleLogin(e, otp)}
-                                            enabled={otp.join('').length === 6}
+                                            action={( e ) => handleLogin( e, otp )}
+                                            enabled={ otp.join( '' ).length === 6 }
                                         />
                                     </>
                                 )}
