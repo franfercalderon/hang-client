@@ -45,7 +45,7 @@ export default function Feed () {
             {isLoading ? 
                 <Loader/>
                 :
-                <div className="view-container feed">
+                <>
                     <div className="section-container main-topbar">
                         <div className="feed-logo-container">
                             <img src="/images/logo_trim.svg" alt="Hang"/>
@@ -90,9 +90,8 @@ export default function Feed () {
                             </div>
                         </div>
                     </div>
-                </div>
+                </>
             }
-
         </ViewContainer>
         // <>
         //     {
