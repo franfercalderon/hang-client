@@ -73,9 +73,9 @@ export default function Feed () {
                                     <p>Your friends have no upcoming events</p>
                                 </div>
                             }
-                            <FeedCard title={'Movie Night'} descritpion={ null } location={ 'Union Square' } ctaText={ 'Join' } key={ '9' } starts={ 1734452124494 } ends={ 1734480000000 } userName={ 'Hannah' } userImg={ 'https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-16%20at%208.17.56%E2%80%AFPM.png07b89d2c-f9b0-4aaf-ac23-60954438004f?alt=media&token=074bac3c-44cc-4c33-92fa-d25ca9d2ae0d' } border={ false } />
-                            {/* <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/> */}
                             <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
+                            {/* <FeedCard title={'Movie Night'} descritpion={ null } location={ 'Union Square' } ctaText={ 'Join' } key={ '9' } starts={ 1734452124494 } ends={ 1734480000000 } userName={ 'Hannah' } userImg={ 'https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-16%20at%208.17.56%E2%80%AFPM.png07b89d2c-f9b0-4aaf-ac23-60954438004f?alt=media&token=074bac3c-44cc-4c33-92fa-d25ca9d2ae0d' } border={ false } /> */}
+                            {/* <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/> */}
                         </div>
 
 
