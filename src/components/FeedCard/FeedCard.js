@@ -24,35 +24,38 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
     }
 
     return(
-        <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''} ${ border ? 'borders' : '' }`} onClick={ !ctaText ? action : undefined }>
-            <div className="body-container">
-                <div className="title-container mb-1">
-                    {
-                        userImg &&
-                        <img src={ userImg} alt={ userName } className="profile-img-min"/>
-                    }
-                    <h3 className="font-big">{ title }</h3>
-                </div>
-                {
-                    descritpion &&
-                    <p>{ descritpion }</p>
-                }
-                {
-                    starts && ends &&
-                    <p>{`From: ${ converTimestampToString( starts ) } to ${ converTimestampToString( ends ) }`}</p>
-                }
-                {
-                    location && 
-                    <p>{`At: ${ location }`}</p>
-                }
+        <div className={` feed-card rounded cta-card ${ !ctaText ? 'pointer' : ''} ${ border ? 'borders' : '' }`} onClick={ !ctaText ? action : undefined }>
+            <div className="user-header rounded">
+                <img src={ userImg ? userImg : '/images/defaultProfile.jpg' } alt={ userName } className="profile-img-min"/>
+                <p>{userName}</p>
             </div>
-            <div className={`cta-container ${ !ctaText ? 'centered' : ''}` }>
-                {
-                    ctaText ?
-                    <button className="card-cta font-small btn rounded pointer" onClick={ action }>{ ctaText }</button>
-                    :
-                    <FontAwesomeIcon icon={ erase ? faTrashCan : faChevronRight } onClick={ action }/>
-                }
+            <div className="inner">
+                <div className="body-container">
+                    <div className="title-container mb-05">
+                        {/* <img src={ userImg ? userImg : '/images/defaultProfile.jpg' } alt={ userName } className="profile-img-min"/> */}
+                        <h3 className="font-big">{ title }</h3>
+                    </div>
+                    {
+                        descritpion &&
+                        <p>{ descritpion }</p>
+                    }
+                    {
+                        starts && ends &&
+                        <p>{`From: ${ converTimestampToString( starts ) } to ${ converTimestampToString( ends ) }`}</p>
+                    }
+                    {
+                        location && 
+                        <p>{`At: ${ location }`}</p>
+                    }
+                </div>
+                <div className={`cta-container ${ !ctaText ? 'centered' : ''}` }>
+                    {
+                        ctaText ?
+                        <button className="card-cta font-small btn rounded pointer" onClick={ action }>{ ctaText }</button>
+                        :
+                        <FontAwesomeIcon icon={ erase ? faTrashCan : faChevronRight } onClick={ action }/>
+                    }
+                </div>
             </div>
         </div>
     )

@@ -2,6 +2,7 @@ import Swal from "sweetalert2"
 import useSlots from "../../hooks/useSlots"
 import CardLoader from "../CardLoader/CardLoader"
 import MainCard from "../MainCard/MainCard"
+import FeedCard from "../FeedCard/FeedCard"
 
 export default function FeedScheduledContainer ({ events, setIsLoading }) {
 
@@ -56,7 +57,7 @@ export default function FeedScheduledContainer ({ events, setIsLoading }) {
             {
                 events?.map(( slot, idx ) => {
                     return(
-                        <MainCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ slot.userName } userImg={ slot.userImg } action={ () => handleJoinEvent( slot.id ) }/>
+                        <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ `${ slot.userName } ${ slot.userLastname }` } userImg={ slot.userImg } action={ () => handleJoinEvent( slot.id ) }/>
                     )
                 })
             }
