@@ -15,7 +15,7 @@ export default function UnprotectedRoute({ children }) {
     }
 
     if ( authToken && authToken !== '' ) {
-
+        console.log('a ver');
         return <Navigate to="/" replace/>
     }
     
