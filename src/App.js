@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Login from './views/Login';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Feed from './views/Feed';
 import Welcome from './views/Welcome';
@@ -22,7 +21,6 @@ import SettingsFriendsManage from './views/SettingsFriendsManage';
 import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 import { SlotsProvider } from './context/SlotsContext';
 import LoginTest from './views/LoginTest';
-import UnprotectedRoute from './components/UnprotectedRoutes/UnprotectedRoutes';
 
 function App() {
 
@@ -32,13 +30,13 @@ function App() {
         <AppProvider>
           <SlotsProvider>
             <Routes>
-              {/* <Route element={< UnprotectedRoute />}> */}
-                <Route exact path='/welcome' element={ <Welcome/> }/>
-                <Route exact path='/login' element={ <LoginTest/> }/>
-                <Route exact path='/master' element={ <Master/> }/>
-                <Route exact path='/onboarding' element={ <Onboarding/> }/>
-                <Route exact path='/invite/:id' element={ <Invite/> } />
-              {/* </Route> */}
+              {/* OPEN ROUTES */}
+              <Route exact path='/welcome' element={ <Welcome/> }/>
+              <Route exact path='/login' element={ <LoginTest/> }/>
+              <Route exact path='/master' element={ <Master/> }/>
+              <Route exact path='/onboarding' element={ <Onboarding/> }/>
+              <Route exact path='/invite/:id' element={ <Invite/> } />
+              {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
                 <Route exact path='/settings' element={ <Settings/>}/>

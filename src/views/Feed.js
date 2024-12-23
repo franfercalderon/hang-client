@@ -8,6 +8,7 @@ import { SlotsContext } from "../context/SlotsContext"
 import FeedScheduledContainer from "../components/FeedScheduledContainer/FeedScheduledContainer"
 import FeedNowdContainer from "../components/FeedNowContainer/FeedNowContainer"
 import ViewContainer from "../components/ViewContainer/ViewContainer"
+import RecurringMatchesContainer from "../components/RecurringMatchesContainer/RecurringMatchesContainer"
 
 export default function Feed () {
 
@@ -17,7 +18,7 @@ export default function Feed () {
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
-    const { availableNowSlots, scheduledSlots } = useContext( SlotsContext )
+    const { availableNowSlots, scheduledSlots, recurringMatches } = useContext( SlotsContext )
 
     //ROUTER
     const navigate = useNavigate()
@@ -73,7 +74,8 @@ export default function Feed () {
                                     <p>Your friends have no upcoming events</p>
                                 </div>
                                 :
-                                <>
+                                <>  
+                                    <RecurringMatchesContainer events={ recurringMatches } userId={ globalUser.id }/> 
                                     <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
                                     <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
                                 </>

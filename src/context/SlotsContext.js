@@ -10,12 +10,13 @@ export const SlotsProvider = ({ children }) => {
     //STATE
     const [ availableNowSlots, setAvailableNowSlots ] = useState( null )
     const [ scheduledSlots, setScheduledSlots] = useState( null )
+    const [ recurringMatches, setRecurringMatches ] = useState( null ) 
 
     //CONTEXT
-    const { authToken } = useContext( AppContext )
+    const { authToken, globalUser } = useContext( AppContext )
 
     //HOOKS
-    const { getAvailableNowSlots, getScheduledSlots } = useSlots()
+    const { getAvailableNowSlots, getScheduledSlots, getRecurringMatches } = useSlots()
 
     //FUNCTIONS
     const getFriendsActivity = useCallback( async () => {
@@ -27,10 +28,35 @@ export const SlotsProvider = ({ children }) => {
             const laterSlots = await getScheduledSlots()
             laterSlots.sort(( a, b ) => a.starts - b.starts )
             setScheduledSlots( laterSlots )
+
+            const matches = await getRecurringMatches()
+            if( matches.length > 0 ){
+                const myId = globalUser.id
+                const updatedArray = matches.map(( item ) => {
+                    const otherUser = item.user1.userId === myId ? item.user2 : item.user1
+                    return {
+                        activity: item.activity,
+                        matchingUser: {
+                            userId: otherUser.userId,
+                            name: otherUser.name,
+                            lastname: otherUser.lastname,
+                            imgUrl: otherUser.imgUrl
+                        } 
+                    }
+                })
+                setRecurringMatches( updatedArray )
+
+            } else {
+
+                setRecurringMatches( [] )
+            }
+
+
+
         } catch ( error ) {
             console.log( error )
         } 
-    }, [ getScheduledSlots, getAvailableNowSlots ] )
+    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches ] )
 
     const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
@@ -39,16 +65,16 @@ export const SlotsProvider = ({ children }) => {
 
     //EFFECTS
     useEffect(() => {
-    if ( authToken ) {
+    if ( globalUser ) {
         resetSlotContextState()
         getFriendsActivity()
     }
-    }, [ authToken, getFriendsActivity, resetSlotContextState ])
+    }, [ globalUser, getFriendsActivity, resetSlotContextState ])
 
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots }}
+        value={{ availableNowSlots, scheduledSlots, recurringMatches }}
     >
         { children }
     </SlotsContext.Provider>

@@ -16,7 +16,6 @@ export default function OnboardingForm({ updateUserInfo, userData, handleChange,
             setEnableSubmit( false )
         }
     }, [ userData ])
-    console.log('llega a OnboardingForm');
 
     return(
         <>

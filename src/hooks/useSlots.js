@@ -90,6 +90,22 @@ function useSlots (){
         } 
     }, [ authToken ])
 
+    const getRecurringMatches = useCallback( async () => {
+        try{
+            //GETS RECURRING MATCHES   
+            const matches = await axios.get(`${process.env.REACT_APP_API_URL}/slots/matches/fixed`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            return matches.data
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
+
     const validateTimes = ( slot ) => {
 
         const convertTo24Hs = ( time ) => {
@@ -237,7 +253,8 @@ function useSlots (){
         getAvailableNowSlots,
         getScheduledSlots,
         formatTimestampToDate,
-        joinEvent
+        joinEvent,
+        getRecurringMatches
 
     })
 
