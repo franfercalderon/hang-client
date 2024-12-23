@@ -3,25 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function MainCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg, border }){
 
-    //FUNCTIONS
-    // const converTimestampToString = ( timestamp ) => {
-
-    //     const current = Date.now()
-
-    //     if( timestamp < current ){
-    //         return 'now'
-    //     } else {
-    //         const date = new Date( timestamp )
-    //         let hours = date.getHours()
-    //         const minutes = date.getMinutes()
-    //         const ampm = hours >= 12 ? 'pm' : 'am'
-    //         hours = hours % 12 || 12
-    //         const formattedMinutes = minutes.toString().padStart( 2, '0' )
-    
-    //         return `${ hours }:${ formattedMinutes } ${ ampm }`
-    //     }
-
-    // }
 
     return(
         <div className={`rounded cta-card ${ !ctaText ? 'pointer' : ''} ${ border ? 'borders' : '' }`} onClick={ !ctaText ? action : undefined }>

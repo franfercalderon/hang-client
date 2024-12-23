@@ -32,7 +32,6 @@ export const SlotsProvider = ({ children }) => {
 
             const matches = await getRecurringMatches()
             if( matches.length > 0 ){
-                console.log(globalUser);
                 const myId = globalUser.id
                 const updatedArray = matches.map(( item ) => {
                     const otherUser = item.user1.userId === myId ? item.user2 : item.user1
@@ -53,8 +52,6 @@ export const SlotsProvider = ({ children }) => {
                 setRecurringMatches( [] )
             }
 
-
-
         } catch ( error ) {
             console.log( error )
         } 
@@ -63,6 +60,7 @@ export const SlotsProvider = ({ children }) => {
     const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
         setScheduledSlots( null )
+        setRecurringMatches( null )
     }, [])
 
     //EFFECTS
