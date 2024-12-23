@@ -39,6 +39,7 @@ function useAuth () {
             const formattedOtp = otp.join('')
             const res = await checkOtp( formattedOtp )
             const newUser = res._tokenResponse.isNewUser
+            console.log(res._tokenResponse);
             if( newUser ){
                 await createUser( res )
                 navigate('/onboarding')
