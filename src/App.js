@@ -32,13 +32,13 @@ function App() {
         <AppProvider>
           <SlotsProvider>
             <Routes>
-              <Route element={< UnprotectedRoute />}>
+              {/* <Route element={< UnprotectedRoute />}> */}
                 <Route exact path='/welcome' element={ <Welcome/> }/>
                 <Route exact path='/login' element={ <LoginTest/> }/>
                 <Route exact path='/master' element={ <Master/> }/>
                 <Route exact path='/onboarding' element={ <Onboarding/> }/>
                 <Route exact path='/invite/:id' element={ <Invite/> } />
-              </Route>
+              {/* </Route> */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
                 <Route exact path='/settings' element={ <Settings/>}/>
