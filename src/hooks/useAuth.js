@@ -41,11 +41,15 @@ function useAuth () {
             const newUser = res._tokenResponse.isNewUser
             console.log(res._tokenResponse);
             if( newUser ){
+                console.log('va a ir a createUser');
                 await createUser( res )
+                console.log('va a ir a navigate /onboarding');
                 navigate('/onboarding')
                 
             } else {
+                console.log('va a ir a setPopulateUser');
                 setPopulateUser( true )
+                console.log('va a ir a navigate /');
                 navigate( '/' )
             }
             

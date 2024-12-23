@@ -11,7 +11,6 @@ function useUsers () {
 
     //FUNCTIONS
     const createUser = async ( data ) => {
-        console.log('entra');
         try{
             const user = {
                 id: data.user.uid,
@@ -29,11 +28,8 @@ function useUsers () {
             })  
             setFirebaseUserId( userId.data )
             setMasterToken( '' )
-            console.log('termina');
 
         } catch ( error ) {
-            console.log('error en createuser');
-            console.log(error);
             throw error
         } 
     }
