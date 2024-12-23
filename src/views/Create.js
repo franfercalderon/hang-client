@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import MainCard from "../components/MainCard/MainCard";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function Create (){
 
@@ -8,7 +9,7 @@ export default function Create (){
     const navigate = useNavigate()
 
     return(
-        <div className="view-container">
+        <ViewContainer>
             <TopBarNav navigation={''} title={ 'New' }/>
             <div className="main-view-body">
                 <div className="section-container">
@@ -16,6 +17,6 @@ export default function Create (){
                    <MainCard title={'Create a Hang'} descritpion={'Schedule for later'} action={ () => navigate('/create/hang') }/>
                 </div>
             </div>
-        </div>
+        </ViewContainer>
     )
 }

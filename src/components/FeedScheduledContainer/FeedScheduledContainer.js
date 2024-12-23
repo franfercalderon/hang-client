@@ -1,7 +1,6 @@
 import Swal from "sweetalert2"
 import useSlots from "../../hooks/useSlots"
 import CardLoader from "../CardLoader/CardLoader"
-import MainCard from "../MainCard/MainCard"
 import FeedCard from "../FeedCard/FeedCard"
 
 export default function FeedScheduledContainer ({ events, setIsLoading }) {

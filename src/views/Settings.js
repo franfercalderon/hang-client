@@ -4,6 +4,7 @@ import TopBarNav from "../components/TopBarNav/TopBarNav";
 import useAuth from "../hooks/useAuth";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function Settings (){
 
@@ -17,7 +18,7 @@ export default function Settings (){
     const navigate = useNavigate()
 
     return(
-        <div className="view-container">
+        <ViewContainer>
             <TopBarNav navigation={''} title={ 'Settings' }/>
             <div className="main-view-body">
                 <div className="section-container">
@@ -33,6 +34,6 @@ export default function Settings (){
                    </div>
                 </div>
             </div>
-        </div>
+        </ViewContainer>
     )
 }

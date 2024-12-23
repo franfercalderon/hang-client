@@ -7,6 +7,7 @@ import OnboardingPhoto from "../components/OnboardingPhoto/OnboardingPhoto"
 import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalendar"
 import OnboardingInvite from "../components/OnboardingInvite/OnboardingInvite"
 import { useNavigate } from "react-router-dom"
+import ViewContainer from "../components/ViewContainer/ViewContainer"
 
 export default function Onboarding () {
 
@@ -81,7 +82,7 @@ export default function Onboarding () {
 
 
     return(
-        <div className="view-container onboarding">
+        <ViewContainer className="onboarding">
             <div className="section-container topbar-title">
                 {
                     onboardingStage === 1 &&
@@ -120,7 +121,7 @@ export default function Onboarding () {
                     }
                 </div>
             </div>
-        </div>
+        </ViewContainer>
 
     )
 }

@@ -3,6 +3,7 @@ import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import MainInput from "../components/MainInput/MainInput";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 
 export default function Master () {
@@ -29,7 +30,7 @@ export default function Master () {
     }
 
     return(
-        <div className="view-container onboarding">
+        <ViewContainer className="onboarding">
             <div className="section-container topbar-title">
                 Create a Master Account
             </div>
@@ -39,6 +40,6 @@ export default function Master () {
                     <BtnPrimary action={ ( e ) => submitCode( e ) } displayText={ 'Submit' } submit={ true } enabled={ value.length === 6 ? true : false  }/>
                 </div>
             </div>
-        </div>
+        </ViewContainer>
     )
 }

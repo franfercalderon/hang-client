@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BtnPrimary from "../components/BtnPrimary/BtnPrimary";
 import PhoneInput from 'react-phone-number-input'
 import useAuth from "../hooks/useAuth";
@@ -8,6 +8,7 @@ import Loader from "../components/Loader/Loader";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth'
 import { app } from "../fb";
 import { AppContext } from "../context/AppContext";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function LoginTest () {
 
@@ -87,59 +88,61 @@ export default function LoginTest () {
     }, [ phoneNumber ])
 
     return (
-        <div className="view-container onboarding">
-            { isLoading ? (
-                <Loader />
-            ) : (
-                <>
-                    <div className="section-container topbar-title">
-                        {inviterId ? 'Create Your Account' : 'Welcome'}
-                    </div>
-                    <div className="view-body">
-                        <div className="section-container">
-                            <form>
-                                {!showOtp ? (
-                                    <>
-                                        <label>Phone Number</label>
-                                        <div className="phone-number-container">
-                                            <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag" />
-                                            <p className="us-char">+1</p>
-                                            <PhoneInput
-                                                defaultCountry="US"
-                                                placeholder="( 555 )  555 - 5555"
-                                                value={ phoneNumber }
-                                                onChange={ handlePhoneInput }
-                                            />
-                                        </div>
-                                        <div className="captcha-container">
-                                            <div id="recaptcha-container"></div>
-                                        </div>
-                                        { displayError && <InlineAlert text={ displayError } /> }
-                                        <BtnPrimary
-                                            displayText="Continue"
-                                            action={( e ) => handleSendOtp( e )}
-                                            id="send-otp-btn"
-                                            enabled={ enablePhoneCta }
-                                            btnLoading={ ctaLoading }
-                                        />
-                                    </>
-                                ) : (
-                                    <>
-                                        <label>Enter Code</label>
-                                        <OTPInput otp={ otp } setOtp={ setOtp } />
-                                        { displayError && <InlineAlert text={ displayError } />}
-                                        <BtnPrimary
-                                            displayText="Log In"
-                                            action={ ( e ) => handleLogin( e, otp ) }
-                                            enabled={ otp.join( '' ).length === 6 }
-                                        />
-                                    </>
-                                )}
-                            </form>
+        <ViewContainer className="onboarding">
+            <>
+                { isLoading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        <div className="section-container topbar-title">
+                            {inviterId ? 'Create Your Account' : 'Welcome'}
                         </div>
-                    </div>
-                </>
-            )}
-        </div>
+                        <div className="view-body">
+                            <div className="section-container">
+                                <form>
+                                    {!showOtp ? (
+                                        <>
+                                            <label>Phone Number</label>
+                                            <div className="phone-number-container">
+                                                <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag" />
+                                                <p className="us-char">+1</p>
+                                                <PhoneInput
+                                                    defaultCountry="US"
+                                                    placeholder="( 555 )  555 - 5555"
+                                                    value={ phoneNumber }
+                                                    onChange={ handlePhoneInput }
+                                                />
+                                            </div>
+                                            <div className="captcha-container">
+                                                <div id="recaptcha-container"></div>
+                                            </div>
+                                            { displayError && <InlineAlert text={ displayError } /> }
+                                            <BtnPrimary
+                                                displayText="Continue"
+                                                action={( e ) => handleSendOtp( e )}
+                                                id="send-otp-btn"
+                                                enabled={ enablePhoneCta }
+                                                btnLoading={ ctaLoading }
+                                            />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <label>Enter Code</label>
+                                            <OTPInput otp={ otp } setOtp={ setOtp } />
+                                            { displayError && <InlineAlert text={ displayError } />}
+                                            <BtnPrimary
+                                                displayText="Log In"
+                                                action={ ( e ) => handleLogin( e, otp ) }
+                                                enabled={ otp.join( '' ).length === 6 }
+                                            />
+                                        </>
+                                    )}
+                                </form>
+                            </div>
+                        </div>
+                    </>
+                )}
+            </>
+        </ViewContainer>
     );
 }

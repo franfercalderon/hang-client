@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader/Loader";
 import CopiedCard from "../components/CopiedCard/CopiedCard";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function SettingsFriends(){
 
@@ -42,7 +43,7 @@ export default function SettingsFriends(){
     }, [ showCopiedCard ] )
 
     return(
-        <div className="view-container friends">
+        <ViewContainer className="friends">
             <TopBarNav navigation={'settings'} title={'Friends'} />
             {
                 !inviteUrl ? 
@@ -61,6 +62,6 @@ export default function SettingsFriends(){
                     </div>
                 </div>
             }
-        </div>
+        </ViewContainer>
     )
 }

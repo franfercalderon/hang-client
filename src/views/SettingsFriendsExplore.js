@@ -1,12 +1,11 @@
 import TopBarNav from "../components/TopBarNav/TopBarNav";
-import ManageFriendsContainer from "../components/ManageFriendsContainer/ManageFriendsContainer";
 import { useCallback, useContext, useEffect, useState } from "react";
 import useFriends from "../hooks/useFriends";
 import Loader from "../components/Loader/Loader";
 import { AppContext } from "../context/AppContext";
 import Swal from "sweetalert2";
-import useUsers from "../hooks/useUsers";
 import ExploreFriendsContainer from "../components/ExploreFriendsContainer/ExploreFriendsContainer";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function SettingsFriendsExplore(){
 
@@ -15,11 +14,10 @@ export default function SettingsFriendsExplore(){
     const [ isLoading, setIsLoading ] = useState( true )
 
     //CONTEXT
-    const { mergeArraysById, getGlobalUser, globalUser } = useContext( AppContext )
+    const { globalUser } = useContext( AppContext )
 
     //HOOK
     const { getFriendSuggestions, postFriendshipRequest } = useFriends()
-    // const { updateUserProperties } = useUsers()
 
     //FUNCTIONS
     const getSuggestions = useCallback( async () => {
@@ -86,7 +84,7 @@ export default function SettingsFriendsExplore(){
     }, [ friendSuggestions ])
 
     return(
-        <div className="view-container friends">
+        <ViewContainer className="friends">
             <TopBarNav navigation={'settings/friends'} title={'Discover Friends'} />
             <div className="main-view-body">
                 {
@@ -96,7 +94,7 @@ export default function SettingsFriendsExplore(){
                     <ExploreFriendsContainer friendSuggestions={ friendSuggestions } sendInvite={ sendInvite } />
                 }
             </div>
-        </div>
+        </ViewContainer>
     )
 }
 

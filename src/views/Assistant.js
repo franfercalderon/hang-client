@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import TopBarNav from "../components/TopBarNav/TopBarNav";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function Assistant(){
 
@@ -24,11 +25,14 @@ export default function Assistant(){
 
 
     return(
-        <div className="view-container">
+        <ViewContainer>
             <TopBarNav navigation={''} title={'Assistant'}/>
             <div className="main-view-body">
+                <div>
+                    <p>We are working on this section</p>
+                </div>
             </div>
-            <div className="main-bottombar chat">
+            {/* <div className="main-bottombar chat">
                 <div className="section-container">
                     <div className="inner">
                         <form>
@@ -41,7 +45,7 @@ export default function Assistant(){
                         </form>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div> */}
+        </ViewContainer>
     )
 }

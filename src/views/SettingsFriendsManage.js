@@ -6,6 +6,7 @@ import Loader from "../components/Loader/Loader";
 import { AppContext } from "../context/AppContext";
 import Swal from "sweetalert2";
 import useUsers from "../hooks/useUsers";
+import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function SettingsFriendsManage(){
 
@@ -68,7 +69,7 @@ export default function SettingsFriendsManage(){
     }, [ userFriends ])
 
     return(
-        <div className="view-container friends">
+        <ViewContainer className="friends">
             <TopBarNav navigation={'settings/friends'} title={'My Friends'} />
             <div className="main-view-body">
                 {
@@ -78,7 +79,7 @@ export default function SettingsFriendsManage(){
                     <ManageFriendsContainer userFriends={ userFriends } isLoading={ isLoading } handleSave={ handleSave } setUserFriends={ setUserFriends } />
                 }
             </div>
-        </div>
+        </ViewContainer>
     )
 }
 
