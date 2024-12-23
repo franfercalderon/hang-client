@@ -20,6 +20,7 @@ export const SlotsProvider = ({ children }) => {
 
     //FUNCTIONS
     const getFriendsActivity = useCallback( async () => {
+
         try {
             const nowSlots = await getAvailableNowSlots()
             nowSlots.sort(( a, b ) => a.starts - b.starts )
@@ -31,6 +32,7 @@ export const SlotsProvider = ({ children }) => {
 
             const matches = await getRecurringMatches()
             if( matches.length > 0 ){
+                console.log(globalUser);
                 const myId = globalUser.id
                 const updatedArray = matches.map(( item ) => {
                     const otherUser = item.user1.userId === myId ? item.user2 : item.user1
@@ -56,7 +58,7 @@ export const SlotsProvider = ({ children }) => {
         } catch ( error ) {
             console.log( error )
         } 
-    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches ] )
+    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches, globalUser ] )
 
     const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
