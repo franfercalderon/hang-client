@@ -106,6 +106,22 @@ function useSlots (){
         } 
     }, [ authToken ])
 
+    const getEventInvites = useCallback( async () => {
+        try{
+            //GETS INVITES FOR USER   
+            const invites = await axios.get(`${process.env.REACT_APP_API_URL}/slots/invites`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            return invites.data
+
+        } catch ( error ) {
+            throw error
+        } 
+    }, [ authToken ])
+
     const validateTimes = ( slot ) => {
 
         const convertTo24Hs = ( time ) => {
@@ -254,7 +270,8 @@ function useSlots (){
         getScheduledSlots,
         formatTimestampToDate,
         joinEvent,
-        getRecurringMatches
+        getRecurringMatches,
+        getEventInvites
 
     })
 

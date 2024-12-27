@@ -6,6 +6,9 @@ import Loader from "../Loader/Loader";
 import useNotifications from "../../hooks/useNotifications";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SlotsContext } from "../../context/SlotsContext";
+import useSlots from "../../hooks/useSlots";
+import { useNavigate } from "react-router-dom";
 
 export default function NotificationsContainer(){
 
@@ -14,10 +17,15 @@ export default function NotificationsContainer(){
 
     //CONTEXT
     const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications, removeNotification } = useContext( AppContext ) 
+    const { userInvites } = useContext( SlotsContext )
 
     //HOOKS
     const { replyFriendsRequest } = useFriends()
     const { deleteNotification } = useNotifications()
+    const { formatTimestampToDate } = useSlots()
+
+    //ROUTER
+    const navigate = useNavigate()
 
     //FUNCTIONS
     const handleDelete = async ( notificationId ) => {
@@ -87,6 +95,49 @@ export default function NotificationsContainer(){
         }
     }
 
+    const replyInvite = async ( eventId, accepted ) => {
+
+        try {
+            setIsLoading( true )
+            await replyFriendsRequest( eventId, accepted )
+            setIsLoading( false )
+            Swal.fire({
+                text: accepted ? 'Invite accepted' : 'Invite rejected',
+                icon: accepted ? 'success' : null,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            navigate('/')
+            // await getUserData( authToken )
+            // await getGlobalUser( authToken )
+            
+        } catch ( error ) {
+            setIsLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }
+
     const handleRequest = async ( requestId, requesterId ) => {
         Swal.fire({
             title: null,
@@ -127,12 +178,68 @@ export default function NotificationsContainer(){
         })
     }
 
+    const handleInvite = async ( eventId ) => {
+        Swal.fire({
+            title: null,
+            text: 'Do you want to accept join this event?',
+            icon: null,
+            confirmButtonText: 'Accept',
+            denyButtonText: 'Reject',
+            showDenyButton: true,
+            buttonsStyling: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        })
+        .then( ( res ) => {
+            if( res.isConfirmed ){
+                return replyInvite( eventId, true )
+            } else if ( res.isDenied ){
+                return replyInvite( eventId, false ) 
+            }
+        })
+        .catch(( error ) => {
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        })
+    }
+
     return(
         <> 
         { isLoading ? 
             <Loader/>
             :
             <div className="section-container">
+                {
+                    userInvites?.map(( invite, idx ) => {
+                        return(
+                            <div className="slim-hang-card cta-card rounded" key={ idx }>
+                                <div className="inner">
+                                    <img src={ invite.event.userImg ? invite.event.userImg : '/images/defaultProfile.jpg' } alt={ invite.event.userName } className="profile-img-min"/>
+                                    <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
+                                    <p>{ formatTimestampToDate( invite.event.starts) }</p>
+                                </div>
+                                <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id ) }>
+                                    Reply
+                                </div>
+                            </div>
+                        )
+                    })
+                }
                 {
                     friendshipRequest?.map(( request, idx ) => {
                         return(

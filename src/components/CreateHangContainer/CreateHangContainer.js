@@ -8,8 +8,6 @@ import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestion, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
 import useAlert from "../../hooks/useAlert";
 
 export default function CreateHangContainer(){ 

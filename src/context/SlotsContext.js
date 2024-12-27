@@ -1,5 +1,4 @@
 import React, { createContext, useState, useCallback, useContext, useEffect } from "react";
-import axios from "axios";
 import { AppContext } from "./AppContext";
 import useSlots from "../hooks/useSlots";
 
@@ -11,17 +10,23 @@ export const SlotsProvider = ({ children }) => {
     const [ availableNowSlots, setAvailableNowSlots ] = useState( null )
     const [ scheduledSlots, setScheduledSlots] = useState( null )
     const [ recurringMatches, setRecurringMatches ] = useState( null ) 
+    const [ userInvites, setUserInvites ] = useState( null ) 
+ 
 
     //CONTEXT
     const { authToken, globalUser } = useContext( AppContext )
 
     //HOOKS
-    const { getAvailableNowSlots, getScheduledSlots, getRecurringMatches } = useSlots()
+    const { getAvailableNowSlots, getScheduledSlots, getRecurringMatches, getEventInvites } = useSlots()
 
     //FUNCTIONS
     const getFriendsActivity = useCallback( async () => {
 
         try {
+            const invites = await getEventInvites()
+            invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
+            setUserInvites( invites )
+
             const nowSlots = await getAvailableNowSlots()
             nowSlots.sort(( a, b ) => a.starts - b.starts )
             setAvailableNowSlots( nowSlots )
@@ -55,7 +60,14 @@ export const SlotsProvider = ({ children }) => {
         } catch ( error ) {
             console.log( error )
         } 
-    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches, globalUser ] )
+    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches, globalUser, getEventInvites ] )
+
+    const updateInvites = useCallback( async () => {
+        const invites = await getEventInvites()
+        invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
+        setUserInvites( invites )
+
+    }, [ getEventInvites ])
 
     const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
@@ -74,7 +86,7 @@ export const SlotsProvider = ({ children }) => {
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots, recurringMatches }}
+        value={{ availableNowSlots, scheduledSlots, recurringMatches, userInvites, updateInvites }}
     >
         { children }
     </SlotsContext.Provider>
