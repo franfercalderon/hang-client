@@ -32,6 +32,7 @@ export default function CreateHangContainer(){
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( true )
+    const [ enableSubmit, setEnableSubmit ] = useState( false )
 
     //HOOKS
     const { convertTimeToTimestamp, postScheduledSlot } = useSlots()
@@ -168,6 +169,23 @@ export default function CreateHangContainer(){
 
     }, [ startTime, endTime, convertTimeToTimestamp, selectedDate ])
 
+    useEffect(() => {
+        if( isPrivate ){
+            if( slot && spots > 0 && location !== '' ){
+                setEnableSubmit( true )
+            } else {
+                setEnableSubmit( false )
+            }
+            
+        } else {
+            if( slot && location !== '' ){
+                setEnableSubmit( true )
+            }else {
+                setEnableSubmit( false )
+            }
+        }
+    }, [ slot, spots, location, isPrivate ])
+
     return(
         <div className="main-view-body">
             {
@@ -205,14 +223,6 @@ export default function CreateHangContainer(){
                         <div className="location-container mt-1">
                             <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
                         </div>
-                        <div className="seats-container mt-1">
-                            <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
-                            <div className="seats-inner main-input">
-                                <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
-                                <p>{ spots }</p>
-                                <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
-                            </div>
-                        </div>
                         <div className="mt-1">
                             <div className="row">
                                 <p>Visibility</p>
@@ -229,9 +239,20 @@ export default function CreateHangContainer(){
                                 </div>
                             </div>
                         </div>
+                        {
+                            isPrivate &&
+                            <div className="seats-container mt-1">
+                                <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
+                                <div className="seats-inner main-input">
+                                    <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
+                                    <p>{ spots }</p>
+                                    <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                                </div>
+                            </div>
+                        }
                     </div>
                     <div className="section-container">
-                        <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ slot && spots > 0 && location !== '' ? true : false }/>
+                        <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ enableSubmit }/>
                     </div>
                 </>
             }

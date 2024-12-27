@@ -117,8 +117,6 @@ export default function NotificationsContainer(){
                 }
             })
             navigate('/')
-            // await getUserData( authToken )
-            // await getGlobalUser( authToken )
             
         } catch ( error ) {
             setIsLoading( false )
@@ -230,8 +228,10 @@ export default function NotificationsContainer(){
                             <div className="slim-hang-card cta-card rounded" key={ idx }>
                                 <div className="inner">
                                     <img src={ invite.event.userImg ? invite.event.userImg : '/images/defaultProfile.jpg' } alt={ invite.event.userName } className="profile-img-min"/>
-                                    <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
-                                    <p>{ formatTimestampToDate( invite.event.starts) }</p>
+                                    <div className='column'>
+                                        <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
+                                        <p>{ formatTimestampToDate( invite.event.starts) }</p>
+                                    </div>
                                 </div>
                                 <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id, invite.event.collection ) }>
                                     Reply
@@ -260,8 +260,10 @@ export default function NotificationsContainer(){
                         return(
                             <div className="slim-hang-card cta-card rounded" key={ idx }>
                                 <div className="inner">
-                                    <img src={ notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className="profile-img-min"/>
-                                    <p>{`${ notification.senderName } ${ notification.text }`}</p>
+                                    { !notification.system &&
+                                        <img src={ notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className="profile-img-min"/>
+                                    }
+                                    <p>{`${ notification.text }`}</p>
                                 </div>
                                 <div className="pointer notification-card-icon" onClick={() => handleDelete( notification.id ) }>
                                     <FontAwesomeIcon icon={ faTrashCan }/>
