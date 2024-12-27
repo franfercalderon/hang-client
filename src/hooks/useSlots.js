@@ -257,6 +257,25 @@ function useSlots (){
         }
     }
 
+    const converTimestampToString = ( timestamp ) => {
+
+        const current = Date.now()
+
+        if( timestamp < current ){
+            return 'now'
+        } else {
+            const date = new Date( timestamp )
+            let hours = date.getHours()
+            const minutes = date.getMinutes()
+            const ampm = hours >= 12 ? 'pm' : 'am'
+            hours = hours % 12 || 12
+            const formattedMinutes = minutes.toString().padStart( 2, '0' )
+    
+            return `${ hours }:${ formattedMinutes } ${ ampm }`
+        }
+
+    }
+
     const replyEventInvite = async ( eventId, collection, accepted ) => {
 
         const data = {
@@ -297,7 +316,8 @@ function useSlots (){
         joinEvent,
         getRecurringMatches,
         getEventInvites,
-        replyEventInvite
+        replyEventInvite,
+        converTimestampToString
 
     })
 

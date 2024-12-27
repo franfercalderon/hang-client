@@ -22,7 +22,7 @@ export default function NotificationsContainer(){
     //HOOKS
     const { replyFriendsRequest } = useFriends()
     const { deleteNotification } = useNotifications()
-    const { formatTimestampToDate, replyEventInvite } = useSlots()
+    const { formatTimestampToDate, replyEventInvite, converTimestampToString } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
@@ -231,6 +231,8 @@ export default function NotificationsContainer(){
                                     <div className='column'>
                                         <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
                                         <p>{ formatTimestampToDate( invite.event.starts) }</p>
+                                        <p>{`From: ${ converTimestampToString( invite.event.starts ) } to ${ converTimestampToString( invite.event.ends ) }`}</p>
+                                        <p>{`At: ${ invite.event.location } `}</p>
                                     </div>
                                 </div>
                                 <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id, invite.event.collection ) }>
