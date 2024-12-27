@@ -6,7 +6,6 @@ import Loader from "../Loader/Loader";
 import useNotifications from "../../hooks/useNotifications";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SlotsContext } from "../../context/SlotsContext";
 import useSlots from "../../hooks/useSlots";
 import { useNavigate } from "react-router-dom";
 
@@ -16,8 +15,7 @@ export default function NotificationsContainer(){
     const [ isLoading, setIsLoading ] = useState( false )
 
     //CONTEXT
-    const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications, removeNotification } = useContext( AppContext ) 
-    const { userInvites } = useContext( SlotsContext )
+    const { friendshipRequest, getGlobalUser, getUserData, authToken, notifications, removeNotification, userInvites } = useContext( AppContext ) 
 
     //HOOKS
     const { replyFriendsRequest } = useFriends()

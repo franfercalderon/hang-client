@@ -10,22 +10,19 @@ export const SlotsProvider = ({ children }) => {
     const [ availableNowSlots, setAvailableNowSlots ] = useState( null )
     const [ scheduledSlots, setScheduledSlots] = useState( null )
     const [ recurringMatches, setRecurringMatches ] = useState( null ) 
-    const [ userInvites, setUserInvites ] = useState( null ) 
+    // const [ userInvites, setUserInvites ] = useState( null ) 
  
 
     //CONTEXT
-    const { authToken, globalUser } = useContext( AppContext )
+    const { globalUser } = useContext( AppContext )
 
     //HOOKS
-    const { getAvailableNowSlots, getScheduledSlots, getRecurringMatches, getEventInvites } = useSlots()
+    const { getAvailableNowSlots, getScheduledSlots, getRecurringMatches } = useSlots()
 
     //FUNCTIONS
     const getFriendsActivity = useCallback( async () => {
 
         try {
-            const invites = await getEventInvites()
-            invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
-            setUserInvites( invites )
 
             const nowSlots = await getAvailableNowSlots()
             nowSlots.sort(( a, b ) => a.starts - b.starts )
@@ -60,14 +57,8 @@ export const SlotsProvider = ({ children }) => {
         } catch ( error ) {
             console.log( error )
         } 
-    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches, globalUser, getEventInvites ] )
+    }, [ getScheduledSlots, getAvailableNowSlots, getRecurringMatches, globalUser ] )
 
-    const updateInvites = useCallback( async () => {
-        const invites = await getEventInvites()
-        invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
-        setUserInvites( invites )
-
-    }, [ getEventInvites ])
 
     const resetSlotContextState = useCallback(() => {
         setAvailableNowSlots( null )
@@ -86,7 +77,7 @@ export const SlotsProvider = ({ children }) => {
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots, recurringMatches, userInvites, updateInvites }}
+        value={{ availableNowSlots, scheduledSlots, recurringMatches }}
     >
         { children }
     </SlotsContext.Provider>

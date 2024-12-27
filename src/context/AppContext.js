@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom"
 import useUsers from "../hooks/useUsers"
 import useFriends from "../hooks/useFriends"
 import useNotifications from "../hooks/useNotifications"
+import useSlots from "../hooks/useSlots"
 const AppContext = createContext('')
 const { Provider } = AppContext
 
@@ -22,11 +23,13 @@ const AppProvider = ({ children }) => {
     const [ notifications, setNotifications ] = useState( [] )
     const [ hangSuggestions, setHangSuggestions ] = useState( [] )
     const [ notificationBadge, setNotificationBadge ] = useState( false )
+    const [ userInvites, setUserInvites ] = useState( null ) 
 
     //HOOKS
     const { getUser } = useUsers()
     const { getUserFriendShipsRequests } = useFriends()
     const { getUserNotifications } = useNotifications()
+    const { getEventInvites } = useSlots()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -54,8 +57,12 @@ const AppProvider = ({ children }) => {
         const notifications = await getUserNotifications( token )
         setNotifications( notifications.length > 0 ? notifications : null )
 
+        const invites = await getEventInvites()
+        invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
+        setUserInvites( invites )
 
-    }, [ getUserFriendShipsRequests, getUserNotifications ] )
+
+    }, [ getUserFriendShipsRequests, getUserNotifications, getEventInvites ] )
 
     const mergeArraysById = ( array1, array2 ) => {
 
@@ -103,9 +110,15 @@ const AppProvider = ({ children }) => {
     }, [ authToken, populateUser, getGlobalUser ] )
 
     useEffect(() => {
-        setNotificationBadge( notifications?.length > 0 || friendshipRequest?.length > 0 || hangSuggestions?.length > 0 ? true : false )
+        if( notifications?.length > 0 || friendshipRequest?.length > 0 || userInvites?.length > 0 ){
+            console.log('si');
+            setNotificationBadge( true )
+        } else {
+            console.log('no');
+            setNotificationBadge( false )
+        } 
    
-    }, [ friendshipRequest, hangSuggestions, notifications ])
+    }, [ friendshipRequest, hangSuggestions, notifications, userInvites ])
 
     return(
         <Provider value={{
@@ -126,7 +139,8 @@ const AppProvider = ({ children }) => {
             getUserData,
             notificationBadge,
             notifications,
-            removeNotification
+            removeNotification,
+            userInvites
         }}>
             { children }
         </Provider>
