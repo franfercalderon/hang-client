@@ -106,13 +106,13 @@ function useSlots (){
         } 
     }, [ authToken ])
 
-    const getEventInvites = useCallback( async () => {
+    const getEventInvites = useCallback( async ( token ) => {
         try{
             //GETS INVITES FOR USER   
             const invites = await axios.get(`${process.env.REACT_APP_API_URL}/slots/invites`,{
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${ authToken }`
+                    'Authorization': `Bearer ${ token  }`
                 }
             })  
             return invites.data
@@ -120,7 +120,7 @@ function useSlots (){
         } catch ( error ) {
             throw error
         } 
-    }, [ authToken ])
+    }, [ ])
 
     const validateTimes = ( slot ) => {
 

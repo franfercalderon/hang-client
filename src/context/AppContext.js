@@ -58,7 +58,7 @@ const AppProvider = ({ children }) => {
         setNotifications( notifications.length > 0 ? notifications : null )
 
         console.log('va a disparar');
-        const invites = await getEventInvites()
+        const invites = await getEventInvites( token )
         invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
         setUserInvites( invites )
 
