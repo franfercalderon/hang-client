@@ -95,11 +95,11 @@ export default function NotificationsContainer(){
         }
     }
 
-    const replyInvite = async ( eventId, accepted ) => {
+    const replyInvite = async ( eventId, collection, accepted ) => {
 
         try {
             setIsLoading( true )
-            await replyEventInvite( eventId, accepted )
+            await replyEventInvite( eventId, collection, accepted )
             setIsLoading( false )
             Swal.fire({
                 text: accepted ? 'Invite accepted' : 'Invite rejected',
@@ -178,7 +178,7 @@ export default function NotificationsContainer(){
         })
     }
 
-    const handleInvite = async ( eventId ) => {
+    const handleInvite = async ( eventId, collection ) => {
         Swal.fire({
             title: null,
             text: 'Do you want to accept join this event?',
@@ -196,9 +196,9 @@ export default function NotificationsContainer(){
         })
         .then( ( res ) => {
             if( res.isConfirmed ){
-                return replyInvite( eventId, true )
+                return replyInvite( eventId, collection, true )
             } else if ( res.isDenied ){
-                return replyInvite( eventId, false ) 
+                return replyInvite( eventId, collection, false ) 
             }
         })
         .catch(( error ) => {
@@ -233,7 +233,7 @@ export default function NotificationsContainer(){
                                     <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
                                     <p>{ formatTimestampToDate( invite.event.starts) }</p>
                                 </div>
-                                <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id ) }>
+                                <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id, invite.event.collection ) }>
                                     Reply
                                 </div>
                             </div>

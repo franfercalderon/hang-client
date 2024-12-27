@@ -260,7 +260,7 @@ function useSlots (){
     const replyEventInvite = async ( eventId, collection, accepted ) => {
 
         const data = {
-            response: accepted,
+            accepted,
             collection,
             userData: {
                 name: globalUser.name,
