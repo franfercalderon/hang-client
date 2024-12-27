@@ -1,27 +1,34 @@
-.location-container
-    margin-top: 2rem
+// .location-container
+    // margin-top: 2rem
 
 .full-width-toggle
     height: 3rem
-    margin-top: 2rem
+    margin: 0.5rem 0 1rem 0
     width: 100%
     border-radius: 1.5rem
     display: flex
     justify-content: space-between
     align-items: center
     background-color: white
+    padding: 0 0.3rem
 
 .full-width-toggle .inner
-    height: 2.5rem
+    height: 2.4rem
     width: 50%
     display: flex
     justify-content: center
     align-items: center
+    opacity: 0.5
+    cursor: pointer
+    font-size: 0.9rem
+    
 
 .full-width-toggle .inner.active
-    background-color: $darkgray
-    color: $darkwhite
+    border: 1.5px solid $bordergray
     border-radius: 500px
+    opacity: 1
+
+
 
 .react-datepicker-wrapper
     width: 100%

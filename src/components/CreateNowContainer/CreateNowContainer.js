@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
+import useAlert from "../../hooks/useAlert";
 
 export default function CreateNowContainer() { 
     
@@ -27,9 +28,11 @@ export default function CreateNowContainer() {
     })
     const [ location, setLocation ] = useState('')
     const [ slot, setSlot ] = useState( null )
+    const [ isPrivate, setIsPrivate ] = useState( true )
 
     //HOOKS
     const { convertTimeToTimestamp, postAvailableNowSlot } = useSlots()
+    const { alertInfo } = useAlert()
 
     //CONTEXT
     const { globalUser } = useContext( AppContext )
@@ -89,6 +92,7 @@ export default function CreateNowContainer() {
                     starts: slot.starts,
                     ends: slot.ends,
                     location,
+                    isPrivate,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
@@ -165,7 +169,7 @@ export default function CreateNowContainer() {
                 :
                 <>
                     <div className="section-container">
-                        <div className="full-width-toggle">
+                        <div className="full-width-toggle mt-1">
                             <div className={`inner ${ isNow ? 'active' : '' }`} onClick={() => setIsNow( true )}>
                                 <p>Now</p>
                             </div>
@@ -195,8 +199,24 @@ export default function CreateNowContainer() {
                             showEndPicker &&
                             <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
-                        <div className="location-container">
+                        <div className="location-container mt-1">
                             <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
+                        </div>
+                        <div className="mt-1">
+                            <div className="row">
+                                <p>Visibility</p>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free.') }>
+                                    <p>?</p>
+                                </div>
+                            </div>
+                            <div className="full-width-toggle pointer">
+                                <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
+                                    <p>Best Friends</p>
+                                </div>
+                                <div className={`inner ${ !isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( false )}>
+                                    <p>Everybody</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
 

@@ -8,6 +8,9 @@ import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faQuestion, faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
+import useAlert from "../../hooks/useAlert";
 
 export default function CreateHangContainer(){ 
 
@@ -30,9 +33,11 @@ export default function CreateHangContainer(){
     const [ spots, setSpots ] = useState( 0 )
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
+    const [ isPrivate, setIsPrivate ] = useState( true )
 
     //HOOKS
     const { convertTimeToTimestamp, postScheduledSlot } = useSlots()
+    const { alertInfo } = useAlert()
 
     //CONTEXT
     const { globalUser } = useContext( AppContext )
@@ -106,6 +111,7 @@ export default function CreateHangContainer(){
                     ends: slot.ends,
                     location,
                     spots,
+                    isPrivate,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
@@ -172,8 +178,8 @@ export default function CreateHangContainer(){
                 :
                 <>
                     <div className="section-container">
-                        <div className="mt-2">
-                            <MainInput handleChange={ handleTitle } value={ title } label={'Title'} optional={ true }/> 
+                        <div className="mt-1">
+                            <MainInput handleChange={ handleTitle } value={ title } label={'Event Name'} optional={ true }/> 
                         </div>
                         <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
                         <div className="times-container">
@@ -198,15 +204,31 @@ export default function CreateHangContainer(){
                             showEndPicker &&
                             <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
-                        <div className="location-container">
+                        <div className="location-container mt-1">
                             <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
                         </div>
-                        <div className="seats-container mt-2">
-                            <label htmlFor="seats">Spots?<span>{` (other than you)`}</span></label>
+                        <div className="seats-container mt-1">
+                            <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
                             <div className="seats-inner main-input">
                                 <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
                                 <p>{ spots }</p>
                                 <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                            </div>
+                        </div>
+                        <div className="mt-1">
+                            <div className="row">
+                                <p>Visibility</p>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free.') }>
+                                    <p>?</p>
+                                </div>
+                            </div>
+                            <div className="full-width-toggle">
+                                <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
+                                    <p>Best Friends</p>
+                                </div>
+                                <div className={`inner ${ !isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( false )}>
+                                    <p>Everybody</p>
+                                </div>
                             </div>
                         </div>
                     </div>
