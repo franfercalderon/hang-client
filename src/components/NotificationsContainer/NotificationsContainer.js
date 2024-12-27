@@ -22,7 +22,7 @@ export default function NotificationsContainer(){
     //HOOKS
     const { replyFriendsRequest } = useFriends()
     const { deleteNotification } = useNotifications()
-    const { formatTimestampToDate } = useSlots()
+    const { formatTimestampToDate, replyEventInvite } = useSlots()
 
     //ROUTER
     const navigate = useNavigate()
@@ -99,7 +99,7 @@ export default function NotificationsContainer(){
 
         try {
             setIsLoading( true )
-            await replyFriendsRequest( eventId, accepted )
+            await replyEventInvite( eventId, accepted )
             setIsLoading( false )
             Swal.fire({
                 text: accepted ? 'Invite accepted' : 'Invite rejected',

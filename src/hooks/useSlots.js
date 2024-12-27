@@ -257,6 +257,31 @@ function useSlots (){
         }
     }
 
+    const replyEventInvite = async ( eventId, collection, accepted ) => {
+
+        const data = {
+            response: accepted,
+            collection,
+            userData: {
+                name: globalUser.name,
+                lastname: globalUser.lastname,
+                img: globalUser.profilePhoto
+            }
+        }
+
+        try {
+            await axios.post(`${process.env.REACT_APP_API_URL}/slots/invite/${ eventId }`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+        } catch ( error ) {
+            throw error.response.data
+        }
+    }
+
     return({
         postFixedSlot,
         validateTimes,
@@ -271,7 +296,8 @@ function useSlots (){
         formatTimestampToDate,
         joinEvent,
         getRecurringMatches,
-        getEventInvites
+        getEventInvites,
+        replyEventInvite
 
     })
 

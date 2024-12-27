@@ -28,7 +28,7 @@ export default function CreateNowContainer() {
     })
     const [ location, setLocation ] = useState('')
     const [ slot, setSlot ] = useState( null )
-    const [ isPrivate, setIsPrivate ] = useState( true )
+    // const [ isPrivate, setIsPrivate ] = useState( true )
 
     //HOOKS
     const { convertTimeToTimestamp, postAvailableNowSlot } = useSlots()
@@ -92,7 +92,7 @@ export default function CreateNowContainer() {
                     starts: slot.starts,
                     ends: slot.ends,
                     location,
-                    isPrivate,
+                    // isPrivate,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
@@ -209,14 +209,14 @@ export default function CreateNowContainer() {
                                     <p>?</p>
                                 </div>
                             </div>
-                            <div className="full-width-toggle pointer">
+                            {/* <div className="full-width-toggle pointer">
                                 <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
                                     <p>Best Friends</p>
                                 </div>
                                 <div className={`inner ${ !isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( false )}>
                                     <p>Everybody</p>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
