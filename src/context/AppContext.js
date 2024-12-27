@@ -57,6 +57,7 @@ const AppProvider = ({ children }) => {
         const notifications = await getUserNotifications( token )
         setNotifications( notifications.length > 0 ? notifications : null )
 
+        console.log('va a disparar');
         const invites = await getEventInvites()
         invites.sort(( a, b ) => a.event.starts - b.event.starts ) 
         setUserInvites( invites )
@@ -111,10 +112,10 @@ const AppProvider = ({ children }) => {
 
     useEffect(() => {
         if( notifications?.length > 0 || friendshipRequest?.length > 0 || userInvites?.length > 0 ){
-            console.log('si');
+
             setNotificationBadge( true )
         } else {
-            console.log('no');
+        
             setNotificationBadge( false )
         } 
    
