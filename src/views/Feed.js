@@ -31,14 +31,14 @@ export default function Feed () {
     }, [ globalUser ])
 
     useEffect(() => {
-        if( availableNowSlots && scheduledSlots ){
-            if ( availableNowSlots.length === 0 && scheduledSlots.length === 0 ){
+        if( availableNowSlots && scheduledSlots && recurringMatches ){
+            if ( availableNowSlots.length === 0 && scheduledSlots.length === 0 && recurringMatches.length === 0 ){
                 setNoDataMessage( true )
             }
         } else {
             setNoDataMessage( false )
         }
-    }, [ availableNowSlots, scheduledSlots ] )
+    }, [ availableNowSlots, scheduledSlots, recurringMatches ] )
 
     return(
         <ViewContainer className="feed" >
