@@ -44,7 +44,7 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
                     }
                     {
                         location && 
-                        <p>{`At: ${ location }`}</p>
+                        <p>{`At: ${ location.address? location.address : location }`}</p>
                     }
                 </div>
                 <div className={`cta-container ${ !ctaText ? 'centered' : ''}` }>

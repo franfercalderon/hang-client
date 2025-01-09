@@ -203,12 +203,12 @@ export default function CreateNowContainer() {
                             <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
                         </div>
                         <div className="mt-1">
-                            <div className="row">
+                            {/* <div className="row">
                                 <p>Visibility</p>
                                 <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free.') }>
                                     <p>?</p>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* <div className="full-width-toggle pointer">
                                 <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
                                     <p>Best Friends</p>

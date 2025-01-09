@@ -9,6 +9,7 @@ import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
+import LocationInput from "../LocationInput/LocationInput";
 
 export default function CreateHangContainer(){ 
 
@@ -26,7 +27,8 @@ export default function CreateHangContainer(){
         minute:'',
         ampm: ''
     })
-    const [ location, setLocation ] = useState('')
+    
+    const [ location, setLocation ] = useState( null )
     const [ slot, setSlot ] = useState()
     const [ spots, setSpots ] = useState( 0 )
     const [ selectedDate , setSelectedDate ] = useState( null )
@@ -78,11 +80,6 @@ export default function CreateHangContainer(){
     const handleEndTime = ( e ) => {
         const { value, name } = e.target
         setEndTime(( prevValue ) => ({...prevValue, [ name ]: value }))
-    }
-
-    const handleLocationInput = ( e ) => {
-        const { value } = e.target
-        setLocation( value )
     }
 
     const handleSpots = ( e, operation ) => {
@@ -154,6 +151,19 @@ export default function CreateHangContainer(){
         }
     }
 
+    const handleLocationChange = ( place ) => {
+        const location = {
+            address: place.formatted_address,
+            coordinates: {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            }
+        }
+        console.log(location);
+
+        setLocation( location )
+    }
+
     //EFFECTS
     useEffect(() => {
         if( startTime.ampm !== '' && startTime.hour !== '' && startTime.minute !== '' && endTime.hour !== '' && endTime.minute !== '' && endTime.ampm !== '' && selectedDate ){
@@ -171,14 +181,14 @@ export default function CreateHangContainer(){
 
     useEffect(() => {
         if( isPrivate ){
-            if( slot && spots > 0 && location !== '' ){
+            if( slot && spots > 0 && location ){
                 setEnableSubmit( true )
             } else {
                 setEnableSubmit( false )
             }
             
         } else {
-            if( slot && location !== '' ){
+            if( slot && location ){
                 setEnableSubmit( true )
             }else {
                 setEnableSubmit( false )
@@ -221,7 +231,7 @@ export default function CreateHangContainer(){
                             <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
                         <div className="location-container mt-1">
-                            <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
+                            <LocationInput handleChange={ handleLocationChange } />
                         </div>
                         <div className="mt-1">
                             <div className="row">

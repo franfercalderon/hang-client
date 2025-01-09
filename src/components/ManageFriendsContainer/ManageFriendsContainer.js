@@ -4,12 +4,16 @@ import { closestCenter, DndContext } from '@dnd-kit/core'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import DraggableCard from "../DraggableCard/DraggableCard";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
+import useAlert from "../../hooks/useAlert";
 
 
 export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave }) { 
 
     //STATE
     const [ showConfirm, setShowConfirm ] = useState( false )
+
+    //HOOKS
+    const { alertInfo } = useAlert()
 
     //FUNCTION
     const handleDragEnd = ( e ) => {
@@ -42,8 +46,13 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
             <div className="section-container mt-2">
                 {
                     userFriends.length > 0 ?
-                    <>
-                        <p>Drag and drop to change priorities:</p>
+                    <>  
+                        <div className="row">
+                            <p>Drag and drop to change priorities:</p>
+                            <div className="inline-help centered pointer" onClick={ () => alertInfo('Priorities will affect the events you create for Best Friends.') }>
+                                <p>?</p>
+                            </div>
+                        </div>
                         <DndContext onDragEnd={ handleDragEnd } collisionDetection={ closestCenter }>
                             <ul className="mt-2">
                                 <SortableContext items={ userFriends } strategy={ verticalListSortingStrategy } >

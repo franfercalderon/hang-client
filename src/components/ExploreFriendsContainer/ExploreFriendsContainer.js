@@ -1,11 +1,20 @@
+import useAlert from "../../hooks/useAlert"
+
 export default function ExploreFriendsContainer ({ friendSuggestions, sendInvite }) { 
+
+    const { alertInfo } = useAlert()
 
     return(
         <div className="section-container mt-2">
             {
                 friendSuggestions.length > 0 ?
-                <>
-                    <p>You can send a Friends request to people you might know:</p>
+                <>  
+                    <div className="row">
+                        <p>You can send a Friends request to people you might know:</p>
+                        <div className="inline-help centered pointer" onClick={ () => alertInfo('Friends requests need to be approved.') }>
+                            <p>?</p>
+                        </div>
+                    </div>
                     <ul className="mt-2">
                     {
                         friendSuggestions.map(( friend, idx ) => {
