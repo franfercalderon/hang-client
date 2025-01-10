@@ -8,6 +8,9 @@ import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
+import { LoadScriptNext } from '@react-google-maps/api';
+import LocationInput from "../LocationInput/LocationInput";
+const loadLibraries = [ 'places' ]
 
 export default function CreateNowContainer() { 
     
@@ -26,9 +29,8 @@ export default function CreateNowContainer() {
         minute:'',
         ampm: ''
     })
-    const [ location, setLocation ] = useState('')
+    const [ location, setLocation ] = useState( null )
     const [ slot, setSlot ] = useState( null )
-    // const [ isPrivate, setIsPrivate ] = useState( true )
 
     //HOOKS
     const { convertTimeToTimestamp, postAvailableNowSlot } = useSlots()
@@ -52,6 +54,21 @@ export default function CreateNowContainer() {
             minute:'',
             ampm: ''
         })
+    }
+
+    const handleLocationChange = ( place ) => {
+
+        const location = {
+            address: place.formatted_address,
+            coordinates: {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            },
+            mapUrl: `https://www.google.com/maps/place/?q=place_id:${ place.place_id }`
+
+        }
+
+        setLocation( location )
     }
 
     const handleClosePickers = ( e, deleteData, openEndTimer ) => {
@@ -200,28 +217,19 @@ export default function CreateNowContainer() {
                             <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
                         <div className="location-container mt-1">
-                            <MainInput handleChange={ handleLocationInput } value={ location } label={'Location'} />
+                            <LoadScriptNext
+                                googleMapsApiKey={ process.env.REACT_APP_MAPS_API_KEY }
+                                libraries={ loadLibraries }
+                            >
+                                <LocationInput handleChange={ handleLocationChange }/>
+        
+                            </LoadScriptNext>
                         </div>
-                        <div className="mt-1">
-                            {/* <div className="row">
-                                <p>Visibility</p>
-                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free.') }>
-                                    <p>?</p>
-                                </div>
-                            </div> */}
-                            {/* <div className="full-width-toggle pointer">
-                                <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
-                                    <p>Best Friends</p>
-                                </div>
-                                <div className={`inner ${ !isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( false )}>
-                                    <p>Everybody</p>
-                                </div>
-                            </div> */}
-                        </div>
+            
                     </div>
 
                     <div className="section-container">
-                        <BtnPrimary action={ handleSave } displayText={'Save'} submit={ false } enabled={ slot && location !== '' ? true : false }/>
+                        <BtnPrimary action={ handleSave } displayText={'Save'} submit={ false } enabled={ slot && location ? true : false }/>
                     </div>
                 </>
             }

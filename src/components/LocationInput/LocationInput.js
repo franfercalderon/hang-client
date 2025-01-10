@@ -7,6 +7,7 @@ export default function LocationInput({ handleChange }) {
     //STATE
     const [ inputValue, setInputValue ] = useState( '' )
     const [ dropdownVisible, setDropdownVisible ] = useState( false )
+    const [ isLoaded, setIsLoaded ] = useState( false )
     
     //REFS
     const autocompleteRef = useRef( null )
@@ -45,29 +46,53 @@ export default function LocationInput({ handleChange }) {
     
     
     return(
+        // <>
+        //     <p>Location</p>
+        //     <LoadScript
+        //         googleMapsApiKey={ process.env.REACT_APP_MAPS_API_KEY }
+        //         libraries={  loadLibraries }
+        //         onLoad={() => setIsLoaded(true)}
+
+        //     >   
+        //     {
+        //         isLoaded &&
+        //         <Autocomplete
+        //             onLoad={( autocomplete ) => ( autocompleteRef.current = autocomplete )}
+        //             onPlaceChanged={ handlePlaceSelected }
+        //         >
+        //             <input 
+        //                 type="text" 
+        //                 placeholder=''
+        //                 autoComplete="off" 
+        //                 value={ inputValue } 
+        //                 className={`location-input ${ dropdownVisible ? 'active' : '' }`}
+        //                 onFocus={ handleInputFocus }
+        //                 id={ 'location-input' } 
+        //                 name={ 'location-input' } 
+        //                 onChange={ handleInputChange }
+        //             />
+        //         </Autocomplete>
+        //     }
+        //     </LoadScript>
+        // </>
         <>
             <p>Location</p>
-            <LoadScript
-                googleMapsApiKey={ process.env.REACT_APP_MAPS_API_KEY }
-                libraries={  loadLibraries }
+            <Autocomplete
+                onLoad={( autocomplete ) => ( autocompleteRef.current = autocomplete )}
+                onPlaceChanged={ handlePlaceSelected }
             >
-                <Autocomplete
-                    onLoad={( autocomplete ) => ( autocompleteRef.current = autocomplete )}
-                    onPlaceChanged={ handlePlaceSelected }
-                >
-                    <input 
-                        type="text" 
-                        placeholder=''
-                        autoComplete="off" 
-                        value={ inputValue } 
-                        className={`location-input ${ dropdownVisible ? 'active' : '' }`}
-                        onFocus={ handleInputFocus }
-                        id={ 'location-input' } 
-                        name={ 'location-input' } 
-                        onChange={ handleInputChange }
-                    />
-                </Autocomplete>
-            </LoadScript>
+                <input 
+                    type="text" 
+                    placeholder=''
+                    autoComplete="off" 
+                    value={ inputValue } 
+                    className={`location-input ${ dropdownVisible ? 'active' : '' }`}
+                    onFocus={ handleInputFocus }
+                    id={ 'location-input' } 
+                    name={ 'location-input' } 
+                    onChange={ handleInputChange }
+                />
+            </Autocomplete>
         </>
 
     )

@@ -18,10 +18,6 @@ export default function MainCard({ title, descritpion, starts, ends, location, a
                     descritpion &&
                     <p>{ descritpion }</p>
                 }
-                {/* {
-                    starts && ends &&
-                    <p>{`From: ${ converTimestampToString( starts ) } to ${ converTimestampToString( ends ) }`}</p>
-                } */}
                 {
                     location && 
                     <p>{`At: ${ location }`}</p>

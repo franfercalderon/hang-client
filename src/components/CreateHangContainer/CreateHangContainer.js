@@ -10,6 +10,9 @@ import { useNavigate } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
 import LocationInput from "../LocationInput/LocationInput";
+import { LoadScriptNext } from '@react-google-maps/api';
+const loadLibraries = [ 'places' ]
+
 
 export default function CreateHangContainer(){ 
 
@@ -152,14 +155,16 @@ export default function CreateHangContainer(){
     }
 
     const handleLocationChange = ( place ) => {
+
         const location = {
             address: place.formatted_address,
             coordinates: {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
-            }
+            },
+            mapUrl: `https://www.google.com/maps/place/?q=place_id:${ place.place_id }`
+
         }
-        console.log(location);
 
         setLocation( location )
     }
@@ -231,7 +236,13 @@ export default function CreateHangContainer(){
                             <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
                         <div className="location-container mt-1">
-                            <LocationInput handleChange={ handleLocationChange } />
+                            <LoadScriptNext
+                                googleMapsApiKey={ process.env.REACT_APP_MAPS_API_KEY }
+                                libraries={ loadLibraries }
+                            >
+                                <LocationInput handleChange={ handleLocationChange }/>
+        
+                            </LoadScriptNext>
                         </div>
                         <div className="mt-1">
                             <div className="row">

@@ -16,10 +16,13 @@ function useMaps () {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
                 },
-                params: coordinates
+                params: {
+                    lat: coordinates.lat,
+                    lng: coordinates.lng
+                }
             })  
 
-            return locationImageUrl
+            return locationImageUrl.data
 
         } catch ( error ) {
             throw error

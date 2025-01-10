@@ -21,6 +21,7 @@ import SettingsFriendsManage from './views/SettingsFriendsManage';
 import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 import { SlotsProvider } from './context/SlotsContext';
 import LoginTest from './views/LoginTest';
+import DevFeed from './views/DevFeed';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
+              {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />

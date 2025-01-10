@@ -107,18 +107,30 @@
 .feed-card .inner
     display: flex
     padding: 15px
+    flex-direction: column
 
 .feed-card .profile-img-min
     margin-right: 0.8rem
 
 
 .feed-card .cta-container
-    width: 80px
+    width: 100%
     display: flex
     flex-direction: column
     justify-content: end
+    margin-top: 0.8rem
 
 .feed-card .cta-container.centered
     justify-content: center
     align-items: end
+
+.feed-card .card-street-view-container
+    margin: 0.5rem 0
+    width: 100%
+    
+
+.feed-card .card-street-view-container img 
+    width: 100%
+    object-fit: cover
+    border-radius: 8px
 

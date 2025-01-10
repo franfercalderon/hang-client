@@ -32,7 +32,6 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
     const handleStreetViewUrl = useCallback( async ( coordinates ) => {
         try {
             const url = await getLocationImage( coordinates )
-            console.log(url);
             setStreetViewUrl( url )
         } catch ( error ) {
             console.log( error );
@@ -66,8 +65,13 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
                         <p>{`From: ${ converTimestampToString( starts ) } to ${ converTimestampToString( ends ) }`}</p>
                     }
                     {
-                        location && 
-                        <p>{`At: ${ location.address? location.address : location }`}</p>
+                        location && location.address ?
+                        <div className="card-street-view-container" onClick={ () => window.open( location.mapUrl, '_blank') }>
+                            <img src={ streetViewUrl } alt="street view"/>
+                            <p>{ location.address }</p>
+                        </div>
+                        :
+                        <p>{`At: ${ location }`}</p>
                     }
                 </div>
                 <div className={`cta-container ${ !ctaText ? 'centered' : ''}` }>
