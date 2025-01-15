@@ -85,8 +85,8 @@ export default function Feed () {
                     <div className="main-bottombar">
                         <div className="section-container">
                             <div className="btn-main-container">
-                                <div className="btn-container chat pointer" onClick={ () => navigate('/assistant') }>
-                                    <img src="/images/bubble.svg" alt="assistant"/>
+                                <div className="btn-container chat pointer" onClick={ () => navigate('/events') }>
+                                    <img src="/images/calendar.svg" alt="events"/>
                                 </div>
                                 <div className="main-btn-container pointer" onClick={ () => navigate('/create') }>
                                     <FontAwesomeIcon icon={ faPlus }/>

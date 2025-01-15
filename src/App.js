@@ -22,6 +22,8 @@ import SettingsFriendsExplore from './views/SettingsFriendsExplore';
 import { SlotsProvider } from './context/SlotsContext';
 import LoginTest from './views/LoginTest';
 import DevFeed from './views/DevFeed';
+import TypeformContainer from './views/TypeformContainer';
+import Events from './views/Events';
 
 function App() {
 
@@ -41,11 +43,11 @@ function App() {
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
+                <Route exact path='/events' element={ <Events/>} />
                 <Route exact path='/settings' element={ <Settings/>}/>
                 <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
                 <Route exact path='/settings/friends/manage' element={ <SettingsFriendsManage/>} />
                 <Route exact path='/settings/friends/explore' element={ <SettingsFriendsExplore/>} />
-                <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
                 <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
                 <Route exact path='/settings/notifications' element={ <SettingsNotifications/>} />
                 <Route exact path='/settings/admin' element={ <SettingsAdmin/>} />
@@ -54,6 +56,7 @@ function App() {
                 <Route exact path='/create' element={ <Create/>} />
                 <Route exact path='/create/hang' element={ <CreateHang/>} />
                 <Route exact path='/create/now' element={ <CreateNow/>} />
+                <Route exact path='/feedback' element={ <TypeformContainer/>} />
               </Route>
             </Routes>
           </SlotsProvider>

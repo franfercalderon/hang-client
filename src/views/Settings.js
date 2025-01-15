@@ -5,6 +5,7 @@ import useAuth from "../hooks/useAuth";
 import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
+import FeedbackCard from "../components/FeedbackCard/FeedbackCard";
 
 export default function Settings (){
 
@@ -22,9 +23,10 @@ export default function Settings (){
             <TopBarNav navigation={''} title={ 'Settings' }/>
             <div className="main-view-body">
                 <div className="section-container">
-                   <MainCard title={'Friends'} descritpion={'Invite and manage friends list'} action={ () => navigate('/settings/friends') }/>
-                   <MainCard title={'Calendar'} descritpion={'See and edit your availability'} action={ () => navigate('/settings/calendar') } />
-                   <MainCard title={'Notifications'} descritpion={'Choose how to receive updates'} action={ () => navigate('/settings/notifications') }/>
+                    <MainCard title={'Friends'} descritpion={'Invite and manage friends list'} action={ () => navigate('/settings/friends') }/>
+                    {/* <MainCard title={'Calendar'} descritpion={'See and edit your availability'} action={ () => navigate('/settings/calendar') } /> */}
+                    <MainCard title={'Notifications'} descritpion={'Choose how to receive updates'} action={ () => navigate('/settings/notifications') }/>
+                    <FeedbackCard/>
                     {
                         globalUser.master &&
                         <MainCard title={'Admin'} descritpion={'Create new admin accounts'} action={ () => navigate('/settings/admin') }/>

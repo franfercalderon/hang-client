@@ -10,7 +10,6 @@ export const SlotsProvider = ({ children }) => {
     const [ availableNowSlots, setAvailableNowSlots ] = useState( null )
     const [ scheduledSlots, setScheduledSlots] = useState( null )
     const [ recurringMatches, setRecurringMatches ] = useState( null ) 
-    // const [ userInvites, setUserInvites ] = useState( null ) 
  
 
     //CONTEXT

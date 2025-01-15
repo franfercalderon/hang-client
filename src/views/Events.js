@@ -2,12 +2,12 @@ import SettingsCalendarContainer from "../components/SettingsCalendarContainer/S
 import TopBarNav from "../components/TopBarNav/TopBarNav";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
 
-export default function SettingsCalendar(){
+export default function Events(){
     return(
         <ViewContainer>
-            <TopBarNav navigation={'settings'} title={'Calendar'}/>
+            <TopBarNav navigation={''} title={'Events'}/>
             <div className="main-view-body">
-                <SettingsCalendarContainer/>
+                {/* <SettingsCalendarContainer/> */}
             </div>
         </ViewContainer>
     )
