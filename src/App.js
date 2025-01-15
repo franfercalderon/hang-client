@@ -12,7 +12,7 @@ import Settings from './views/Settings';
 import Create from './views/Create';
 import CreateHang from './views/CreateHang';
 import CreateNow from './views/CreateNow';
-import SettingsCalendar from './views/SettingsCalendar';
+// import SettingsCalendar from './views/SettingsCalendar';
 import SettingsCalendarNew from './views/SettingsCalendarNew';
 import SettingsFriends from './views/SettingsFriends';
 import SettingsNotifications from './views/SettingsNotifications';
