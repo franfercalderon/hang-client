@@ -16,19 +16,19 @@ export default function EventsContainer() {
         if ( showUserEvents && !userEvents ){
             setIsLoading( true )
             //FETCH USER EVENTS
-            const event = ['lkaks']
+            const event = ['User Events']
             setTimeout(() => {
                 setUserEvents( event )
+                setIsLoading( false )
             }, 1000);
             //SET USER EVENTS STATE
-            setIsLoading( false )
         } else if ( !showUserEvents && !scheduledEvents ){
             setIsLoading( true )
-            const event = ['lkaks']
+            const event = ['Scheduled Events']
             setTimeout(() => {
                 setScheduledEvents( event )
+                setIsLoading( false )
             }, 1000);
-            setIsLoading( false )
         }
 
     }, [ showUserEvents, userEvents, scheduledEvents ])
@@ -38,11 +38,11 @@ export default function EventsContainer() {
 
         <>
         { isLoading ?
-        <Loader/>
-        :
-        <div className="section-container">
-            <button onClick={() => setShowUserEvents( !showUserEvents )}>CLICK</button>
-        </div>
+            <Loader/>
+            :
+            <div className="section-container">
+                <button onClick={() => setShowUserEvents( !showUserEvents )}>CLICK</button>
+            </div>
         }
         </>
 
