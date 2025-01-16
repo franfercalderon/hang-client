@@ -133,7 +133,8 @@ function useSlots (){
             //     }
             // })  
             // return events.data
-            console.log('runs getOwnEvents');
+            const events = ['ownEvents']
+            return events
 
         } catch ( error ) {
             throw error
@@ -152,7 +153,8 @@ function useSlots (){
             // })  
 
             // return events.data
-            console.log('runs getAttendingEvents');
+            const events = ['attendingEvents']
+            return events
 
         } catch ( error ) {
             throw error
