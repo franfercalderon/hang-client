@@ -20,10 +20,10 @@ export default function EventsContainer() {
             setIsLoading( true )
             if( showUserEvents ){
                 const events = await getOwnEvents()
-                setUserEvents( events.length > 0 ? events : null )
+                setUserEvents( events )
             } else {
                 const events = await getAttendingEvents()
-                setAttendingEvents( events.length > 0 ? events : null )
+                setAttendingEvents( events )
             }
             setIsLoading( false )
 
@@ -68,6 +68,58 @@ export default function EventsContainer() {
                 <Loader/>
                 :
                 <div className="section-container">
+                    {
+                        showUserEvents ? 
+                        <>
+                            { userEvents &&
+
+                                <>
+                                    {
+                                        userEvents.length > 0 ? 
+                                        <>
+                                            {
+                                                userEvents.map(( event, idx ) => {
+                                                    return(
+                                                        <p>{event}</p>
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        :
+                                        <div>
+                                            <p>You have no upcoming events hosted by you</p>
+                                        </div>
+                                    }
+                                </>
+
+                            }
+                        </>
+                        :
+                        <>
+                            { attendingEvents &&
+
+                                <>
+                                    {
+                                        attendingEvents.length > 0 ? 
+                                        <>
+                                            {
+                                                attendingEvents.map(( event, idx ) => {
+                                                    return(
+                                                        <p>{event}</p>
+                                                    )
+                                                })
+                                            }
+                                        </>
+                                        :
+                                        <div>
+                                            <p>You have no upcoming events</p>
+                                        </div>
+                                    }
+                                </>
+
+                            }
+                        </>
+                    }
                     
                 </div>
             }
