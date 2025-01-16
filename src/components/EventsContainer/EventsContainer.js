@@ -80,7 +80,7 @@ export default function EventsContainer() {
                                             {
                                                 userEvents.map(( event, idx ) => {
                                                     return(
-                                                        <p>{event}</p>
+                                                        <p>{'event'}</p>
                                                     )
                                                 })
                                             }
@@ -105,7 +105,7 @@ export default function EventsContainer() {
                                             {
                                                 attendingEvents.map(( event, idx ) => {
                                                     return(
-                                                        <p>{event}</p>
+                                                        <p>{'event'}</p>
                                                     )
                                                 })
                                             }
