@@ -59,13 +59,6 @@ export default function SettingsNotificationsContainer(){
         }
     }, [ globalUser ])
 
-    // useEffect(() => {
-
-    //     // handleNotificationPreferences()
-    //     console.log('runs');
-        
-    // }, [ notificationSettings, handleNotificationPreferences ])
-
 
     return(
         <div className="section-container mt-2">
@@ -76,7 +69,7 @@ export default function SettingsNotificationsContainer(){
                     <>
                         <p>Choose your notification channels:</p>
                         <div className="toggle-card cta-card rounded">
-                            <p>Text</p>
+                            <p>Texa</p>
                             <ToggleBtn active={ notificationSettings.text } onClick={ () => handleNotificationPreferences( { ...notificationSettings, text: !notificationSettings.text } ) }/>
                         </div>
                         <div className="toggle-card cta-card rounded">
