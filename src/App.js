@@ -24,6 +24,7 @@ import LoginTest from './views/LoginTest';
 import DevFeed from './views/DevFeed';
 import TypeformContainer from './views/TypeformContainer';
 import Events from './views/Events';
+import SettingsCalendar from './views/SettingsCalendar';
 
 function App() {
 
@@ -48,6 +49,7 @@ function App() {
                 <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
                 <Route exact path='/settings/friends/manage' element={ <SettingsFriendsManage/>} />
                 <Route exact path='/settings/friends/explore' element={ <SettingsFriendsExplore/>} />
+                <Route exact path='/settings/calendar' element={ <SettingsCalendar/>} />
                 <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
                 <Route exact path='/settings/notifications' element={ <SettingsNotifications/>} />
                 <Route exact path='/settings/admin' element={ <SettingsAdmin/>} />

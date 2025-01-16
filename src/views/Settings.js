@@ -24,7 +24,7 @@ export default function Settings (){
             <div className="main-view-body">
                 <div className="section-container">
                     <MainCard title={'Friends'} descritpion={'Invite and manage friends list'} action={ () => navigate('/settings/friends') }/>
-                    {/* <MainCard title={'Calendar'} descritpion={'See and edit your availability'} action={ () => navigate('/settings/calendar') } /> */}
+                    <MainCard title={'My Availability'} descritpion={'Manage your weekly availability'} action={ () => navigate('/settings/calendar') } />
                     <MainCard title={'Notifications'} descritpion={'Choose how to receive updates'} action={ () => navigate('/settings/notifications') }/>
                     {
                         globalUser.master &&
