@@ -69,14 +69,14 @@ export default function SettingsNotificationsContainer(){
                     <>
                         <p>Choose your notification channels:</p>
                         <div className="toggle-card cta-card rounded">
-                            <p>Texa</p>
-                            {/* <ToggleBtn active={ notificationSettings.text } onClick={ () => handleNotificationPreferences( { ...notificationSettings, text: !notificationSettings.text } ) }/> */}
-                            <ToggleBtn active={ notificationSettings.text } onClick={ () => console.log( 'ke' ) }/>
+                            <p>Text</p>
+                            <ToggleBtn active={ notificationSettings.text } toggleBtn={ () => handleNotificationPreferences( { ...notificationSettings, text: !notificationSettings.text } ) }/>
+                            {/* <ToggleBtn active={ notificationSettings.text } toggleBtn={ () => console.log( 'ke' ) }/> */}
 
                         </div>
                         <div className="toggle-card cta-card rounded">
                             <p>Email</p>
-                            <ToggleBtn active={ notificationSettings.email } onClick={ () => handleNotificationPreferences({ ...notificationSettings, email: !notificationSettings.email }) }/>
+                            <ToggleBtn active={ notificationSettings.email } toggleBtn={ () => handleNotificationPreferences({ ...notificationSettings, email: !notificationSettings.email }) }/>
                         </div>
                     </>
             }
