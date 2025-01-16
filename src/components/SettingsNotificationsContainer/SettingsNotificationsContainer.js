@@ -19,6 +19,7 @@ export default function SettingsNotificationsContainer(){
 
     //FUNCTIONS
     const handleNotificationPreferences = useCallback( async ( updatedSettings ) => {
+        console.log(updatedSettings);
 
         try {
             setIsLoading( true )
@@ -52,7 +53,7 @@ export default function SettingsNotificationsContainer(){
     //HOOKS
     useEffect(() => {
         if( globalUser ){
-            
+
             setNotificationSettings( globalUser.notifications )
             setIsLoading( false )
         }
