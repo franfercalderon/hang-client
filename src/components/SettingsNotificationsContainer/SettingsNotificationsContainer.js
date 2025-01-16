@@ -18,11 +18,11 @@ export default function SettingsNotificationsContainer(){
     const { updateNotificationChannels } = useNotifications()
 
     //FUNCTIONS
-    const handleNotificationPreferences = useCallback( async ( ) => {
+    const handleNotificationPreferences = useCallback( async ( updatedSettings ) => {
 
         try {
             setIsLoading( true )
-            await updateNotificationChannels( notificationSettings )
+            await updateNotificationChannels( updatedSettings )
     
             //UPDATE GLOBAL USER
             await getGlobalUser( authToken )
@@ -47,22 +47,23 @@ export default function SettingsNotificationsContainer(){
             })
         }
         
-    }, [ authToken, getGlobalUser, updateNotificationChannels, notificationSettings ] )
+    }, [ authToken, getGlobalUser, updateNotificationChannels ] )
 
     //HOOKS
     useEffect(() => {
         if( globalUser ){
+            
             setNotificationSettings( globalUser.notifications )
             setIsLoading( false )
         }
     }, [ globalUser ])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        handleNotificationPreferences()
-        console.log('runs');
+    //     // handleNotificationPreferences()
+    //     console.log('runs');
         
-    }, [ notificationSettings, handleNotificationPreferences ])
+    // }, [ notificationSettings, handleNotificationPreferences ])
 
 
     return(
@@ -75,11 +76,11 @@ export default function SettingsNotificationsContainer(){
                         <p>Choose your notification channels:</p>
                         <div className="toggle-card cta-card rounded">
                             <p>Text</p>
-                            <ToggleBtn active={ notificationSettings.text } onClick={ () => setNotificationSettings({ ...notificationSettings, text: !notificationSettings.text }) }/>
+                            <ToggleBtn active={ notificationSettings.text } onClick={ () => handleNotificationPreferences( { ...notificationSettings, text: !notificationSettings.text } ) }/>
                         </div>
                         <div className="toggle-card cta-card rounded">
                             <p>Email</p>
-                            <ToggleBtn active={ notificationSettings.email } onClick={ () => setNotificationSettings({ ...notificationSettings, email: !notificationSettings.email }) }/>
+                            <ToggleBtn active={ notificationSettings.email } onClick={ () => handleNotificationPreferences({ ...notificationSettings, email: !notificationSettings.email }) }/>
                         </div>
                     </>
             }
