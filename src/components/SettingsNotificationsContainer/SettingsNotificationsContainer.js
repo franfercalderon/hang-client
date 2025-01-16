@@ -19,7 +19,6 @@ export default function SettingsNotificationsContainer(){
 
     //FUNCTIONS
     const handleNotificationPreferences = useCallback( async ( updatedSettings ) => {
-        console.log(updatedSettings);
 
         try {
             setIsLoading( true )
@@ -71,8 +70,6 @@ export default function SettingsNotificationsContainer(){
                         <div className="toggle-card cta-card rounded">
                             <p>Text</p>
                             <ToggleBtn active={ notificationSettings.text } toggleBtn={ () => handleNotificationPreferences( { ...notificationSettings, text: !notificationSettings.text } ) }/>
-                            {/* <ToggleBtn active={ notificationSettings.text } toggleBtn={ () => console.log( 'ke' ) }/> */}
-
                         </div>
                         <div className="toggle-card cta-card rounded">
                             <p>Email</p>

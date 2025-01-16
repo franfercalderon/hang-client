@@ -43,14 +43,12 @@ function useNotifications (){
     const updateNotificationChannels = useCallback( async ( updatedPreferences ) => {
 
         try {
-            // await axios.patch(`${process.env.REACT_APP_API_URL}/notifications/preferences`, updatedPreferences, {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${ authToken }`
-            //     }
-            // })  
-            console.log(authToken);
-            console.log(updatedPreferences);
+            await axios.patch(`${process.env.REACT_APP_API_URL}/notifications/updatePreferences`, updatedPreferences, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
             
         } catch ( error ) {
             throw error
