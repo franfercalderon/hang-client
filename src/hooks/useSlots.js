@@ -122,6 +122,45 @@ function useSlots (){
         } 
     }, [ ])
 
+    const getOwnEvents = useCallback( async () => {
+
+        try{
+            //GETS EVENTS USER IS HOSTING   
+            // const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/ownEvents`,{
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${ authToken  }`
+            //     }
+            // })  
+            // return events.data
+            console.log('runs getOwnEvents');
+
+        } catch ( error ) {
+            throw error
+        } 
+
+    }, [ authToken ])
+
+    const getAttendingEvents = useCallback( async () => {
+        try{
+            //GETS EVENTS USER IS ATTENDING   
+            // const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/attendingEvents`,{
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': `Bearer ${ authToken  }`
+            //     }
+            // })  
+
+            // return events.data
+            console.log('runs getAttendingEvents');
+
+        } catch ( error ) {
+            throw error
+        } 
+
+    }, [ authToken ])
+
+
     const validateTimes = ( slot ) => {
 
         const convertTo24Hs = ( time ) => {
@@ -317,7 +356,9 @@ function useSlots (){
         getRecurringMatches,
         getEventInvites,
         replyEventInvite,
-        converTimestampToString
+        converTimestampToString,
+        getAttendingEvents,
+        getOwnEvents
 
     })
 
