@@ -61,9 +61,13 @@ export default function SettingsNotificationsContainer(){
 
     return(
         <div className="section-container mt-2">
-            {
+            {   
                 isLoading ? 
+                
+                <div className="mt-2">
                     <Loader/>
+                </div>
+
                 :
                     <>
                         <p>Choose your notification channels:</p>
