@@ -35,16 +35,28 @@ export default function EventsContainer() {
 
 
     return(
-
         <>
-        { isLoading ?
-            <Loader/>
-            :
-            <div className="section-container">
-                <button onClick={() => setShowUserEvents( !showUserEvents )}>CLICK</button>
+            <div className="section-container mt-2">
+                <div className="full-width-toggle mt-1">
+                    <div className={`inner ${ showUserEvents ? 'active' : '' }`} onClick={() => setShowUserEvents( true )}>
+                        <p>My Hangs</p>
+                    </div>
+                    <div className={`inner ${ !showUserEvents ? 'active' : '' }`} onClick={() => setShowUserEvents( false )}>
+                        <p>Joined Hangs</p>
+                    </div>
+                </div>
+
             </div>
-        }
+            { isLoading ?
+                <Loader/>
+                :
+                <div className="section-container">
+                    {/* <button onClick={() => setShowUserEvents( !showUserEvents )}>CLICK</button> */}
+                </div>
+            }
+        
         </>
+
 
     )
 }
