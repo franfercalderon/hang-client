@@ -126,15 +126,13 @@ function useSlots (){
 
         try{
             //GETS EVENTS USER IS HOSTING   
-            // const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/ownEvents`,{
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${ authToken  }`
-            //     }
-            // })  
-            // return events.data
-            const events = ['ownEvents']
-            return events
+            const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/ownEvents`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken  }`
+                }
+            })  
+            return events.data
 
         } catch ( error ) {
             throw error
@@ -145,16 +143,14 @@ function useSlots (){
     const getAttendingEvents = useCallback( async () => {
         try{
             //GETS EVENTS USER IS ATTENDING   
-            // const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/attendingEvents`,{
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'Authorization': `Bearer ${ authToken  }`
-            //     }
-            // })  
+            const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/attendingEvents`,{
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken  }`
+                }
+            })  
 
-            // return events.data
-            const events = ['attendingEvents']
-            return events
+            return events.data
 
         } catch ( error ) {
             throw error
