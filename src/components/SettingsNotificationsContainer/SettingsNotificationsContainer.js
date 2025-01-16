@@ -63,8 +63,8 @@ export default function SettingsNotificationsContainer(){
         <div className="section-container mt-2">
             {   
                 isLoading ? 
-                
-                <div className="mt-2">
+
+                <div className="mt-4">
                     <Loader/>
                 </div>
 
