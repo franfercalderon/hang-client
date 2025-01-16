@@ -223,14 +223,14 @@ export default function NotificationsContainer(){
                 {
                     userInvites?.map(( invite, idx ) => {
                         return(
-                            <div className="slim-hang-card cta-card rounded" key={ idx }>
+                            <div className="slim-hang-card cta-card rounded" key={ idx }> 
                                 <div className="inner">
                                     <img src={ invite.event.userImg ? invite.event.userImg : '/images/defaultProfile.jpg' } alt={ invite.event.userName } className="profile-img-min"/>
                                     <div className='column'>
                                         <p>{`${ invite.event.userName } ${ invite.event.userLastname } is organizing ${ invite.event.eventName? invite.event.eventName : 'an event' }.`}</p>
                                         <p>{ formatTimestampToDate( invite.event.starts) }</p>
                                         <p>{`From: ${ converTimestampToString( invite.event.starts ) } to ${ converTimestampToString( invite.event.ends ) }`}</p>
-                                        <p>{`At: ${ invite.event.location.address } `}</p>
+                                        <p>{`At: ${ invite.event.location.address ? invite.event.location.address : invite.event.location } `}</p>
                                     </div>
                                 </div>
                                 <div className="inline-cta pointer rounded" onClick={() => handleInvite( invite.event.id, invite.event.collection ) }>
