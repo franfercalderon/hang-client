@@ -24,7 +24,7 @@ export default function EventCard({ event, setIsLoading }){
     const runModalConfirmation = async ( eventId ) => {
         try {
             setIsLoading( true )
-            
+
             if ( isOwnEvent ){
 
                 await deleteOwnEvent( 'scheduledSlots', eventId )   
@@ -49,7 +49,7 @@ export default function EventCard({ event, setIsLoading }){
                 await leaveEvent('scheduledSlots', eventId )
                 setIsLoading( false )
                 Swal.fire({
-                    text: 'You have left the event.',
+                    text: 'You have left the Hang',
                     icon: 'success' ,
                     confirmButtonText: 'Ok',
                     timer: 1300,
