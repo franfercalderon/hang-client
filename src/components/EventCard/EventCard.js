@@ -25,7 +25,8 @@ export default function EventCard({ event, setIsLoading }){
         try {
             setIsLoading( true )
             if ( isOwnEvent ){
-                await deleteOwnEvent( 'scheduledSlots', eventId )    
+                await deleteOwnEvent( 'scheduledSlots', eventId )   
+                setIsLoading( false ) 
                 Swal.fire({
                     text:'Event Deleted',
                     icon: 'success' ,
@@ -43,6 +44,7 @@ export default function EventCard({ event, setIsLoading }){
                 })
             } else {
                 await leaveEvent('scheduledSlots', eventId )
+                setIsLoading( false )
                 Swal.fire({
                     text: 'You have left the event.',
                     icon: 'success' ,
@@ -59,7 +61,7 @@ export default function EventCard({ event, setIsLoading }){
                     }
                 })
             }
-            setIsLoading( false )
+            
 
             
         } catch ( error ) {
