@@ -111,7 +111,7 @@ export default function EventsContainer() {
                                             {
                                                 attendingEvents.map(( event, idx ) => {
                                                     return(
-                                                        <p>{'event'}</p>
+                                                        <EventCard event={ event } key={ idx }/>
                                                     )
                                                 })
                                             }

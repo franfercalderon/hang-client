@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import useSlots from "../../hooks/useSlots"
 import BtnPrimary from "../BtnPrimary/BtnPrimary"
 import BtnSecondary from "../BtnSecondary/BtnSecondary"
@@ -15,7 +15,7 @@ export default function EventCard({ event }){
 
     //STATE
     const [ showCardDetails, setShowCardDetails ]  = useState( false )
-    const [ isOwnEvent, setIsOwnEvent ] = useState( globalUser.id === event.userId ? true : false )
+    const [ isOwnEvent, setIsOwnEvent ] = useState( null )
 
     //HOOKS
     const { formatTimestampToDate, converTimestampToString } = useSlots()
@@ -63,6 +63,12 @@ export default function EventCard({ event }){
             })
         })
     }
+
+    useEffect(() => {
+        if ( globalUser ){
+            setIsOwnEvent( globalUser.id === event.userId ? true : false )
+        }
+    }, [ globalUser, event ])
 
 
     return(
