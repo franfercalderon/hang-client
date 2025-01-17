@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react"
 import Loader from "../Loader/Loader"
 import useSlots from "../../hooks/useSlots"
 import Swal from "sweetalert2"
+import EventCard from "../EventCard/EventCard"
 
 export default function EventsContainer() {
 
@@ -20,9 +21,12 @@ export default function EventsContainer() {
             setIsLoading( true )
             if( showUserEvents ){
                 const events = await getOwnEvents()
+                events.sort(( a, b ) => a.starts - b.starts )
+                console.log(events);
                 setUserEvents( events )
             } else {
                 const events = await getAttendingEvents()
+                events.sort(( a, b ) => a.starts - b.starts )
                 setAttendingEvents( events )
             }
             setIsLoading( false )
@@ -80,7 +84,8 @@ export default function EventsContainer() {
                                             {
                                                 userEvents.map(( event, idx ) => {
                                                     return(
-                                                        <p>{'event'}</p>
+                                                        
+                                                        <EventCard event={ event } key={ idx }/>
                                                     )
                                                 })
                                             }

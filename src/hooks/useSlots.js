@@ -142,7 +142,7 @@ function useSlots (){
 
     const getAttendingEvents = useCallback( async () => {
         try{
-            //GETS EVENTS USER IS ATTENDING   
+            // //GETS EVENTS USER IS ATTENDING   
             const events = await axios.get(`${process.env.REACT_APP_API_URL}/slots/attendingEvents`,{
                 headers: {
                     'Content-Type': 'application/json',

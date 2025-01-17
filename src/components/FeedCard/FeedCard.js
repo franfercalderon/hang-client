@@ -49,7 +49,7 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
         <div className={` feed-card rounded cta-card ${ !ctaText ? 'pointer' : ''} ${ border ? 'borders' : '' }`} onClick={ !ctaText ? action : undefined }>
             <div className="user-header rounded">
                 <img src={ userImg ? userImg : '/images/defaultProfile.jpg' } alt={ userName } className="profile-img-min"/>
-                <p>{userName}</p>
+                <p>{ userName }</p>
             </div>
             <div className="inner">
                 <div className="body-container">
