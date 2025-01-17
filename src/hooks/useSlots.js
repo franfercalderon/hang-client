@@ -530,6 +530,23 @@ function useSlots (){
         }
     }
 
+    const leaveEvent = async ( collection, eventId ) => {
+
+        try {
+            await axios.patch(`${process.env.REACT_APP_API_URL}/slots/event?collection=${ collection }&eventId=${ eventId }`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+        } catch ( error ) {
+            throw error.response.data
+        }
+    }
+
+    
+
     return({
         postFixedSlot,
         validateTimes,
@@ -549,7 +566,8 @@ function useSlots (){
         converTimestampToString,
         getAttendingEvents,
         getOwnEvents,
-        deleteOwnEvent
+        deleteOwnEvent,
+        leaveEvent
 
     })
 

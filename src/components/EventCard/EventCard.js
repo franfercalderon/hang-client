@@ -18,9 +18,55 @@ export default function EventCard({ event, setIsLoading }){
     const [ isOwnEvent, setIsOwnEvent ] = useState( null )
 
     //HOOKS
-    const { formatTimestampToDate, converTimestampToString, deleteOwnEvent } = useSlots()
+    const { formatTimestampToDate, converTimestampToString, deleteOwnEvent, leaveEvent } = useSlots()
 
     //FUNCTIONS
+    const runModalConfirmation = async ( eventId ) => {
+        try {
+            setIsLoading( true )
+            if ( isOwnEvent ){
+                await deleteOwnEvent( 'scheduledSlots', eventId )    
+            } else {
+                await leaveEvent('scheduledSlots', eventId )
+            }
+            setIsLoading( false )
+
+            Swal.fire({
+                text: isOwnEvent ? 'Event Deleted' : 'You have left the event.',
+                icon: 'success' ,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            
+        } catch ( error ) {
+            setIsLoading( false )
+
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }
+
+
     const handleDeleteEvent = async ( eventId ) => {
 
         Swal.fire({
@@ -40,6 +86,7 @@ export default function EventCard({ event, setIsLoading }){
         })
         .then( ( res ) => {
             if( res.isConfirmed ){
+                runModalConfirmation()
                 if( isOwnEvent ){
                     setIsLoading( true )
                     deleteOwnEvent( 'scheduledSlots', eventId )
@@ -62,21 +109,6 @@ export default function EventCard({ event, setIsLoading }){
                     return console.log('se va del evento', eventId );
                 }
             } 
-        })
-        .catch(( error ) => {
-            Swal.fire({
-                title: 'Oops!',
-                text: error.message,
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
         })
     }
 
