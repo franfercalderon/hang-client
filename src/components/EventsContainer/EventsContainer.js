@@ -27,6 +27,7 @@ export default function EventsContainer() {
             } else {
                 const events = await getAttendingEvents()
                 events.sort(( a, b ) => a.starts - b.starts )
+                console.log(events);
                 setAttendingEvents( events )
             }
             setIsLoading( false )
