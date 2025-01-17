@@ -5,6 +5,7 @@ $darkgray: #333333
 $alertred: #f6230c68
 $bordergray: #bebebe
 $middlegray: #727272
+$deletered: #be2d1d
 
 //VARIABLES
 .view-container
@@ -93,7 +94,7 @@ $middlegray: #727272
     height: 3rem
     width: 100%
     border: 2px solid $hangblue
-    background-color: $darkwhite
+    background-color: white
     font-size: 1rem
     font-weight: 600
     color: $hangblue
@@ -102,6 +103,21 @@ $middlegray: #727272
     border-radius: 500px
 
 .btn-secondary:hover
+    opacity: 1
+
+.btn-delete
+    height: 3rem
+    width: 100%
+    border: 2px solid $deletered
+    background-color: white
+    font-size: 1rem
+    font-weight: 600
+    color: $deletered
+    margin: 1rem 0
+    opacity: 0.6
+    border-radius: 500px
+
+.btn-delete:hover
     opacity: 1
 
 .divider-container
