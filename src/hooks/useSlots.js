@@ -516,24 +516,25 @@ function useSlots (){
     }
 
     const deleteOwnEvent = async ( collection, eventId ) => {
+        console.log('shega useSlots');
 
-        const data = {
-            collection,
-            eventId
-        }
+        // const data = {
+        //     collection,
+        //     eventId
+        // }
 
-        try {
-            await axios.delete(`${process.env.REACT_APP_API_URL}/slots/event`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${ authToken }`
-                }
-            })  
+        // try {
+        //     await axios.delete(`${process.env.REACT_APP_API_URL}/slots/event`, data, {
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Bearer ${ authToken }`
+        //         }
+        //     })  
             
-        } catch ( error ) {
-            console.log();
-            throw error.response.data
-        }
+        // } catch ( error ) {
+        //     console.log();
+        //     throw error.response.data
+        // }
     }
 
     return({

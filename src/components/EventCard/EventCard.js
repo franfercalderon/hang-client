@@ -41,7 +41,7 @@ export default function EventCard({ event }){
         .then( ( res ) => {
             if( res.isConfirmed ){
                 if( isOwnEvent ){
-                    return () => deleteOwnEvent('scheduledSlots', eventId )
+                    return () => deleteOwnEvent( 'scheduledSlots', eventId )
                 } else {
                     return console.log('se va del evento', eventId);
                 }
