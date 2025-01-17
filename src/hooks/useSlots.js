@@ -531,6 +531,7 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            console.log();
             throw error.response.data
         }
     }
