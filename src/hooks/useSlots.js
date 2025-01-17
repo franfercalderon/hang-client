@@ -522,6 +522,7 @@ function useSlots (){
                 collection,
                 eventId
             }
+            console.log(authToken);
             await axios.delete(`${process.env.REACT_APP_API_URL}/slots/event`, data, {
                 headers: {
                     'Content-Type': 'application/json',
