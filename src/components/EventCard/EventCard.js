@@ -8,7 +8,7 @@ import { faChevronCircleDown, faChevronDown, faChevronUp, faLocationArrow } from
 import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
 
-export default function EventCard({ event }){
+export default function EventCard({ event, setIsLoading }){
 
     //CONTEXT
     const { globalUser } = useContext( AppContext )
@@ -41,7 +41,23 @@ export default function EventCard({ event }){
         .then( ( res ) => {
             if( res.isConfirmed ){
                 if( isOwnEvent ){
+                    setIsLoading( true )
                     deleteOwnEvent( 'scheduledSlots', eventId )
+                    Swal.fire({
+                        text: 'Deleted',
+                        icon: 'success' ,
+                        confirmButtonText: 'Ok',
+                        timer: 1300,
+                        buttonsStyling: false,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                        customClass: {
+                            popup: 'hang-alert-container round-div div-shadow',
+                            icon: 'alert-icon',
+                            confirmButton: 'confirm-btn btn order2',
+                            denyButton: 'deny-btn btn order1',
+                        }
+                    })
                 } else {
                     return console.log('se va del evento', eventId );
                 }
