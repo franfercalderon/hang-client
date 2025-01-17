@@ -26,26 +26,41 @@ export default function EventCard({ event, setIsLoading }){
             setIsLoading( true )
             if ( isOwnEvent ){
                 await deleteOwnEvent( 'scheduledSlots', eventId )    
+                Swal.fire({
+                    text:'Event Deleted',
+                    icon: 'success' ,
+                    confirmButtonText: 'Ok',
+                    timer: 1300,
+                    buttonsStyling: false,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                })
             } else {
                 await leaveEvent('scheduledSlots', eventId )
+                Swal.fire({
+                    text: 'You have left the event.',
+                    icon: 'success' ,
+                    confirmButtonText: 'Ok',
+                    timer: 1300,
+                    buttonsStyling: false,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                })
             }
             setIsLoading( false )
 
-            Swal.fire({
-                text: isOwnEvent ? 'Event Deleted' : 'You have left the event.',
-                icon: 'success' ,
-                confirmButtonText: 'Ok',
-                timer: 1300,
-                buttonsStyling: false,
-                showConfirmButton: false,
-                showCancelButton: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
             
         } catch ( error ) {
             setIsLoading( false )
