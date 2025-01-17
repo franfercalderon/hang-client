@@ -18,7 +18,7 @@ export default function EventCard({ event }){
     const [ isOwnEvent, setIsOwnEvent ] = useState( null )
 
     //HOOKS
-    const { formatTimestampToDate, converTimestampToString } = useSlots()
+    const { formatTimestampToDate, converTimestampToString, deleteOwnEvent } = useSlots()
 
     //FUNCTIONS
     const handleDeleteEvent = async ( eventId ) => {
@@ -41,7 +41,7 @@ export default function EventCard({ event }){
         .then( ( res ) => {
             if( res.isConfirmed ){
                 if( isOwnEvent ){
-                    return console.log('va a borrar', eventId);
+                    return deleteOwnEvent('scheduledSlots', eventId )
                 } else {
                     return console.log('se va del evento', eventId);
                 }
