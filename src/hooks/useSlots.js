@@ -518,12 +518,7 @@ function useSlots (){
     const deleteOwnEvent = async ( collection, eventId ) => {
 
         try {
-            const data = {
-                collection,
-                eventId
-            }
-            console.log(authToken);
-            await axios.delete(`${process.env.REACT_APP_API_URL}/slots/event`, data, {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/slots/event?collection=${ collection }&eventId=${ eventId }`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
@@ -531,7 +526,6 @@ function useSlots (){
             })  
             
         } catch ( error ) {
-            console.log();
             throw error.response.data
         }
     }
