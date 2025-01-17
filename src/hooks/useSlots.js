@@ -532,8 +532,12 @@ function useSlots (){
 
     const leaveEvent = async ( collection, eventId ) => {
 
+        const data = {
+            collection,
+            eventId
+        }
         try {
-            await axios.patch(`${process.env.REACT_APP_API_URL}/slots/event?collection=${ collection }&eventId=${ eventId }`, {
+            await axios.patch(`${process.env.REACT_APP_API_URL}/slots/event?collection=${ collection }&eventId=${ eventId }`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
