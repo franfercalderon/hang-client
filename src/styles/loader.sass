@@ -1,14 +1,14 @@
 .loader-main-container
-    position: absolute
-    top: 0
-    right: 0
-    height: 100%
-    width: 99%
-    padding-right: 2%
-    z-index: 10
-    display: flex
-    justify-content: center
-    align-items: center
+  position: absolute
+  top: 0
+  right: 0
+  height: 100%
+  width: 99%
+  padding-right: 2%
+  z-index: 10
+  display: flex
+  justify-content: center
+  align-items: center
  
 .loader 
   width: 50px
@@ -19,18 +19,25 @@
   animation: l1 1s infinite
 
 @keyframes l1 
-    0%
-        transform: rotate(0deg)
-    100%
-        transform: rotate(360deg)
+  0%
+      transform: rotate(0deg)
+  100%
+      transform: rotate(360deg)
 
 .card-loader
-    height: 5rem
-    width: 100%
-    background: linear-gradient(45deg, #00a1e144, white )
-    background-size: 400% 100%
-    animation: gradientAnimation 2s ease-in-out infinite
-    margin: 1rem 0
+  height: 5rem
+  width: 100%
+  background: linear-gradient(45deg, #00a1e144, white )
+  background-size: 400% 100%
+  animation: gradientAnimation 2s ease-in-out infinite
+  margin: 1rem 0
+
+.list-item-loader
+  background: linear-gradient(45deg, #00a1e1b9, white )
+  background-size: 400% 100%
+  animation: gradientAnimation 3s ease-in-out infinite
+  border: none
+  
 
 
 .btn-primary.primary-loader

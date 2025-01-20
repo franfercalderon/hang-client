@@ -11,6 +11,7 @@ import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
 import LocationInput from "../LocationInput/LocationInput";
 import { LoadScriptNext } from '@react-google-maps/api';
+import useFriends from "../../hooks/useFriends";
 const loadLibraries = [ 'places' ]
 
 
@@ -47,6 +48,9 @@ export default function CreateHangContainer(){
 
     //CONTEXT
     const { globalUser } = useContext( AppContext )
+
+    //HOOKS
+    const { getUserFriends } = useFriends()
 
     //ROUTER
     const navigate = useNavigate()
@@ -99,20 +103,10 @@ export default function CreateHangContainer(){
         setTitle( e.target.value )
     }
 
-    // const handleVisibility = ( status ) => {
-    //     if( status === 'everybody' ){
-    //         setIsPrivate( false )
-    //         setCustomList( null )
-    //     } else if ( status === 'auto' ){
-    //         setIsPrivate( true )
-    //         setCustomList( null )
-    //     } else if ( status === 'custom' ){
-    //         setIsPrivate( true )
-    //         setCustomList( [] )
-    //     }
-    // }
-
-
+    const getFriendsList = async () => {
+        const friends = await getUserFriends()
+        setCustomList( friends )
+    }
 
     const handleSave = async () => {
 
@@ -235,9 +229,12 @@ export default function CreateHangContainer(){
             console.log('isPrivate ', true);
             console.log('customList ', [] );
             setIsPrivate( true )
+            getFriendsList()
             setCustomList( [] )
         }
     }, [ visibility ] )
+
+
 
 
 
@@ -303,23 +300,44 @@ export default function CreateHangContainer(){
                                 </div>
                             </div>
                         </div>
-                        {
-                            isPrivate && 
+                        { visibility === 'auto' &&
+                        
+                            <div className="seats-container mt-1">
+                                <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
+                                <div className="seats-inner main-input">
+                                    <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
+                                    <p>{ spots }</p>
+                                    <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                                </div>
+                            </div>
+                        }
+                        { visibility === 'custom' && 
                             <>
-                            {
-                                customList ?
+                            { customList ?
                                 <>
-                                <p>display custom list</p>
+                                {
+                                    customList.length > 0 ?
+
+                                    <ul className="event-friends-list">
+                                        {
+                                            customList.map(( friend, idx ) => {
+                                                console.log(friend);
+                                                return(
+                                                    <li key={ idx }></li>
+                                                )
+                                            }) 
+                                        }
+                                    </ul>
+                                    :
+                                    <p>No friends to display</p>
+                                }
                                 </>
                                 :
-                                <div className="seats-container mt-1">
-                                    <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
-                                    <div className="seats-inner main-input">
-                                        <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
-                                        <p>{ spots }</p>
-                                        <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
-                                    </div>
-                                </div>
+                                <ul className="event-friends-list">
+                                    <li className="list-item-loader rounded"></li>
+                                    <li className="list-item-loader rounded"></li>
+                                    <li className="list-item-loader rounded"></li>
+                                </ul>
                             }
                             </>
                         }

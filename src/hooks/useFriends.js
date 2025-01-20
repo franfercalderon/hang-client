@@ -8,7 +8,7 @@ function useFriends(){
     const { authToken, globalUser } = useContext( AppContext )
 
     //FUNCTIONS
-    const getUserFriends = useCallback( async ( userId ) => {
+    const getUserFriends = useCallback( async ( ) => {
         try{
             //GETS FIXED SLOTS   
             const userFriends = await axios.get(`${process.env.REACT_APP_API_URL}/friends/all`, {
