@@ -327,7 +327,6 @@ export default function CreateHangContainer(){
                                     <ul className="event-friends-list">
                                         {
                                             friendsList.map(( friend, idx ) => {
-                                                console.log(friend);
                                                 return(
                                                     <li key={ idx }>
                                                         <label>
