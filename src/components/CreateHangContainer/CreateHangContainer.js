@@ -332,7 +332,7 @@ export default function CreateHangContainer(){
                                                         <label>
                                                             <input
                                                                 type="checkbox"
-                                                                checked={ customList.includes( friend.id ) }
+                                                                checked={ customList.some(( item ) => item.id === friend.id ) }
                                                                 onChange={() => handleCheckboxChange( friend.id )}
                                                             />
                                                         {`${ friend.name } ${ friend.lastname }`}
