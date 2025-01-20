@@ -40,7 +40,7 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/development' element={ <DevFeed/> } />
+              {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />

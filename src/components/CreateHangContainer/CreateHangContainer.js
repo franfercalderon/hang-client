@@ -325,11 +325,12 @@ export default function CreateHangContainer(){
                                     friendsList.length > 0 ?
 
                                     <ul className="event-friends-list">
+                                        <p>Select friends:</p>
                                         {
                                             friendsList.map(( friend, idx ) => {
                                                 return(
                                                     <li key={ idx }
-                                                    className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } rounded`}
+                                                    className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } rounded pointer`}
                                                     onClick={() => handleCheckboxChange( friend.id) }
                                                     >   
                                                         <div className="title-container">
@@ -339,7 +340,6 @@ export default function CreateHangContainer(){
                                                         <div className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } list-circle-marker`}>
                                                             <span></span>
                                                         </div>
-    
                                                     </li>
                                                     
                                                 )
@@ -351,11 +351,7 @@ export default function CreateHangContainer(){
                                 }
                                 </>
                                 :
-                                <ul className="event-friends-list">
-                                    <li className="list-item-loader rounded"></li>
-                                    <li className="list-item-loader rounded"></li>
-                                    <li className="list-item-loader rounded"></li>
-                                </ul>
+                                <p>Searching friends...</p>
                             }
                             </>
                         }
