@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import DatePickerContainer from "../DatePickerContainer/DatePickerContainer";
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import useSlots from "../../hooks/useSlots";
 import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
@@ -38,7 +38,8 @@ export default function CreateHangContainer(){
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( true )
-    const [ customList, setCustomList ] = useState( null )
+    const [ customList, setCustomList ] = useState( [] )
+    const [ friendsList, setFriendsList ] = useState( null )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ visibility, setVisibility ] = useState( 'everybody' )
 
@@ -103,9 +104,21 @@ export default function CreateHangContainer(){
         setTitle( e.target.value )
     }
 
-    const getFriendsList = async () => {
+    const getFriendsList = useCallback( async () => {
         const friends = await getUserFriends()
-        setCustomList( friends )
+        setFriendsList( friends )
+    }, [ getUserFriends])
+
+    const handleCheckboxChange = ( friendId ) => {
+        if( customList.some( ( friend) => friend.id === friendId )){
+            setCustomList( customList.filter(( friend) => friend.id !== friendId ))
+        } else {
+            const selectedFriend = friendId.find(( friend ) => friend.id === friendId )
+            if ( selectedFriend ){
+
+                setCustomList([...customList, selectedFriend ])
+            }
+        }
     }
 
     const handleSave = async () => {
@@ -213,26 +226,20 @@ export default function CreateHangContainer(){
 
     useEffect(() => {
         if( visibility === 'everybody' ){
-            console.log('isPrivate ', false);
-            console.log('customList ', null );
-
             setIsPrivate( false )
             setCustomList( null )
         } else if ( visibility === 'auto' ){
-
-            console.log('isPrivate ', true);
-            console.log('customList ', null );
-
             setIsPrivate( true )
             setCustomList( null )
         } else if ( visibility === 'custom' ){
-            console.log('isPrivate ', true);
-            console.log('customList ', [] );
             setIsPrivate( true )
             getFriendsList()
-            setCustomList( [] )
         }
-    }, [ visibility ] )
+    }, [ visibility, getFriendsList ] )
+
+    useEffect(() => {
+        console.log(customList);
+    }, [customList])
 
 
 
@@ -313,17 +320,27 @@ export default function CreateHangContainer(){
                         }
                         { visibility === 'custom' && 
                             <>
-                            { customList ?
+                            { friendsList ?
                                 <>
                                 {
-                                    customList.length > 0 ?
+                                    friendsList.length > 0 ?
 
                                     <ul className="event-friends-list">
                                         {
-                                            customList.map(( friend, idx ) => {
+                                            friendsList.map(( friend, idx ) => {
                                                 console.log(friend);
                                                 return(
-                                                    <li key={ idx }></li>
+                                                    <li key={ idx }>
+                                                        <label>
+                                                            <input
+                                                                type="checkbox"
+                                                                checked={ customList.includes( friend.id ) }
+                                                                onChange={() => handleCheckboxChange( friend )}
+                                                            />
+                                                        {friend}
+                                                         </label>
+
+                                                    </li>
                                                 )
                                             }) 
                                         }
