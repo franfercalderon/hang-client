@@ -134,10 +134,11 @@ export default function CreateHangContainer(){
                     location,
                     spots,
                     isPrivate,
+                    customList,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
-                    attending: []
+                    attending: [],
                 }
                 await postScheduledSlot( scheduledHang )
                 setIsLoading( false )
@@ -208,37 +209,27 @@ export default function CreateHangContainer(){
 
     useEffect(() => { 
 
-        if( isPrivate ){
-            if( slot && spots > 0 && location ){
-
-                if( visibility === 'custom'){
-                    setEnableSubmit( customList.length > 0 ? true  : false )
-
-                } else {
-                    setEnableSubmit( true )
-                }
-                setEnableSubmit( true )
-            } else {
-                setEnableSubmit( false )
-            }
-            
-        } else {
-            if( slot && location ){
-                setEnableSubmit( true )
-            }else {
-                setEnableSubmit( false )
-            }
+        if( visibility === 'everybody' ){
+            setEnableSubmit( slot && location ? true : false  )
+        } else if ( visibility === 'auto' ){
+            setEnableSubmit( slot && location && spots > 0 ? true : false  )
+        } else if ( visibility === 'custom' ){
+            setEnableSubmit( slot && location && customList.length > 0 ? true : false  )
         }
-    }, [ slot, spots, location, isPrivate ])
+
+    }, [ slot, spots, location, visibility, customList ])
 
     useEffect(() => {
         if( visibility === 'everybody' ){
+            setSpots( 0 )
             setIsPrivate( false )
             setCustomList( [] )
         } else if ( visibility === 'auto' ){
+            setSpots( 0 )
             setIsPrivate( true )
             setCustomList( [] )
         } else if ( visibility === 'custom' ){
+            setSpots( 0 )
             setIsPrivate( true )
             getFriendsList()
         }
