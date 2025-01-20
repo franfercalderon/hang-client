@@ -219,12 +219,21 @@ export default function CreateHangContainer(){
 
     useEffect(() => {
         if( visibility === 'everybody' ){
+            console.log('isPrivate ', false);
+            console.log('customList ', null );
+
             setIsPrivate( false )
             setCustomList( null )
         } else if ( visibility === 'auto' ){
+
+            console.log('isPrivate ', true);
+            console.log('customList ', null );
+
             setIsPrivate( true )
             setCustomList( null )
         } else if ( visibility === 'custom' ){
+            console.log('isPrivate ', true);
+            console.log('customList ', [] );
             setIsPrivate( true )
             setCustomList( [] )
         }
@@ -290,7 +299,7 @@ export default function CreateHangContainer(){
                                     <p>Best Friends</p>
                                 </div>
                                 <div className={`inner ${ visibility === 'custom'  ? 'active' : '' }`} onClick={() => setVisibility( 'custom' )}>
-                                    <p>Cutom</p>
+                                    <p>Custom</p>
                                 </div>
                             </div>
                         </div>
