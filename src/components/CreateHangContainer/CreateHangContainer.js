@@ -334,7 +334,7 @@ export default function CreateHangContainer(){
                                                             <input
                                                                 type="checkbox"
                                                                 checked={ customList.includes( friend.id ) }
-                                                                onChange={() => handleCheckboxChange( friend )}
+                                                                onChange={() => handleCheckboxChange( friend.id )}
                                                             />
                                                         {`${ friend.name } ${ friend.lastname }`}
                                                          </label>
@@ -358,7 +358,7 @@ export default function CreateHangContainer(){
                             </>
                         }
                     </div>
-                    <div className="section-container">
+                    <div className="section-container new-hang">
                         <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ enableSubmit }/>
                     </div>
                 </>
