@@ -38,9 +38,9 @@ export default function CreateHangContainer(){
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( true )
+    const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
     const [ friendsList, setFriendsList ] = useState( null )
-    const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ visibility, setVisibility ] = useState( 'everybody' )
 
     //HOOKS
@@ -328,19 +328,20 @@ export default function CreateHangContainer(){
                                         {
                                             friendsList.map(( friend, idx ) => {
                                                 return(
-                                                    <li key={ idx }>
-                                                        <label className="circle-checkbox-label">
-                                                            <input
-                                                                type="checkbox"
-                                                                className="circle-checkbox"
-                                                                checked={ customList.some(( item ) => item.id === friend.id ) }
-                                                                onChange={() => handleCheckboxChange( friend.id )}
-                                                            />
-                                                        <span className="circle-checkbox-custom"></span>
-                                                        {`${ friend.name } ${ friend.lastname }`}
-                                                         </label>
-
+                                                    <li key={ idx }
+                                                    className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } rounded`}
+                                                    onClick={() => handleCheckboxChange( friend.id) }
+                                                    >   
+                                                        <div className="title-container">
+                                                            <img src={ friend.imgUrl } alt="friend" className="profile-img-min"/>
+                                                            <p>{`${ friend.name } ${ friend.lastname }`}</p>
+                                                        </div>
+                                                        <div className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } list-circle-marker`}>
+                                                            <span></span>
+                                                        </div>
+    
                                                     </li>
+                                                    
                                                 )
                                             }) 
                                         }
@@ -358,7 +359,7 @@ export default function CreateHangContainer(){
                             }
                             </>
                         }
-                    </div>
+                        </div>
                     <div className="section-container new-hang">
                         <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ enableSubmit }/>
                     </div>
