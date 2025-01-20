@@ -83,16 +83,31 @@
     background: none
     font-size: 1.1rem
 
+.new-hang .btn-primary
+    margin-bottom: 2rem
+
 .event-friends-list li 
     height: 2rem
     width: 100%
-    margin: 0.5rem 0
+    margin: 1rem 0
     border: 1px solid red 
     display: flex 
     justify-content: start
     align-items: center
     position: relative
 
+.circle-checkbox:checked + .circle-checkbox-custom 
+  background-color: #4caf50 
+  border-color: #4caf50
 
-.new-hang .btn-primary
-    margin-bottom: 2rem
+
+.circle-checkbox:checked + .circle-checkbox-custom::after
+  content: ''
+  position: absolute
+  width: 10px
+  height: 10px
+  background-color: white
+  border-radius: 50%
+  top: 4px
+  left: 4px
+
