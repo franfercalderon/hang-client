@@ -329,12 +329,14 @@ export default function CreateHangContainer(){
                                             friendsList.map(( friend, idx ) => {
                                                 return(
                                                     <li key={ idx }>
-                                                        <label>
+                                                        <label className="circle-checkbox-label">
                                                             <input
                                                                 type="checkbox"
+                                                                className="circle-checkbox"
                                                                 checked={ customList.some(( item ) => item.id === friend.id ) }
                                                                 onChange={() => handleCheckboxChange( friend.id )}
                                                             />
+                                                        <span className="circle-checkbox-custom"></span>
                                                         {`${ friend.name } ${ friend.lastname }`}
                                                          </label>
 
