@@ -227,10 +227,10 @@ export default function CreateHangContainer(){
     useEffect(() => {
         if( visibility === 'everybody' ){
             setIsPrivate( false )
-            setCustomList( null )
+            setCustomList( [] )
         } else if ( visibility === 'auto' ){
             setIsPrivate( true )
-            setCustomList( null )
+            setCustomList( [] )
         } else if ( visibility === 'custom' ){
             setIsPrivate( true )
             getFriendsList()
