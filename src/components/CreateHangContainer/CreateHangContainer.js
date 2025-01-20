@@ -37,7 +37,9 @@ export default function CreateHangContainer(){
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( true )
+    const [ customList, setCustomList ] = useState( null )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
+    const [ visibility, setVisibility ] = useState( 'everybody' )
 
     //HOOKS
     const { convertTimeToTimestamp, postScheduledSlot } = useSlots()
@@ -96,6 +98,21 @@ export default function CreateHangContainer(){
         e.preventDefault()
         setTitle( e.target.value )
     }
+
+    // const handleVisibility = ( status ) => {
+    //     if( status === 'everybody' ){
+    //         setIsPrivate( false )
+    //         setCustomList( null )
+    //     } else if ( status === 'auto' ){
+    //         setIsPrivate( true )
+    //         setCustomList( null )
+    //     } else if ( status === 'custom' ){
+    //         setIsPrivate( true )
+    //         setCustomList( [] )
+    //     }
+    // }
+
+
 
     const handleSave = async () => {
 
@@ -200,6 +217,21 @@ export default function CreateHangContainer(){
         }
     }, [ slot, spots, location, isPrivate ])
 
+    useEffect(() => {
+        if( visibility === 'everybody' ){
+            setIsPrivate( false )
+            setCustomList( null )
+        } else if ( visibility === 'auto' ){
+            setIsPrivate( true )
+            setCustomList( null )
+        } else if ( visibility === 'custom' ){
+            setIsPrivate( true )
+            setCustomList( [] )
+        }
+    }, [ visibility ] )
+
+
+
     return(
         <div className="main-view-body">
             {
@@ -246,29 +278,41 @@ export default function CreateHangContainer(){
                         <div className="mt-1">
                             <div className="row">
                                 <p>Visibility</p>
-                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free.') }>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> If "Everybody" is selected, the event will show to all your friends until no more spots are free. <br><br> Use "Custom" mode to invite a custom list to your event.') }>
                                     <p>?</p>
                                 </div>
                             </div>
-                            <div className="full-width-toggle">
-                                <div className={`inner ${ isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( true )}>
+                            <div className="full-width-toggle three">
+                                <div className={`inner ${ visibility === 'everybody' ? 'active' : '' }`} onClick={() => setVisibility( 'everybody' )}>
+                                    <p>Everybody</p>
+                                </div>
+                                <div className={`inner ${ visibility === 'auto'  ? 'active' : '' }`} onClick={() => setVisibility( 'auto' )}>
                                     <p>Best Friends</p>
                                 </div>
-                                <div className={`inner ${ !isPrivate ? 'active' : '' }`} onClick={() => setIsPrivate( false )}>
-                                    <p>Everybody</p>
+                                <div className={`inner ${ visibility === 'custom'  ? 'active' : '' }`} onClick={() => setVisibility( 'custom' )}>
+                                    <p>Cutom</p>
                                 </div>
                             </div>
                         </div>
                         {
-                            isPrivate &&
-                            <div className="seats-container mt-1">
-                                <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
-                                <div className="seats-inner main-input">
-                                    <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
-                                    <p>{ spots }</p>
-                                    <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                            isPrivate && 
+                            <>
+                            {
+                                customList ?
+                                <>
+                                <p>display custom list</p>
+                                </>
+                                :
+                                <div className="seats-container mt-1">
+                                    <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
+                                    <div className="seats-inner main-input">
+                                        <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
+                                        <p>{ spots }</p>
+                                        <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            </>
                         }
                     </div>
                     <div className="section-container">
