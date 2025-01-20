@@ -325,7 +325,7 @@ export default function CreateHangContainer(){
                                     friendsList.length > 0 ?
 
                                     <ul className="event-friends-list">
-                                        <div className="w-100 centered">
+                                        <div className="fs-09">
                                             <p>Select friends:</p>
                                         </div>
                                         {
@@ -349,13 +349,13 @@ export default function CreateHangContainer(){
                                         }
                                     </ul>
                                     :
-                                    <div className="w-100 centered">
+                                    <div className="w-100 centered fs-09">
                                         <p>No friends to display</p>
                                     </div>
                                 }
                                 </>
                                 :
-                                <div className="w-100 centered">
+                                <div className="w-100 centered fs-09">
                                     <p>Searching friends...</p>
                                 </div>
                             }
