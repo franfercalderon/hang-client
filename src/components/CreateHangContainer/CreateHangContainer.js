@@ -206,9 +206,17 @@ export default function CreateHangContainer(){
 
     }, [ startTime, endTime, convertTimeToTimestamp, selectedDate ])
 
-    useEffect(() => {
+    useEffect(() => { 
+
         if( isPrivate ){
             if( slot && spots > 0 && location ){
+
+                if( visibility === 'custom'){
+                    setEnableSubmit( customList.length > 0 ? true  : false )
+
+                } else {
+                    setEnableSubmit( true )
+                }
                 setEnableSubmit( true )
             } else {
                 setEnableSubmit( false )
@@ -235,13 +243,6 @@ export default function CreateHangContainer(){
             getFriendsList()
         }
     }, [ visibility, getFriendsList ] )
-
-    useEffect(() => {
-        console.log(customList);
-    }, [customList])
-
-
-
 
 
     return(
