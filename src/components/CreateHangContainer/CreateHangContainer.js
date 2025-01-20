@@ -337,7 +337,7 @@ export default function CreateHangContainer(){
                                                                 checked={ customList.includes( friend.id ) }
                                                                 onChange={() => handleCheckboxChange( friend )}
                                                             />
-                                                        {friend}
+                                                        {`${ friend.name } ${ friend.lastname }`}
                                                          </label>
 
                                                     </li>
