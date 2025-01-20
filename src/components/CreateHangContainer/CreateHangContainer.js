@@ -162,8 +162,7 @@ export default function CreateHangContainer(){
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             },
-            mapUrl: `https://www.google.com/maps/place/?q=place_id:${ place.place_id }`
-
+            mapUrl: place.url
         }
 
         setLocation( location )

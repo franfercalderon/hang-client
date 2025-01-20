@@ -15,7 +15,6 @@ export default function LocationInput({ handleChange }) {
         const place = autocompleteRef.current.getPlace()
         if ( place ){
             handleChange( place )
-            console.log(place);
             setInputValue( place.formatted_address || '' )
             setDropdownVisible( false )
         }
