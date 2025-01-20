@@ -110,12 +110,11 @@ export default function CreateHangContainer(){
     }, [ getUserFriends])
 
     const handleCheckboxChange = ( friendId ) => {
-        if( customList.some( ( friend) => friend.id === friendId )){
+        if( customList.some( ( friend ) => friend.id === friendId )){
             setCustomList( customList.filter(( friend) => friend.id !== friendId ))
         } else {
-            const selectedFriend = friendId.find(( friend ) => friend.id === friendId )
+            const selectedFriend = friendsList.find(( friend ) => friend.id === friendId )
             if ( selectedFriend ){
-
                 setCustomList([...customList, selectedFriend ])
             }
         }
