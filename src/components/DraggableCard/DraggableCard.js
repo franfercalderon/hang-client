@@ -22,7 +22,7 @@ export default function DraggableCard({ friend, action }){
             <div>
                 <FontAwesomeIcon 
                     icon={ faTrashCan } 
-                    onClick={ ( e ) => { 
+                    onMouseDown={ ( e ) => { 
                         e.stopPropagation();
                         e.preventDefault();
                         console.log('se cliekc');
