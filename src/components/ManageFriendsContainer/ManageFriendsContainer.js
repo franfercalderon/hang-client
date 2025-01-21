@@ -84,6 +84,7 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
     }
 
     const handleDeleteFriend = async ( friend ) => {
+        console.log('llega');
 
         Swal.fire({
             title: null,

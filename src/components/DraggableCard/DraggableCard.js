@@ -23,7 +23,9 @@ export default function DraggableCard({ friend, action }){
                 <FontAwesomeIcon 
                     icon={ faTrashCan } 
                     onClick={ ( e ) => { 
-                        e.stopPropagation()
+                        e.stopPropagation();
+                        e.preventDefault();
+                        console.log('se cliekc');
                         action() } 
                     }
                 />
