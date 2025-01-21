@@ -435,7 +435,7 @@ function useSlots (){
     
     const getDaySuffix = ( day ) => {
         if ( day >= 11 && day <= 13 ) return "th"
-        switch ( day % 10 ) {
+        switch (day % 10 ) {
 
             case 1: return "st"
             case 2: return "nd"
@@ -444,12 +444,12 @@ function useSlots (){
         }
     }
 
-    const joinEvent = async ( eventId, limitedSeats ) => {
+    const joinEvent = async ( eventId, collection ) => {
 
         const data = {
             event: {
                 id: eventId,
-                limitedSeats
+                collection
             },
             user: {
                 id: globalUser.id,
