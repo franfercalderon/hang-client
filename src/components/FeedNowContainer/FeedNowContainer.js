@@ -12,7 +12,7 @@ export default function FeedNowdContainer ({ events, setIsLoading }) {
     const handleJoinEvent = async ( eventId ) => {
         try {
             setIsLoading( true )
-            await joinEvent( eventId, false )
+            await joinEvent( eventId, 'availableNowSlots' )
             setIsLoading( false )
             Swal.fire({
                 text: 'We will let your friend know you are joining!',

@@ -9,10 +9,10 @@ export default function FeedScheduledContainer ({ events, setIsLoading }) {
     const { formatTimestampToDate, joinEvent } = useSlots()
 
     //FUNCTIONS
-    const handleJoinEvent = async ( eventId, limitedSeats ) => {
+    const handleJoinEvent = async ( eventId ) => {
         try {
             setIsLoading( true )
-            await joinEvent( eventId, limitedSeats )
+            await joinEvent( eventId, 'scheduledSlots' )
             setIsLoading( false )
             Swal.fire({
                 text: 'We will let your friend know you are joining!',
@@ -56,7 +56,7 @@ export default function FeedScheduledContainer ({ events, setIsLoading }) {
             {
                 events?.map(( slot, idx ) => {
                     return(
-                        <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ `${ slot.userName } ${ slot.userLastname }` } userImg={ slot.userImg } action={ () => handleJoinEvent( slot.id, slot.isPrivate ) }/>
+                        <FeedCard title={ slot.title ? slot.title : `${ slot.userName }'s Hang`} descritpion={ formatTimestampToDate( slot.starts ) } location={ slot.location } ctaText={ 'Join' } key={ idx } starts={ slot.starts } ends={ slot.ends } userName={ `${ slot.userName } ${ slot.userLastname }` } userImg={ slot.userImg } action={ () => handleJoinEvent( slot.id ) }/>
                     )
                 })
             }
