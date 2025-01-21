@@ -3,7 +3,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default function DraggableCard({ friend, action  }){
+export default function DraggableCard({ friend, action }){
 
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: friend.id })
     const style = {
@@ -20,7 +20,13 @@ export default function DraggableCard({ friend, action  }){
                 <p>{`${ friend.name } ${ friend.lastname }`}</p>
             </div>
             <div>
-                <FontAwesomeIcon icon={ faTrashCan } onClick={ action }/>
+                <FontAwesomeIcon 
+                    icon={ faTrashCan } 
+                    onClick={ ( e ) => { 
+                        e.stopPropagation()
+                        action() } 
+                    }
+                />
             </div>
         </li>
     )    
