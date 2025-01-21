@@ -43,7 +43,7 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
             isLoading ? 
             <Loader/>
             :
-            <div className="section-container mt-2">
+            <div className="section-container mt-1">
                 {
                     userFriends.length > 0 ?
                     <>  

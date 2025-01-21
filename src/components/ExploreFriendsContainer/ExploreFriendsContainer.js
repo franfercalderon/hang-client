@@ -5,7 +5,7 @@ export default function ExploreFriendsContainer ({ friendSuggestions, sendInvite
     const { alertInfo } = useAlert()
 
     return(
-        <div className="section-container mt-2">
+        <div className="section-container mt-1">
             {
                 friendSuggestions.length > 0 ?
                 <>  

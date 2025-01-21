@@ -1,5 +1,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function DraggableCard({ friend }){
 
@@ -16,6 +18,7 @@ export default function DraggableCard({ friend }){
             </div>
             <div className="friend-order-badge">
                 <p>{ friend.priority }</p>
+                <FontAwesomeIcon icon={ faTrashCan }/>
             </div>
         </li>
     )    
