@@ -101,12 +101,27 @@ function useFriends(){
         
     }
 
+    const deleteFriend = async ( friendId ) => {
+        try{ 
+            await axios.delete(`${process.env.REACT_APP_API_URL}/friends/${ friendId }`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+
+        } catch ( error ) {
+            throw error
+        } 
+    }
+
     return({
         getUserFriends,
         getFriendSuggestions,
         postFriendshipRequest,
         getUserFriendShipsRequests,
-        replyFriendsRequest
+        replyFriendsRequest,
+        deleteFriend
     })
 }
 

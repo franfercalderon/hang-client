@@ -5,15 +5,18 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import DraggableCard from "../DraggableCard/DraggableCard";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import useAlert from "../../hooks/useAlert";
+import Swal from "sweetalert2";
+import useFriends from "../../hooks/useFriends";
 
 
-export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave }) { 
+export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave, setIsLoading, getFriends }) { 
 
     //STATE
     const [ showConfirm, setShowConfirm ] = useState( false )
 
     //HOOKS
     const { alertInfo } = useAlert()
+    const { deleteFriend } = useFriends()
 
     //FUNCTION
     const handleDragEnd = ( e ) => {
@@ -37,6 +40,72 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
         }
     }
 
+    const runModalConfirmation = async ( friendId ) => {
+        try {
+            setIsLoading( true )
+            await deleteFriend( friendId ) 
+            await getFriends()
+
+            setIsLoading( false ) 
+
+            Swal.fire({
+                text:'Friend deleted',
+                icon: 'success' ,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            
+        } catch ( error ) {
+            setIsLoading( false )
+
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }
+
+    const handleDeleteFriend = async ( friend ) => {
+
+        Swal.fire({
+            title: null,
+            text: `Do you want to remove ${ friend.name } ${ friend.lastname } from your friends list?`,
+            icon: null,
+            confirmButtonText: 'Delete',
+            showDenyButton: true,
+            denyButtonText: 'Cancel',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        })
+        .then( ( res ) => {
+            if( res.isConfirmed ){
+                runModalConfirmation( friend.id )
+            } 
+        })
+    }
     return(
         <>
         {
@@ -57,9 +126,9 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
                             <ul className="mt-2">
                                 <SortableContext items={ userFriends } strategy={ verticalListSortingStrategy } >
                                     {
-                                        userFriends.map(( friend, idx ) => {
+                                        userFriends.map(( friend ) => {
                                             return(
-                                                <DraggableCard key={ friend.id } friend={ friend }/>
+                                                <DraggableCard key={ friend.id } friend={ friend } action={() => handleDeleteFriend( friend )}/>
                                             )
                                         })
                                     }

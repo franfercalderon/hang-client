@@ -76,7 +76,7 @@ export default function SettingsFriendsManage(){
                     ! userFriends ?
                     <Loader/>
                     :
-                    <ManageFriendsContainer userFriends={ userFriends } isLoading={ isLoading } handleSave={ handleSave } setUserFriends={ setUserFriends } />
+                    <ManageFriendsContainer userFriends={ userFriends } isLoading={ isLoading } handleSave={ handleSave } setUserFriends={ setUserFriends } setIsLoading={ setIsLoading } getFriends={ getFriends }/>
                 }
             </div>
         </ViewContainer>
