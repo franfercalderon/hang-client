@@ -454,7 +454,8 @@ function useSlots (){
             user: {
                 id: globalUser.id,
                 imgUrl: globalUser.profilePhoto ? globalUser.profilePhoto : null ,
-                name: globalUser.name
+                name: globalUser.name,
+                lastname: globalUser.lastname
             }
         }
 
