@@ -66,7 +66,7 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
                     }
                     {
                         location && location.address ?
-                        <div className="card-street-view-container" onClick={ () => window.open( location.mapUrl, '_blank') }>
+                        <div className="card-street-view-container pointer" onClick={ () => window.open( location.mapUrl, '_blank') }>
                             <img src={ streetViewUrl } alt="street view"/>
                             <p>{ location.address }</p>
                         </div>

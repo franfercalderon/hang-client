@@ -236,6 +236,12 @@ export default function CreateHangContainer(){
         }
     }, [ visibility, getFriendsList ] )
 
+    useEffect(() => {
+        if( visibility === 'custom' ){
+            setSpots( customList.length )
+        }
+    }, [ customList, visibility ] )
+
 
     return(
         <div className="main-view-body">
