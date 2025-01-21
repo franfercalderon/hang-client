@@ -16,8 +16,10 @@ export default function DraggableCard({ friend }){
                 <img src={ friend.imgUrl ? friend.imgUrl : '/images/defaultProfile.jpg' } alt={ friend.name } className="profile-img-min"/>
                 <p>{`${ friend.name } ${ friend.lastname }`}</p>
             </div>
-            <div className="friend-order-badge">
-                <p>{ friend.priority }</p>
+            <div>
+                <div className="friend-order-badge">
+                    <p>{ friend.priority }</p>
+                </div>
                 <FontAwesomeIcon icon={ faTrashCan }/>
             </div>
         </li>
