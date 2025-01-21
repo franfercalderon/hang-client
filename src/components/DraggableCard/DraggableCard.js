@@ -13,13 +13,13 @@ export default function DraggableCard({ friend }){
     return(
         <li style={ style } ref={ setNodeRef } { ...attributes } { ...listeners }   className="slim-hang-card cta-card rounded pointer">
             <div className="inner"> 
+                <div className="friend-order-badge">
+                    <p>{ friend.priority }</p>
+                </div>
                 <img src={ friend.imgUrl ? friend.imgUrl : '/images/defaultProfile.jpg' } alt={ friend.name } className="profile-img-min"/>
                 <p>{`${ friend.name } ${ friend.lastname }`}</p>
             </div>
             <div>
-                <div className="friend-order-badge">
-                    <p>{ friend.priority }</p>
-                </div>
                 <FontAwesomeIcon icon={ faTrashCan }/>
             </div>
         </li>
