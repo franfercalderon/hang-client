@@ -37,7 +37,7 @@ export default function CreateHangContainer(){
     const [ spots, setSpots ] = useState( 0 )
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
-    const [ isPrivate, setIsPrivate ] = useState( true )
+    const [ isPrivate, setIsPrivate ] = useState( false )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
     const [ friendsList, setFriendsList ] = useState( null )
@@ -135,6 +135,7 @@ export default function CreateHangContainer(){
                     spots,
                     isPrivate,
                     customList,
+                    visibility,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
