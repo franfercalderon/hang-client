@@ -221,7 +221,7 @@ export default function NotificationsContainer(){
             :
             <div className="section-container">
                 {
-                    userInvites?.map(( invite, idx ) => {
+                    userInvites?.map(( invite, idx ) => { 
                         return(
                             <div className="slim-hang-card cta-card rounded" key={ idx }> 
                                 <div className="inner">
