@@ -55,6 +55,21 @@ export default function PofileContainer(){
                 await updateUserProperties( data )
             }
             await getGlobalUser( authToken )
+            Swal.fire({
+                text: 'Profile Updated!',
+                icon: 'success' ,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
             setIsBtnLoading( false )
 
         } catch ( error ) {
