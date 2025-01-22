@@ -84,11 +84,10 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
     }
 
     const handleDeleteFriend = async ( friend ) => {
-        console.log('llega');
 
         Swal.fire({
             title: null,
-            text: `Do you want to remove ${ friend.name } ${ friend.lastname } from your friends list?`,
+            text: `Do you want to remove ${ friend.name } ${ friend.lastname } from your friends list?. Your friend will not be notified but you will removed from their friends list too.`,
             icon: null,
             confirmButtonText: 'Delete',
             showDenyButton: true,

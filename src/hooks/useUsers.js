@@ -65,6 +65,20 @@ function useUsers () {
         }
     }  
 
+    const createImageUrl = async ( imageFile ) => {
+        try {
+            const imageRef = ref( storage, `images/profilePictures/${ imageFile.name + v4() }`)
+            await uploadBytes( imageRef, imageFile )
+            const imageURL = await getDownloadURL( imageRef )
+            if( imageURL ){
+                return imageURL
+            }
+            
+        } catch ( error ) {
+            throw error
+        }
+    }
+
     const getUser = useCallback( async ( authToken ) => {
         try {
             const user = await axios.get(`${process.env.REACT_APP_API_URL}/users/`, {
@@ -100,7 +114,8 @@ function useUsers () {
         updateUserById,
         uploadProfilePhoto,
         getUser,
-        updateUserProperties
+        updateUserProperties,
+        createImageUrl
     }
 
 }

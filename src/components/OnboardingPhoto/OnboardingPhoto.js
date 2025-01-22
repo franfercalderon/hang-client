@@ -12,7 +12,7 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
     //STATE
     const [ userImg, setUserImg ] = useState( '' )
     const [ selectedFile, setSelectedFile ] = useState( null )
-    const [ isLoading, setIsLoading ] = useState( false )
+    const [ isLoading, setIsLoading ] = useState( false ) 
 
     //HOOKS
     const { uploadProfilePhoto } = useUsers()
@@ -90,7 +90,7 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
                     <label htmlFor="onboarding-img-input" className="file-input-label">
                         Select Profile Photo
                     </label>
-                    <input type="file" onChange={ handleSelectFile } accept="image/*" className="onboarding-img-input" placeholder="Enter word"  id="onboarding-img-input"/>
+                    <input type="file" onChange={ handleSelectFile } accept="image/*" className="onboarding-img-input" placeholder=""  id="onboarding-img-input"/>
                 </div>
 
                 :

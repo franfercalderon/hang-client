@@ -25,7 +25,6 @@ export default function DraggableCard({ friend, action }){
                     onMouseDown={ ( e ) => { 
                         e.stopPropagation();
                         e.preventDefault();
-                        console.log('se cliekc');
                         action() } 
                     }
                 />
