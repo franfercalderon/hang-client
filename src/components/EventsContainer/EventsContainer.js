@@ -22,6 +22,7 @@ export default function EventsContainer() {
             if( showUserEvents ){
                 const events = await getOwnEvents()
                 events.sort(( a, b ) => a.starts - b.starts )
+                console.log(events);
                 setUserEvents( events )
             } else {
                 const events = await getAttendingEvents()

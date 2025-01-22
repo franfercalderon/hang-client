@@ -289,7 +289,7 @@ export default function CreateHangContainer(){
                         <div className="mt-1">
                             <div className="row">
                                 <p>Visibility</p>
-                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Everybody" is selected, the event will show to all your friends until no more spots are free. <br><br> If "Best Friends" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> Use "Custom" mode to invite a custom list to your event.') }>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Everybody" is selected, the event will show to all your friends until no more spots are free. <br><br> If "Priority List" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> Use "Custom" mode to invite a custom list to your event.') }>
                                     <p>?</p>
                                 </div>
                             </div>
@@ -298,7 +298,7 @@ export default function CreateHangContainer(){
                                     <p>Everybody</p>
                                 </div>
                                 <div className={`inner ${ visibility === 'auto'  ? 'active' : '' }`} onClick={() => setVisibility( 'auto' )}>
-                                    <p>Best Friends</p>
+                                    <p>Priority List</p>
                                 </div>
                                 <div className={`inner ${ visibility === 'custom'  ? 'active' : '' }`} onClick={() => setVisibility( 'custom' )}>
                                     <p>Custom</p>
