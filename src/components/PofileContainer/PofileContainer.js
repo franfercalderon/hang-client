@@ -18,6 +18,8 @@ export default function PofileContainer(){
     const [ userImg, setUserImg ] = useState( '' ) 
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ isBtnLoading, setIsBtnLoading ] = useState( false )
+    const [ resetComponents, setResetComponents ] = useState( false )
+    
 
     //CONTEXT
     const { globalUser, getGlobalUser, authToken } = useContext( AppContext )
@@ -70,6 +72,7 @@ export default function PofileContainer(){
                     denyButton: 'deny-btn btn order1',
                 }
             })
+            resetStates()
             setIsBtnLoading( false )
 
         } catch ( error ) {
@@ -88,6 +91,13 @@ export default function PofileContainer(){
                 }
             })
         }
+    }
+
+    const resetStates = () => {
+        setSelectedFile( null )
+        setUserImg( '' )
+        setResetComponents( true )
+
     }
 
     const handleChange = ( e ) => {
@@ -119,22 +129,6 @@ export default function PofileContainer(){
     
     //EFFECTS
     useEffect(() => {
-        // setTimeout(() => {
-        //     setUserData( {
-        //         name: 'Adam',
-        //         lastname: 'Harrison',
-        //         email: 'adamharrison@quickbooks.com',
-        //         phoneNumber: '+1 261 555 5555',
-        //         profilePhoto: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Ffemale1.pnge4601148-be0f-42c2-af96-3abbbfeb8039?alt=media&token=3cb6562c-0782-4de7-9a63-8c7b1abd9fa2",
-        //     } )
-        //     setEditedData( {
-        //         name: 'Adam',
-        //         lastname: 'Harrison',
-        //         email: 'adamharrison@quickbooks.com',
-        //         phoneNumber: '+1 261 555 5555',
-        //         profilePhoto: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Ffemale1.pnge4601148-be0f-42c2-af96-3abbbfeb8039?alt=media&token=3cb6562c-0782-4de7-9a63-8c7b1abd9fa2",
-        //     } )
-        // }, 1000)
         if( globalUser ){
             setUserData( {
                 name: globalUser.name,
@@ -202,10 +196,10 @@ export default function PofileContainer(){
                         <img src={ userImg ? userImg : userData.profilePhoto !== "" ? userData.profilePhoto : '/images/defaultProfile.jpg' } alt="profile"/>
                     </div>
                     <form>
-                        <EditableInput value={ editedData.name } handleChange={ handleChange } label={ 'Name' } name={'name'} editable={ true }  cancelChange={ cancelChange } />
-                        <EditableInput value={ editedData.lastname } handleChange={ handleChange } label={ 'Lastname' } name={'lastname'} editable={ true } cancelChange={ cancelChange }/>
-                        <EditableInput value={ editedData.email } handleChange={ handleChange } label={ 'Email' } name={'email'} editable={ true } cancelChange={ cancelChange }/>
-                        <EditableInput value={ editedData.phoneNumber } handleChange={ handleChange } label={ 'Phone Number' } name={'phoneNumber'} editable={ false } cancelChange={ cancelChange }/>
+                        <EditableInput value={ editedData.name } handleChange={ handleChange } label={ 'Name' } name={'name'} editable={ true }  cancelChange={ cancelChange } reset={ resetComponents }/>
+                        <EditableInput value={ editedData.lastname } handleChange={ handleChange } label={ 'Lastname' } name={'lastname'} editable={ true } cancelChange={ cancelChange } reset={ resetComponents }/>
+                        <EditableInput value={ editedData.email } handleChange={ handleChange } label={ 'Email' } name={'email'} editable={ true } cancelChange={ cancelChange } reset={ resetComponents }/>
+                        <EditableInput value={ editedData.phoneNumber } handleChange={ handleChange } label={ 'Phone Number' } name={'phoneNumber'} editable={ false } cancelChange={ cancelChange } reset={ resetComponents }/>
                         {
                             enableSubmit &&
                             <BtnPrimary displayText={'Update Profile'} enabled={ true } action={ updateProfile } btnLoading={ isBtnLoading } submit={ false }/>

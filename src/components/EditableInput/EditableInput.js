@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import InlineAlert from "../InlineAlert/InlineAlert"
 import useAlert from "../../hooks/useAlert"
 
-export default function EditableInput ({ value, handleChange, name, label, editable, cancelChange }){
+export default function EditableInput ({ value, handleChange, name, label, editable, cancelChange, reset }){
     
     //STATE
     const [ showInput, setShowInput ] = useState( false )
@@ -21,6 +21,13 @@ export default function EditableInput ({ value, handleChange, name, label, edita
         cancelChange( name )
         setShowInput( false )
     }
+
+    useEffect(() => {
+        if( reset ){
+            setShowInput( false )
+        }
+    }, [ reset ])
+
 
     return(
         <div className="editable-input-container">
