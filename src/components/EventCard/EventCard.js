@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faChevronCircleDown, faChevronDown, faChevronUp, faLocationArrow } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
+import useAlert from "../../hooks/useAlert"
 
 export default function EventCard({ event, setIsLoading }){
 
@@ -19,6 +20,8 @@ export default function EventCard({ event, setIsLoading }){
 
     //HOOKS
     const { formatTimestampToDate, converTimestampToString, deleteOwnEvent, leaveEvent } = useSlots()
+    const { alertInfo } = useAlert()
+
 
     //FUNCTIONS
     const runModalConfirmation = async ( eventId ) => {
@@ -144,7 +147,16 @@ export default function EventCard({ event, setIsLoading }){
                     </div>
                     {
                         isOwnEvent &&
-                        <p className="mt-1"><span>Visibility:</span>{ ` ${ event.isPrivate ? 'Private' : 'Open' }`}</p>
+                        <div className="row">
+                            <p className="mt-1"><span>Visibility:</span>{ ` ${ event.isPrivate ? 'Private' : 'Open' }`}</p>
+                            {
+                                event.availableNow &&
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('Available Now events are visible to all your friends.') }>
+                                    <p>?</p>
+                                </div>
+                            }
+                        </div>
+
                     }
                     {
                         isOwnEvent && event.isPrivate &&
