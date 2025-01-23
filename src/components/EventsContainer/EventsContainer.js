@@ -128,7 +128,7 @@ export default function EventsContainer() {
                                                 userEvents.map(( event, idx ) => {
                                                     return(
                                                         
-                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading }/>
+                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading } refresh={ getOwnEvents } />
                                                     )
                                                 })
                                             }
@@ -153,7 +153,7 @@ export default function EventsContainer() {
                                             {
                                                 attendingEvents.map(( event, idx ) => {
                                                     return(
-                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading }/>
+                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading } refresh={ getAttendingEvents }/>
                                                     )
                                                 })
                                             }

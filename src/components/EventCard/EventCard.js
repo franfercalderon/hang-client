@@ -9,7 +9,7 @@ import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
 import useAlert from "../../hooks/useAlert"
 
-export default function EventCard({ event, setIsLoading }){
+export default function EventCard({ event, setIsLoading, refresh }){
 
     //CONTEXT
     const { globalUser } = useContext( AppContext )
@@ -31,42 +31,27 @@ export default function EventCard({ event, setIsLoading }){
             if ( isOwnEvent ){
 
                 await deleteOwnEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )   
-                setIsLoading( false ) 
-
-                Swal.fire({
-                    text:'Event Deleted',
-                    icon: 'success' ,
-                    confirmButtonText: 'Ok',
-                    timer: 1300,
-                    buttonsStyling: false,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    customClass: {
-                        popup: 'hang-alert-container round-div div-shadow',
-                        icon: 'alert-icon',
-                        confirmButton: 'confirm-btn btn order2',
-                        denyButton: 'deny-btn btn order1',
-                    }
-                })
+    
             } else {
                 await leaveEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )
-                setIsLoading( false )
-                Swal.fire({
-                    text: 'You have left the Hang',
-                    icon: 'success' ,
-                    confirmButtonText: 'Ok',
-                    timer: 1300,
-                    buttonsStyling: false,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    customClass: {
-                        popup: 'hang-alert-container round-div div-shadow',
-                        icon: 'alert-icon',
-                        confirmButton: 'confirm-btn btn order2',
-                        denyButton: 'deny-btn btn order1',
-                    }
-                })
             }
+            await refresh()
+            setIsLoading( false ) 
+            Swal.fire({
+                text: isOwnEvent ? 'Event Deleted' : 'You have left the Hang',
+                icon: 'success' ,
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
             
         } catch ( error ) {
             setIsLoading( false )
