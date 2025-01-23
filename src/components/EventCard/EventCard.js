@@ -22,12 +22,10 @@ export default function EventCard({ event, setIsLoading, refresh }){
     const { formatTimestampToDate, converTimestampToString, deleteOwnEvent, leaveEvent } = useSlots()
     const { alertInfo } = useAlert()
 
-
     //FUNCTIONS
     const runModalConfirmation = async ( eventId ) => {
         try {
             setIsLoading( true )
-
             if ( isOwnEvent ){
 
                 await deleteOwnEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )   
@@ -36,7 +34,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
                 await leaveEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )
             }
             await refresh()
-            setIsLoading( false ) 
+            setIsLoading( false )
             Swal.fire({
                 text: isOwnEvent ? 'Event Deleted' : 'You have left the Hang',
                 icon: 'success' ,
