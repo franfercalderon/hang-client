@@ -18,7 +18,7 @@ export default function Feed () {
 
     //CONTEXT
     const { globalUser, notificationBadge } = useContext( AppContext )
-    const { availableNowSlots, scheduledSlots, recurringMatches } = useContext( SlotsContext )
+    const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
     //ROUTER
     const navigate = useNavigate()
@@ -76,8 +76,8 @@ export default function Feed () {
                                 :
                                 <>  
                                     <RecurringMatchesContainer events={ recurringMatches } userId={ globalUser.id }/> 
-                                    <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading }/>
-                                    <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } />
+                                    <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading } refresh={ getAvailableNowSlots }/>
+                                    <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } refresh={ getScheduledSlots } />
                                 </>
                             }
                         </div>

@@ -76,7 +76,7 @@ export const SlotsProvider = ({ children }) => {
 
     return (
     <SlotsContext.Provider
-        value={{ availableNowSlots, scheduledSlots, recurringMatches }}
+        value={{ availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots }}
     >
         { children }
     </SlotsContext.Provider>

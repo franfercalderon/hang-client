@@ -3,7 +3,7 @@ import CardLoader from "../CardLoader/CardLoader"
 import useSlots from "../../hooks/useSlots"
 import FeedCard from "../FeedCard/FeedCard"
 
-export default function FeedNowdContainer ({ events, setIsLoading }) { 
+export default function FeedNowdContainer ({ events, setIsLoading, refresh }) { 
 
     //HOOKS
     const { joinEvent } = useSlots()
@@ -13,6 +13,7 @@ export default function FeedNowdContainer ({ events, setIsLoading }) {
         try {
             setIsLoading( true )
             await joinEvent( eventId, 'availableNowSlots' )
+            await refresh()
             setIsLoading( false )
             Swal.fire({
                 text: 'We will let your friend know you are joining!',
