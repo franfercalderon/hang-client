@@ -84,7 +84,6 @@ export default function EventCard({ event, setIsLoading }){
         }
     }
 
-
     const handleDeleteEvent = async ( eventId ) => {
 
         Swal.fire({
@@ -109,18 +108,24 @@ export default function EventCard({ event, setIsLoading }){
         })
     }
 
+    // useEffect(() => {
+    //     if ( globalUser ){
+    //         setIsOwnEvent( globalUser.id === event.userId ? true : false )
+    //     }
+    // }, [ globalUser, event ])
+
     useEffect(() => {
-        if ( globalUser ){
-            setIsOwnEvent( globalUser.id === event.userId ? true : false )
-        }
-    }, [ globalUser, event ])
+        setIsOwnEvent( "FnNSENwcBGUGFv94jMIqN9E4pQn1" === event.userId ? true : false )
+    }, [ event ])
 
 
     return(
         <div className="event-card rounded">
             <div className="title-container mb-05">
                 <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
-                <p>{ `${ formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
+         
+                    <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
+
             </div>
             {
                 !showCardDetails &&
@@ -173,7 +178,7 @@ export default function EventCard({ event, setIsLoading }){
                         </div>
                         
                     }
-                    <BtnDelete displayText={  globalUser.id !== event.userId ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
+                    <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
                     <div className="toggle-event-card-btn centered" onClick={ () => setShowCardDetails( false )}>
                         <FontAwesomeIcon icon={ faChevronUp }/>
                     </div>

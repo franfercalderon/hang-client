@@ -41,12 +41,12 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
+                <Route exact path='/events' element={ <Events/>} />
               {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
               {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
-                <Route exact path='/events' element={ <Events/>} />
                 <Route exact path='/settings' element={ <Settings/>}/>
                 <Route exact path='/settings/profile' element={ <SettingsProfile/>} />
                 <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
