@@ -30,7 +30,7 @@ export default function EventCard({ event, setIsLoading }){
 
             if ( isOwnEvent ){
 
-                await deleteOwnEvent( 'scheduledSlots', eventId )   
+                await deleteOwnEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )   
                 setIsLoading( false ) 
 
                 Swal.fire({
