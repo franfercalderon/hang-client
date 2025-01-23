@@ -108,15 +108,15 @@ export default function EventCard({ event, setIsLoading }){
         })
     }
 
-    // useEffect(() => {
-    //     if ( globalUser ){
-    //         setIsOwnEvent( globalUser.id === event.userId ? true : false )
-    //     }
-    // }, [ globalUser, event ])
-
     useEffect(() => {
-        setIsOwnEvent( "FnNSENwcBGUGFv94jMIqN9E4pQn1" === event.userId ? true : false )
-    }, [ event ])
+        if ( globalUser ){
+            setIsOwnEvent( globalUser.id === event.userId ? true : false )
+        }
+    }, [ globalUser, event ])
+
+    // useEffect(() => {
+    //     setIsOwnEvent( "FnNSENwcBGUGFv94jMIqN9E4pQn1" === event.userId ? true : false )
+    // }, [ event ])
 
 
     return(
