@@ -3,7 +3,7 @@ import CardLoader from "../CardLoader/CardLoader"
 import useSlots from "../../hooks/useSlots"
 import FeedCard from "../FeedCard/FeedCard"
 
-export default function FeedNowdContainer ({ events, setIsLoading }) {
+export default function FeedNowdContainer ({ events, setIsLoading }) { 
 
     //HOOKS
     const { joinEvent } = useSlots()
