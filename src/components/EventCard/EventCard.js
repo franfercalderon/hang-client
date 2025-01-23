@@ -49,7 +49,7 @@ export default function EventCard({ event, setIsLoading }){
                     }
                 })
             } else {
-                await leaveEvent('scheduledSlots', eventId )
+                await leaveEvent( event.availableNow ? 'availableNowSlots' : 'scheduledSlots', eventId )
                 setIsLoading( false )
                 Swal.fire({
                     text: 'You have left the Hang',
