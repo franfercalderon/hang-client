@@ -21,7 +21,7 @@ export default function Feed () {
     const [ showAlert, setShowAlert ] = useState( true )
 
     //CONTEXT
-    const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation } = useContext( AppContext )
+    const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation, authToken } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
     //HOOKS
@@ -34,7 +34,7 @@ export default function Feed () {
     const handleInvitation = useCallback (async ( friendId ) => {
 
         setIsLoading( true )
-        await acceptInvitation( friendId )
+        await acceptInvitation( friendId, authToken )
         setPendingInvitation( null )
         Swal.fire({
             text: 'Friend added!',
@@ -52,7 +52,7 @@ export default function Feed () {
             }
         })
         setIsLoading( false )
-    }, [ acceptInvitation, setPendingInvitation ])
+    }, [ acceptInvitation, setPendingInvitation, authToken ])
 
     //EFFECTS
     useEffect(() => {
