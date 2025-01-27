@@ -18,6 +18,7 @@ export default function Feed () {
     //STATE
     const [ isLoading, setIsLoading ] = useState( true )
     const [ noDataMessage, setNoDataMessage ] = useState( false )
+    const [ showAlert, setShowAlert ] = useState( true )
 
     //CONTEXT
     const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation } = useContext( AppContext )
@@ -93,7 +94,8 @@ export default function Feed () {
     }, [ availableNowSlots, scheduledSlots, recurringMatches ] )
 
     useEffect(() => {
-        if( pendingInvitation ){
+        if( pendingInvitation && showAlert ){
+            setShowAlert( false )
             Swal.fire({
                 title: null,
                 text: `${ pendingInvitation.userName } has invited you to use Hang. If you accept, you will become friends.`,
@@ -115,7 +117,7 @@ export default function Feed () {
                 } 
             })
         }
-    }, [ pendingInvitation, handleInvitation ])
+    }, [ pendingInvitation, handleInvitation, showAlert ])
 
     return(
         <ViewContainer className="feed" >
