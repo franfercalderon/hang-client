@@ -35,10 +35,10 @@ export default function Feed () {
 
         if( friendId !== globalUser.id ){
             setIsLoading( true )
-            await acceptInvitation()
+            await acceptInvitation( friendId )
             setPendingInvitation( null )
             Swal.fire({
-                text: 'Request accepted!',
+                text: 'Friend added!',
                 icon: 'success',
                 confirmButtonText: 'Ok',
                 timer: 1300,
