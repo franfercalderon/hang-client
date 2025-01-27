@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react"
+import { useCallback, useContext, useEffect, useState } from "react"
 import { AppContext } from "../context/AppContext"
 import Loader from "../components/Loader/Loader"
 import { useNavigate } from "react-router-dom"
@@ -11,6 +11,7 @@ import ViewContainer from "../components/ViewContainer/ViewContainer"
 import RecurringMatchesContainer from "../components/RecurringMatchesContainer/RecurringMatchesContainer"
 // import invite from "../../../server/middleware/invite"
 import Swal from "sweetalert2"
+import useFriends from "../hooks/useFriends"
 
 export default function Feed () {
 
@@ -22,8 +23,55 @@ export default function Feed () {
     const { globalUser, notificationBadge, pendingInvitation } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
+    //HOOKS
+    const { acceptInvitation } = useFriends()
+
     //ROUTER
     const navigate = useNavigate()
+
+    //FUNCTIONS
+    const handleInvitation = useCallback (async ( friendId ) => {
+
+        if( friendId !== globalUser.id ){
+            setIsLoading( true )
+            await acceptInvitation()
+            Swal.fire({
+                text: 'Request accepted!',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            setIsLoading( false )
+
+        } else {
+            setIsLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: 'Looks like this is your own invite.',
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }, [ acceptInvitation, globalUser ])
 
     //EFFECTS
     useEffect(() => {
@@ -61,11 +109,11 @@ export default function Feed () {
             })
             .then( ( res ) => {
                 if( res.isConfirmed ){
-                    console.log('Confirms');
+                    handleInvitation( pendingInvitation.userId )
                 } 
             })
         }
-    }, [ pendingInvitation ])
+    }, [ pendingInvitation, handleInvitation ])
 
     return(
         <ViewContainer className="feed" >

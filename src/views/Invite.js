@@ -24,24 +24,10 @@ export default function Invite () {
         if( id ){
             
             const nameData = searchParams.get('name')
-
-            if( globalUser ){
-                console.log('si hay global user');
-                if( id !== globalUser.id ){
-                    console.log('no soy yo');
-                    setPendingInvitation( {
-                        userId: id,
-                        userName: decodeURIComponent( nameData )
-                    } )
-                }
-    
-            } else {
-                console.log('no hay global user');
-                setPendingInvitation( {
-                    userId: id,
-                    userName: decodeURIComponent( nameData )
-                } )
-            }
+            setPendingInvitation( {
+                userId: id,
+                userName: decodeURIComponent( nameData )
+            } )
 
         }
     }, [ id, setPendingInvitation, searchParams, globalUser ])
