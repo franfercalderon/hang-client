@@ -33,48 +33,26 @@ export default function Feed () {
     //FUNCTIONS
     const handleInvitation = useCallback (async ( friendId ) => {
 
-        if( friendId !== globalUser.id ){
-            setIsLoading( true )
-            await acceptInvitation( friendId )
-            setPendingInvitation( null )
-            Swal.fire({
-                text: 'Friend added!',
-                icon: 'success',
-                confirmButtonText: 'Ok',
-                timer: 1300,
-                buttonsStyling: false,
-                showConfirmButton: false,
-                showCancelButton: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
-            setIsLoading( false )
-
-        } else {
-            setIsLoading( false )
-            setPendingInvitation( null )
-            Swal.fire({
-                title: 'Oops!',
-                text: 'Looks like this is your own invite.',
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                timer: 1300,
-                buttonsStyling: false,
-                showConfirmButton: false,
-                showCancelButton: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
-        }
-    }, [ acceptInvitation, globalUser, setPendingInvitation ])
+        setIsLoading( true )
+        await acceptInvitation( friendId )
+        setPendingInvitation( null )
+        Swal.fire({
+            text: 'Friend added!',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            timer: 1300,
+            buttonsStyling: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        })
+        setIsLoading( false )
+    }, [ acceptInvitation, setPendingInvitation ])
 
     //EFFECTS
     useEffect(() => {
