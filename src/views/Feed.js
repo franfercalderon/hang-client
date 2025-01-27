@@ -20,7 +20,7 @@ export default function Feed () {
     const [ noDataMessage, setNoDataMessage ] = useState( false )
 
     //CONTEXT
-    const { globalUser, notificationBadge, pendingInvitation } = useContext( AppContext )
+    const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
     //HOOKS
@@ -35,6 +35,7 @@ export default function Feed () {
         if( friendId !== globalUser.id ){
             setIsLoading( true )
             await acceptInvitation()
+            setPendingInvitation( null )
             Swal.fire({
                 text: 'Request accepted!',
                 icon: 'success',
@@ -54,6 +55,7 @@ export default function Feed () {
 
         } else {
             setIsLoading( false )
+            setPendingInvitation( null )
             Swal.fire({
                 title: 'Oops!',
                 text: 'Looks like this is your own invite.',
@@ -71,7 +73,7 @@ export default function Feed () {
                 }
             })
         }
-    }, [ acceptInvitation, globalUser ])
+    }, [ acceptInvitation, globalUser, setPendingInvitation ])
 
     //EFFECTS
     useEffect(() => {
