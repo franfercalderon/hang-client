@@ -7,7 +7,6 @@ import InlineAlert from "../components/InlineAlert/InlineAlert";
 import Loader from "../components/Loader/Loader";
 import { RecaptchaVerifier, getAuth, signInWithPhoneNumber } from 'firebase/auth'
 import { app } from "../fb";
-import { AppContext } from "../context/AppContext";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
 
 export default function LoginTest () {
@@ -21,7 +20,6 @@ export default function LoginTest () {
     const [ ctaLoading, setCtaLoading ] = useState( false )
 
     const { userLogin, setConfirmObject } = useAuth()
-    const { inviterId } = useContext(AppContext)
 
     const auth = getAuth( app )
 
@@ -95,7 +93,7 @@ export default function LoginTest () {
                 ) : (
                     <>
                         <div className="section-container topbar-title">
-                            {inviterId ? 'Create Your Account' : 'Welcome'}
+                            {'Welcome'}
                         </div>
                         <div className="view-body">
                             <div className="section-container">

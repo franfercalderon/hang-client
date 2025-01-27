@@ -11,7 +11,7 @@ export default function Welcome () {
     const navigate = useNavigate()
 
     //CONTEXT
-    const { inviterId } = useContext( AppContext )
+    const { inviterId } = useContext( AppContext ) 
 
     return(
         <ViewContainer className="welcome">

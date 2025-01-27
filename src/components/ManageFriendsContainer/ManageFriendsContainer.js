@@ -118,7 +118,7 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
                     <>  
                         <div className="row">
                             <p>Drag and drop to change priorities:</p>
-                            <div className="inline-help centered pointer" onClick={ () => alertInfo('Priorities will affect the events you create for Best Friends.') }>
+                            <div className="inline-help centered pointer" onClick={ () => alertInfo('Priorities will affect the events you create using Priority List.') }>
                                 <p>?</p>
                             </div>
                         </div>

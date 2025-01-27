@@ -12,7 +12,7 @@ function useAuth () {
     const [ confirmObject, setConfirmObject ] = useState('')
 
     //CONTEXT
-    const { setPopulateUser, globalUser, authToken } = useContext( AppContext )
+    const { setPopulateUser, globalUser, authToken, setInviterId } = useContext( AppContext )
 
     //HOOKS 
     const { createUser } = useUsers()
@@ -41,6 +41,8 @@ function useAuth () {
             const newUser = res._tokenResponse.isNewUser
             if( newUser ){
                 await createUser( res )
+                //DELETE INVITE ID
+                setInviterId( '' )
                 navigate('/onboarding')
                 
             } else {
@@ -63,7 +65,9 @@ function useAuth () {
 
     const createInviteLink = useCallback (() => {
         if( globalUser ){
-            const inviteUrl = `${process.env.REACT_APP_BASE_URL}/invite/${ globalUser.id }`
+            
+            const userName = globalUser.name && globalUser.lastname ? `${ globalUser.name } ${ globalUser.lastname }`: 'Your friend'
+            const inviteUrl = `${process.env.REACT_APP_BASE_URL}/invite/${ globalUser.id }?name=${ encodeURIComponent( userName )}`
             return inviteUrl
         }
     }, [ globalUser ] )

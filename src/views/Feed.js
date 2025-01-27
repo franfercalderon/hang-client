@@ -9,6 +9,8 @@ import FeedScheduledContainer from "../components/FeedScheduledContainer/FeedSch
 import FeedNowdContainer from "../components/FeedNowContainer/FeedNowContainer"
 import ViewContainer from "../components/ViewContainer/ViewContainer"
 import RecurringMatchesContainer from "../components/RecurringMatchesContainer/RecurringMatchesContainer"
+// import invite from "../../../server/middleware/invite"
+import Swal from "sweetalert2"
 
 export default function Feed () {
 
@@ -17,7 +19,7 @@ export default function Feed () {
     const [ noDataMessage, setNoDataMessage ] = useState( false )
 
     //CONTEXT
-    const { globalUser, notificationBadge } = useContext( AppContext )
+    const { globalUser, notificationBadge, inviterId } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
     //ROUTER
@@ -39,6 +41,26 @@ export default function Feed () {
             setNoDataMessage( false )
         }
     }, [ availableNowSlots, scheduledSlots, recurringMatches ] )
+
+    // useEffect(() => {
+    //     if( pendingInvite ){
+    //         Swal.fire({
+    //             title: null,
+    //             text: `${ pendingInvite.userName } has invited you to use Hang. If you accept, you will become friends.`,
+    //             icon: "question",
+    //             confirmButtonText: 'Accept',
+    //             showDenyButton: true,
+    //             denyButtonText: 'Reject',
+    //             buttonsStyling: false,
+    //             customClass: {
+    //                 popup: 'hang-alert-container round-div div-shadow',
+    //                 icon: 'alert-icon',
+    //                 confirmButton: 'confirm-btn btn order2',
+    //                 denyButton: 'deny-btn btn order1',
+    //             }
+    //         })
+    //     }
+    // }, [ pendingInvite ])
 
     return(
         <ViewContainer className="feed" >
@@ -63,7 +85,7 @@ export default function Feed () {
                     <div className="main-view-body">
 
                         <div className="section-container user-name-container">
-                            <h3>{`Welcome ${ globalUser.name }`}</h3>
+                            <h3>{`Welcome ${ globalUser.name !== '' ? globalUser.name : '' }`}</h3>
                         </div>
                         <div className="section-container">
                             {

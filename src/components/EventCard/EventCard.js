@@ -100,9 +100,6 @@ export default function EventCard({ event, setIsLoading, refresh }){
         }
     }, [ globalUser, event ])
 
-    // useEffect(() => {
-    //     setIsOwnEvent( "FnNSENwcBGUGFv94jMIqN9E4pQn1" === event.userId ? true : false )
-    // }, [ event ])
 
 
     return(

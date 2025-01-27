@@ -19,11 +19,33 @@ function useAlert () {
         })
     }
 
-    return {
-        alertInfo,
-    
+    const handleInviteResponse = ( invite ) => {
+        Swal.fire({
+            title: null,
+            text: `Do you want to accept ${ invite.user } invite? If you do, you will become friends in Hang.`,
+            icon: "question",
+            confirmButtonText: 'Accept',
+            showDenyButton: true,
+            denyButtonText: 'Reject',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        })
+        .then( ( res ) => {
+            if( res.isConfirmed ){
+                //CONFIRM INVITE AND ADD BOTH AS FRIENDS
+            } 
+        })
     }
 
+    return {
+        alertInfo,
+        handleInviteResponse
+    }
 
 }
 

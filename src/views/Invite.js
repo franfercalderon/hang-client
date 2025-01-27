@@ -1,12 +1,14 @@
 import { useContext, useEffect } from "react";
 import Loader from "../components/Loader/Loader";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 
 export default function Invite () {
 
     //STATE
-    const { inviterId, setInviterId } = useContext( AppContext )
+    // const { inviterId, setInviterId } = useContext( AppContext ) 
+    const { pendingInvitation, setPendingInvitation } = useContext( AppContext ) 
+    const [ searchParams ] = useSearchParams()
 
     //ROUTER
     const navigate = useNavigate()
@@ -14,16 +16,22 @@ export default function Invite () {
 
     //EFFECTS
     useEffect(()=> {
-        if ( inviterId ){
+        if ( pendingInvitation ){
             navigate('/')
         }
-    }, [ inviterId, navigate ])
+    }, [ pendingInvitation, navigate ])
     
     useEffect(()=> {
         if ( id ){
-            setInviterId( id )
+            const nameData = searchParams.get('name')
+            console.log(nameData)
+            console.log(decodeURIComponent(nameData))
+            // setPendingInvitation( {
+            //     userId: id,
+            //     userName: 
+            // } )
         }
-    }, [ id, setInviterId ])
+    }, [ id, setPendingInvitation, searchParams ])
 
     return(
         <Loader/>

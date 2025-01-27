@@ -30,50 +30,6 @@ export default function EventsContainer() {
             }
             setIsLoading( false )
 
-
-            // setIsLoading( true )
-            // const fakeEvents = [
-            //     {
-            //         attending: [
-            //             {
-            //                 lastname:"Dallas",
-            //                 name:  "Loreen",
-            //                 userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //                 userImg:  "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd"
-            //             },
-            //         ],
-            //         customList: [
-            //             {
-            //                 id:  "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //                 imgUrl : "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //                 lastname: "Dallas",
-            //                 name:  "Loreen",
-            //             }
-            //         ],
-            //         ends: 1737678600000,
-            //         id:  "79963114-1906-4a22-9c2b-0a66591c6afe",
-            //         isPrivate:  true,
-            //         location :  {
-            //             address: '1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai - United Arab Emirates', 
-            //             coordinates: {}, 
-            //             mapUrl: 'https://maps.google.com/?cid=18394360053605775330'
-            //         },
-            //         spots: 1,
-            //         starts :  1737673200000,
-            //         title :  "Test Event 🪐",
-            //         userId :  "FnNSENwcBGUGFv94jMIqN9E4pQn1",
-            //         userImg:  "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale2.pngc3b292b3-a351-4b3b-9ac5-8f7d0dcb3077?alt=media&token=5ad3cb4c-d65b-4b9a-bf26-eb73088a8a56",
-            //         userLastname : "Coleman",
-            //         userName:  "Bobby",
-            //         visibility:  "custom",
-            //     },
-            // ]
-            // setTimeout(() => {
-            //     setUserEvents( fakeEvents )
-            //     setIsLoading( false )
-                
-            // }, 1000);
-
         } catch ( error ) {
 
             setIsLoading( false )

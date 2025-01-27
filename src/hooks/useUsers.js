@@ -19,7 +19,7 @@ function useUsers () {
             }
 
             //CREATES USER IN DB   
-            const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, {
+            const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, { 
                 headers: {
                     'Content-Type': 'application/json',
                     'InviteId': inviterId,

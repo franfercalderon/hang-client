@@ -24,6 +24,7 @@ const AppProvider = ({ children }) => {
     const [ hangSuggestions, setHangSuggestions ] = useState( [] )
     const [ notificationBadge, setNotificationBadge ] = useState( false )
     const [ userInvites, setUserInvites ] = useState( null ) 
+    const [ pendingInvitation, setPendingInvitation ] = useState( null )
 
     //HOOKS
     const { getUser } = useUsers()
@@ -50,6 +51,11 @@ const AppProvider = ({ children }) => {
     }
     
     const getUserData = useCallback( async ( token ) => {
+
+        // if( inviterId && inviterId !== ''){
+
+        //     setPendingInvitation( invite )
+        // }
         
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
@@ -140,7 +146,9 @@ const AppProvider = ({ children }) => {
             notificationBadge,
             notifications,
             removeNotification,
-            userInvites
+            userInvites,
+            pendingInvitation, 
+            setPendingInvitation,
         }}>
             { children }
         </Provider>
