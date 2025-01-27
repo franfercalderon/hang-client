@@ -117,7 +117,7 @@ function useFriends(){
 
     const acceptInvitation = async ( friendId ) => {
         try{ 
-            await axios.post(`${process.env.REACT_APP_API_URL}/acceptInvite/${ friendId }`, {
+            await axios.post(`${process.env.REACT_APP_API_URL}/users/acceptInvite/${ friendId }`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${ authToken }`
