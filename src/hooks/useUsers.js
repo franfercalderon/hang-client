@@ -7,7 +7,7 @@ import { v4 } from "uuid"
 function useUsers () {
     
     //CONTEXT
-    const { firebaseUserId, setFirebaseUserId, authToken, inviterId, masterToken, setMasterToken } = useContext( AppContext )
+    const { firebaseUserId, setFirebaseUserId, authToken, pendingInvitation, masterToken, setMasterToken } = useContext( AppContext )
 
     //FUNCTIONS
     const createUser = async ( data ) => {
@@ -22,7 +22,7 @@ function useUsers () {
             const userId = await axios.post(`${process.env.REACT_APP_API_URL}/users/`, user, { 
                 headers: {
                     'Content-Type': 'application/json',
-                    'InviteId': inviterId,
+                    'InviteId': pendingInvitation ? pendingInvitation.userId : '',
                     'MasterToken': masterToken
                 }
             })  

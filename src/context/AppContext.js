@@ -17,7 +17,6 @@ const AppProvider = ({ children }) => {
     const [ tokenLoading, setTokenLoading ] = useState( true  )
     const [ populateUser, setPopulateUser ] = useState( false )
     const [ firebaseUserId, setFirebaseUserId ] = useState('')
-    const [ inviterId, setInviterId ] = useState( '' )
     const [ masterToken, setMasterToken ] = useState( '' )
     const [ friendshipRequest, setFriendshipRequest ] = useState( [] )
     const [ notifications, setNotifications ] = useState( [] )
@@ -52,11 +51,6 @@ const AppProvider = ({ children }) => {
     
     const getUserData = useCallback( async ( token ) => {
 
-        // if( inviterId && inviterId !== ''){
-
-        //     setPendingInvitation( invite )
-        // }
-        
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
         
@@ -135,8 +129,6 @@ const AppProvider = ({ children }) => {
             firebaseUserId, 
             setFirebaseUserId,
             getGlobalUser,
-            inviterId, 
-            setInviterId,
             masterToken, 
             setMasterToken,
             setPopulateUser,

@@ -11,7 +11,7 @@ export default function Welcome () {
     const navigate = useNavigate()
 
     //CONTEXT
-    const { inviterId } = useContext( AppContext ) 
+    const { pendingInvitation } = useContext( AppContext ) 
 
     return(
         <ViewContainer className="welcome">
@@ -19,7 +19,7 @@ export default function Welcome () {
                 <img src="./images/logo.svg" alt="Hang"/>
             </div>
             <div className="section-container btn-container">
-                <BtnPrimary displayText={ inviterId ? 'Accept Invitation' : 'Log In'} action={ () => navigate('/login') } submit={ false } enabled={ true }/>
+                <BtnPrimary displayText={ pendingInvitation ? 'Accept Invitation' : 'Log In'} action={ () => navigate('/login') } submit={ false } enabled={ true }/>
             </div>
         </ViewContainer>
     )

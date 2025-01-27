@@ -6,8 +6,7 @@ import { AppContext } from "../context/AppContext";
 export default function Invite () {
 
     //STATE
-    // const { inviterId, setInviterId } = useContext( AppContext ) 
-    const { pendingInvitation, setPendingInvitation } = useContext( AppContext ) 
+    const { pendingInvitation, setPendingInvitation, globalUser } = useContext( AppContext ) 
     const [ searchParams ] = useSearchParams()
 
     //ROUTER
@@ -22,16 +21,30 @@ export default function Invite () {
     }, [ pendingInvitation, navigate ])
     
     useEffect(()=> {
-        if ( id ){
+        if( id ){
+            
             const nameData = searchParams.get('name')
-            console.log(nameData)
-            console.log(decodeURIComponent(nameData))
-            // setPendingInvitation( {
-            //     userId: id,
-            //     userName: 
-            // } )
+
+            if( globalUser ){
+                console.log('si hay global user');
+                if( id !== globalUser.id ){
+                    console.log('no soy yo');
+                    setPendingInvitation( {
+                        userId: id,
+                        userName: decodeURIComponent( nameData )
+                    } )
+                }
+    
+            } else {
+                console.log('no hay global user');
+                setPendingInvitation( {
+                    userId: id,
+                    userName: decodeURIComponent( nameData )
+                } )
+            }
+
         }
-    }, [ id, setPendingInvitation, searchParams ])
+    }, [ id, setPendingInvitation, searchParams, globalUser ])
 
     return(
         <Loader/>

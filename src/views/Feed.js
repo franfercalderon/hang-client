@@ -19,7 +19,7 @@ export default function Feed () {
     const [ noDataMessage, setNoDataMessage ] = useState( false )
 
     //CONTEXT
-    const { globalUser, notificationBadge, inviterId } = useContext( AppContext )
+    const { globalUser, notificationBadge, pendingInvitation } = useContext( AppContext )
     const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
 
     //ROUTER
@@ -42,25 +42,30 @@ export default function Feed () {
         }
     }, [ availableNowSlots, scheduledSlots, recurringMatches ] )
 
-    // useEffect(() => {
-    //     if( pendingInvite ){
-    //         Swal.fire({
-    //             title: null,
-    //             text: `${ pendingInvite.userName } has invited you to use Hang. If you accept, you will become friends.`,
-    //             icon: "question",
-    //             confirmButtonText: 'Accept',
-    //             showDenyButton: true,
-    //             denyButtonText: 'Reject',
-    //             buttonsStyling: false,
-    //             customClass: {
-    //                 popup: 'hang-alert-container round-div div-shadow',
-    //                 icon: 'alert-icon',
-    //                 confirmButton: 'confirm-btn btn order2',
-    //                 denyButton: 'deny-btn btn order1',
-    //             }
-    //         })
-    //     }
-    // }, [ pendingInvite ])
+    useEffect(() => {
+        if( pendingInvitation ){
+            Swal.fire({
+                title: null,
+                text: `${ pendingInvitation.userName } has invited you to use Hang. If you accept, you will become friends.`,
+                icon: "question",
+                confirmButtonText: 'Accept',
+                showDenyButton: true,
+                denyButtonText: 'Reject',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            .then( ( res ) => {
+                if( res.isConfirmed ){
+                    console.log('Confirms');
+                } 
+            })
+        }
+    }, [ pendingInvitation ])
 
     return(
         <ViewContainer className="feed" >
