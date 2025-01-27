@@ -114,10 +114,13 @@ export default function Feed () {
             .then( ( res ) => {
                 if( res.isConfirmed ){
                     handleInvitation( pendingInvitation.userId )
-                } 
+                } else {
+                    setPendingInvitation ( null )
+                    setShowAlert( true )
+                }
             })
         }
-    }, [ pendingInvitation, handleInvitation, showAlert ])
+    }, [ pendingInvitation, handleInvitation, showAlert, setPendingInvitation ])
 
     return(
         <ViewContainer className="feed" >
