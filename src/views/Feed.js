@@ -34,7 +34,7 @@ export default function Feed () {
     const handleInvitation = useCallback (async ( friendId ) => {
 
         setIsLoading( true )
-        await acceptInvitation( friendId, authToken )
+        await acceptInvitation( friendId )
         setPendingInvitation( null )
         Swal.fire({
             text: 'Friend added!',
@@ -52,7 +52,7 @@ export default function Feed () {
             }
         })
         setIsLoading( false )
-    }, [ acceptInvitation, setPendingInvitation, authToken ])
+    }, [ acceptInvitation, setPendingInvitation ])
 
     //EFFECTS
     useEffect(() => {

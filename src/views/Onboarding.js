@@ -17,7 +17,7 @@ export default function Onboarding () {
         lastname: '',
         email: ''
     })
-    const [ onboardingStage, setOnboardingStage ] = useState( 2 )
+    const [ onboardingStage, setOnboardingStage ] = useState( 1 )
     const [ isLoading, setIsLoading ] = useState( false )
     
     //CONTEXT
