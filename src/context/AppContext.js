@@ -54,7 +54,8 @@ const AppProvider = ({ children }) => {
         const friendshipRequests = await getUserFriendShipsRequests( token )
         setFriendshipRequest( friendshipRequests.length > 0 ? friendshipRequests : null )
         
-        const notifications = await getUserNotifications( token )
+        const notifications = await getUserNotifications( token ) 
+        notifications.sort(( a, b ) => a.timestamp - b.timestamp )
         setNotifications( notifications.length > 0 ? notifications : null )
 
         const invites = await getEventInvites( token )

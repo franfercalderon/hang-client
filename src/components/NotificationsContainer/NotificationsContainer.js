@@ -263,9 +263,7 @@ export default function NotificationsContainer(){
                         return(
                             <div className="slim-hang-card cta-card rounded" key={ idx }>
                                 <div className="inner">
-                                    { !notification.system &&
-                                        <img src={ notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className="profile-img-min"/>
-                                    }
+                                    <img src={ notification.system ? '/images/logo_sq.png': notification.senderImgUrl ? notification.senderImgUrl : '/images/defaultProfile.jpg' } alt={ notification.senderName } className={`profile-img-min ${notification.system ? 'no-radius': ''}`}/>
                                     <p>{`${ notification.text }`}</p>
                                 </div>
                                 <div className="pointer notification-card-icon" onClick={() => handleDelete( notification.id ) }>
