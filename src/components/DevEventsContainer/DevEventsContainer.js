@@ -20,14 +20,37 @@ export default function EventsContainer() {
         try {
             setIsLoading( true )
             if( showUserEvents ){
-                const events = await getOwnEvents()
-                events.sort(( a, b ) => a.starts - b.starts ) 
-                console.log(events);
+                // const events = await getOwnEvents()
+                // events.sort(( a, b ) => a.starts - b.starts ) 
+                // console.log(events);
+                const events = [
+                    {
+                        attending: [],
+                        customList: [],
+                        ends: 1738369800000,
+                        id: "3542a0eb-26b4-4dcd-8b25-0d30c6f63085",
+                        isPrivate: false,
+                        location: 
+                            {
+                                address: '1 Sheikh Mohammed bin Rashid Blvd - Downtown Dubai - Dubai - United Arab Emirates', 
+                                coordinates: {do:'someting'}, 
+                                mapUrl: 'https://maps.google.com/?cid=18394360053605775330'
+                            },
+                        spots: 0,
+                        starts: 1738360800000,
+                        title: "Test Event",
+                        userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1",
+                        userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202025-01-22%20at%203.08.41%E2%80%AFPM.pnga0fda4b3-bedb-4610-bf34-a1b7192a88f3?alt=media&token=d26964e2-69c4-4bf3-a61a-435bc97a2650",
+                        userLastname: "Coleman",
+                        userName: "Bobby",
+                        visibility: "everybody"
+                    }
+                ]
                 setUserEvents( events )
             } else {
-                const events = await getAttendingEvents()
-                events.sort(( a, b ) => a.starts - b.starts )
-                setAttendingEvents( events )
+                // const events = await getAttendingEvents()
+                // events.sort(( a, b ) => a.starts - b.starts )
+                // setAttendingEvents( events )
             }
             setIsLoading( false )
 
@@ -48,7 +71,7 @@ export default function EventsContainer() {
                 }
             })
         }
-    }, [ getAttendingEvents, getOwnEvents, showUserEvents ])
+    }, [ showUserEvents ])
 
     //EFFECTS
     useEffect(() => {
@@ -96,7 +119,6 @@ export default function EventsContainer() {
                                         </div>
                                     }
                                 </>
-
                             }
                         </>
                         :
