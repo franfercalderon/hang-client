@@ -10,7 +10,7 @@ export default function Create (){
 
     return(
         <ViewContainer>
-            <TopBarNav navigation={''} title={ 'New' }/>
+            <TopBarNav navigation={''} title={ 'New' }/> 
             <div className="main-view-body">
                 <div className="section-container">
                    <MainCard title={'Available Now'} descritpion={'Let your friends know your are free'} action={ () => navigate('/create/now') }/>

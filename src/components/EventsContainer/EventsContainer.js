@@ -21,7 +21,7 @@ export default function EventsContainer() {
             setIsLoading( true )
             if( showUserEvents ){
                 const events = await getOwnEvents()
-                events.sort(( a, b ) => a.starts - b.starts )
+                events.sort(( a, b ) => a.starts - b.starts ) 
                 setUserEvents( events )
             } else {
                 const events = await getAttendingEvents()
@@ -84,13 +84,13 @@ export default function EventsContainer() {
                                                 userEvents.map(( event, idx ) => {
                                                     return(
                                                         
-                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading } refresh={ fetchEvents } />
+                                                        <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading } refresh={ fetchEvents }  />
                                                     )
                                                 })
                                             }
                                         </>
                                         :
-                                        <div>
+                                        <div className="no-data-container">
                                             <p>You have no upcoming events hosted by you</p>
                                         </div>
                                     }
@@ -115,7 +115,7 @@ export default function EventsContainer() {
                                             }
                                         </>
                                         :
-                                        <div>
+                                        <div className="no-data-container">
                                             <p>You have no upcoming events</p>
                                         </div>
                                     }

@@ -1,10 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import useSlots from "../../hooks/useSlots"
-import BtnPrimary from "../BtnPrimary/BtnPrimary"
-import BtnSecondary from "../BtnSecondary/BtnSecondary"
 import BtnDelete from "../BtnDelete/BtnDelete"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronCircleDown, faChevronDown, faChevronUp, faLocationArrow } from "@fortawesome/free-solid-svg-icons"
+import { faChevronDown, faChevronUp, faLocationArrow } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
 import useAlert from "../../hooks/useAlert"
@@ -106,9 +104,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
         <div className="event-card rounded">
             <div className="title-container mb-05">
                 <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
-         
-                    <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
-
+                <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
             </div>
             {
                 !showCardDetails &&
@@ -136,7 +132,6 @@ export default function EventCard({ event, setIsLoading, refresh }){
                                 </div>
                             }
                         </div>
-
                     }
                     {
                         isOwnEvent && event.isPrivate &&
