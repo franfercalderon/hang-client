@@ -131,7 +131,7 @@ export default function Feed () {
                                 
                                 <div className="no-data-feed mt-3">
                                     <h4>Opps!</h4>
-                                    <p>Your friends have no upcoming events</p>
+                                    <p>No activity to show</p>
                                 </div>
                                 :
                                 <>  
