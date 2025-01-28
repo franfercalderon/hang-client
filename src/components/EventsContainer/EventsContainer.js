@@ -90,7 +90,7 @@ export default function EventsContainer() {
                                             }
                                         </>
                                         :
-                                        <div className="no-data-container">
+                                        <div className="no-data-container centered">
                                             <p>You have no upcoming events hosted by you</p>
                                         </div>
                                     }
@@ -115,7 +115,7 @@ export default function EventsContainer() {
                                             }
                                         </>
                                         :
-                                        <div className="no-data-container">
+                                        <div className="no-data-container centered">
                                             <p>You have no upcoming events</p>
                                         </div>
                                     }
