@@ -99,10 +99,10 @@ export default function EventCard({ event, setIsLoading, refresh }){
     }
 
     useEffect(() => {
-        // if ( globalUser ){
-        //     setIsOwnEvent( globalUser.id === event.userId ? true : false )
-        // }
-        setIsOwnEvent( 'iuYmKKbSqMfWlARqIt4y2oTHytr1' === event.userId ? true : false )
+        if ( globalUser ){
+            setIsOwnEvent( globalUser.id === event.userId ? true : false )
+        }
+        // setIsOwnEvent( 'iuYmKKbSqMfWlARqIt4y2oTHytr1' === event.userId ? true : false )
     }, [ globalUser, event ])
 
 
