@@ -234,6 +234,11 @@ export default function EditEventContainer(){
                         </div>
                         { originalEvent?.visibility === 'custom' && 
                             <div className="mt-1">
+                            <ul className="event-friends-list">
+                                <div className="fs-09">
+                                    <p>Invited friends:</p>
+                                </div>
+                            </ul>
                             {
                                 originalEvent?.customList.map(( friend, idx ) => {
                                     return(
