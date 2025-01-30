@@ -107,14 +107,14 @@ export default function EventCard({ event, setIsLoading, refresh }){
 
     return(
         <div className="event-card rounded">
-            <div className={`title-container mb-05 ${ showCardDetails ? 'row space-between' : ''}`}>
-                <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
+            <div className={`title-container mb-05`}>
+                <h3 className="font-big ">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
                 { event.description && event.description !==  '' &&
-                    <p>{ event.description }</p>
+                    <p className="low-opacity">{ event.description }</p>
                 }
                 {
                     !showCardDetails &&
-                    <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
+                    <p className="low-opacity">{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
                 }
             </div>
             {
