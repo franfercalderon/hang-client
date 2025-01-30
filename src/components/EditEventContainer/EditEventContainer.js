@@ -151,7 +151,7 @@ export default function EditEventContainer(){
         setIsLoading( originalEvent ? false : true )
         if( originalEvent){
 
-            console.log(originalEvent.visibility);
+            console.log(originalEvent);
         }
 
     }, [ originalEvent ] )
@@ -234,7 +234,7 @@ export default function EditEventContainer(){
                             </div>
                         </div>
                         { originalEvent?.visibility === 'custom' && 
-                            <>
+                            <div className="mt-1">
                             {
                                 customList.map(( friend, idx ) => {
                                     return(
@@ -245,9 +245,9 @@ export default function EditEventContainer(){
                                                 <img src={ friend.imgUrl } alt="friend" className="profile-img-min"/>
                                                 <p>{`${ friend.name } ${ friend.lastname }`}</p>
                                             </div>
-                                            {/* <div className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } list-circle-marker`}>
-                                                <span></span>
-                                            </div> */}
+                                            <div >
+                                                <p>Invited</p>
+                                            </div>
                                         </li>
                                         
                                     )
@@ -293,7 +293,7 @@ export default function EditEventContainer(){
                                     <p>Searching friends...</p>
                                 </div>
                             }
-                            </>
+                            </div>
                         }
                         </div>
                     <div className="section-container new-hang">
