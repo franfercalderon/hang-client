@@ -156,10 +156,10 @@ export default function EventCard({ event, setIsLoading, refresh }){
                             }
                         </div>
                     }
-                    {
+                    {/* {
                         isOwnEvent && event.isPrivate &&
                         <p className="mt-1"><span>Spots: </span>{ event.spots }</p>
-                    }
+                    } */}
                     {
                         isOwnEvent &&
                         <p className="mt-1"><span>Attendants:</span>{ ` ${ event.attending.length > 0 ? `${ event.attending.length }:` : event.attending.length }` }</p>
