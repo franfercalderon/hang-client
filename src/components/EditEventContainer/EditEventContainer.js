@@ -149,7 +149,10 @@ export default function EditEventContainer(){
 
     useEffect(() => {
         setIsLoading( originalEvent ? false : true )
-        console.log(originalEvent.visibility);
+        if( originalEvent){
+
+            console.log(originalEvent.visibility);
+        }
 
     }, [ originalEvent ] )
 
