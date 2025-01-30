@@ -21,6 +21,7 @@ export default function CreateHangContainer(){
     const [ isLoading, setIsLoading ] = useState( false )
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
+    const [ firstSelection, setFirstSelection ] = useState( true )
     const [ startTime, setStartTime ] = useState({
         hour: 6,
         minute: 0,
@@ -225,6 +226,15 @@ export default function CreateHangContainer(){
             setSpots( customList.length )
         }
     }, [ customList, visibility ] )
+
+    useEffect(() => {
+        if ( selectedDate ){
+            if( firstSelection ){
+                setFirstSelection( false )
+                setShowStartPicker( true )
+            }
+        }
+    }, [ selectedDate, showStartPicker, firstSelection ])
 
 
     return(

@@ -170,13 +170,13 @@ export default function CreateNowContainer() {
                             <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
                                 <p>From</p>
                                 <div className="time-display rounded">
-                                    <p>{  isNow ? 'now' : `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+                                    <p>{  isNow ? 'now' : `${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" )  } ${ startTime.ampm.toUpperCase() }`}</p>
                                 </div>
                             </div>
                             <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
                                 <p>To</p>
                                 <div className="time-display rounded">
-                                    <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
+                                    <p>{`${ endTime.hour } : ${ endTime.minute.toString().padStart(2, "0" )  } ${ endTime.ampm.toUpperCase() }`}</p>
                                 </div>
                             </div>
                         </div>
