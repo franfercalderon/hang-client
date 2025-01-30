@@ -104,7 +104,10 @@ export default function EventCard({ event, setIsLoading, refresh }){
         <div className="event-card rounded">
             <div className="title-container mb-05">
                 <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
-                <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
+                {
+                    !showCardDetails &&
+                    <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
+                }
             </div>
             {
                 !showCardDetails &&
@@ -121,6 +124,12 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         <p>Event Details</p>
                         <span></span>
                     </div>
+                    {
+                        showCardDetails &&
+                        <div className="row">
+                            <p className="mt-1"><span>Date:</span>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.`}</p>
+                        </div>
+                    }
                     {
                         isOwnEvent &&
                         <div className="row">
