@@ -39,30 +39,17 @@ export default function EditEventContainer(){
         minute:0,
         ampm: 'pm'
     })
-
-
-
-
-
-    
-    const [ location, setLocation ] = useState( null )
-    const [ slot, setSlot ] = useState()
-    const [ spots, setSpots ] = useState( 0 )
-    const [ title, setTitle ] = useState('')
-    const [ eventDescription, setEventDescription ] = useState('')
-    const [ isPrivate, setIsPrivate ] = useState( false )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
     const [ friendsList, setFriendsList ] = useState( null )
-    const [ visibility, setVisibility ] = useState( 'everybody' )
 
 
     //HOOKS
-    const { convertTimeToTimestamp, postScheduledSlot, convertTimestampToTime, formatTimestampToDate } = useSlots()
+    const { convertTimeToTimestamp, convertTimestampToTime } = useSlots()
     const { alertInfo } = useAlert()
 
     //CONTEXT
-    const { globalUser, capitalizeWords } = useContext( AppContext )
+    const { capitalizeWords } = useContext( AppContext )
 
     //HOOKS
     const { getUserFriends } = useFriends()
@@ -94,18 +81,11 @@ export default function EditEventContainer(){
         }))
     }
 
-
-    const handleSpots = ( e, operation ) => {
-        e.preventDefault()
-        const updatedSpots = spots + operation
-        setSpots( updatedSpots < 0 ? 0 : updatedSpots )
-
-    }
-
     const getFriendsList = useCallback( async () => {
         const friends = await getUserFriends()
         setFriendsList( friends )
     }, [ getUserFriends])
+
 
     const handleCheckboxChange = ( friendId ) => {
         if( customList.some( ( friend ) => friend.id === friendId )){
@@ -115,65 +95,6 @@ export default function EditEventContainer(){
             if ( selectedFriend ){
                 setCustomList([...customList, selectedFriend ])
             }
-        }
-    }
-
-    const handleSaveChanges = async () => {
-
-        try {
-            if ( slot.starts > slot.ends ){
-                throw new Error ('Start hour must be before end hour')
-            } else {
-                setIsLoading( true )
-                const scheduledHang = {
-                    title,
-                    starts: slot.starts,
-                    ends: slot.ends,
-                    location,
-                    spots,
-                    isPrivate,
-                    customList,
-                    visibility,
-                    userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
-                    userName: globalUser?.name ? globalUser.name : null,
-                    userLastname: globalUser?.lastname ? globalUser.lastname : null,
-                    attending: [],
-                }
-                await postScheduledSlot( scheduledHang )
-                setIsLoading( false )
-                Swal.fire({
-                    text: 'Your event has been created!',
-                    icon: 'success',
-                    confirmButtonText: 'Ok',
-                    timer: 1300,
-                    buttonsStyling: false,
-                    showConfirmButton: false,
-                    showCancelButton: false,
-                    customClass: {
-                        popup: 'hang-alert-container round-div div-shadow',
-                        icon: 'alert-icon',
-                        confirmButton: 'confirm-btn btn order2',
-                        denyButton: 'deny-btn btn order1',
-                    }
-                })
-                navigate('/')
-
-            }
-        } catch ( error ) {
-            setIsLoading( false ) 
-            Swal.fire({
-                title: 'Oops!',
-                text: error.message,
-                icon: 'warning',
-                confirmButtonText: 'Ok',
-                buttonsStyling: false,
-                customClass: {
-                    popup: 'hang-alert-container round-div div-shadow',
-                    icon: 'alert-icon',
-                    confirmButton: 'confirm-btn btn order2',
-                    denyButton: 'deny-btn btn order1',
-                }
-            })
         }
     }
 
@@ -196,21 +117,11 @@ export default function EditEventContainer(){
         }
     }
 
+    const handleSaveChanges = async () => {
+
+    }
+
     //EFFECTS
-    useEffect(() => {
-        if( selectedDate ){
-            const startTimestamp = convertTimeToTimestamp( startTime, selectedDate )
-            const endTimestamp = convertTimeToTimestamp( endTime, selectedDate  )
-            setSlot({
-                starts: startTimestamp,
-                ends: endTimestamp
-            })
-        } else {
-            setSlot( null )
-        }
-
-    }, [ startTime, endTime, convertTimeToTimestamp, selectedDate ])
-
     useEffect(() => { 
         if ( !originalEvent ) return;
     
@@ -223,35 +134,11 @@ export default function EditEventContainer(){
     
         setEnableSubmit( hasChanges )
     }, [ editedEvent, originalEvent] )
-    
-
-    useEffect(() => {
-        if( visibility === 'everybody' ){
-            setSpots( 0 )
-            setIsPrivate( false )
-            setCustomList( [] )
-        } else if ( visibility === 'auto' ){
-            setSpots( 0 )
-            setIsPrivate( true )
-            setCustomList( [] )
-        } else if ( visibility === 'custom' ){
-            setSpots( 0 )
-            setIsPrivate( true )
-            getFriendsList()
-        }
-    }, [ visibility, getFriendsList ] )
-
-    useEffect(() => {
-        if( visibility === 'custom' ){
-            setSpots( customList.length )
-        }
-    }, [ customList, visibility ] )
 
     useEffect(() =>{
         const event = routerLocation.state?.event
         if( event ){
             setOriginalEvent( event )
-            // setEditedEvent({ title: event.title ?? "" })
             setSelectedDate( new Date( event.starts ))
             const startFormatted = convertTimestampToTime( event.starts )
             const endsFormatted = convertTimestampToTime( event.ends )
@@ -262,6 +149,7 @@ export default function EditEventContainer(){
 
     useEffect(() => {
         setIsLoading( originalEvent ? false : true )
+        console.log(originalEvent.visibility);
 
     }, [ originalEvent ] )
 
@@ -279,10 +167,10 @@ export default function EditEventContainer(){
     }, [ selectedDate, startTime, endTime, convertTimeToTimestamp ])
 
     useEffect(() => {
+        getFriendsList()
+    }, [ getFriendsList ])
 
-        console.log(editedEvent);
 
-    }, [ editedEvent ])
 
 
     return(
@@ -342,7 +230,7 @@ export default function EditEventContainer(){
                                 </div>
                             </div>
                         </div>
-                        { visibility === 'custom' && 
+                        { originalEvent?.visibility === 'custom' && 
                             <>
                             {
                                 customList.map(( friend, idx ) => {

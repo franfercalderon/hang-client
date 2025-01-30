@@ -102,7 +102,6 @@ export default function EventCard({ event, setIsLoading, refresh }){
         if ( globalUser ){
             setIsOwnEvent( globalUser.id === event.userId ? true : false )
         }
-        // setIsOwnEvent( 'iuYmKKbSqMfWlARqIt4y2oTHytr1' === event.userId ? true : false )
     }, [ globalUser, event ])
 
 
