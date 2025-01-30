@@ -238,25 +238,25 @@ export default function EditEventContainer(){
                                 <div className="fs-09">
                                     <p>Invited friends:</p>
                                 </div>
+                                {
+                                    originalEvent?.customList.map(( friend, idx ) => {
+                                        return(
+                                            <li key={ idx }
+                                            className={`disabled rounded`}
+                                            >   
+                                                <div className="title-container">
+                                                    <img src={ friend.imgUrl } alt="friend" className="profile-img-min"/>
+                                                    <p>{`${ friend.name } ${ friend.lastname }`}</p>
+                                                </div>
+                                                <div >
+                                                    <p>Invited</p>
+                                                </div>
+                                            </li>
+                                            
+                                        )
+                                    }) 
+                                }
                             </ul>
-                            {
-                                originalEvent?.customList.map(( friend, idx ) => {
-                                    return(
-                                        <li key={ idx }
-                                        className={`disabled rounded`}
-                                        >   
-                                            <div className="title-container">
-                                                <img src={ friend.imgUrl } alt="friend" className="profile-img-min"/>
-                                                <p>{`${ friend.name } ${ friend.lastname }`}</p>
-                                            </div>
-                                            <div >
-                                                <p>Invited</p>
-                                            </div>
-                                        </li>
-                                        
-                                    )
-                                }) 
-                            }
                             { friendsList ?
                                 <>
                                 {
