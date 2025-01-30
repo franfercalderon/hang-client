@@ -127,7 +127,13 @@ export default function EventCard({ event, setIsLoading, refresh }){
                     {
                         showCardDetails &&
                         <div className="row">
-                            <p className="mt-1"><span>Date:</span>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.`}</p>
+                            <p className="mt-1"><span>Date:</span>{ ` ${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.`}</p>
+                        </div>
+                    }
+                    {
+                        showCardDetails &&
+                        <div className="row">
+                            <p className="mt-1"><span>Time:</span>{ ` ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.`}</p>
                         </div>
                     }
                     {
