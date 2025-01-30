@@ -18,15 +18,15 @@ export default function TimePickerNew ({ handleClose, handleChange, action, valu
     const handleHour = ( operation ) => {
 
         if( operation === 'adds'){
-            if( value.hour >= 0 && value.hour < 12 ){
+            if( value.hour > 0 && value.hour < 12 ){
                 handleChange( 'hour', value.hour + 1 )
             } else if ( value.hour === 12 ){
-                handleChange( 'hour', 0 )
+                handleChange( 'hour', 1 )
             }
         } else if( operation === 'substracts' ){
-            if( value.hour >= 1 && value.hour <= 12 ){
+            if( value.hour > 1 && value.hour <= 12 ){
                 handleChange( 'hour', value.hour - 1 )
-            } else if ( value.hour === 0 ){
+            } else if ( value.hour === 1 ){
                 handleChange( 'hour', 12 )
             }
         }
