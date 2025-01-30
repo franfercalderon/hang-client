@@ -157,23 +157,28 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         </div>
                     }
                     {
-                        isOwnEvent && event.customList &&
-                        <p className="mt-1"><span>Invited:</span>{ ` ${ event.customList.length}` }</p>
-                    }
-                    {
-                        isOwnEvent && event.customList.length > 0 &&
-                        <ul >
-                            {
-                                event.customList.map(( invited, idx ) => {
-                                    return(
-                                        <li key={ idx } className='mt-05'>
-                                                <img className="profile-img-min" src={ invited.imgUrl } alt={ `${invited.name} ${ invited.lastname}` }/>
-                                            {`${invited.name} ${ invited.lastname}`}
-                                        </li>
-                                    )
-                                })
-                            }
-                        </ul>
+                        event.visibility && event.visibility === 'custom' &&
+                        <>
+                        {
+                            isOwnEvent && event.customList &&
+                            <p className="mt-1"><span>Invited:</span>{ ` ${ event.customList.length}` }</p>
+                        }
+                        {
+                            isOwnEvent && event.customList.length > 0 &&
+                            <ul >
+                                {
+                                    event.customList.map(( invited, idx ) => {
+                                        return(
+                                            <li key={ idx } className='mt-05'>
+                                                    <img className="profile-img-min" src={ invited.imgUrl } alt={ `${invited.name} ${ invited.lastname}` }/>
+                                                {`${invited.name} ${ invited.lastname}`}
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        }
+                        </>
                     }
                     {
                         isOwnEvent &&
@@ -205,7 +210,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
                     }
                     <div className="mt-2" >
                         {
-                            isOwnEvent &&
+                            isOwnEvent && !event.availableNow &&
                             <BtnSecondary displayText={ 'Edit Event'} enabled={ true } submit={ false } action={ () =>navigate('/editEvent', { state: { event } }) }/>
                         }
                         <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
