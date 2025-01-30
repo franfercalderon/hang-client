@@ -182,10 +182,9 @@ export default function EditEventContainer(){
     useEffect(() => {
         if( customList && customList.length > 0 ){
 
-            const updatedArray = [...originalEvent.customList, ...customList ]
             setEditedEvent(( prev ) => ({
                 ...prev,
-                customList: updatedArray
+                customList: customList
             }))
         } else {
             setEditedEvent(( prev ) => {
