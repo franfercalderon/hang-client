@@ -217,7 +217,6 @@ export default function EditEventContainer(){
     }, [ originalEvent ] )
 
 
-
     useEffect(() => {
         
         const updatedStarts = convertTimeToTimestamp( startTime, selectedDate )
@@ -236,13 +235,6 @@ export default function EditEventContainer(){
             getFriendsList()
         }
     }, [ getFriendsList, originalEvent ])
-
-    useEffect(() => {
-        if( editedEvent){
-            console.log(editedEvent);
-        }
-    }, [ editedEvent ])
-
 
 
     return(
