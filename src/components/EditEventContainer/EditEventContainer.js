@@ -93,7 +93,7 @@ export default function EditEventContainer(){
 
     const handleCheckboxChange = ( friendId ) => {
         if( customList.some( ( friend ) => friend.id === friendId )){
-            setCustomList( customList.filter(( friend) => friend.id !== friendId ))
+            setCustomList( customList.filter(( friend ) => friend.id !== friendId ))
         } else {
             const selectedFriend = friendsList.find(( friend ) => friend.id === friendId )
             if ( selectedFriend ){
@@ -134,10 +134,28 @@ export default function EditEventContainer(){
             ( editedEvent.description && editedEvent.description !== originalEvent.description ) ||
             ( editedEvent.starts && editedEvent.starts !== originalEvent.starts ) ||
             ( editedEvent.ends && editedEvent.ends !== originalEvent.ends ) ||
-            ( editedEvent.location && editedEvent.location !== originalEvent.location )
-    
+            ( editedEvent.location && editedEvent.location !== originalEvent.location ) ||
+            ( editedEvent.customList )
+        
         setEnableSubmit( hasChanges )
     }, [ editedEvent, originalEvent] )
+
+    useEffect(() => {
+        if( customList && customList.length > 0 ){
+
+            const updatedArray = [...originalEvent.customList, ...customList ]
+            setEditedEvent(( prev ) => ({
+                ...prev,
+                customList: updatedArray
+            }))
+        } else {
+            setEditedEvent(( prev ) => {
+                const { customList, ...rest } = prev
+                return rest;
+            })
+    
+        }
+    }, [ customList, originalEvent ])
 
     useEffect(() =>{
         const event = routerLocation.state?.event
@@ -160,6 +178,8 @@ export default function EditEventContainer(){
 
     }, [ originalEvent ] )
 
+
+
     useEffect(() => {
         
         const updatedStarts = convertTimeToTimestamp( startTime, selectedDate )
@@ -178,6 +198,12 @@ export default function EditEventContainer(){
             getFriendsList()
         }
     }, [ getFriendsList, originalEvent ])
+
+    useEffect(() => {
+        if( editedEvent){
+            console.log(editedEvent);
+        }
+    }, [ editedEvent ])
 
 
 
