@@ -281,6 +281,26 @@ function useSlots (){
 
     }, [ authToken ])
 
+    const updateEventData = async ( eventId, eventData ) => {
+
+        const data = {
+            eventId,
+            eventData
+        }
+        try {
+            await axios.patch(`${process.env.REACT_APP_API_URL}/slots/update`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ authToken }`
+                }
+            })  
+            
+        } catch ( error ) {
+            throw error.response.data
+        }
+
+    }
+
     const getAttendingEvents = useCallback( async () => {
         try{
             // //GETS EVENTS USER IS ATTENDING   
@@ -595,7 +615,8 @@ function useSlots (){
         getOwnEvents,
         deleteOwnEvent,
         leaveEvent,
-        convertTimestampToTime
+        convertTimestampToTime,
+        updateEventData
 
     })
 

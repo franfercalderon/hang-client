@@ -39,10 +39,11 @@ export default function EditEventContainer(){
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
     const [ friendsList, setFriendsList ] = useState( null )
+    const [ isBtnLoading, setIsBtnLoading ] = useState( false )
 
 
     //HOOKS
-    const { convertTimeToTimestamp, convertTimestampToTime } = useSlots()
+    const { convertTimeToTimestamp, convertTimestampToTime, updateEventData } = useSlots()
     const { alertInfo } = useAlert()
 
     //CONTEXT
@@ -123,6 +124,44 @@ export default function EditEventContainer(){
 
     const handleSaveChanges = async () => {
 
+        try {
+            setIsBtnLoading( true )
+            await updateEventData( originalEvent.id, editedEvent )
+            setIsBtnLoading( false )
+            Swal.fire({
+                text: 'Event updated!',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            navigate('/events')
+
+        } catch (error) {
+            setIsBtnLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+            navigate('/events')
+        }
     }
 
     //EFFECTS
@@ -333,7 +372,7 @@ export default function EditEventContainer(){
                         }
                         </div>
                     <div className="section-container new-hang">
-                        <BtnPrimary action={ handleSaveChanges } displayText={'Save Changes'} submit={ false } enabled={ enableSubmit }/>
+                        <BtnPrimary action={ handleSaveChanges } displayText={'Save Changes'} submit={ false } enabled={ enableSubmit } btnLoading={ isBtnLoading }/>
                     </div>
                 </>
             }
