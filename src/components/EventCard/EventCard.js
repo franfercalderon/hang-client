@@ -156,10 +156,25 @@ export default function EventCard({ event, setIsLoading, refresh }){
                             }
                         </div>
                     }
-                    {/* {
-                        isOwnEvent && event.isPrivate &&
-                        <p className="mt-1"><span>Spots: </span>{ event.spots }</p>
-                    } */}
+                    {
+                        isOwnEvent && event.customList &&
+                        <p className="mt-1"><span>Invited:</span>{ ` ${ event.customList.length}` }</p>
+                    }
+                    {
+                        isOwnEvent && event.customList.length > 0 &&
+                        <ul >
+                            {
+                                event.customList.map(( invited, idx ) => {
+                                    return(
+                                        <li key={ idx } className='mt-05'>
+                                                <img className="profile-img-min" src={ invited.imgUrl } alt={ `${invited.name} ${ invited.lastname}` }/>
+                                            {`${invited.name} ${ invited.lastname}`}
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    }
                     {
                         isOwnEvent &&
                         <p className="mt-1"><span>Attendants:</span>{ ` ${ event.attending.length > 0 ? `${ event.attending.length }:` : event.attending.length }` }</p>
