@@ -108,7 +108,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
             </div>
             {
                 !showCardDetails &&
-                <div className="toggle-event-card-btn centered" onClick={ () => setShowCardDetails( true )}>
+                <div className="toggle-event-card-btn centered pointer" onClick={ () => setShowCardDetails( true )}>
                     <FontAwesomeIcon icon={ faChevronDown }/>
                 </div>
             }
@@ -166,7 +166,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         
                     }
                     <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
-                    <div className="toggle-event-card-btn centered" onClick={ () => setShowCardDetails( false )}>
+                    <div className="toggle-event-card-btn centered pointer" onClick={ () => setShowCardDetails( false )}>
                         <FontAwesomeIcon icon={ faChevronUp }/>
                     </div>
                     

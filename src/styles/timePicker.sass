@@ -1,0 +1,92 @@
+.time-picker-main-div
+    position: fixed
+    top: 0
+    left: 0
+    width: 100vw
+    height: 100vh
+    background-color: rgba(0, 0, 0, 0.08)
+    display: flex
+    justify-content: center
+    align-items: center
+    z-index: 999
+
+.time-picker-main-div .inner .close-btn
+    right: 15px
+    top: 15px
+    font-size: 1rem
+    position: absolute
+    
+
+.time-picker-main-div .inner
+    margin-top: -5vh
+    background-color: $darkwhite
+    position: relative
+    // height: 150px
+    width: 300px
+    display: flex
+    flex-direction: column
+    // justify-content: center
+    font-size: 1rem
+    // border: 1px solid green
+    padding: 25px 20px
+
+.time-picker-main-div .inner span 
+    height: 100%
+    display: flex
+    align-items: center
+
+.time-picker-main-div .inner .column
+    // border: 1px solid red 
+    width: 40px
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    margin: 0 1rem
+
+.time-picker-main-div .body-container
+    // border: 1px solid blue
+    display: flex
+    justify-content: center
+    margin: 1rem 0 1.5rem 0
+
+
+.time-picker-main-div .footer-container .btn
+    // border: 1px solid $hangblue
+    padding: 0.7rem
+    border-radius: 500px
+
+.time-picker-action-btn
+    opacity: 0.6
+    padding: 0.8rem
+    cursor: pointer
+    // border: 1px solid green
+
+
+.time-picker-main-div .focus-container
+    padding: 0.5rem 0
+    background-color: white
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: center
+    border-radius: 7px
+    font-weight: 500
+
+.time-picker-main-div .ampm
+    margin-top: 10rem
+    padding-top: 2.4rem
+
+.time-picker-main-div .focus-container.disabled
+    background: none
+    opacity: 0.6
+    font-weight: 300
+
+.time-picker-main-div input 
+    // border: 1px solid blue 
+    width: 100%
+    height: 100%
+    font-weight: 500
+    text-align: center
+    font-size: 1rem

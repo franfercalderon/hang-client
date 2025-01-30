@@ -3,7 +3,6 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import DatePickerContainer from "../DatePickerContainer/DatePickerContainer";
 import { useEffect, useState, useContext, useCallback } from "react";
 import useSlots from "../../hooks/useSlots";
-import TimePicker from "../TimePicker/TimePicker";
 import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
 import { useNavigate } from "react-router-dom"
@@ -12,6 +11,7 @@ import useAlert from "../../hooks/useAlert";
 import LocationInput from "../LocationInput/LocationInput";
 import { LoadScriptNext } from '@react-google-maps/api';
 import useFriends from "../../hooks/useFriends";
+import TimePickerNew from "../TimePickerNew/TimePickerNew";
 const loadLibraries = [ 'places' ]
 
 
@@ -22,14 +22,14 @@ export default function CreateHangContainer(){
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
     const [ startTime, setStartTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 6,
+        minute: 0,
+        ampm: 'pm'
     })
     const [ endTime, setEndTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 7,
+        minute:0,
+        ampm: 'pm'
     })
     
     const [ location, setLocation ] = useState( null )
@@ -57,39 +57,30 @@ export default function CreateHangContainer(){
     const navigate = useNavigate()
 
     //FUNCTIONS
-    const resetTimes = () => {
-        setStartTime({
-            hour: '',
-            minute:'',
-            ampm: ''
-        })
-        setEndTime({
-            hour: '',
-            minute:'',
-            ampm: ''
-        })
+    // const resetTimes = () => {
+    //     setStartTime({
+    //         hour: 6,
+    //         minute: 0,
+    //         ampm: 'pm'
+    //     })
+    //     setEndTime({
+    //         hour: 7,
+    //         minute:0,
+    //         ampm: 'pm'
+    //     })
+    // }
+
+    const handleCloseTimePickers = ( start, end ) => {
+        setShowStartPicker( start )
+        setShowEndPicker( end )
     }
 
-    const handleClosePickers = ( e, deleteData, openEndTimer ) => {
-        e.preventDefault()
-        setShowEndPicker( false )
-        setShowStartPicker( false )
-        if ( openEndTimer){
-            setShowEndPicker( true )
-        }
-        if( deleteData ){
-            resetTimes()
-        }
+    const handleStartTime = ( origin, value ) => {
+        setStartTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
-    const handleStartTime = ( e ) => {
-        const { value, name } = e.target
-        setStartTime(( prevValue ) => ({...prevValue, [ name ]: value }))
-    }
-
-    const handleEndTime = ( e ) => {
-        const { value, name } = e.target
-        setEndTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleEndTime = ( origin, value ) => {
+        setEndTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
     const handleSpots = ( e, operation ) => {
@@ -162,7 +153,7 @@ export default function CreateHangContainer(){
 
             }
         } catch ( error ) {
-            setIsLoading( false )
+            setIsLoading( false ) 
             Swal.fire({
                 title: 'Oops!',
                 text: error.message,
@@ -259,23 +250,23 @@ export default function CreateHangContainer(){
                             <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
                                 <p>From</p>
                                 <div className="time-display rounded">
-                                    <p>{ `${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+                                    <p>{ `${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" )  } ${ startTime.ampm.toUpperCase() }`}</p>
                                 </div>
                             </div>
                             <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
                                 <p>To</p>
                                 <div className="time-display rounded">
-                                    <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
+                                    <p>{`${ endTime.hour } : ${ endTime.minute.toString().padStart(2, "0" )  } ${ endTime.ampm.toUpperCase() }`}</p>
                                 </div>
                             </div>
                         </div>
                         {
                             showStartPicker &&
-                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                            <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
                         }
                         {
                             showEndPicker &&
-                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                            <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
                         <div className="location-container mt-1">
                             <LoadScriptNext

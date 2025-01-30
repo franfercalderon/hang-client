@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
 import DayContainer from "../DayContainer/DayContainer"
-import TimePicker from "../TimePicker/TimePicker"
 import BtnPrimary from "../BtnPrimary/BtnPrimary"
 import BtnSecondary from "../BtnSecondary/BtnSecondary"
 import Swal from "sweetalert2"
 import useSlots from "../../hooks/useSlots"
 import Loader from "../Loader/Loader"
+import TimePickerNew from "../TimePickerNew/TimePickerNew"
 
 export default function OnboardingCalendar({ handleOnboardingStage }) {
 
@@ -17,14 +17,14 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
     const [ startTime, setStartTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 6,
+        minute: 0,
+        ampm: 'pm'
     })
     const [ endTime, setEndTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 7,
+        minute:0,
+        ampm: 'pm'
     })
 
     //HOOKS
@@ -41,39 +41,31 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
     }
 
 
-    const handleStartTime = ( e ) => {
-        const { value, name } = e.target
-        setStartTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleStartTime = ( origin, value ) => {
+        setStartTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
-    const handleEndTime = ( e ) => {
-        const { value, name } = e.target
-        setEndTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleEndTime = ( origin, value ) => {
+        setEndTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
+
 
     const resetTimes = () => {
         setStartTime({
-            hour: '',
-            minute:'',
-            ampm: ''
+            hour: 6,
+            minute: 0,
+            ampm: 'pm'
         })
         setEndTime({
-            hour: '',
-            minute:'',
-            ampm: ''
+            hour: 7,
+            minute:0,
+            ampm: 'pm'
         })
     }
 
-    const handleClosePickers = ( e, deleteData, openEndTimer ) => {
-        e.preventDefault()
-        setShowEndPicker( false )
-        setShowStartPicker( false )
-        if ( openEndTimer){
-            setShowEndPicker( true )
-        }
-        if( deleteData ){
-            resetTimes()
-        }
+    const handleCloseTimePickers = ( start, end ) => {
+        setShowStartPicker( start )
+        setShowEndPicker( end )
     }
 
     const handleSaveSlot = async () => {
@@ -83,6 +75,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                 startTime,
                 endTime
             }
+
             setIsLoading( true )
             if( validateTimes( slot ) ){
                 await postFixedSlot( slot )
@@ -92,7 +85,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                 setIsLoading( false )
 
             } else {
-                throw new Error('Start date must be before End date')
+                throw new Error('Start time must be before end end')
             }
             
         } catch ( error ) {
@@ -115,7 +108,7 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
 
     //EFFECTS
     useEffect(() => {
-        if( startTime.hour !== '' && startTime.minute !== '' && startTime.ampm !== '' && endTime.hour !== '' && endTime.minute !== '' && endTime.ampm !== '' && selectedDays.length > 0 ){
+        if( selectedDays.length > 0 ){
             setEnableSaveBtn( true )
         } else {
             setEnableSaveBtn( false )
@@ -128,47 +121,42 @@ export default function OnboardingCalendar({ handleOnboardingStage }) {
                 isLoading ?
                 <Loader/>
                 :
-
                 <>
-                    {   !showEndPicker && !showStartPicker &&
-                        <>  
-                            <p>Select one or more days</p>
-                            <div className="weekdays-container">
-                                <DayContainer initial={'S'} day={'sunday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'m'} day={'monday'} selected={ false } selectedDays={ selectedDays } active={ true } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'t'} day={'tuesday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'w'} day={'wednesday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'t'} day={'thursday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'f'} day={'friday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                                <DayContainer initial={'S'} day={'saturday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
-                            </div>
-                            <div className="times-container">
-                                <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
-                                    <p>From</p>
-                                    <div className="time-display rounded">
-                                        <p>{`${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
-                                    </div>
-                                </div>
-                                <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
-                                    <p>To</p>
-                                    <div className="time-display rounded">
-                                        <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
-                                    </div>
+                    <>  
+                        <p>Select one or more days</p>
+                        <div className="weekdays-container">
+                            <DayContainer initial={'S'} day={'sunday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'m'} day={'monday'} selected={ false } selectedDays={ selectedDays } active={ true } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'t'} day={'tuesday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'w'} day={'wednesday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'t'} day={'thursday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'f'} day={'friday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                            <DayContainer initial={'S'} day={'saturday'} selected={ false } selectedDays={ selectedDays } active={ false } handleSelectDay={ handleSelectDay }/>
+                        </div>
+                        <div className="times-container">
+                            <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
+                                <p>From</p>
+                                <div className="time-display rounded pointer">
+                                    <p>{`${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" ) } ${ startTime.ampm.toUpperCase() }`}</p>
                                 </div>
                             </div>
-                        </>
-                        
-                    }
+                            <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
+                                <p>To</p>
+                                <div className="time-display rounded pointer">
+                                    <p>{`${ endTime.hour } : ${ endTime.minute.toString().padStart(2, "0" )  } ${ endTime.ampm.toUpperCase() }`}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </>
                     {
                         showStartPicker &&
-                        <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                        <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
                     }
                     {
                         showEndPicker &&
-                        <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                        <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                     }
                     { 
-                        !showEndPicker && !showStartPicker &&
                         <BtnPrimary action={ handleSaveSlot } displayText={'Save Date'} submit={ false } enabled={ enableSaveBtn }/>
                     }
                     <div className="bottom-container">

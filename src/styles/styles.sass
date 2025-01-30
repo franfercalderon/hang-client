@@ -14,6 +14,18 @@ $opensans: "Open Sans", sans-serif
 *::-webkit-scrollbar
     display: none
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button 
+  -webkit-appearance: none
+  margin: 0
+
+
+/* For Firefox */
+input[type="number"] 
+  -moz-appearance: textfield
+
+
+
 a
     text-decoration: none
     color: inherit
@@ -53,3 +65,4 @@ ul
 @import ./admin
 @import ./events
 @import ./profile
+@import ./timePicker

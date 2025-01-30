@@ -3,8 +3,9 @@ import Loader from "../Loader/Loader"
 import useSlots from "../../hooks/useSlots"
 import Swal from "sweetalert2"
 import EventCard from "../EventCard/EventCard"
+import TimePickerNew from "../TimePickerNew/TimePickerNew"
 
-export default function EventsContainer() {
+export default function DevEventsContainer() {
 
     //STATE 
     const [ isLoading, setIsLoading ] = useState()
@@ -95,6 +96,7 @@ export default function EventsContainer() {
                 <Loader/>
                 :
                 <div className="section-container">
+                    <TimePickerNew/>
                     {
                         showUserEvents ? 
                         <>
@@ -109,6 +111,8 @@ export default function EventsContainer() {
                                                     return(
                                                         
                                                         <EventCard event={ event } key={ idx } setIsLoading={ setIsLoading } refresh={ fetchEvents }  />
+
+
                                                     )
                                                 })
                                             }

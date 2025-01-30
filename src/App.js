@@ -42,7 +42,11 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/devEvents' element={ <DevEvents/>} />
+              {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
+              <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
+
+
+              {/* <Route exact path='/devEvents' element={ <DevEvents/>} /> */}
               {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
               {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
               {/* PROTECTED ROUTES */}

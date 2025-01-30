@@ -2,10 +2,10 @@ import { useEffect, useState } from "react"
 import useSlots from "../../hooks/useSlots"
 import Loader from "../Loader/Loader"
 import DayContainer from "../DayContainer/DayContainer"
-import TimePicker from "../TimePicker/TimePicker"
 import BtnPrimary from "../BtnPrimary/BtnPrimary"
 import Swal from "sweetalert2"
 import { useNavigate } from "react-router-dom"
+import TimePickerNew from "../TimePickerNew/TimePickerNew"
 
 export default function CalendarPickerContainer() {
 
@@ -16,14 +16,14 @@ export default function CalendarPickerContainer() {
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
     const [ startTime, setStartTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 6,
+        minute:0,
+        ampm: 'pm'
     })
     const [ endTime, setEndTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 7,
+        minute:0,
+        ampm: 'pm'
     })
 
     //HOOKS
@@ -42,39 +42,31 @@ export default function CalendarPickerContainer() {
         }
     }
 
-    const handleStartTime = ( e ) => {
-        const { value, name } = e.target
-        setStartTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleStartTime = ( origin, value ) => {
+        setStartTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
-    const handleEndTime = ( e ) => {
-        const { value, name } = e.target
-        setEndTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleEndTime = ( origin, value ) => {
+
+        setEndTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
     const resetTimes = () => {
         setStartTime({
-            hour: '',
-            minute:'',
-            ampm: ''
+            hour: 6,
+            minute: 0,
+            ampm: 'pm'
         })
         setEndTime({
-            hour: '',
-            minute:'',
-            ampm: ''
+            hour: 7,
+            minute:0,
+            ampm: 'pm'
         })
     }
 
-    const handleClosePickers = ( e, deleteData, openEndTimer ) => {
-        e.preventDefault()
-        setShowEndPicker( false )
-        setShowStartPicker( false )
-        if ( openEndTimer){
-            setShowEndPicker( true )
-        }
-        if( deleteData ){
-            resetTimes()
-        }
+    const handleCloseTimePickers = ( start, end ) => {
+        setShowStartPicker( start )
+        setShowEndPicker( end )
     }
 
     const handleSaveSlot = async () => {
@@ -129,7 +121,7 @@ export default function CalendarPickerContainer() {
             :
 
             <>
-            {   !showEndPicker && !showStartPicker &&
+            
                 <>  
                     <p className="mt-2">These will repeat weekle unless you delete them</p>
                     <div className="weekdays-container">
@@ -145,31 +137,28 @@ export default function CalendarPickerContainer() {
                         <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
                             <p>From</p>
                             <div className="time-display rounded">
-                                <p>{`${ startTime.hour } : ${ startTime.minute } ${ startTime.ampm.toUpperCase() }`}</p>
+                                <p>{`${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" ) } ${ startTime.ampm.toUpperCase() }`}</p>
                             </div>
                         </div>
                         <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
                             <p>To</p>
                             <div className="time-display rounded">
-                                <p>{`${ endTime.hour } : ${ endTime.minute } ${ endTime.ampm.toUpperCase() }`}</p>
+                                <p>{`${ endTime.hour } : ${ endTime.minute.toString().padStart(2, "0" ) } ${ endTime.ampm.toUpperCase() }`}</p>
                             </div>
                         </div>
                     </div>
                 </>
-                
-            }
-            {
-                showStartPicker &&
-                <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
-            }
-            {
-                showEndPicker &&
-                <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
-            }
-            { 
-                !showEndPicker && !showStartPicker &&
-                <BtnPrimary action={ handleSaveSlot } displayText={'Save Date'} submit={ false } enabled={ enableSaveBtn }/>
-            }
+                {
+                    showStartPicker &&
+                    <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                }
+                {
+                    showEndPicker &&
+                    <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                }
+                { 
+                    <BtnPrimary action={ handleSaveSlot } displayText={'Save Date'} submit={ false } enabled={ enableSaveBtn }/>
+                }
             </>
         }
         </div>

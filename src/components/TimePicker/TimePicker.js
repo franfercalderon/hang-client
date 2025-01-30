@@ -27,7 +27,7 @@ export default function TimePicker({ handleClose, handleChange, action, value })
                             id="startHour"
                             name='hour'
                             value={ value.hour }
-                            onChange={( e ) => handleChange( e )}
+                            onChange={( e ) => handleChange( e )} 
                             className="rounded"
                         >
                             <option value="">--</option>

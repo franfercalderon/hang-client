@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
-import TimePicker from "../TimePicker/TimePicker";
-import MainInput from "../MainInput/MainInput";
 import useSlots from "../../hooks/useSlots";
 import Swal from "sweetalert2";
 import Loader from '../Loader/Loader'
@@ -10,6 +8,7 @@ import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
 import { LoadScriptNext } from '@react-google-maps/api';
 import LocationInput from "../LocationInput/LocationInput";
+import TimePickerNew from "../TimePickerNew/TimePickerNew";
 const loadLibraries = [ 'places' ]
 
 export default function CreateNowContainer() { 
@@ -20,14 +19,14 @@ export default function CreateNowContainer() {
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
     const [ startTime, setStartTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 6,
+        minute: 0,
+        ampm: 'pm'
     })
     const [ endTime, setEndTime ] = useState({
-        hour: '',
-        minute:'',
-        ampm: ''
+        hour: 7,
+        minute:0,
+        ampm: 'pm'
     })
     const [ location, setLocation ] = useState( null )
     const [ slot, setSlot ] = useState( null )
@@ -42,19 +41,6 @@ export default function CreateNowContainer() {
     //ROUTER
     const navigate = useNavigate()
 
-    //FUNCTIONS
-    const resetTimes = () => {
-        setStartTime({
-            hour: '',
-            minute:'',
-            ampm: ''
-        })
-        setEndTime({
-            hour: '',
-            minute:'',
-            ampm: ''
-        })
-    }
 
     const handleLocationChange = ( place ) => {
 
@@ -71,31 +57,17 @@ export default function CreateNowContainer() {
         setLocation( location )
     }
 
-    const handleClosePickers = ( e, deleteData, openEndTimer ) => {
-        e.preventDefault()
-        setShowEndPicker( false )
-        setShowStartPicker( false )
-        if ( openEndTimer){
-            setShowEndPicker( true )
-        }
-        if( deleteData ){
-            resetTimes()
-        }
+    const handleCloseTimePickers = ( start, end ) => {
+        setShowStartPicker( start )
+        setShowEndPicker( end )
     }
 
-    const handleStartTime = ( e ) => {
-        const { value, name } = e.target
-        setStartTime(( prevValue ) => ({...prevValue, [ name ]: value }))
+    const handleStartTime = ( origin, value ) => {
+        setStartTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
-    const handleEndTime = ( e ) => {
-        const { value, name } = e.target
-        setEndTime(( prevValue ) => ({...prevValue, [ name ]: value }))
-    }
-
-    const handleLocationInput = ( e ) => {
-        const { value } = e.target
-        setLocation( value )
+    const handleEndTime = ( origin, value ) => {
+        setEndTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
 
     const handleSave = async () => {
@@ -210,11 +182,11 @@ export default function CreateNowContainer() {
                         </div>
                         {
                             showStartPicker &&
-                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
+                            <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleStartTime } action={'start'} value={ startTime }/>
                         }
                         {
                             showEndPicker &&
-                            <TimePicker handleClose={ handleClosePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
+                            <TimePickerNew handleClose={ handleCloseTimePickers } handleChange={ handleEndTime } action={'end'} value={ endTime }/>
                         }
                         <div className="location-container mt-1">
                             <LoadScriptNext
