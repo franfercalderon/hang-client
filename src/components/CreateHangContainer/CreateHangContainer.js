@@ -37,7 +37,7 @@ export default function CreateHangContainer(){
     const [ spots, setSpots ] = useState( 0 )
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
-    const [ eventDescription, setEventDescription ] = useState('')
+    const [ description, setDescription ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( false )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
@@ -84,7 +84,7 @@ export default function CreateHangContainer(){
 
     const handleDescription = ( e ) => {
         e.preventDefault()
-        setEventDescription( e.target.value )
+        setDescription( e.target.value )
     }
 
     const getFriendsList = useCallback( async () => {
@@ -119,6 +119,7 @@ export default function CreateHangContainer(){
                     isPrivate,
                     customList,
                     visibility,
+                    description,
                     userImg: globalUser?.profilePhoto ? globalUser.profilePhoto : null,
                     userName: globalUser?.name ? globalUser.name : null,
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
@@ -238,7 +239,7 @@ export default function CreateHangContainer(){
                             <MainInput handleChange={ handleTitle } value={ title } label={'Event Name'} optional={ false }/> 
                         </div>
                         <div className="mt-1">
-                            <MainInput handleChange={ handleDescription } value={ eventDescription } label={'Description'} optional={ true }/> 
+                            <MainInput handleChange={ handleDescription } value={ description } label={'Description'} optional={ true }/> 
                         </div>
                         <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
                         <div className="times-container">
