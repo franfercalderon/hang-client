@@ -42,10 +42,10 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} />
-              <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
+              <Route exact path='/create/hang' element={ <CreateHang/>} />
 
 
+              {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} /> */}
               {/* <Route exact path='/devEvents' element={ <DevEvents/>} /> */}
               {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
               {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
@@ -65,7 +65,7 @@ function App() {
                 <Route exact path='/notifications' element={ <Notifactions/> } />
                 <Route exact path='/assistant' element={ <Assistant/>} />
                 <Route exact path='/create' element={ <Create/>} />
-                <Route exact path='/create/hang' element={ <CreateHang/>} />
+                {/* <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
                 <Route exact path='/create/now' element={ <CreateNow/>} />
                 <Route exact path='/feedback' element={ <TypeformContainer/>} />
               </Route>

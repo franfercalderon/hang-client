@@ -37,6 +37,7 @@ export default function CreateHangContainer(){
     const [ spots, setSpots ] = useState( 0 )
     const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
+    const [ eventDescription, setEventDescription ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( false )
     const [ enableSubmit, setEnableSubmit ] = useState( false )
     const [ customList, setCustomList ] = useState( [] )
@@ -55,20 +56,6 @@ export default function CreateHangContainer(){
 
     //ROUTER
     const navigate = useNavigate()
-
-    //FUNCTIONS
-    // const resetTimes = () => {
-    //     setStartTime({
-    //         hour: 6,
-    //         minute: 0,
-    //         ampm: 'pm'
-    //     })
-    //     setEndTime({
-    //         hour: 7,
-    //         minute:0,
-    //         ampm: 'pm'
-    //     })
-    // }
 
     const handleCloseTimePickers = ( start, end ) => {
         setShowStartPicker( start )
@@ -93,6 +80,11 @@ export default function CreateHangContainer(){
     const handleTitle = ( e ) => {
         e.preventDefault()
         setTitle( e.target.value )
+    }
+
+    const handleDescription = ( e ) => {
+        e.preventDefault()
+        setEventDescription( e.target.value )
     }
 
     const getFriendsList = useCallback( async () => {
@@ -186,7 +178,7 @@ export default function CreateHangContainer(){
 
     //EFFECTS
     useEffect(() => {
-        if( startTime.ampm !== '' && startTime.hour !== '' && startTime.minute !== '' && endTime.hour !== '' && endTime.minute !== '' && endTime.ampm !== '' && selectedDate ){
+        if( selectedDate ){
             const startTimestamp = convertTimeToTimestamp( startTime, selectedDate )
             const endTimestamp = convertTimeToTimestamp( endTime, selectedDate  )
             setSlot({
@@ -202,14 +194,14 @@ export default function CreateHangContainer(){
     useEffect(() => { 
 
         if( visibility === 'everybody' ){
-            setEnableSubmit( slot && location ? true : false  )
+            setEnableSubmit( title && slot && location ? true : false  )
         } else if ( visibility === 'auto' ){
-            setEnableSubmit( slot && location && spots > 0 ? true : false  )
+            setEnableSubmit( title && slot && location && spots > 0 ? true : false  )
         } else if ( visibility === 'custom' ){
-            setEnableSubmit( slot && location && customList.length > 0 ? true : false  )
+            setEnableSubmit( title && slot && location && customList.length > 0 ? true : false  )
         }
 
-    }, [ slot, spots, location, visibility, customList ])
+    }, [ slot, spots, location, visibility, customList, title ])
 
     useEffect(() => {
         if( visibility === 'everybody' ){
@@ -243,7 +235,10 @@ export default function CreateHangContainer(){
                 <>
                     <div className="section-container">
                         <div className="mt-1">
-                            <MainInput handleChange={ handleTitle } value={ title } label={'Event Name'} optional={ true }/> 
+                            <MainInput handleChange={ handleTitle } value={ title } label={'Event Name'} optional={ false }/> 
+                        </div>
+                        <div className="mt-1">
+                            <MainInput handleChange={ handleDescription } value={ eventDescription } label={'Description'} optional={ true }/> 
                         </div>
                         <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
                         <div className="times-container">

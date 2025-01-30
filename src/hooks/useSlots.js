@@ -271,7 +271,7 @@ function useSlots (){
 
             
 
-        } catch ( error ) {
+        } catch ( error ) { 
             throw error
         } 
 
@@ -359,7 +359,7 @@ function useSlots (){
     const convertTimeToTimestamp = useCallback(( time, date ) => {
         
         const { hour, minute, ampm } = time
-        if (!hour || !minute || !ampm ){
+        if ( hour == null || minute == null || ampm == null ){
             throw new Error('Incomplete time object')
         }
         

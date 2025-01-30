@@ -1,15 +1,8 @@
 import { faChevronDown, faChevronUp, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function TimePickerNew ({ handleClose, handleChange, action, value, btnEnabled }) {
-
-    //STATE
-    // const [ selectedTime, setSelectedTime ] = useState({
-    //     hour: ''
-    // })
-
-    
 
     //REF
     const innerRef = useRef( null )
