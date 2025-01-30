@@ -175,7 +175,6 @@ export default function EditEventContainer(){
 
 
 
-
     return(
         <div className="main-view-body">
             {
@@ -236,7 +235,7 @@ export default function EditEventContainer(){
                         { originalEvent?.visibility === 'custom' && 
                             <div className="mt-1">
                             {
-                                customList.map(( friend, idx ) => {
+                                originalEvent?.customList.map(( friend, idx ) => {
                                     return(
                                         <li key={ idx }
                                         className={`disabled rounded`}
