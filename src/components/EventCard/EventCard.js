@@ -110,7 +110,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
             <div className={`title-container mb-05 ${ showCardDetails ? 'row space-between' : ''}`}>
                 <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
                 { event.description && event.description !==  '' &&
-                    <p>{event.description}</p>
+                    <p>{ event.description }</p>
                 }
                 {
                     !showCardDetails &&

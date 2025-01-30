@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import DatePickerContainer from "../DatePickerContainer/DatePickerContainer";
-import { useEffect, useState, useContext, useCallback, useRef } from "react";
+import { useEffect, useState, useContext, useCallback } from "react";
 import useSlots from "../../hooks/useSlots";
 import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
@@ -16,9 +16,6 @@ const loadLibraries = [ 'places' ]
 
 
 export default function EditEventContainer(){ 
-
-    //REFS
-    const prevValues = useRef({ selectedDate: null, startTime: null, endTime: null })
 
     //STATE
     const [ isLoading, setIsLoading ] = useState( false )
@@ -83,8 +80,15 @@ export default function EditEventContainer(){
 
     const getFriendsList = useCallback( async () => {
         const friends = await getUserFriends()
-        setFriendsList( friends )
-    }, [ getUserFriends])
+
+        if( friends ){
+
+            const invitedFriends = new Set( originalEvent.customList.map( friend => friend.id ));
+            const uninvitedFriends = friends.filter( friend => !invitedFriends.has( friend.id ));
+            setFriendsList( uninvitedFriends )
+
+        }
+    }, [ getUserFriends, originalEvent ])
 
 
     const handleCheckboxChange = ( friendId ) => {
@@ -170,8 +174,10 @@ export default function EditEventContainer(){
     }, [ selectedDate, startTime, endTime, convertTimeToTimestamp ])
 
     useEffect(() => {
-        getFriendsList()
-    }, [ getFriendsList ])
+        if( originalEvent){
+            getFriendsList()
+        }
+    }, [ getFriendsList, originalEvent ])
 
 
 
@@ -264,7 +270,7 @@ export default function EditEventContainer(){
 
                                     <ul className="event-friends-list">
                                         <div className="fs-09">
-                                            <p>Select friends:</p>
+                                            <p>Invite other friends:</p>
                                         </div>
                                         {
                                             friendsList.map(( friend, idx ) => {
