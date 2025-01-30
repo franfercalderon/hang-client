@@ -4,11 +4,12 @@
     left: 0
     width: 100vw
     height: 100vh
-    background-color: rgba(0, 0, 0, 0.08)
+    // background-color: rgba(0, 0, 0, 0.08)
     display: flex
     justify-content: center
     align-items: center
     z-index: 999
+    
 
 .time-picker-main-div .inner .close-btn
     right: 15px
@@ -18,8 +19,8 @@
     
 
 .time-picker-main-div .inner
-    margin-top: -5vh
-    background-color: $darkwhite
+    // margin-top: -vh
+    background-color: white
     position: relative
     // height: 150px
     width: 300px
@@ -28,7 +29,9 @@
     // justify-content: center
     font-size: 1rem
     // border: 1px solid green
-    padding: 25px 20px
+    padding:20px
+    box-shadow: 1px 0px 43px 4px rgba(0,0,0,0.1)
+    border-radius: 7px
 
 .time-picker-main-div .inner span 
     height: 100%
@@ -85,8 +88,16 @@
 
 .time-picker-main-div input 
     // border: 1px solid blue 
+    // color: $hangblue
     width: 100%
     height: 100%
     font-weight: 500
     text-align: center
     font-size: 1rem
+
+.time-picker-main-div button
+    color: $hangblue
+    padding: 1rem
+    background: none
+    border: 1px solid $hangblue
+    font-weight: 500

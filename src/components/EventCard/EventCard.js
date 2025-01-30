@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react"
 import useSlots from "../../hooks/useSlots"
 import BtnDelete from "../BtnDelete/BtnDelete"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCheck, faChevronDown, faChevronUp, faLocationArrow, faPen, faXmark } from "@fortawesome/free-solid-svg-icons"
+import { faChevronDown, faChevronUp, faLocationArrow } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
 import useAlert from "../../hooks/useAlert"
-import BtnPrimary from "../BtnPrimary/BtnPrimary"
+import BtnSecondary from "../BtnSecondary/BtnSecondary"
+import { useNavigate } from "react-router-dom"
 
 export default function EventCard({ event, setIsLoading, refresh }){
     
@@ -17,56 +18,15 @@ export default function EventCard({ event, setIsLoading, refresh }){
     //CONTEXT
     const { globalUser } = useContext( AppContext )
 
+    //ROUTER
+    const navigate = useNavigate()
+
     //STATE
     const [ showCardDetails, setShowCardDetails ]  = useState( false )
     const [ isOwnEvent, setIsOwnEvent ] = useState( null )
-    const [ showSaveButton, setShowSaveButton ] = useState( false )
-    const [ edit, setEdit ] = useState({
-        title: false,
-        description: false,
-        date: false,
-        time: false,
-        customList: false,
-        location: false
-    })
-
-    const [ editedFields, setEditedFields ] = useState({
-        title: event.title,
-        description: event.description,
-        date: event.description,
-        time: null,
-        customList: null,
-        location: null
-    })
-
-    const [ displayInfo, setDisplayInfo ] = useState({
-        title: event.title,
-        description: event.description,
-        date: ` ${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }}.`,
-        time: ` ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.`,
-        customList: false,
-        location: false
-    })
-
+    
 
     //FUNCTIONS
-    const handleToggleEdit = ( origin, value ) => {
-        setEdit(( prev ) => ({
-            ...prev,
-            [ origin ]: value
-        }))
-    }
-
-    const handleChange = ( e ) => {
-        e.preventDefault()
-        const { name, value } = e.target
-        setEditedFields(( prev ) => ({
-            ...prev,
-            [ name ]: value
-        }))
-    }
-
-
     const runModalConfirmation = async ( eventId ) => {
         try {
             setIsLoading( true )
@@ -114,10 +74,6 @@ export default function EventCard({ event, setIsLoading, refresh }){
         }
     }
 
-    const handleSaveEvent = async () => {
-        console.log('saves event');
-    }
-
     const handleDeleteEvent = async ( eventId ) => {
 
         Swal.fire({
@@ -143,43 +99,17 @@ export default function EventCard({ event, setIsLoading, refresh }){
     }
 
     useEffect(() => {
-        if ( globalUser ){
-            setIsOwnEvent( globalUser.id === event.userId ? true : false )
-        }
+        // if ( globalUser ){
+        //     setIsOwnEvent( globalUser.id === event.userId ? true : false )
+        // }
+        setIsOwnEvent( 'iuYmKKbSqMfWlARqIt4y2oTHytr1' === event.userId ? true : false )
     }, [ globalUser, event ])
-
-    useEffect(() => {
-        const hasEditedField = Object.values( editedFields ).some( value => value !== null )
-        setShowSaveButton( hasEditedField )
-   
-    }, [ editedFields ])
-
 
 
     return(
         <div className="event-card rounded">
-            <div className="title-container mb-05 row space-between">
-                {
-                    !isOwnEvent ?
-                    <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
-                    :
-                    <>  
-                        {
-                            !edit.title ?
-                            <>
-                                <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
-                                <div className="btn-container">
-                                    <FontAwesomeIcon icon={ faPen } onClick={ () => handleToggleEdit('title', true ) }/>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <input className="font-big" type="text" value={ event.title } onChange={ handleChange } name={'title'}/>
-                            </>
-
-                        }
-                    </>
-                }
+            <div className={`title-container mb-05 ${ showCardDetails ? 'row space-between' : ''}`}>
+                <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
                 {
                     !showCardDetails &&
                     <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
@@ -203,13 +133,13 @@ export default function EventCard({ event, setIsLoading, refresh }){
                     {
                         showCardDetails &&
                         <div className="row">
-                            <p className="mt-1"><span>Date:</span>{ displayInfo.date }</p>
+                            <p className="mt-1"><span>Date:</span>{ ` ${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }.`}</p>
                         </div>
                     }
                     {
                         showCardDetails &&
                         <div className="row">
-                            <p className="mt-1"><span>Time:</span>{ displayInfo.time }</p>
+                            <p className="mt-1"><span>Time:</span>{ ` ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
                         </div>
                     }
                     {
@@ -256,11 +186,13 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         </div>
                         
                     }
-                    {
-                        isOwnEvent &&
-                        <BtnPrimary displayText={ 'Save Changes'} enabled={ showSaveButton } submit={ false } action={ handleSaveEvent }/>
-                    }
-                    <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
+                    <div className="mt-2" >
+                        {
+                            isOwnEvent &&
+                            <BtnSecondary displayText={ 'Edit Event'} enabled={ true } submit={ false } action={ () =>navigate('/editEvent', { state: { event } }) }/>
+                        }
+                        <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
+                    </div>
                     <div className="toggle-event-card-btn centered pointer" onClick={ () => setShowCardDetails( false )}>
                         <FontAwesomeIcon icon={ faChevronUp }/>
                     </div>

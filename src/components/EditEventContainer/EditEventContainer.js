@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import DatePickerContainer from "../DatePickerContainer/DatePickerContainer";
-import { useEffect, useState, useContext, useCallback } from "react";
+import { useEffect, useState, useContext, useCallback, useRef } from "react";
 import useSlots from "../../hooks/useSlots";
 import MainInput from "../MainInput/MainInput";
 import Loader from '../Loader/Loader'
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { AppContext } from "../../context/AppContext";
 import useAlert from "../../hooks/useAlert";
 import LocationInput from "../LocationInput/LocationInput";
@@ -15,12 +15,20 @@ import TimePickerNew from "../TimePickerNew/TimePickerNew";
 const loadLibraries = [ 'places' ]
 
 
-export default function CreateHangContainer(){ 
+export default function EditEventContainer(){ 
+
+    //REFS
+    const prevValues = useRef({ selectedDate: null, startTime: null, endTime: null })
 
     //STATE
     const [ isLoading, setIsLoading ] = useState( false )
     const [ showStartPicker, setShowStartPicker ] = useState( false )
     const [ showEndPicker, setShowEndPicker ] = useState( false )
+    const [ originalEvent, setOriginalEvent ] = useState( null )
+    const [ editedEvent, setEditedEvent ] = useState({
+        
+    })
+    const [ selectedDate , setSelectedDate ] = useState( null )
     const [ startTime, setStartTime ] = useState({
         hour: 6,
         minute: 0,
@@ -31,11 +39,15 @@ export default function CreateHangContainer(){
         minute:0,
         ampm: 'pm'
     })
+
+
+
+
+
     
     const [ location, setLocation ] = useState( null )
     const [ slot, setSlot ] = useState()
     const [ spots, setSpots ] = useState( 0 )
-    const [ selectedDate , setSelectedDate ] = useState( null )
     const [ title, setTitle ] = useState('')
     const [ eventDescription, setEventDescription ] = useState('')
     const [ isPrivate, setIsPrivate ] = useState( false )
@@ -44,19 +56,23 @@ export default function CreateHangContainer(){
     const [ friendsList, setFriendsList ] = useState( null )
     const [ visibility, setVisibility ] = useState( 'everybody' )
 
+
     //HOOKS
-    const { convertTimeToTimestamp, postScheduledSlot } = useSlots()
+    const { convertTimeToTimestamp, postScheduledSlot, convertTimestampToTime, formatTimestampToDate } = useSlots()
     const { alertInfo } = useAlert()
 
     //CONTEXT
-    const { globalUser } = useContext( AppContext )
+    const { globalUser, capitalizeWords } = useContext( AppContext )
 
     //HOOKS
     const { getUserFriends } = useFriends()
 
     //ROUTER
     const navigate = useNavigate()
+    const routerLocation = useLocation()
 
+
+    //FUNCTIONS
     const handleCloseTimePickers = ( start, end ) => {
         setShowStartPicker( start )
         setShowEndPicker( end )
@@ -69,22 +85,21 @@ export default function CreateHangContainer(){
     const handleEndTime = ( origin, value ) => {
         setEndTime(( prevValue ) => ({...prevValue, [ origin ]: value }))
     }
+    
+    const handleEdits = ( e ) => {
+        const { name, value } = e.target
+        setEditedEvent(( prev) => ({
+            ...prev,
+            [name]: value
+        }))
+    }
+
 
     const handleSpots = ( e, operation ) => {
         e.preventDefault()
         const updatedSpots = spots + operation
         setSpots( updatedSpots < 0 ? 0 : updatedSpots )
 
-    }
-
-    const handleTitle = ( e ) => {
-        e.preventDefault()
-        setTitle( e.target.value )
-    }
-
-    const handleDescription = ( e ) => {
-        e.preventDefault()
-        setEventDescription( e.target.value )
     }
 
     const getFriendsList = useCallback( async () => {
@@ -103,7 +118,7 @@ export default function CreateHangContainer(){
         }
     }
 
-    const handleSave = async () => {
+    const handleSaveChanges = async () => {
 
         try {
             if ( slot.starts > slot.ends ){
@@ -173,7 +188,12 @@ export default function CreateHangContainer(){
             mapUrl: place.url
         }
 
-        setLocation( location )
+        if (location ){
+            setEditedEvent(( prev ) => ({
+                ...prev,
+                location: location
+            }))
+        }
     }
 
     //EFFECTS
@@ -192,16 +212,18 @@ export default function CreateHangContainer(){
     }, [ startTime, endTime, convertTimeToTimestamp, selectedDate ])
 
     useEffect(() => { 
-
-        if( visibility === 'everybody' ){
-            setEnableSubmit( title && slot && location ? true : false  )
-        } else if ( visibility === 'auto' ){
-            setEnableSubmit( title && slot && location && spots > 0 ? true : false  )
-        } else if ( visibility === 'custom' ){
-            setEnableSubmit( title && slot && location && customList.length > 0 ? true : false  )
-        }
-
-    }, [ slot, spots, location, visibility, customList, title ])
+        if ( !originalEvent ) return;
+    
+        const hasChanges = 
+            ( editedEvent.title && editedEvent.title !== originalEvent.title ) ||
+            ( editedEvent.description && editedEvent.description !== originalEvent.description ) ||
+            ( editedEvent.starts && editedEvent.starts !== originalEvent.starts ) ||
+            ( editedEvent.ends && editedEvent.ends !== originalEvent.ends ) ||
+            ( editedEvent.location && editedEvent.location !== originalEvent.location )
+    
+        setEnableSubmit( hasChanges )
+    }, [ editedEvent, originalEvent] )
+    
 
     useEffect(() => {
         if( visibility === 'everybody' ){
@@ -225,6 +247,43 @@ export default function CreateHangContainer(){
         }
     }, [ customList, visibility ] )
 
+    useEffect(() =>{
+        const event = routerLocation.state?.event
+        if( event ){
+            setOriginalEvent( event )
+            // setEditedEvent({ title: event.title ?? "" })
+            setSelectedDate( new Date( event.starts ))
+            const startFormatted = convertTimestampToTime( event.starts )
+            const endsFormatted = convertTimestampToTime( event.ends )
+            setStartTime( startFormatted )
+            setEndTime( endsFormatted )
+        } 
+    }, [ routerLocation, convertTimestampToTime ])
+
+    useEffect(() => {
+        setIsLoading( originalEvent ? false : true )
+
+    }, [ originalEvent ] )
+
+    useEffect(() => {
+        
+        const updatedStarts = convertTimeToTimestamp( startTime, selectedDate )
+        const updatedEnds = convertTimeToTimestamp( endTime, selectedDate )
+
+        setEditedEvent(( prev ) => ({
+            ...prev,
+            starts: updatedStarts,
+            ends: updatedEnds
+        }))
+
+    }, [ selectedDate, startTime, endTime, convertTimeToTimestamp ])
+
+    useEffect(() => {
+
+        console.log(editedEvent);
+
+    }, [ editedEvent ])
+
 
     return(
         <div className="main-view-body">
@@ -235,14 +294,14 @@ export default function CreateHangContainer(){
                 <>
                     <div className="section-container">
                         <div className="mt-1">
-                            <MainInput handleChange={ handleTitle } value={ title } label={'Event Name'} optional={ false }/> 
+                            <MainInput handleChange={ handleEdits } value={ editedEvent.title ?? originalEvent?.title ?? "" } label={'Event Name'} optional={ false } name={'title'}/> 
                         </div>
                         <div className="mt-1">
-                            <MainInput handleChange={ handleDescription } value={ eventDescription } label={'Description'} optional={ true }/> 
+                            <MainInput handleChange={ handleEdits } value={ editedEvent.description ?? originalEvent?.description ?? "" } label={'Description'} optional={ true } name={'description'} /> 
                         </div>
-                        <DatePickerContainer selectedDate={ selectedDate } setSelectedDate={ setSelectedDate } />
+                        <DatePickerContainer selectedDate={ selectedDate ?? originalEvent?.starts ?? "" } setSelectedDate={ setSelectedDate } />
                         <div className="times-container">
-                            <div className="inner-container" onClick={ () => setShowStartPicker( true )} > 
+                            <div className="inner-container" onClick={ () => setShowStartPicker( true )} >
                                 <p>From</p>
                                 <div className="time-display rounded">
                                     <p>{ `${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" )  } ${ startTime.ampm.toUpperCase() }`}</p>
@@ -268,42 +327,41 @@ export default function CreateHangContainer(){
                                 googleMapsApiKey={ process.env.REACT_APP_MAPS_API_KEY }
                                 libraries={ loadLibraries }
                             >
-                                <LocationInput handleChange={ handleLocationChange }/>
+                                <LocationInput handleChange={ handleLocationChange } defaultValue={ originalEvent?.location?.address } />
         
                             </LoadScriptNext>
                         </div>
                         <div className="mt-1">
                             <div className="row">
-                                <p>Visibility</p>
-                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Everybody" is selected, the event will show to all your friends until no more spots are free. <br><br> If "Priority List" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> Use "Custom" mode to invite a custom list to your event.') }>
+                                <p>{`Visibility: ${ originalEvent?.visibility === "auto" 
+                                        ? "Priority List" 
+                                        : capitalizeWords( originalEvent?.visibility ?? "")
+                                }.`}</p>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('Once an event has been created, visibility cannot be updated.') }>
                                     <p>?</p>
                                 </div>
                             </div>
-                            <div className="full-width-toggle three">
-                                <div className={`inner ${ visibility === 'everybody' ? 'active' : '' }`} onClick={() => setVisibility( 'everybody' )}>
-                                    <p>Everybody</p>
-                                </div>
-                                <div className={`inner ${ visibility === 'auto'  ? 'active' : '' }`} onClick={() => setVisibility( 'auto' )}>
-                                    <p>Priority List</p>
-                                </div>
-                                <div className={`inner ${ visibility === 'custom'  ? 'active' : '' }`} onClick={() => setVisibility( 'custom' )}>
-                                    <p>Custom</p>
-                                </div>
-                            </div>
                         </div>
-                        { visibility === 'auto' &&
-                        
-                            <div className="seats-container mt-1">
-                                <label htmlFor="seats">Participants<span>{` (other than you)`}</span></label>
-                                <div className="seats-inner main-input">
-                                    <button onClick={ ( e ) => handleSpots( e, -1 )} className="pointer">-</button>
-                                    <p>{ spots }</p>
-                                    <button onClick={ ( e ) => handleSpots( e, +1 )} className="pointer">+</button>
-                                </div>
-                            </div>
-                        }
                         { visibility === 'custom' && 
                             <>
+                            {
+                                customList.map(( friend, idx ) => {
+                                    return(
+                                        <li key={ idx }
+                                        className={`disabled rounded`}
+                                        >   
+                                            <div className="title-container">
+                                                <img src={ friend.imgUrl } alt="friend" className="profile-img-min"/>
+                                                <p>{`${ friend.name } ${ friend.lastname }`}</p>
+                                            </div>
+                                            {/* <div className={`${ customList.some(( item ) => item.id === friend.id ) ? 'selected' : '' } list-circle-marker`}>
+                                                <span></span>
+                                            </div> */}
+                                        </li>
+                                        
+                                    )
+                                }) 
+                            }
                             { friendsList ?
                                 <>
                                 {
@@ -348,7 +406,7 @@ export default function CreateHangContainer(){
                         }
                         </div>
                     <div className="section-container new-hang">
-                        <BtnPrimary action={ handleSave } displayText={'Create Hang'} submit={ false } enabled={ enableSubmit }/>
+                        <BtnPrimary action={ handleSaveChanges } displayText={'Save Changes'} submit={ false } enabled={ enableSubmit }/>
                     </div>
                 </>
             }

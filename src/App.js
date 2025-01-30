@@ -27,6 +27,7 @@ import Events from './views/Events';
 import SettingsCalendar from './views/SettingsCalendar';
 import SettingsProfile from './views/SettingsProfile';
 import DevEvents from './views/DevEvents';
+import EditEvent from './views/EditEvent';
 
 function App() {
 
@@ -42,7 +43,10 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              <Route exact path='/create/hang' element={ <CreateHang/>} />
+              <Route exact path='/events' element={ <Events/>} />
+              <Route exact path='/editEvent' element={ <EditEvent/>} />
+
+              {/* <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
 
 
               {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} /> */}
@@ -52,7 +56,7 @@ function App() {
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
-                <Route exact path='/events' element={ <Events/>} />
+                {/* <Route exact path='/events' element={ <Events/>} /> */}
                 <Route exact path='/settings' element={ <Settings/>}/>
                 <Route exact path='/settings/profile' element={ <SettingsProfile/>} />
                 <Route exact path='/settings/friends' element={ <SettingsFriends/>} />
@@ -65,7 +69,7 @@ function App() {
                 <Route exact path='/notifications' element={ <Notifactions/> } />
                 <Route exact path='/assistant' element={ <Assistant/>} />
                 <Route exact path='/create' element={ <Create/>} />
-                {/* <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
+                <Route exact path='/create/hang' element={ <CreateHang/>} />
                 <Route exact path='/create/now' element={ <CreateNow/>} />
                 <Route exact path='/feedback' element={ <TypeformContainer/>} />
               </Route>

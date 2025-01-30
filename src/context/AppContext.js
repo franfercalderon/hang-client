@@ -48,6 +48,14 @@ const AppProvider = ({ children }) => {
         const updatedArray = notifications.filter(( notification ) => notification.id !== id )
         setNotifications( updatedArray.length > 0 ? updatedArray : null )
     }
+
+    const capitalizeWords = ( string ) => {
+        return string
+            .toLowerCase() 
+            .split(" ") 
+            .map( word => word.charAt(0).toUpperCase() + word.slice( 1 ) )
+            .join(" ")
+    }
     
     const getUserData = useCallback( async ( token ) => {
 
@@ -142,6 +150,7 @@ const AppProvider = ({ children }) => {
             userInvites,
             pendingInvitation, 
             setPendingInvitation,
+            capitalizeWords
         }}>
             { children }
         </Provider>

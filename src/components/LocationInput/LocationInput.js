@@ -1,7 +1,7 @@
 import { Autocomplete } from '@react-google-maps/api'
 import { useState, useRef, useEffect } from 'react'
 
-export default function LocationInput({ handleChange }) {
+export default function LocationInput({ handleChange, defaultValue }) {
 
     //STATE
     const [ inputValue, setInputValue ] = useState( '' )
@@ -38,6 +38,12 @@ export default function LocationInput({ handleChange }) {
             setDropdownVisible( false )
         }
     }, [ inputValue ])
+
+    useEffect(() => {
+        if ( defaultValue ) {
+            setInputValue( defaultValue )
+        }
+    }, [ defaultValue ])
     
     
     return(

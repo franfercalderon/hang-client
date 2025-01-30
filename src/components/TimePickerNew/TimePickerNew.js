@@ -61,7 +61,7 @@ export default function TimePickerNew ({ handleClose, handleChange, action, valu
     return(
         <div className="time-picker-main-div">
             <div className="inner rounded" ref={ innerRef }>
-                <FontAwesomeIcon icon={ faXmark } className="close-btn" onClick={ ( e ) => handleClose( false, false  )}/>
+                {/* <FontAwesomeIcon icon={ faXmark } className="close-btn" onClick={ ( e ) => handleClose( false, false  )}/> */}
                 <div className="row w-100">
                     <p>{`Select the ${action} time`}</p>
                 </div>
@@ -109,7 +109,7 @@ export default function TimePickerNew ({ handleClose, handleChange, action, valu
                     </div>
                 </div>
                 <div className="footer-container">
-                    <button className="btn cta round-div w-100" enabled={ btnEnabled } onClick={  () => handleClose( action === 'start' ? false : false, action === 'start' ? true : false ) }>
+                    <button className="btn round-div w-100" enabled={ btnEnabled } onClick={  () => handleClose( action === 'start' ? false : false, action === 'start' ? true : false ) }>
                         { `Confirm ${ action } time`}
                     </button>
                 </div>
