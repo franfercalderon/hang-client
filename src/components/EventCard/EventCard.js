@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react"
 import useSlots from "../../hooks/useSlots"
 import BtnDelete from "../BtnDelete/BtnDelete"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faChevronDown, faChevronUp, faLocationArrow } from "@fortawesome/free-solid-svg-icons"
+import { faCheck, faChevronDown, faChevronUp, faLocationArrow, faPen, faXmark } from "@fortawesome/free-solid-svg-icons"
 import Swal from "sweetalert2"
 import { AppContext } from "../../context/AppContext"
 import useAlert from "../../hooks/useAlert"
+import BtnPrimary from "../BtnPrimary/BtnPrimary"
 
 export default function EventCard({ event, setIsLoading, refresh }){
 
@@ -15,12 +16,47 @@ export default function EventCard({ event, setIsLoading, refresh }){
     //STATE
     const [ showCardDetails, setShowCardDetails ]  = useState( false )
     const [ isOwnEvent, setIsOwnEvent ] = useState( null )
+    const [ showSaveButton, setShowSaveButton ] = useState( false )
+    const [ edit, setEdit ] = useState({
+        title: false,
+        description: false,
+        date: false,
+        time: false,
+        customList: false,
+        location: false
+    })
+
+    const [ editedFields, setEditedFields ] = useState({
+        title: null,
+        description: null,
+        date: null,
+        time: null,
+        customList: null,
+        location: null
+    })
 
     //HOOKS
     const { formatTimestampToDate, converTimestampToString, deleteOwnEvent, leaveEvent } = useSlots()
     const { alertInfo } = useAlert()
 
     //FUNCTIONS
+    const handleToggleEdit = ( origin, value ) => {
+        setEdit(( prev ) => ({
+            ...prev,
+            [ origin ]: value
+        }))
+    }
+
+    const handleChange = ( e ) => {
+        e.preventDefault()
+        const { name, value } = e.target
+        setEditedFields(( prev ) => ({
+            ...prev,
+            [ name ]: value
+        }))
+    }
+
+
     const runModalConfirmation = async ( eventId ) => {
         try {
             setIsLoading( true )
@@ -68,6 +104,10 @@ export default function EventCard({ event, setIsLoading, refresh }){
         }
     }
 
+    const handleSaveEvent = async () => {
+        console.log('saves event');
+    }
+
     const handleDeleteEvent = async ( eventId ) => {
 
         Swal.fire({
@@ -98,12 +138,49 @@ export default function EventCard({ event, setIsLoading, refresh }){
         }
     }, [ globalUser, event ])
 
+    useEffect(() => {
+        const hasEditedField = Object.values( editedFields ).some( value => value !== null )
+        setShowSaveButton( hasEditedField )
+   
+    }, [ editedFields ])
+
 
 
     return(
         <div className="event-card rounded">
             <div className="title-container mb-05">
-                <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
+                {
+                    !isOwnEvent ?
+                    <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
+                    :
+                    <>  
+                        {
+                            !edit.title ?
+                            <>
+                                <h3 className="font-big">{ event.title ? event.title : isOwnEvent ? 'Your Hang' : `${ event.userName }'s Hang`}</h3>
+                                <div className="btn-container">
+                                    <FontAwesomeIcon icon={ faPen } onClick={ () => handleToggleEdit('title', true ) }/>
+                                </div>
+                            </>
+                            :
+                            <>
+                                <input className="font-big" type="text" value={ event.title } onChange={ handleChange } name={'title'}/>
+                            </>
+
+                        }
+                        <div className="btn-container">
+                            {
+                                !edit.title ?
+                                <FontAwesomeIcon icon={ faPen } onClick={ () => handleToggleEdit('title', true ) }/>
+                                :
+                                <>
+                                    <FontAwesomeIcon icon={ faCheck } />
+                                    <FontAwesomeIcon icon={ faXmark } onClick={ () => handleToggleEdit('title', false ) }/>
+                                </>
+                            }
+                        </div>
+                    </>
+                }
                 {
                     !showCardDetails &&
                     <p>{ `${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }. ${ converTimestampToString( event.starts ) } - ${ converTimestampToString( event.ends ) }.` }</p>
@@ -128,6 +205,15 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         showCardDetails &&
                         <div className="row">
                             <p className="mt-1"><span>Date:</span>{ ` ${ event.availableNow ? 'Today' : formatTimestampToDate( event.starts ) }}.`}</p>
+                            {/* {
+                                isOwnEvent &&
+                                <>
+                                    {
+                                        showedit.date ?
+
+                                    }
+                                </>
+                            } */}
                         </div>
                     }
                     {
@@ -172,13 +258,17 @@ export default function EventCard({ event, setIsLoading, refresh }){
                         </ul>
                     }
                     <p className="mt-1"><span>Location: </span>{ event.location.address ? event.location.address : event.location }</p>
-                    {
-                        event.location.mapUrl &&
+                    {   
+                        !isOwnEvent && event.location.mapUrl &&
                         <div className="directions-btn rounded pointer mt-1">
                             <a href={ event.location.mapUrl } target="_blank" rel="noopener noreferrer" >Get Directions</a>
                             <FontAwesomeIcon icon={ faLocationArrow }/>
                         </div>
                         
+                    }
+                    {
+                        isOwnEvent &&
+                        <BtnPrimary displayText={ 'Save Changes'} enabled={ showSaveButton } submit={ false } action={ handleSaveEvent }/>
                     }
                     <BtnDelete displayText={  !isOwnEvent ? 'Leave Event' : 'Delete Event' } action={ () => handleDeleteEvent( event.id ) } enabled={ true }/>
                     <div className="toggle-event-card-btn centered pointer" onClick={ () => setShowCardDetails( false )}>
