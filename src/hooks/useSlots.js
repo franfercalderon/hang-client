@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import { moment } from 'moment-timezone'
 
 
 function useSlots (){
@@ -464,15 +465,11 @@ function useSlots (){
         }
     }
 
-    const formatTimestampToDate = ( timestamp )  => {
-
-        const date = new Date( timestamp )
-        const monthNames = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-        
-        const day = date.getDate()
-        const daySuffix = getDaySuffix(day)
-        
-        return `${ monthNames[ date.getMonth() ]} ${ day }${ daySuffix }`
+    const formatTimestampToDate = ( timestamp, timezone = 'America/Chicago'  )  => {
+    
+        const timeZoned = moment.utc( timestamp ).tz( timezone )
+        const formattedDate = timeZoned.format('MMMM DD, YYYY')
+        return formattedDate
     }
     
     const getDaySuffix = ( day ) => {
@@ -510,27 +507,31 @@ function useSlots (){
             })  
             
         } catch ( error ) {
-            throw error.response.data
+
+            if (error.response) {
+
+                throw error.response.data;
+            } else {
+
+                console.error("Error without response:", error);
+                throw new Error( "An error occurred, but no response was received.", error );
+            }
+        
         }
     }
 
-    const converTimestampToString = ( timestamp ) => {
-
+    const converTimestampToString = ( timestamp, timezone = 'America/Chicago' ) => {
+    
         const current = Date.now()
-
         if( timestamp < current ){
             return 'now'
-        } else {
-            const date = new Date( timestamp )
-            let hours = date.getHours()
-            const minutes = date.getMinutes()
-            const ampm = hours >= 12 ? 'pm' : 'am'
-            hours = hours % 12 || 12
-            const formattedMinutes = minutes.toString().padStart( 2, '0' )
     
-            return `${ hours }:${ formattedMinutes } ${ ampm }`
+        } else {
+            const timeZoned = moment.utc( timestamp ).tz( timezone ) 
+            const timeZoneDate = timeZoned.format( 'h:mm a' )
+    
+            return timeZoneDate 
         }
-
     }
 
     const replyEventInvite = async ( eventId, collection, accepted ) => {
@@ -549,7 +550,7 @@ function useSlots (){
             await axios.post(`${process.env.REACT_APP_API_URL}/slots/invite/${ eventId }`, data, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${ authToken }`
+                    'Authorization': `Bearer ${ authToken }` 
                 }
             })  
             
