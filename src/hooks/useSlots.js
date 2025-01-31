@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
-import { moment } from 'moment-timezone'
+import moment from 'moment-timezone'
 
 
 function useSlots (){
