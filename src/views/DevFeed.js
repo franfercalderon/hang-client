@@ -7,6 +7,7 @@ import ViewContainer from "../components/ViewContainer/ViewContainer"
 import FeedCard from "../components/FeedCard/FeedCard"
 import useSlots from "../hooks/useSlots"
 import useAlert from "../hooks/useAlert"
+import BtnPrimary from "../components/BtnPrimary/BtnPrimary"
 
 export default function DevFeed () {
 
@@ -164,6 +165,7 @@ export default function DevFeed () {
                                     <p>Custom</p>
                                 </div>
                             </div>
+                            <BtnPrimary float={ false } displayText={ 'Test' } enabled={ true }/>
                             { visibility === 'auto' &&
                         
                         <div className="seats-container mt-1">
@@ -233,6 +235,7 @@ export default function DevFeed () {
                                     <img src="/images/gear.svg" alt="settings"/>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
                 </>

@@ -49,7 +49,7 @@ function App() {
               {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} /> */}
               {/* <Route exact path='/devEvents' element={ <DevEvents/>} /> */}
               {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
-              {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
+              <Route exact path='/development' element={ <DevFeed/> } />
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
