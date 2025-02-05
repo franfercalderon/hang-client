@@ -132,7 +132,7 @@ export default function CreateHangContainer(){
                     text: 'Your event has been created!',
                     icon: 'success',
                     confirmButtonText: 'Ok',
-                    timer: 13000,
+                    timer: 1300,
                     buttonsStyling: false,
                     showConfirmButton: false,
                     showCancelButton: false,
