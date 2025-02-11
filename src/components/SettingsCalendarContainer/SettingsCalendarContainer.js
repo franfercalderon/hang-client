@@ -42,7 +42,7 @@ export default function SettingsCalendarContainer(){
     const handleAddCalendar = async () => {
         try {
             setIsBtnLoading( true )
-            await connectCalendar
+            connectCalendar()
 
         } catch ( error ) {
             setIsBtnLoading( false )
