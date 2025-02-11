@@ -37,7 +37,7 @@ export default function SettingsCalendarContainer(){
         const response = await checkCalendarConnection()
         setIsCalendarConnected( response )
 
-    }, [])
+    }, [ checkCalendarConnection ])
 
     const handleAddCalendar = async () => {
         try {
