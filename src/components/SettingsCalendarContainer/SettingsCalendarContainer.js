@@ -7,7 +7,7 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import Swal from "sweetalert2";
-import { checkCalendarConnection } from "../../../../server/controllers/googleOAuthControllers";
+import useCalendarAPI from "../../hooks/useCalendarAPI";
 
 export default function SettingsCalendarContainer(){
 
@@ -19,6 +19,7 @@ export default function SettingsCalendarContainer(){
 
     //HOOKS
     const { getUserFixedSlots, convertArrayToString, deleteFixedSlot } = useSlots()
+    const { connectCalendar, checkCalendarConnection } = useCalendarAPI()
     const { globalUser } = useContext( AppContext )
 
     //ROUTER
@@ -41,6 +42,7 @@ export default function SettingsCalendarContainer(){
     const handleAddCalendar = async () => {
         try {
             setIsBtnLoading( true )
+            await connectCalendar
 
         } catch ( error ) {
             setIsBtnLoading( false )

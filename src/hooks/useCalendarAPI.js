@@ -24,7 +24,7 @@ function useCalendarAPI(){
     }, [ authToken ])
 
     const connectCalendar = () => {
-        window.location.href = '/auth/google'
+        window.location.href = '/calendarAPI/auth/google'
     }
 
     return {
