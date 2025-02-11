@@ -23,9 +23,9 @@ export default function Settings (){
             <TopBarNav navigation={''} title={ 'Settings' }/>
             <div className="main-view-body">
                 <div className="section-container">
-                    <MainCard title={'Profile'} descritpion={'See and edit your information'} action={ () => navigate('/settings/profile') }/>
+                    <MainCard title={'My Profile'} descritpion={'See and edit your information'} action={ () => navigate('/settings/profile') }/>
                     <MainCard title={'Friends'} descritpion={'Invite and manage friends list'} action={ () => navigate('/settings/friends') }/>
-                    <MainCard title={'Calendar'} descritpion={'Manage your calendars and availability'} action={ () => navigate('/settings/calendar') } />
+                    <MainCard title={'My Calendar'} descritpion={'Manage your calendars and availability'} action={ () => navigate('/settings/calendar') } />
                     <MainCard title={'Notifications'} descritpion={'Choose how to receive updates'} action={ () => navigate('/settings/notifications') }/>
                     {
                         globalUser.master &&

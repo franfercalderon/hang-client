@@ -125,7 +125,7 @@ export default function SettingsCalendarContainer(){
                 {
                     globalUser?.master &&
                     <>
-                        <p className="mt-2">Your Calendar Connections:</p>
+                        <p className="mt-1">Your Calendar Connections:</p>
                         {
                             !isCalendarConnected ?
                             <BtnPrimary displayText={'Connect Google Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>

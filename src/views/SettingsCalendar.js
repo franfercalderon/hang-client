@@ -6,7 +6,7 @@ import ViewContainer from "../components/ViewContainer/ViewContainer";
 export default function SettingsCalendar(){
     return(
         <ViewContainer>
-            <TopBarNav navigation={'settings'} title={ 'My Availability' }/>
+            <TopBarNav navigation={'settings'} title={ 'My Calendar' }/>
             <div className="main-view-body">
                 <SettingsCalendarContainer/>
             </div>

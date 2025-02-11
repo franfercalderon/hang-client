@@ -16,8 +16,7 @@ function useCalendarAPI(){
                     'Authorization': `Bearer ${ authToken }`
                 }
             })  
-            console.log(response);
-            return response 
+            return response.data.isConnected 
             
         } catch ( error ) {
             throw error
