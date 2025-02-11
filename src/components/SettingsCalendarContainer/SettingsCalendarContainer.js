@@ -125,6 +125,7 @@ export default function SettingsCalendarContainer(){
                 {
                     globalUser?.master &&
                     <>
+                        <p className="mt-2">Your Calendar Connections:</p>
                         {
                             !isCalendarConnected ?
                             <BtnPrimary displayText={'Connect Google Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
@@ -138,19 +139,19 @@ export default function SettingsCalendarContainer(){
                     <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
                     :
                     <>
-                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
                         <p className="mt-2">Your Availability:</p>
                         {
-                        fixedSlots?.map(( slot, idx ) => {
-
-                            const title = convertArrayToString( slot.days )
-                            const description = `From ${ slot.startTime.hour }:${ slot.startTime.minute } ${ slot.startTime.ampm.toLowerCase() } to ${ slot.endTime.hour }:${ slot.endTime.minute } ${ slot.endTime.ampm.toLowerCase() }.`
-                            return(
-                                <MainCard key={ idx } title={ title } descritpion={ description } erase={ true } action={ () => handleDeleteSlot( slot.id ) }/>
-                            )
-                        })
-
+                            fixedSlots?.map(( slot, idx ) => {
+                                
+                                const title = convertArrayToString( slot.days )
+                                const description = `From ${ slot.startTime.hour }:${ slot.startTime.minute } ${ slot.startTime.ampm.toLowerCase() } to ${ slot.endTime.hour }:${ slot.endTime.minute } ${ slot.endTime.ampm.toLowerCase() }.`
+                                return(
+                                    <MainCard key={ idx } title={ title } descritpion={ description } erase={ true } action={ () => handleDeleteSlot( slot.id ) }/>
+                                )
+                            })
+                            
                         }
+                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
                     </>
                 }
             </div>
