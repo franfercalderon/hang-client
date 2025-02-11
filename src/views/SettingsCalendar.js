@@ -7,7 +7,7 @@ export default function SettingsCalendar(){
     return(
         <ViewContainer>
             <TopBarNav navigation={'settings'} title={ 'My Calendar' }/>
-            <div className="main-view-body">
+            <div className="main-view-body settings">
                 <SettingsCalendarContainer/>
             </div>
         </ViewContainer>

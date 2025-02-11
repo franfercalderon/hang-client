@@ -136,7 +136,10 @@ export default function SettingsCalendarContainer(){
                 }
                 {
                     !fixedSlots ?
-                    <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
+                    <>
+                        <p className="mt-2">Your Availability:</p>
+                        <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
+                    </>
                     :
                     <>
                         <p className="mt-2">Your Availability:</p>
