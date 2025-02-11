@@ -24,7 +24,7 @@ function useCalendarAPI(){
     }, [ authToken ])
 
     const connectCalendar = () => {
-        window.location.href = `${process.env.REACT_APP_API_URL}/calendarAPI/checkConnection`
+        window.location.href = `${process.env.REACT_APP_API_URL}/calendarAPI/auth/google`
     }
 
     return {
