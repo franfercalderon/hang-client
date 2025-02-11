@@ -7,12 +7,15 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader/Loader";
 import Swal from "sweetalert2";
+import { checkCalendarConnection } from "../../../../server/controllers/googleOAuthControllers";
 
 export default function SettingsCalendarContainer(){
 
     //STATE
     const [ fixedSlots, setFixedSlots ] = useState( null )
     const [ isLoading, setIsLoading ] = useState( true )
+    const [ isCalendarConnected, setIsCalendarConnected ] = useState( false )
+    const [ isBtnLoading, setIsBtnLoading ] = useState( false )
 
     //HOOKS
     const { getUserFixedSlots, convertArrayToString, deleteFixedSlot } = useSlots()
@@ -28,6 +31,38 @@ export default function SettingsCalendarContainer(){
         setFixedSlots( slots.length > 0 ? slots : null )
         setIsLoading( false )
     }, [ getUserFixedSlots, setFixedSlots ])
+
+    const checkCalendar = useCallback( async () => {
+        const response = await checkCalendarConnection()
+        setIsCalendarConnected( response )
+
+    }, [])
+
+    const handleAddCalendar = async () => {
+        try {
+            setIsBtnLoading( true )
+
+        } catch ( error ) {
+            setIsBtnLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
+    }
+
+    const handleDeleteCalendar = async () => {
+        console.log('delete tokens from db');
+    }
 
     const handleDeleteSlot = async ( slotId ) => {
         Swal
@@ -73,8 +108,9 @@ export default function SettingsCalendarContainer(){
     useEffect(() => {
         if ( globalUser ){
             getFixedSlots( globalUser.id )
+            checkCalendar()
         }
-    }, [ getFixedSlots, globalUser ])
+    }, [ getFixedSlots, globalUser, checkCalendar ])
 
 
     return(
@@ -84,6 +120,17 @@ export default function SettingsCalendarContainer(){
             <Loader/>
             :
             <div className="section-container">
+                {
+                    globalUser?.master &&
+                    <>
+                        {
+                            !isCalendarConnected ?
+                            <BtnPrimary displayText={'Connect Google Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
+                            :
+                            <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar }/>
+                        }
+                    </>
+                }
                 {
                     !fixedSlots ?
                     <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>

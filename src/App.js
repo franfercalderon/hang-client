@@ -28,6 +28,10 @@ import SettingsCalendar from './views/SettingsCalendar';
 import SettingsProfile from './views/SettingsProfile';
 import DevEvents from './views/DevEvents';
 import EditEvent from './views/EditEvent';
+import PrivacyPolicy from './views/PrivacyPolicy'
+import Terms from './views/Terms'
+
+
 
 function App() {
 
@@ -39,6 +43,8 @@ function App() {
             <Routes>
               {/* OPEN ROUTES */}
               <Route exact path='/welcome' element={ <Welcome/> }/>
+              <Route exact path='/terms' element={ <Terms/> }/>
+              <Route exact path='/privacy-policy' element={ <PrivacyPolicy/> }/>
               <Route exact path='/login' element={ <LoginTest/> }/>
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
@@ -49,7 +55,7 @@ function App() {
               {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} /> */}
               {/* <Route exact path='/devEvents' element={ <DevEvents/>} /> */}
               {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
-              <Route exact path='/development' element={ <DevFeed/> } />
+              {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />
