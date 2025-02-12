@@ -39,10 +39,10 @@ export default function SettingsCalendarContainer(){
 
     }, [ checkCalendarConnection ])
 
-    const handleAddCalendar = async () => {
+    const handleAddCalendar = useCallback(async () => {
         try {
             setIsBtnLoading( true )
-            connectCalendar( globalUser.id )
+            connectCalendar()
 
         } catch ( error ) {
             setIsBtnLoading( false )
@@ -60,7 +60,7 @@ export default function SettingsCalendarContainer(){
                 }
             })
         }
-    }
+    }, [ connectCalendar ] )
 
     const handleDeleteCalendar = async () => {
         console.log('delete tokens from db');
