@@ -42,7 +42,7 @@ export default function SettingsCalendarContainer(){
     const handleAddCalendar = async () => {
         try {
             setIsBtnLoading( true )
-            connectCalendar()
+            connectCalendar( globalUser.id )
 
         } catch ( error ) {
             setIsBtnLoading( false )
@@ -129,13 +129,13 @@ export default function SettingsCalendarContainer(){
                         {
                             !isCalendarConnected ?
                             <>
-                                <p>There are no calendars connected</p>
+                                <p className="text-center mt-2" style={{ opacity:'0.7' }}>There are no calendars connected</p>
                                 <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
                             </>
                             
                             :
                             <>  
-                                <p>{`${ isCalendarConnected }'s calendar is connected`}</p>
+                                <p className="text-center mt-2" style={{ opacity:'0.7' }} >{`${ isCalendarConnected }'s calendar is connected`}</p>
                                 <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'}/>
                             </>
                         }
@@ -161,7 +161,7 @@ export default function SettingsCalendarContainer(){
                             })
                             
                         }
-                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') } customClass={'mt-1'}/>
+                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') } customClass={'mt-2'}/>
                     </>
                 }
             </div>

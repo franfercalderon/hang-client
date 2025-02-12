@@ -23,8 +23,8 @@ function useCalendarAPI(){
         }
     }, [ authToken ])
 
-    const connectCalendar = () => {
-        window.location.href = `${process.env.REACT_APP_API_URL}/calendarAPI/auth/google`
+    const connectCalendar = ( userId ) => {
+        window.location.href = `${process.env.REACT_APP_API_URL}/calendarAPI/auth/google?userId${ userId }`
     }
 
     return {
