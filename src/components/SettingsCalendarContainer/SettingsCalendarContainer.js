@@ -34,8 +34,8 @@ export default function SettingsCalendarContainer(){
     }, [ getUserFixedSlots, setFixedSlots ])
 
     const checkCalendar = useCallback( async () => {
-        const response = await checkCalendarConnection()
-        setIsCalendarConnected( response )
+        const clientEmail = await checkCalendarConnection()
+        setIsCalendarConnected( clientEmail )
 
     }, [ checkCalendarConnection ])
 
@@ -125,12 +125,19 @@ export default function SettingsCalendarContainer(){
                 {
                     globalUser?.master &&
                     <>
-                        <p className="mt-1">Your Calendar Connections:</p>
+                        <p className="mt-1">Google Calendar Connections:</p>
                         {
                             !isCalendarConnected ?
-                            <BtnPrimary displayText={'Connect Google Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
+                            <>
+                                <p>There are no calendars connected</p>
+                                <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
+                            </>
+                            
                             :
-                            <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar }/>
+                            <>  
+                                <p>{`${ isCalendarConnected }'s calendar is connected`}</p>
+                                <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'}/>
+                            </>
                         }
                     </>
                 }
@@ -154,7 +161,7 @@ export default function SettingsCalendarContainer(){
                             })
                             
                         }
-                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
+                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') } customClass={'mt-1'}/>
                     </>
                 }
             </div>
