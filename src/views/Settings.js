@@ -28,7 +28,7 @@ export default function Settings (){
                     <MainCard title={'My Calendar'} descritpion={'Manage your calendars and availability'} action={ () => navigate('/settings/calendar') } />
                     <MainCard title={'Notifications'} descritpion={'Choose how to receive updates'} action={ () => navigate('/settings/notifications') }/>
                     {
-                        globalUser.master &&
+                        globalUser?.master &&
                         <MainCard title={'Admin'} descritpion={'Create new admin accounts'} action={ () => navigate('/settings/admin') }/>
                     }
                     <FeedbackCard/>

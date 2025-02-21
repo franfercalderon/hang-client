@@ -12,6 +12,7 @@ import RecurringMatchesContainer from "../components/RecurringMatchesContainer/R
 // import invite from "../../../server/middleware/invite"
 import Swal from "sweetalert2"
 import useFriends from "../hooks/useFriends"
+import usePushNotifications from "../hooks/usePushNotifications"
 
 export default function Feed () {
 
@@ -21,11 +22,12 @@ export default function Feed () {
     const [ showAlert, setShowAlert ] = useState( true )
 
     //CONTEXT
-    const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation, authToken } = useContext( AppContext )
-    const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots } = useContext( SlotsContext )
+    const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation } = useContext( AppContext )
+    const { availableNowSlots, scheduledSlots, recurringMatches, getAvailableNowSlots, getScheduledSlots, getFriendsActivity } = useContext( SlotsContext )
 
     //HOOKS
     const { acceptInvitation } = useFriends()
+    const { permissionStatus, requestNotificationPermission } = usePushNotifications()
 
     //ROUTER
     const navigate = useNavigate()
@@ -100,6 +102,12 @@ export default function Feed () {
         }
     }, [ pendingInvitation, handleInvitation, showAlert, setPendingInvitation ])
 
+    useEffect(() => {
+        if( permissionStatus === 'default'){
+            requestNotificationPermission() 
+        }
+    }, [ permissionStatus, requestNotificationPermission ])
+
     return(
         <ViewContainer className="feed" >
 
@@ -137,7 +145,7 @@ export default function Feed () {
                                 <>  
                                     <RecurringMatchesContainer events={ recurringMatches } userId={ globalUser.id }/> 
                                     <FeedNowdContainer events={ availableNowSlots } setIsLoading={ setIsLoading } refresh={ getAvailableNowSlots }/>
-                                    <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } refresh={ getScheduledSlots } />
+                                    <FeedScheduledContainer events={ scheduledSlots } setIsLoading={ setIsLoading } refresh={ getFriendsActivity } />
                                 </>
                             }
                         </div>

@@ -16,11 +16,13 @@ export default function SettingsCalendarContainer(){
     const [ isLoading, setIsLoading ] = useState( true )
     const [ isCalendarConnected, setIsCalendarConnected ] = useState( false )
     const [ isBtnLoading, setIsBtnLoading ] = useState( false )
+    const [ isDeleteBtnLoading, setIsDeleteBtnLoading ] = useState( false )
+
 
     //HOOKS
     const { getUserFixedSlots, convertArrayToString, deleteFixedSlot } = useSlots()
-    const { connectCalendar, checkCalendarConnection } = useCalendarAPI()
-    const { globalUser } = useContext( AppContext )
+    const { connectCalendar, checkCalendarConnection, deleteCalendarConnection } = useCalendarAPI()
+    const { globalUser, authToken } = useContext( AppContext )
 
     //ROUTER
     const navigate = useNavigate()
@@ -33,16 +35,23 @@ export default function SettingsCalendarContainer(){
         setIsLoading( false )
     }, [ getUserFixedSlots, setFixedSlots ])
 
-    const checkCalendar = useCallback( async () => {
-        const clientEmail = await checkCalendarConnection()
-        setIsCalendarConnected( clientEmail )
+    const checkCalendar = useCallback( async ( authToken ) => {
+        try {
+            const clientEmail = await checkCalendarConnection( authToken )
+            setIsCalendarConnected( clientEmail || false )
+            
+        } catch ( error ) {
+            console.error( "Error checking calendar connection:", error )
+            setIsCalendarConnected( false )
+        }
 
     }, [ checkCalendarConnection ])
 
     const handleAddCalendar = useCallback(async () => {
         try {
+
             setIsBtnLoading( true )
-            connectCalendar()
+            connectCalendar('settings')
 
         } catch ( error ) {
             setIsBtnLoading( false )
@@ -63,7 +72,44 @@ export default function SettingsCalendarContainer(){
     }, [ connectCalendar ] )
 
     const handleDeleteCalendar = async () => {
-        console.log('delete tokens from db');
+        try {
+
+            setIsDeleteBtnLoading( true )
+            await deleteCalendarConnection()
+            await checkCalendar( authToken )
+            setIsDeleteBtnLoading( false )
+            Swal.fire({
+                text: 'Calendar disconnected.',
+                icon: 'success',
+                confirmButtonText: 'Ok',
+                timer: 1300,
+                buttonsStyling: false,
+                showConfirmButton: false,
+                showCancelButton: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+
+        } catch ( error ) {
+            setIsDeleteBtnLoading( false )
+            Swal.fire({
+                title: 'Oops!',
+                text: error.message,
+                icon: 'warning',
+                confirmButtonText: 'Ok',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'hang-alert-container round-div div-shadow',
+                    icon: 'alert-icon',
+                    confirmButton: 'confirm-btn btn order2',
+                    denyButton: 'deny-btn btn order1',
+                }
+            })
+        }
     }
 
     const handleDeleteSlot = async ( slotId ) => {
@@ -106,13 +152,48 @@ export default function SettingsCalendarContainer(){
         })
     }
 
+    const showAddedCalendarSwal = () => {
+        Swal.fire({
+            text: 'Calendar added!',
+            icon: 'success',
+            confirmButtonText: 'Ok',
+            timer: 1300,
+            buttonsStyling: false,
+            showConfirmButton: false,
+            showCancelButton: false,
+            customClass: {
+                popup: 'hang-alert-container round-div div-shadow',
+                icon: 'alert-icon',
+                confirmButton: 'confirm-btn btn order2',
+                denyButton: 'deny-btn btn order1',
+            }
+        });
+    }
+
     //EFFECTS
     useEffect(() => {
-        if ( globalUser ){
+        if ( globalUser && authToken ){
             getFixedSlots( globalUser.id )
-            checkCalendar()
         }
-    }, [ getFixedSlots, globalUser, checkCalendar ])
+    }, [ getFixedSlots, globalUser, authToken ])
+
+    useEffect(() => {
+        if ( globalUser && authToken ){
+            checkCalendar( authToken )
+        }
+    }, [ globalUser, checkCalendar, authToken ])
+
+    useEffect(() => {
+        const urlParams = new URLSearchParams( window.location.search )
+        const calendarConnected = urlParams.get( 'calendarConnected' )
+    
+        if ( calendarConnected === 'true' ) {
+
+            showAddedCalendarSwal()
+            window.history.replaceState( {}, document.title, window.location.pathname )
+        }
+    }, [])
+    
 
 
     return(
@@ -122,29 +203,25 @@ export default function SettingsCalendarContainer(){
             <Loader/>
             :
             <div className="section-container">
+                <p className="mt-1">Google Calendar Connections:</p>
                 {
-                    globalUser?.master &&
+                    !isCalendarConnected ?
                     <>
-                        <p className="mt-1">Google Calendar Connections:</p>
-                        {
-                            !isCalendarConnected ?
-                            <>
-                                <p className="text-center mt-2" style={{ opacity:'0.7' }}>There are no calendars connected</p>
-                                <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading }/>
-                            </>
-                            
-                            :
-                            <>  
-                                <p className="text-center mt-2" style={{ opacity:'0.7' }} >{`${ isCalendarConnected }'s calendar is connected`}</p>
-                                <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'}/>
-                            </>
-                        }
+                        <p className="text-center mt-2" style={{ opacity:'0.7' }}>There are no calendars connected</p>
+                        <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading } loadingText={'Connecting...'}/>
+                    </>
+                    
+                    :
+                    <>  
+                        <p className="text-center mt-2" style={{ opacity:'0.7' }} >{`Your calendar is connected`}</p>
+                        <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'} btnLoading={ isDeleteBtnLoading } loadingText={'Disconnecting...'}/>
                     </>
                 }
                 {
                     !fixedSlots ?
                     <>
                         <p className="mt-2">Your Availability:</p>
+                        <p className="text-center mt-2" style={{ opacity:'0.7' }}>You have not added available dates yet</p>
                         <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
                     </>
                     :

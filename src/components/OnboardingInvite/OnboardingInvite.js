@@ -54,12 +54,12 @@ export default function OnboardingInvite({ handleOnboardingStage }){
                     </div>
                     <div className="relative centered onboarding-invite-btn-primary-container mt-4">
                         <CopiedCard active={ showCopiedCard }/>
-                        <p>Send this Invite Link to your friends so they can join you in Hang!</p>
                         <BtnPrimary action={ copyLink } displayText={'Get Link'} enabled={ true } submit={ false }/>
+                        <p>Send this Invite Link to your friends so they can join you in Hang!</p>
                     </div>
                     <div className="bottom-container mt-4">
-                        <p className="mt-2">{`Don't worry, you can get your link later in Settings > Friends`}</p>
                         <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
+                        <p className="mt">{`Don't worry, you can get your link later in Settings > Friends`}</p>
                     </div>
                 </>
             }

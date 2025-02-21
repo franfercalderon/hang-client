@@ -8,6 +8,7 @@ import OnboardingCalendar from "../components/OnboardingCalendar/OnboardingCalen
 import OnboardingInvite from "../components/OnboardingInvite/OnboardingInvite"
 import { useNavigate } from "react-router-dom"
 import ViewContainer from "../components/ViewContainer/ViewContainer"
+import OnboardingGoogleCalendar from "../components/OnboardingGoogleCalendar/OnboardingGoogleCalendar"
 
 export default function Onboarding () {
 
@@ -57,7 +58,7 @@ export default function Onboarding () {
     }
 
     const handleOnboardingStage = async () => {
-        if( onboardingStage < 4 ){
+        if( onboardingStage < 5 ){
             setOnboardingStage( onboardingStage + 1 )
         } else {
             setOnboardingStage( 1 )
@@ -80,6 +81,16 @@ export default function Onboarding () {
         }
     }, [ onboardingStage, setPopulateUser ])
 
+    useEffect(() => {
+        const urlParams = new URLSearchParams( window.location.search )
+        const calendarConnected = urlParams.get( 'calendarConnected' )
+    
+        if ( calendarConnected === 'true' ) {
+
+            setOnboardingStage( 5 )
+        }
+    }, [])
+
 
     return(
         <ViewContainer className="onboarding">
@@ -98,6 +109,10 @@ export default function Onboarding () {
                 }
                 {
                     onboardingStage === 4 &&
+                    <p>Connect Google Calendar</p>
+                }
+                {
+                    onboardingStage === 5 &&
                     <p>Invite Friends</p>
                 }
             </div>
@@ -117,6 +132,10 @@ export default function Onboarding () {
                     }
                     {
                         onboardingStage === 4 &&
+                        <OnboardingGoogleCalendar handleOnboardingStage={ handleOnboardingStage }/>
+                    }
+                    {
+                        onboardingStage === 5 &&
                         <OnboardingInvite handleOnboardingStage={ handleOnboardingStage }/>
                     }
                 </div>

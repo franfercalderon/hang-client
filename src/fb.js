@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { getMessaging } from 'firebase/messaging';
+
 
 //Web app's Firebase configuration
 const firebaseConfig = {
@@ -15,4 +17,7 @@ const firebaseConfig = {
 const app = initializeApp( firebaseConfig )
 const storage = getStorage( app )
 
-export { app, storage, ref, uploadBytes, getDownloadURL }
+// Initialize Messaging
+const messaging = getMessaging( app )
+
+export { app, storage, ref, uploadBytes, getDownloadURL, messaging }
