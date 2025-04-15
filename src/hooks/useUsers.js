@@ -3,11 +3,15 @@ import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
 import { storage, ref, uploadBytes, getDownloadURL } from "../fb"
 import { v4 } from "uuid"
+import useLogs from "./useLogs"
 
 function useUsers () {
     
     //CONTEXT
     const { firebaseUserId, setFirebaseUserId, authToken, pendingInvitation, masterToken, setMasterToken } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const createUser = async ( data ) => {
@@ -30,6 +34,8 @@ function useUsers () {
             setMasterToken( '' )
 
         } catch ( error ) {
+            await postLog( 'useUsers', 'createUser', error.message )
+
             throw error
         } 
     }
@@ -46,6 +52,8 @@ function useUsers () {
             }
             
         } catch ( error ) {
+            await postLog( 'useUsers', 'updateUserById', error.message )
+
             throw error
         }
     }
@@ -61,6 +69,8 @@ function useUsers () {
             await updateUserById( data )
             
         } catch ( error ) {
+            await postLog( 'useUsers', 'uploadProfilePhoto', error.message )
+
             throw error
         }
     }  
@@ -75,6 +85,8 @@ function useUsers () {
             }
             
         } catch ( error ) {
+            await postLog( 'useUsers', 'createImageUrl', error.message )
+
             throw error
         }
     }
@@ -90,9 +102,11 @@ function useUsers () {
             return user.data 
             
         } catch ( error ) {
+            await postLog( 'useUsers', 'getUser', error.message )
+
             throw error
         }
-    }, [])
+    }, [ postLog ])
 
     const updateUserProperties = async ( data ) => {
 
@@ -105,6 +119,8 @@ function useUsers () {
             })   
             
         } catch ( error ) {
+            await postLog( 'useUsers', 'updateUserProperties', error.message )
+
             throw error
         }
     }

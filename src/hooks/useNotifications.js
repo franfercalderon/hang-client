@@ -1,11 +1,15 @@
 import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import useLogs from "./useLogs"
 
 function useNotifications (){
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const getUserNotifications = useCallback( async ( token ) => {
@@ -21,9 +25,10 @@ function useNotifications (){
             return availableNotifications.data
 
         } catch ( error ) {
+            await postLog( 'useNotifications', 'getUserNotifications', error.message )
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
 
     const deleteNotification = async ( notificationId ) => {
@@ -36,6 +41,7 @@ function useNotifications (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useNotifications', 'deleteNotification', error.message )
             throw error
         }
     }
@@ -51,10 +57,11 @@ function useNotifications (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useNotifications', 'updateNotificationChannels', error.message )
             throw error
         }
 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     return({
         getUserNotifications,

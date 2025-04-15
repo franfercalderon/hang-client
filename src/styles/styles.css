@@ -27,6 +27,14 @@ a {
   color: inherit;
 }
 
+html, body {
+  height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+}
+
 body {
   font-family: "Open Sans", sans-serif;
   color: #333333;
@@ -58,14 +66,15 @@ ul {
 }
 
 .view-container {
-  height: 100vh;
-  width: 100vw;
+  height: 100%;
+  width: 100%;
   background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
   overflow: scroll;
+  padding-top: env(safe-area-inset-top);
 }
 
 .section-container {
@@ -88,6 +97,42 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.fw-300 {
+  font-weight: 300;
+}
+
+.fw-400 {
+  font-weight: 400;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fs-07 {
+  font-size: 0.7rem;
+}
+
+.fs-08 {
+  font-size: 0.8rem;
+}
+
+.w-9 {
+  width: 90%;
+}
+
+.fs-09 {
+  font-size: 0.9rem;
+}
+
+.op-08 {
+  opacity: 0.8;
+}
+
+.op-07 {
+  opacity: 0.7;
 }
 
 .w-100 {
@@ -172,11 +217,15 @@ ul {
   opacity: 0.3;
 }
 
+.text-center {
+  text-align: center;
+}
+
 .btn-secondary {
   height: 3rem;
   width: 100%;
   border: 2px solid #00A3E1;
-  background-color: white;
+  background: none;
   font-size: 1rem;
   font-weight: 600;
   color: #00A3E1;
@@ -362,7 +411,7 @@ select:active {
 }
 
 .main-bottombar {
-  height: 5rem;
+  height: 6.5rem;
   width: 100%;
   background-color: #00A3E1;
   display: flex;
@@ -575,8 +624,9 @@ label span {
 
 .copied-message-card.show {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(-30px);
   pointer-events: auto;
+  z-index: 90;
 }
 
 .inline-cta {
@@ -680,6 +730,19 @@ label span {
   background-size: 400% 100%;
   animation: gradientAnimation 3s ease-in-out infinite;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-secondary.secondary-loader {
+  background: linear-gradient(45deg, rgba(119, 185, 212, 0.7254901961), white);
+  background-size: 400% 100%;
+  animation: gradientAnimation 3s ease-in-out infinite;
+  border: 2px solid #00A3E1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @keyframes gradientAnimation {
@@ -1276,6 +1339,7 @@ label span {
   border: none;
   background: none;
   font-size: 1.1rem;
+  padding: 0.5rem 0.8rem;
 }
 
 .new-hang .btn-primary {
@@ -1482,6 +1546,10 @@ label span {
 
 .event-card .space-between svg {
   margin-left: 0.8rem;
+}
+
+.settings .btn-primary {
+  margin-top: 2rem;
 }
 
 .profile-img-edit-div {
@@ -1693,4 +1761,59 @@ label span {
 .policy-container ul {
   list-style: circle;
   margin-left: 2rem;
+}
+
+.section-container.settings {
+  position: relative;
+}
+
+.settings .sign-out {
+  margin-bottom: 10rem;
+}
+
+.help-chat-floating-button {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 500px;
+  background-color: #00A3E1;
+  color: #f9f9f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  position: fixed;
+  bottom: 3rem;
+  right: 2rem;
+}
+
+.settings .chat-modal {
+  height: calc(100vh - 5rem);
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.settings .chat-modal .help-chat-container {
+  margin-top: 5rem;
+  width: 90vw;
+  max-width: 700px;
+  height: 70vh;
+  background-color: white;
+  overflow: hidden;
+}
+
+.chat-modal .white-bar {
+  height: 2px;
+  background-color: white;
+  width: 100%;
+  position: relative;
+  bottom: 6px;
+  left: 0;
+  z-index: 10;
 }/*# sourceMappingURL=styles.css.map */

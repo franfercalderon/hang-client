@@ -10,6 +10,7 @@ import useFriends from "../../hooks/useFriends";
 
 
 export default function ManageFriendsContainer({ userFriends, setUserFriends, isLoading, handleSave, setIsLoading, getFriends }) { 
+    console.log(userFriends);
 
     //STATE
     const [ showConfirm, setShowConfirm ] = useState( false )
@@ -137,12 +138,14 @@ export default function ManageFriendsContainer({ userFriends, setUserFriends, is
                         </DndContext>
                         {
                             showConfirm &&
-                            <BtnPrimary displayText={ 'Save Changes' } enabled={ true } submit={ false } action={ handleSave }/>
+                            <div className="floating-primary-container centered">
+                                <BtnPrimary displayText={ 'Save Changes' } enabled={ true } submit={ false } action={ handleSave }/>
+                            </div>
                         }
                     </>
                     :
                     <div className="centered">
-                        <p>No friends to show</p>
+                        <p>No friends to show</p> 
                     </div>
 
                 }

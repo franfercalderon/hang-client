@@ -54,6 +54,16 @@ export default function EventsContainer() {
         fetchEvents()
     }, [ setShowUserEvents, fetchEvents ])
 
+    useEffect(() => {
+        const urlParams = new URLSearchParams( window.location.search )
+        const isAttendant = urlParams.get( 'isAttendant' )
+    
+        if ( isAttendant === 'true' ) {
+            setShowUserEvents( false )
+            window.history.replaceState( {}, document.title, window.location.pathname )
+        }
+    }, [])
+
     return(
         <>
             <div className="section-container">

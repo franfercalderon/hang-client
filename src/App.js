@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 import Feed from './views/Feed';
 import Welcome from './views/Welcome';
@@ -42,6 +42,8 @@ function App() {
           <SlotsProvider>
             <Routes>
               {/* OPEN ROUTES */}
+              <Route exact path='/ryan' element={<Navigate to="/invite/Us2yiyZ789V5hrpdGmC9u9dxhIe2?name=Ryan%20Moran" replace />} />
+              <Route exact path='/darby' element={<Navigate to="/invite/V20Lf5TIOrN0LVRLkzUBPQVmXnM2?name=Darby%20Rollins" replace />} />
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/terms' element={ <Terms/> }/>
               <Route exact path='/privacy-policy' element={ <PrivacyPolicy/> }/>
@@ -49,13 +51,8 @@ function App() {
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
-              {/* <Route exact path='/events' element={ <Events/>} />
-              <Route exact path='/editEvent' element={ <EditEvent/>} /> */}
-              {/* <Route exact path='/create/hang' element={ <CreateHang/>} /> */}
-              {/* <Route exact path='/settings/calendar/new' element={ <SettingsCalendarNew/>} /> */}
-              {/* <Route exact path='/devEvents' element={ <DevEvents/>} /> */}
-              {/* <Route exact path='/settings/profile' element={ <SettingsProfile/>} /> */}
-              {/* <Route exact path='/development' element={ <DevFeed/> } /> */}
+              {/* DEVELOPMENT: REMOVE WHEN PUSHING FOR PRODUCTION */}
+              <Route exact path='/settings/friends/manage' element={ <SettingsFriendsManage/>} />
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoute />}>
                 <Route exact path='/' element={ <Feed/> } />

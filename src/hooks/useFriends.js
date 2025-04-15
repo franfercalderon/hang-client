@@ -1,11 +1,15 @@
 import { useCallback, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
+import useLogs from "./useLogs";
 
 function useFriends(){
 
     //CONTEXT
     const { authToken, globalUser } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const getUserFriends = useCallback( async ( ) => {
@@ -21,9 +25,10 @@ function useFriends(){
             return userFriends.data
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'getUserFriends', error.message )
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const getFriendSuggestions = useCallback( async ( ) => {
         try{
@@ -38,9 +43,10 @@ function useFriends(){
             return userFriends.data
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'getFriendSuggestions', error.message )
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const postFriendshipRequest = useCallback( async ( request ) => {
 
@@ -56,9 +62,10 @@ function useFriends(){
             return 
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'postFriendshipRequest', error.message )
             throw error.response.data
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const getUserFriendShipsRequests = useCallback( async ( token ) => {
         
@@ -74,9 +81,11 @@ function useFriends(){
             return friendShipRequests.data
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'getUserFriendShipsRequests', error.message )
+
             throw error
         } 
-    }, [ authToken ] )
+    }, [ authToken, postLog ] )
 
     const replyFriendsRequest = async ( requestId, requesterId, accepted ) => {
 
@@ -96,6 +105,7 @@ function useFriends(){
             })  
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'replyFriendsRequest', error.message )
             throw error
         } 
         
@@ -111,6 +121,7 @@ function useFriends(){
             })  
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'deleteFriend', error.message )
             throw error
         } 
     }
@@ -125,6 +136,7 @@ function useFriends(){
             })  
 
         } catch ( error ) {
+            await postLog( 'useFriends', 'acceptInvitation', error.message )
             throw error
         } 
     }

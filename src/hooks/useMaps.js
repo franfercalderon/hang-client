@@ -1,11 +1,15 @@
 import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import useLogs from "./useLogs"
 
 function useMaps () {
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const getLocationImage = useCallback( async ( coordinates ) => {
@@ -25,9 +29,10 @@ function useMaps () {
             return locationImageUrl.data
 
         } catch ( error ) {
+            await postLog( 'useMaps', 'getLocationImage', error.message )
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     return {
         getLocationImage,

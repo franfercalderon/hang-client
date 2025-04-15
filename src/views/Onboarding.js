@@ -97,23 +97,23 @@ export default function Onboarding () {
             <div className="section-container topbar-title">
                 {
                     onboardingStage === 1 &&
-                    <p>Create Your Account</p>
+                    <p>1. Create Your Account</p>
                 }
                 {
                     onboardingStage === 2 &&
-                    <p>Add a Profile Photo</p>
+                    <p>2. Profile Photo</p>
                 }
                 {
                     onboardingStage === 3 &&
-                    <p>Set Up Your Availability</p>
+                    <p>3. Availability</p>
                 }
                 {
                     onboardingStage === 4 &&
-                    <p>Connect Google Calendar</p>
+                    <p>4. Calendar Connection</p>
                 }
                 {
                     onboardingStage === 5 &&
-                    <p>Invite Friends</p>
+                    <p>5. Invite Friends</p>
                 }
             </div>
             <div className="view-body">

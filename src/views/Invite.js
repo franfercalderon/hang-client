@@ -15,7 +15,7 @@ export default function Invite () {
 
     //EFFECTS
     useEffect(()=> {
-        if ( pendingInvitation ){
+        if ( pendingInvitation ){ 
             navigate('/')
         }
     }, [ pendingInvitation, navigate ])

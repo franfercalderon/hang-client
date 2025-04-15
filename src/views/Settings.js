@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import ViewContainer from "../components/ViewContainer/ViewContainer";
 import FeedbackCard from "../components/FeedbackCard/FeedbackCard";
+import HelpContainer from "../components/HelpContainer/HelpContainer";
 
 export default function Settings (){
 
@@ -21,8 +22,8 @@ export default function Settings (){
     return(
         <ViewContainer>
             <TopBarNav navigation={''} title={ 'Settings' }/>
-            <div className="main-view-body">
-                <div className="section-container">
+            <div className="main-view-body ">
+                <div className="section-container settings">
                     <MainCard title={'My Profile'} descritpion={'See and edit your information'} action={ () => navigate('/settings/profile') }/>
                     <MainCard title={'Friends'} descritpion={'Invite and manage friends list'} action={ () => navigate('/settings/friends') }/>
                     <MainCard title={'My Calendar'} descritpion={'Manage your calendars and availability'} action={ () => navigate('/settings/calendar') } />
@@ -35,6 +36,7 @@ export default function Settings (){
                    <div className="rounded cta-card pointer sign-out" onClick={ signOutUser }>
                         <p>Sign Out</p>
                    </div>
+                   <HelpContainer/>
                 </div>
             </div>
         </ViewContainer>

@@ -74,6 +74,7 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
             :
 
             <>
+            <p className="mb-2 fw-500">Upload Your Photo:</p>
             <div className="profile-img-container" >
                 {
                     userImg &&
@@ -101,6 +102,9 @@ export default function OnboardingPhoto({ handleOnboardingStage }){
             }
             <div className="bottom-container">
                 <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true }/>
+                <div className="centered">
+                    <p className="mt text-center fs-09 op-08 w-9">{`You can update it later in Settings → My Profile`}</p>
+                </div>
             </div>
             </> 
         }

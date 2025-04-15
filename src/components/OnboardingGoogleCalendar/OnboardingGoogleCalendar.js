@@ -4,7 +4,7 @@ import BtnPrimary from "../BtnPrimary/BtnPrimary"
 import BtnSecondary from "../BtnSecondary/BtnSecondary"
 import Loader from "../Loader/Loader"
 import useCalendarAPI from "../../hooks/useCalendarAPI"
-import Swal from "sweetalert2"
+import Swal from "sweetalert2" 
 
 export default function OnboardingGoogleCalendar({ handleOnboardingStage }){
 
@@ -115,16 +115,6 @@ export default function OnboardingGoogleCalendar({ handleOnboardingStage }){
         });
     }
 
-    // useEffect(() => {
-    //     const urlParams = new URLSearchParams( window.location.search )
-    //     const calendarConnected = urlParams.get( 'calendarConnected' )
-    
-    //     if ( calendarConnected === 'true' ) {
-    //         hand
-    //         window.history.replaceState( {}, document.title, window.location.pathname )
-    //     }
-    // }, [])
-
 
     return(
         <>
@@ -133,6 +123,7 @@ export default function OnboardingGoogleCalendar({ handleOnboardingStage }){
                 <Loader/>
                 :
                 <>
+                    <p className="mb-2 fw-500">Connect Your Google Calendar</p>
                     <div className="invite-img-containter" >
                         <img src="./images/calendarIcon.svg" alt="invite"/>
                     </div>
@@ -140,20 +131,28 @@ export default function OnboardingGoogleCalendar({ handleOnboardingStage }){
                         {
                             !isCalendarConnected ?
                             <>
-                                <BtnPrimary action={ handleAddCalendar } btnLoading={ isBtnLoading } loadingText={'Connecting...'} displayText={'Connect Calendar'} enabled={ true } submit={ false }/>
-                                <p>Hang works better when connected to your Google Calendar. Link your calendar for seamless scheduling.</p>
+                                <BtnPrimary action={ handleAddCalendar } btnLoading={ isBtnLoading } loadingText={'Connecting...'} displayText={'Add Calendar'} enabled={ true } submit={ false }/>
+                                <div className="centered">
+                                    <p className="w-9 text-center fs-0 op-09">Hang works better when connected to your Google Calendar. Link your calendar for seamless scheduling.</p>
+
+                                </div>
                             </>
                             
                             :
                             <>  
-                                <p className="text-center mt-2" style={{ opacity:'0.7' }} >{`Your calendar is connected`}</p>
                                 <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'} btnLoading={ isDeleteBtnLoading } loadingText={'Disconnecting...'}/>
+                                <div className="centered">
+                                    <p className=" text-center fs-0 op-09">{`Your calendar is connected`}</p>
+                                </div>
                             </>
                         }
                     </div>
                     <div className="bottom-container mt-4">
                         <BtnSecondary action={ handleOnboardingStage } displayText={'Skip'} enabled={ true } submit={ false }/>
-                        <p className="mt">{`Don't worry, you can do manage your Calendar later in Settings > My Calendar`}</p>
+                        <div className="centered">
+                            <p className="mt text-center fs-09 op-08 w-9">{`You can always adjust your availability later in Settings → My Calendar`}</p>
+
+                        </div>
                     </div>
                 </>
             }

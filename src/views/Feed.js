@@ -19,7 +19,7 @@ export default function Feed () {
     //STATE
     const [ isLoading, setIsLoading ] = useState( true )
     const [ noDataMessage, setNoDataMessage ] = useState( false )
-    const [ showAlert, setShowAlert ] = useState( true )
+    const [ showAlert, setShowAlert ] = useState( false )
 
     //CONTEXT
     const { globalUser, notificationBadge, pendingInvitation, setPendingInvitation } = useContext( AppContext )
@@ -102,6 +102,36 @@ export default function Feed () {
         }
     }, [ pendingInvitation, handleInvitation, showAlert, setPendingInvitation ])
 
+    useEffect(() => {
+        if( pendingInvitation && globalUser ){
+            const inviterId = pendingInvitation.userId
+            
+            const isAlreadyFriend = globalUser.friends.some( friend => friend.id === inviterId )
+            
+            if ( isAlreadyFriend ) {
+                Swal.fire({
+                    text: `${ pendingInvitation.userName } is part of your friends already.`,
+                    icon: 'info',
+                    confirmButtonText: 'Ok',
+                    timer: 1300,
+                    buttonsStyling: false,
+                    showConfirmButton: false,
+                    showCancelButton: false,
+                    customClass: {
+                        popup: 'hang-alert-container round-div div-shadow',
+                        icon: 'alert-icon',
+                        confirmButton: 'confirm-btn btn order2',
+                        denyButton: 'deny-btn btn order1',
+                    }
+                })
+                setPendingInvitation( null )
+
+            } else{
+                setShowAlert( true )
+            }
+        }
+    }, [ pendingInvitation, globalUser, setPendingInvitation ])
+    
     useEffect(() => {
         if( permissionStatus === 'default'){
             requestNotificationPermission() 

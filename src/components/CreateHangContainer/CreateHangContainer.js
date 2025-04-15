@@ -256,7 +256,7 @@ export default function CreateHangContainer(){
                             <div className="inner-container" onClick={ () => setShowStartPicker( true )} > 
                                 <p>From</p>
                                 <div className="time-display rounded">
-                                    <p>{ `${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" )  } ${ startTime.ampm.toUpperCase() }`}</p>
+                                    <p>{ `${ startTime.hour } : ${ startTime.minute.toString().padStart(2, "0" )  } ${ startTime.ampm.toUpperCase() }`}</p> 
                                 </div>
                             </div>
                             <div className="inner-container" onClick={ () => setShowEndPicker( true )}>
@@ -286,7 +286,7 @@ export default function CreateHangContainer(){
                         <div className="mt-1">
                             <div className="row">
                                 <p>Visibility</p>
-                                <div className="inline-help centered pointer" onClick={ () => alertInfo('If "Everybody" is selected, the event will show to all your friends until no more spots are free. <br><br> If "Priority List" is selected, the app will try to fill the event based on the priorities you have assigned to your friends. <br><br> Use "Custom" mode to invite a custom list to your event.') }>
+                                <div className="inline-help centered pointer" onClick={ () => alertInfo('"Everybody": Your event will be visible to all your friends. <br><br>"Priority List": The event will be filled based on the priority order you have set for your friends and their calendar availabilty. Your top-priority friends will be invited first. <br><br> "Custom": Choose specific friends to invite by creating a custom guest list for your event.') }>
                                     <p>?</p>
                                 </div>
                             </div>

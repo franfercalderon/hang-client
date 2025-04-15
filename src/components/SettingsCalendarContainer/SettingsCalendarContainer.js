@@ -203,26 +203,36 @@ export default function SettingsCalendarContainer(){
             <Loader/>
             :
             <div className="section-container">
-                <p className="mt-1">Google Calendar Connections:</p>
+                {/* <p className="mt-1 mb-1">Hang combines your availability setup and your actual Calendar for seamless scheduling.</p>
+                <p className="mb-2">Google Calendar Connections:</p> */}
+
+                <p className="mb-1 mt-2 fw-500">Google Calendar Connections</p>
+                <p className="mb-2 op-08">Hang combines your availability setup and your actual Calendar for seamless scheduling:</p>
                 {
                     !isCalendarConnected ?
                     <>
-                        <p className="text-center mt-2" style={{ opacity:'0.7' }}>There are no calendars connected</p>
-                        <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading } loadingText={'Connecting...'}/>
+                        {/* <p className="text-center " style={{ opacity:'0.7' }}>There are no calendars connected</p> */}
+                        <div className="mt-3">
+                            <BtnPrimary displayText={'Connect Calendar'} enabled={true } submit={ false } action={ handleAddCalendar } btnLoading={ isBtnLoading } loadingText={'Connecting...'}/>
+                        </div>
                     </>
                     
                     :
                     <>  
-                        <p className="text-center mt-2" style={{ opacity:'0.7' }} >{`Your calendar is connected`}</p>
-                        <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'} btnLoading={ isDeleteBtnLoading } loadingText={'Disconnecting...'}/>
+                        <div className="mt-3">
+                            <BtnSecondary displayText={'Disable Connection'} enabled={ true } submit={ false } action={ handleDeleteCalendar } customClass={'mt-1'} btnLoading={ isDeleteBtnLoading } loadingText={'Disconnecting...'}/>
+                        </div>
+                        <p className="text-center fs-0 op-09" style={{ opacity:'0.7' }} >{`Your calendar is connected`}</p>
                     </>
                 }
                 {
                     !fixedSlots ?
                     <>
-                        <p className="mt-2">Your Availability:</p>
-                        <p className="text-center mt-2" style={{ opacity:'0.7' }}>You have not added available dates yet</p>
-                        <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
+                        <p className=" mb-1 mt-2 fw-500">Your Availability:</p>
+                        <div className="mt-3">
+                            <BtnPrimary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') }/>
+                        </div>
+                        <p className="text-center" style={{ opacity:'0.7' }}>You have not added dates yet</p>
                     </>
                     :
                     <>
@@ -231,14 +241,17 @@ export default function SettingsCalendarContainer(){
                             fixedSlots?.map(( slot, idx ) => {
                                 
                                 const title = convertArrayToString( slot.days )
-                                const description = `From ${ slot.startTime.hour }:${ slot.startTime.minute } ${ slot.startTime.ampm.toLowerCase() } to ${ slot.endTime.hour }:${ slot.endTime.minute } ${ slot.endTime.ampm.toLowerCase() }.`
+                                const description = `From ${ slot.startTime.hour }:${ slot.startTime.minute.toString().padStart(2, "0" ) } ${ slot.startTime.ampm.toLowerCase() } to ${ slot.endTime.hour }:${ slot.endTime.minute.toString().padStart(2, "0" ) } ${ slot.endTime.ampm.toLowerCase() }.`
                                 return(
                                     <MainCard key={ idx } title={ title } descritpion={ description } erase={ true } action={ () => handleDeleteSlot( slot.id ) }/>
                                 )
                             })
                             
                         }
-                        <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') } customClass={'mt-2'}/>
+                        <div className="mt-3">
+                            <BtnSecondary displayText={'Add a date'} enabled={ true } action={ ()=> navigate('/settings/calendar/new') } customClass={'mt-2'}/>
+
+                        </div>      
                     </>
                 }
             </div>

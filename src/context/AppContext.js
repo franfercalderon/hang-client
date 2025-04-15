@@ -93,6 +93,7 @@ const AppProvider = ({ children }) => {
             if ( user ) {
                 try {
                     const token = await user.getIdToken();
+                    localStorage.setItem('authToken', token);
                     setAuthToken( token );
                     getGlobalUser( token )
                     getUserData( token )
@@ -102,6 +103,7 @@ const AppProvider = ({ children }) => {
                 }
             } else {
                 setAuthToken( '' );
+                localStorage.removeItem('authToken');
                 setGlobalUser( null )
                 setPopulateUser( null )
                 setTokenLoading( false )

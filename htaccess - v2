@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Allow specific subdomains (url2092.gethangapp.com and url5070.gethangapp.com)
+    RewriteCond %{HTTP_HOST} ^url2092\.gethangapp\.com$ [OR]
+    RewriteCond %{HTTP_HOST} ^url5070\.gethangapp\.com$
+    RewriteRule ^ - [L]  # If the subdomain is allowed, stop further processing
+
+    # Block all other subdomains
+    RewriteCond %{HTTP_HOST} ^([a-zA-Z0-9-]+)\.gethangapp\.com$ [NC]
+    RewriteRule ^ - [F,L]  # Return a Forbidden error for all other subdomains
+</IfModule>
+
+# Enforce HTTPS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+</IfModule>
+
+# Enforce HSTS only for the main domain (gethangapp.com)
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>

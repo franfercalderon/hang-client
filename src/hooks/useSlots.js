@@ -2,12 +2,16 @@ import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
 import moment from 'moment-timezone'
+import useLogs from "./useLogs"
 
 
 function useSlots (){
 
     //CONTEXT
     const { authToken, globalUser } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const postFixedSlot = async ( slot ) => {
@@ -22,6 +26,7 @@ function useSlots (){
             })  
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'postFixedSlot', error.message )
             throw error
         } 
     }
@@ -38,6 +43,7 @@ function useSlots (){
             })  
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'postAvailableNowSlot', error.message )
             throw error
         } 
     }
@@ -55,9 +61,11 @@ function useSlots (){
             return availableNowSlots.data
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getAvailableNowSlots', error.message )
+
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const postScheduledSlot = async ( slot ) => {
 
@@ -71,6 +79,8 @@ function useSlots (){
             })  
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'postScheduledSlot', error.message )
+
             throw error
         } 
     }
@@ -87,9 +97,11 @@ function useSlots (){
             return scheduledSlots.data
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getScheduledSlots', error.message )
+            
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken , postLog])
 
     const getRecurringMatches = useCallback( async () => {
         try{
@@ -103,9 +115,11 @@ function useSlots (){
             return matches.data
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getRecurringMatches', error.message )
+
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const getEventInvites = useCallback( async ( token ) => {
         try{
@@ -119,9 +133,11 @@ function useSlots (){
             return invites.data
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getEventInvites', error.message )
+
             throw error
         } 
-    }, [ ])
+    }, [ postLog ])
 
     const getOwnEvents = useCallback( async () => {
 
@@ -135,152 +151,15 @@ function useSlots (){
             })  
             return events.data
 
-            // const fakeData = [
-            //     {
-            //         title: "Dinner",
-            //         description: 'Some random things',
-            //         starts: 1737147600000,
-            //         ends: 1737154800000,
-            //         location: {
-            //             address: "El Salvador 5860, C1414BQJ Cdad. Autónoma de Buenos Aires, Argentina",
-            //             coordinates: {
-            //                 lat: -34.5812926,
-            //                 lng: -58.4380536
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJG81VHZO1vJURnTSLMnh4yC8"
-            //         },
-            //         visibility: 'auto',
-            //         spots: 1,
-            //         isPrivate: true,
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //         userName: "Loreen",
-            //         userLastname: "Dallas",
-            //         userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //         id: "44e0c3e7-6ad4-4233-911b-7a6d5ca74f90",
-            //         attending: [
-            //             {
-            //                 name: "Bobby",
-            //                 lastname: "Coleman",
-            //                 userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale2.pngc3b292b3-a351-4b3b-9ac5-8f7d0dcb3077?alt=media&token=5ad3cb4c-d65b-4b9a-bf26-eb73088a8a56",
-            //                 userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1"
-            //             },
-            //             {
-            //                 name: "Sarah",
-            //                 lastname: "Blaustein",
-            //                 userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Ffemale1.pnge4601148-be0f-42c2-af96-3abbbfeb8039?alt=media&token=3cb6562c-0782-4de7-9a63-8c7b1abd9fa2",
-            //                 userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1"
-            //             },
-            //             {
-            //                 name: "Derrick",
-            //                 lastname: "Smith",
-            //                 userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale1.png6433d34e-1953-4d7b-af83-0500060861fc?alt=media&token=74c14b4e-27db-4b4a-87fa-77bf01fb5f47",
-            //                 userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1"
-            //             }
-            //         ]
-            //     },
-            //     {
-            //         attending: [],
-            //         title: "After office 💸",
-            //         starts: 1737581400000,
-            //         ends: 1737585000000,
-            //         visibility: 'everybody',
-            //         location: {
-            //             address: "Av. del Libertador 3949, C1426 Cdad. Autónoma de Buenos Aires, Argentina",
-            //             coordinates: {
-            //                 lat: -34.5697595,
-            //                 lng: -58.4244154
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJAThMnZi1vJURiYnClw7laKY"
-            //         },
-            //         spots: 1,
-            //         isPrivate: true,
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //         userName: "Loreen",
-            //         userLastname: "Dallas",
-            //         userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //         id: "76892952-8bf8-4009-8d2a-c7930bb48987"
-            //     },
-            //     {
-            //         title: "My bday 🎂",
-            //         starts: 1737581400000,
-            //         ends: 1737585000000,
-            //         visibility: 'custom',
-            //         location: {
-            //             address: "Av. Costanera Rafael Obligado 7030, C1428 Cdad. Autónoma de Buenos Aires, Argentina",
-            //             coordinates: {
-            //                 lat: -34.5438535,
-            //                 lng: -58.4332017
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJE6T9P0-0vJURMBIWo4aqD7w"
-            //         },
-            //         spots: 1,
-            //         isPrivate: true,
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //         userName: "Loreen",
-            //         userLastname: "Dallas",
-            //         userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //         id: "9accd87a-3df1-4ecf-a3f2-54ff96a2cc50",
-            //         attending: [
-            //             {
-            //                 name: "Bobby",
-            //                 lastname: "Coleman",
-            //                 userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale2.pngc3b292b3-a351-4b3b-9ac5-8f7d0dcb3077?alt=media&token=5ad3cb4c-d65b-4b9a-bf26-eb73088a8a56",
-            //                 userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1"
-            //             }
-            //         ]
-            //     },
-            //     {
-            //         attending: [],
-            //         title: "New one 👀",
-            //         starts: 1737581400000,
-            //         ends: 1737585000000,
-            //         location: {
-            //             address: "Malabia 1720, C1414 Cdad. Autónoma de Buenos Aires, Argentina",
-            //             coordinates: {
-            //                 lat: -34.58962,
-            //                 lng: -58.42594
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJ4we_eoe1vJURZ2qACroYgyc"
-            //         },
-            //         spots: 0,
-            //         isPrivate: false,
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //         userName: "Loreen",
-            //         userLastname: "Dallas",
-            //         userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //         id: "31a5524c-7b26-45b2-8f75-1568cca8368d"
-            //     },
-            //     {
-            //         attending: [],
-            //         title: "Telescope night 🌌",
-            //         starts: 1737581400000,
-            //         ends: 1737585000000,
-            //         location: {
-            //             address: "Palmares Open Mall, RP82 2650, M5501 Godoy Cruz, Mendoza, Argentina",
-            //             coordinates: {
-            //                 lat: -32.9557044,
-            //                 lng: -68.8589034
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJBU_ytkwKfpYREx144g6nxgQ"
-            //         },
-            //         spots: 1,
-            //         isPrivate: true,
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2FScreenshot%202024-12-13%20at%203.55.29%E2%80%AFPM.pnga29486b2-7843-4501-a61f-97d2b50ac146?alt=media&token=f7ca5960-ad73-4e50-b2ba-67edf0f0d6bd",
-            //         userName: "Loreen",
-            //         userLastname: "Dallas",
-            //         userId: "iuYmKKbSqMfWlARqIt4y2oTHytr1",
-            //         id: "b9d647af-5fe9-4496-888c-b1fc4f327543"
-            //     }
-            // ]
-            // return fakeData
-
             
 
         } catch ( error ) { 
+            await postLog( 'useSlots', 'getOwnEvents', error.message )
+
             throw error
         } 
 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const updateEventData = async ( eventId, eventData ) => {
 
@@ -297,6 +176,8 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useSlots', 'updateEventData', error.message )
+
             throw error.response.data
         }
 
@@ -313,52 +194,16 @@ function useSlots (){
             })  
 
             return events.data
-            // const fakeData = [
-            //     {
-            //         title: "Beers and stars 🌠",
-            //         starts: 1737230400000,
-            //         ends: 1737234000000,
-            //         userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1",
-            //         userName: "Bobby",
-            //         userLastname: "Coleman",
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale2.pngc3b292b3-a351-4b3b-9ac5-8f7d0dcb3077?alt=media&token=5ad3cb4c-d65b-4b9a-bf26-eb73088a8a56",
-            //         id: "e74ced77-de46-4de1-9b84-0be554d4abea",
-            //         location: {
-            //             address: "Av. Corrientes 222 piso 19, C1043 Cdad. Autónoma de Buenos Aires, Argentina",
-            //             coordinates: {
-            //                 lat: -34.6031892,
-            //                 lng: -58.37064950000001
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJL4vp1rI1o5UR2pdCZgadG9w"
-            //         }
-            //     },
-            //     {
-            //         title: "",
-            //         starts: 1737234000000,
-            //         ends: 1737237600000,
-            //         userId: "FnNSENwcBGUGFv94jMIqN9E4pQn1",
-            //         userName: "Bobby",
-            //         userLastname: "Coleman",
-            //         userImg: "https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/images%2FprofilePictures%2Fmale2.pngc3b292b3-a351-4b3b-9ac5-8f7d0dcb3077?alt=media&token=5ad3cb4c-d65b-4b9a-bf26-eb73088a8a56",
-            //         id: "f05baa8f-e888-4431-9651-42c70bf2fe55",
-            //         location: {
-            //             address: "The Tennis Ct, Birmingham B15 2RB, UK",
-            //             coordinates: {
-            //                 lat: 52.4571796,
-            //                 lng: -1.9259933
-            //             },
-            //             mapUrl: "https://www.google.com/maps/place/?q=place_id:ChIJQ4R0eUu8cEgRvt6MLRXJ_xg"
-            //         }
-            //     }
-            // ]
-            // return fakeData
+
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getAttendingEvents', error.message )
+
             throw error
             
         } 
 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
 
     const validateTimes = ( slot ) => {
@@ -439,9 +284,11 @@ function useSlots (){
             return fixedSlots.data
 
         } catch ( error ) {
+            await postLog( 'useSlots', 'getUserFixedSlots', error.message )
+
             throw error
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     const convertArrayToString = ( array ) => {
         const result = array
@@ -461,6 +308,8 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useSlots', 'deleteFixedSlot', error.message )
+
             throw error
         }
     }
@@ -509,11 +358,15 @@ function useSlots (){
         } catch ( error ) {
 
             if (error.response) {
+        
+                await postLog( 'useSlots', 'joinEvent', error.message )
 
                 throw error.response.data;
             } else {
 
                 console.error("Error without response:", error);
+                await postLog( 'useSlots', 'joinEvent', error.message )
+
                 throw new Error( "An error occurred, but no response was received.", error );
             }
         
@@ -555,6 +408,8 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useSlots', 'replyEventInvite', error.message )
+
             throw error.response.data
         }
     }
@@ -570,6 +425,8 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useSlots', 'deleteOwnEvent', error.message )
+
             throw error.response.data
         }
     }
@@ -589,6 +446,8 @@ function useSlots (){
             })  
             
         } catch ( error ) {
+            await postLog( 'useSlots', 'leaveEvent', error.message )
+
             throw error.response.data
         }
     }

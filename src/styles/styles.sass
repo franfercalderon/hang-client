@@ -30,6 +30,21 @@ a
     text-decoration: none
     color: inherit
 
+html, body 
+    height: 100%
+    display: block
+    overflow: auto
+    -webkit-overflow-scrolling: touch
+
+    // display: flex
+    // flex-direction: column
+
+
+
+    // min-height: 100vh
+    // padding-top: env(safe-area-inset-top)
+
+
 body
     font-family: $opensans
     color: #333333
@@ -67,3 +82,40 @@ ul
 @import ./profile
 @import ./timePicker
 @import ./policies
+@import ./settings
+
+
+// /* Add these to your main CSS */
+// html, body 
+//   height: 100vh !important
+//   min-height: -webkit-fill-available !important
+//   overflow-y: auto !important
+//   -webkit-overflow-scrolling: touch !important
+//   position: relative !important
+
+
+// /* Fix for iOS input focus */
+// input, textarea 
+//   position: relative !important
+//   transform: translateZ(0) !important
+//   -webkit-transform: translateZ(0) !important
+
+// /* Container adjustments */
+// .form-container, 
+// form, 
+// .input-container 
+//   position: relative !important
+//   z-index: 1 !important
+//   transform: translateZ(0) !important
+//   -webkit-transform: translateZ(0) !important
+
+
+// /* Ensure content doesn't hide behind keyboard */
+// @supports (-webkit-touch-callout: none) 
+//   .form-container 
+//     padding-bottom: 50vh !important
+  
+  
+//   body 
+//     min-height: -webkit-fill-available !important
+  

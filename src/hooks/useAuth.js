@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import useUsers from './useUsers'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
+import useLogs from './useLogs'
 
 function useAuth () {
 
@@ -16,6 +17,7 @@ function useAuth () {
 
     //HOOKS 
     const { createUser } = useUsers()
+    const { postLog } = useLogs()
 
     //FIREBASE
     const auth = getAuth( app )
@@ -29,6 +31,7 @@ function useAuth () {
             const res = await confirmObject.confirm( otp )
             return res
         } catch ( error ) {
+            await postLog( 'useAuth', 'checkOtp', error.message )
             throw new Error ( error )
         }
     }
@@ -51,6 +54,7 @@ function useAuth () {
             }
             
         } catch ( error ) {
+            await postLog( 'useAuth', 'userLogin', error.message )
             throw error
         }
     }
@@ -84,9 +88,10 @@ function useAuth () {
             return masterToken.data
 
         } catch ( error ) {
+            await postLog( 'useAuth', 'getMasterToken', error.message )
             throw error
         }    
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
     return {
         userLogin,

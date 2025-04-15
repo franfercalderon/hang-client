@@ -201,7 +201,7 @@ export default function EventCard({ event, setIsLoading, refresh }){
                     }
                     <p className="mt-1"><span>Location: </span>{ event.location.address ? event.location.address : event.location }</p>
                     {   
-                        !isOwnEvent && event.location.mapUrl &&
+                        event.location.mapUrl &&
                         <div className="directions-btn rounded pointer mt-1">
                             <a href={ event.location.mapUrl } target="_blank" rel="noopener noreferrer" >Get Directions</a>
                             <FontAwesomeIcon icon={ faLocationArrow }/>

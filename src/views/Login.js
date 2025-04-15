@@ -29,14 +29,36 @@ export default function Login () {
         e.preventDefault()
         try {
             if( phoneNumber !== "" && phoneNumber !== undefined ){
-
-                const appVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {} )
+                // Clear any existing reCAPTCHA instances
+                if (window.recaptchaVerifier) {
+                    window.recaptchaVerifier.clear()
+                }
+                
+                const appVerifier = new RecaptchaVerifier( auth, 'recaptcha-container', {
+                    size: 'invisible',
+                    callback: () => {
+                        // reCAPTCHA solved
+                    },
+                    'expired-callback': () => {
+                        setDisplayError('reCAPTCHA expired. Please try again.')
+                    }
+                })
+                
+                // Save verifier instance to window for cleanup
+                window.recaptchaVerifier = appVerifier
+                
                 const res = await signInWithPhoneNumber( auth, phoneNumber, appVerifier )
                 setConfirmObject( res );
                 setShowOtp( true )
             }
         } catch ( error ) {
-            setDisplayError( error.message )
+            console.error('reCAPTCHA error:', error)
+            setDisplayError('Authentication error. Please try again or use a web browser if the issue persists.')
+            
+            // Cleanup on error
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear()
+            }
         }
     }
 
@@ -51,6 +73,15 @@ export default function Login () {
             setOtp(Array(6).fill( "" ))
         }
     }
+
+    // Cleanup on component unmount
+    useEffect(() => {
+        return () => {
+            if (window.recaptchaVerifier) {
+                window.recaptchaVerifier.clear()
+            }
+        }
+    }, [])
 
     return(
         <div className="view-container onboarding">
@@ -73,7 +104,7 @@ export default function Login () {
                                         <img src="/images/us-flag.jpg" alt="US Flag" className="us-phone-flag"/>
                                         <p className="us-char">+1</p>
                                         <PhoneInput
-                                            defaultCountry="AR"
+                                            defaultCountry="US"
                                             placeholder="( 555 )  555 - 5555"
                                             value={ phoneNumber }
                                             onChange={ setPhoneNumber }

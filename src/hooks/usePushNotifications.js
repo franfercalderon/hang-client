@@ -3,6 +3,7 @@ import { getToken, onMessage } from "firebase/messaging"
 import { messaging } from "../fb"
 import { AppContext } from "../context/AppContext"
 import axios from "axios"
+import useLogs from "./useLogs"
 
 function usePushNotifications () {
 
@@ -13,9 +14,14 @@ function usePushNotifications () {
     //CONTEXT
     const {  authToken } = useContext( AppContext )
 
+    //HOOKS
+    const { postLog } = useLogs()
+
+    //FUNCTIONS
     const postFCMToken = useCallback( async ( token ) => {
 
         const data = { FCMToken: token }
+
         try{
             //POSTS NEW FCM TOKEN   
             await axios.post(`${process.env.REACT_APP_API_URL}/users/FCMToken`, data, {
@@ -26,9 +32,10 @@ function usePushNotifications () {
             })  
             return 
         } catch ( error ) {
+            await postLog( 'usePushNotifications', 'postFCMToken', error.message )
             throw error.response.data
         } 
-    }, [ authToken ])
+    }, [ authToken, postLog ])
 
 
     const requestNotificationPermission = useCallback( async () => {
@@ -59,6 +66,7 @@ function usePushNotifications () {
             }
             
         } catch ( error ) {
+            await postLog( 'usePushNotifications', 'requestNotificationPermission', error.message )
             console.error( 'Error in requestNotificationPermission: ', error )
         }
     }, [ ])
@@ -92,7 +100,7 @@ function usePushNotifications () {
         if ( typeof window !== 'undefined' && 'Notification' in window ) {
             setPermissionStatus( Notification.permission ) 
         }
-    }, [])
+    }, [ postLog ])
 
 
     return{

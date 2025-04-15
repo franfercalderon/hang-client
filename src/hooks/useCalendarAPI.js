@@ -1,11 +1,15 @@
 import axios from "axios"
 import { useCallback, useContext } from "react"
 import { AppContext } from "../context/AppContext"
+import useLogs from "./useLogs"
 
 function useCalendarAPI(){
 
     //CONTEXT
     const { authToken } = useContext( AppContext )
+
+    //HOOKS
+    const { postLog } = useLogs()
 
     //FUNCTIONS
     const checkCalendarConnection = useCallback( async ( authToken ) => {
@@ -23,9 +27,10 @@ function useCalendarAPI(){
             
         } catch ( error ) {
             console.error( "Failed to check calendar connection:", error )
+            await postLog( 'useCalendarAPI', 'checkCalendarConnection', error.message )
             return false
         }
-    }, [ ])
+    }, [ postLog ])
 
     const connectCalendar = useCallback(( source ) => {
         window.location.href = `https://api.gethangapp.com/calendarAPI/auth/google?authToken=${ authToken }&source=${ source }` 
@@ -42,6 +47,7 @@ function useCalendarAPI(){
             })  
             
         } catch  (error ) {
+            await postLog( 'useCalendarAPI', 'deleteCalendarConnection', error.message )
             throw error
         }
     }
