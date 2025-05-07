@@ -13,26 +13,41 @@ export default function Invite () {
     const navigate = useNavigate()
     const { id } = useParams()
 
-    //EFFECTS
-    useEffect(()=> {
-        if ( pendingInvitation ){ 
+    // iOS TestFlight Redirection
+    useEffect(() => {
+        // Detect if we're on iOS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        
+        // Check if we're in a WebView or a regular browser
+        const isStandaloneBrowser = !window.navigator.standalone && 
+                                  !navigator.userAgent.includes('wv') && 
+                                  !navigator.userAgent.includes('FBAN');
+
+        if (isIOS && isStandaloneBrowser) {
+            // If on iOS browser, redirect to TestFlight
+            window.location.href = 'https://testflight.apple.com/join/HfAPQ6dD';
+            return;
+        }
+    }, []);
+
+    //Handle Invitation
+    useEffect(() => {
+        if (pendingInvitation) {
             navigate('/')
         }
-    }, [ pendingInvitation, navigate ])
-    
-    useEffect(()=> {
-        if( id ){
-            
+    }, [pendingInvitation, navigate])
+
+    useEffect(() => {
+        if (id) {
             const nameData = searchParams.get('name')
-            setPendingInvitation( {
+            setPendingInvitation({
                 userId: id,
-                userName: decodeURIComponent( nameData )
-            } )
-
+                userName: decodeURIComponent(nameData)
+            })
         }
-    }, [ id, setPendingInvitation, searchParams, globalUser ])
+    }, [id, setPendingInvitation, searchParams, globalUser])
 
-    return(
-        <Loader/>
+    return (
+        <Loader />
     )
 }

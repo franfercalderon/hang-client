@@ -30,8 +30,13 @@ import DevEvents from './views/DevEvents';
 import EditEvent from './views/EditEvent';
 import PrivacyPolicy from './views/PrivacyPolicy'
 import Terms from './views/Terms'
+import Login from './views/Login';
 
-
+// External URL redirect component
+const RedirectExternal = ({ to }) => {
+  window.location.href = to;
+  return null;
+};
 
 function App() {
 
@@ -44,10 +49,12 @@ function App() {
               {/* OPEN ROUTES */}
               <Route exact path='/ryan' element={<Navigate to="/invite/Us2yiyZ789V5hrpdGmC9u9dxhIe2?name=Ryan%20Moran" replace />} />
               <Route exact path='/darby' element={<Navigate to="/invite/V20Lf5TIOrN0LVRLkzUBPQVmXnM2?name=Darby%20Rollins" replace />} />
+              <Route exact path='/joinme/darby' element={<RedirectExternal to="https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/invites%2FJoin%20me%20on%20Hang%20-%20Darby.pdf?alt=media&token=6f330580-06ef-4a85-8b59-058cf08f8977" />} />
+              <Route exact path='/joinme/ryan' element={<RedirectExternal to="https://firebasestorage.googleapis.com/v0/b/hang-app-50e03.firebasestorage.app/o/invites%2FJoin%20me%20on%20Hang%20-%20Ryan.pdf?alt=media&token=c5518842-93c7-47db-8848-155cc8c4c28d" />} />
               <Route exact path='/welcome' element={ <Welcome/> }/>
               <Route exact path='/terms' element={ <Terms/> }/>
               <Route exact path='/privacy-policy' element={ <PrivacyPolicy/> }/>
-              <Route exact path='/login' element={ <LoginTest/> }/>
+              <Route exact path='/login' element={ <Login/> }/>
               <Route exact path='/master' element={ <Master/> }/>
               <Route exact path='/onboarding' element={ <Onboarding/> }/>
               <Route exact path='/invite/:id' element={ <Invite/> } />
