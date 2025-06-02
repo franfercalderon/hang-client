@@ -51,7 +51,7 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
 
     //EFFECTS
     useEffect(() => {
-        if( location.coordinates ){
+        if( location && location.coordinates ){
             handleStreetViewUrl( location.coordinates )
         }
     }, [ location, handleStreetViewUrl ])
