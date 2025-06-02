@@ -5,6 +5,17 @@ import useMaps from "../../hooks/useMaps";
 
 export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg, border }){
 
+    console.log( "title", title )
+    console.log( "descritpion", descritpion )
+    console.log( "starts", starts )
+    console.log( "ends", ends )
+    console.log( "location", location )
+    console.log( "action", action )
+    console.log( "ctaText", ctaText )
+    console.log( "erase", erase )
+    console.log( "userName", userName )
+    console.log( "userImg", userImg )
+    console.log( "border", border )
     //STATE
     const [ streetViewUrl, setStreetViewUrl ] = useState( null )
 
