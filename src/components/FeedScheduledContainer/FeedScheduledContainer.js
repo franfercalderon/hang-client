@@ -3,7 +3,7 @@ import useSlots from "../../hooks/useSlots"
 import CardLoader from "../CardLoader/CardLoader"
 import FeedCard from "../FeedCard/FeedCard"
 
-export default function FeedScheduledContainer ({ events, setIsLoading, refresh }) { 
+export default function FeedScheduledContainer ({ events, setIsLoading, refresh }) {  
 
     //HOOKS
     const { formatTimestampToDate, joinEvent } = useSlots()

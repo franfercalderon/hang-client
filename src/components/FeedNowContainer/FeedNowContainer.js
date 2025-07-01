@@ -1,7 +1,7 @@
 import Swal from "sweetalert2"
 import CardLoader from "../CardLoader/CardLoader"
 import useSlots from "../../hooks/useSlots"
-import FeedCard from "../FeedCard/FeedCard"
+import FeedCard from "../FeedCard/FeedCard" 
 
 export default function FeedNowdContainer ({ events, setIsLoading, refresh }) {  
 

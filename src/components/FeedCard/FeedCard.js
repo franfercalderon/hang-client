@@ -5,17 +5,6 @@ import useMaps from "../../hooks/useMaps";
 
 export default function FeedCard({ title, descritpion, starts, ends, location, action, ctaText, erase, userName, userImg, border }){
 
-    console.log( "title", title )
-    console.log( "descritpion", descritpion )
-    console.log( "starts", starts )
-    console.log( "ends", ends )
-    console.log( "location", location )
-    console.log( "action", action )
-    console.log( "ctaText", ctaText )
-    console.log( "erase", erase )
-    console.log( "userName", userName )
-    console.log( "userImg", userImg )
-    console.log( "border", border )
     //STATE
     const [ streetViewUrl, setStreetViewUrl ] = useState( null )
 
@@ -40,19 +29,21 @@ export default function FeedCard({ title, descritpion, starts, ends, location, a
         }
     }
 
-    const handleStreetViewUrl = useCallback( async ( coordinates ) => {
+    const handleStreetViewUrl = useCallback( async ( coordinates, placeId ) => {
         try {
-            const url = await getLocationImage( coordinates )
+            
+            const url = await getLocationImage( coordinates, placeId )
+            
             setStreetViewUrl( url )
         } catch ( error ) {
-            console.log( error );
+            console.error( error );
         }
     }, [ getLocationImage ])
 
     //EFFECTS
     useEffect(() => {
-        if( location && location.coordinates ){
-            handleStreetViewUrl( location.coordinates )
+        if( location && location.coordinates && location.placeId ){
+            handleStreetViewUrl( location.coordinates, location.placeId )
         }
     }, [ location, handleStreetViewUrl ])
 

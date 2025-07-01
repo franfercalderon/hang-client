@@ -12,7 +12,7 @@ function useMaps () {
     const { postLog } = useLogs()
 
     //FUNCTIONS
-    const getLocationImage = useCallback( async ( coordinates ) => {
+    const getLocationImage = useCallback( async ( coordinates, placeId ) => {
         try{
             //GET LOCATION IMAGE URL FROM STREETVIEW STATIC API   
             const locationImageUrl = await axios.get(`${process.env.REACT_APP_API_URL}/maps/streetViewUrl`, {
@@ -22,7 +22,8 @@ function useMaps () {
                 },
                 params: {
                     lat: coordinates.lat,
-                    lng: coordinates.lng
+                    lng: coordinates.lng,
+                    placeId: placeId
                 }
             })  
 

@@ -9,7 +9,7 @@ export default function RecurringMatchesContainer ({ events, setIsLoading }) {
         <>
         {
             ! events ?
-            <CardLoader/>
+            <CardLoader/> 
             :
             <>
             {

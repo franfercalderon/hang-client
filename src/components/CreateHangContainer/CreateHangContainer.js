@@ -27,6 +27,7 @@ export default function CreateHangContainer(){
         minute: 0,
         ampm: 'pm'
     })
+    
     const [ endTime, setEndTime ] = useState({
         hour: 7,
         minute:0,
@@ -172,7 +173,8 @@ export default function CreateHangContainer(){
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             },
-            mapUrl: place.url
+            mapUrl: place.url,
+            placeId: place.place_id
         }
 
         setLocation( location )

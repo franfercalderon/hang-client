@@ -50,7 +50,8 @@ export default function CreateNowContainer() {
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             },
-            mapUrl: `https://www.google.com/maps/place/?q=place_id:${ place.place_id }`
+            mapUrl: `https://www.google.com/maps/place/?q=place_id:${ place.place_id }`,
+            placeId: place.place_id
 
         }
 
@@ -87,7 +88,7 @@ export default function CreateNowContainer() {
                     userLastname: globalUser?.lastname ? globalUser.lastname : null,
 
                 }
-                await postAvailableNowSlot( availableNowSlot ) 
+                await postAvailableNowSlot( availableNowSlot )  
                 setIsLoading( false )
                 Swal.fire({
                     text: 'Your event has been created!',

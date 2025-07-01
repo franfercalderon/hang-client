@@ -111,7 +111,8 @@ export default function EditEventContainer(){
                 lat: place.geometry.location.lat(),
                 lng: place.geometry.location.lng()
             },
-            mapUrl: place.url
+            mapUrl: place.url,
+            placeId: place.place_id
         }
 
         if (location ){
